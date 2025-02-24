@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LetWeCook.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7fbaab79b72a8b775767a4e06ff546eb25ea6846")]
 [assembly: System.Reflection.AssemblyProductAttribute("LetWeCook.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LetWeCook.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
