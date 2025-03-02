@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Application.Services;
 using LetWeCook.Domain.Events;
+using LetWeCook.Infrastructure.Configurations;
 using LetWeCook.Infrastructure.Persistence;
 using LetWeCook.Infrastructure.Services;
 using LetWeCook.Infrastructure.Services.EventHandlers;
@@ -16,6 +18,11 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        // Bind Authentication Configuration
+        var authenticationConfiguration = new AuthenticationConfiguration();
+        configuration.GetSection("Authentications").Bind(authenticationConfiguration);
+        services.AddSingleton(authenticationConfiguration);
+
         // Add DbContext
         services.AddDbContext<LetWeCookDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
@@ -42,53 +49,48 @@ public static class DependencyInjection
                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
            })
            .AddGoogle(googleOptions =>
-           {
-               googleOptions.ClientId = authenticationConfiguration.Google.ClientId;
-               googleOptions.ClientSecret = authenticationConfiguration.Google.ClientSecret;
-               googleOptions.Scope.Add("profile"); // For avatar picture
+            {
+                googleOptions.ClientId = authenticationConfiguration.Google.ClientId;
+                googleOptions.ClientSecret = authenticationConfiguration.Google.ClientSecret;
+                googleOptions.Scope.Add("profile");
+                googleOptions.Events.OnCreatingTicket = (context) =>
+                {
+                    var picture = context.User.GetProperty("picture").GetString();
+                    if (picture != null)
+                    {
+                        context.Identity?.AddClaim(new Claim("picture", picture));
+                    }
+                    return Task.CompletedTask;
+                };
+                googleOptions.Events.OnRedirectToAuthorizationEndpoint = context =>
+                {
+                    // Always prompt the user to choose their account
+                    context.Response.Redirect(context.RedirectUri + "&prompt=select_account");
+                    return Task.CompletedTask;
+                };
+            })
+            .AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = authenticationConfiguration.Facebook.ClientId;
+                facebookOptions.AppSecret = authenticationConfiguration.Facebook.ClientSecret;
+                facebookOptions.Fields.Add("picture");
+                facebookOptions.Events.OnCreatingTicket = (context) =>
+                {
+                    var picture = context.User.GetProperty("picture").GetProperty("data").GetProperty("url").ToString();
+                    if (picture != null)
+                    {
+                        context.Identity?.AddClaim(new Claim("picture", picture));
+                    }
 
-               // Add picture claim during ticket creation
-               googleOptions.Events.OnCreatingTicket = context =>
-               {
-                   var picture = context.User.GetProperty("picture").GetString();
-                   if (picture != null)
-                   {
-                       context.Identity?.AddClaim(new Claim("picture", picture));
-                   }
-                   return Task.CompletedTask;
-               };
-
-               // Force account selection
-               googleOptions.Events.OnRedirectToAuthorizationEndpoint = context =>
-               {
-                   context.Response.Redirect(context.RedirectUri + "&prompt=select_account");
-                   return Task.CompletedTask;
-               };
-           })
-           .AddFacebook(facebookOptions =>
-           {
-               facebookOptions.AppId = authenticationConfiguration.Facebook.ClientId;
-               facebookOptions.AppSecret = authenticationConfiguration.Facebook.ClientSecret;
-               facebookOptions.Fields.Add("picture"); // Request picture field
-
-               // Add picture claim during ticket creation
-               facebookOptions.Events.OnCreatingTicket = context =>
-               {
-                   var picture = context.User.GetProperty("picture")?.GetProperty("data")?.GetProperty("url")?.ToString();
-                   if (picture != null)
-                   {
-                       context.Identity?.AddClaim(new Claim("picture", picture));
-                   }
-                   return Task.CompletedTask;
-               };
-
-               // Force re-authentication
-               facebookOptions.Events.OnRedirectToAuthorizationEndpoint = context =>
-               {
-                   context.Response.Redirect(context.RedirectUri + "&auth_type=reauthenticate");
-                   return Task.CompletedTask;
-               };
-           });
+                    return Task.CompletedTask;
+                };
+                facebookOptions.Events.OnRedirectToAuthorizationEndpoint = context =>
+                {
+                    // Always prompt the user to choose their Facebook account
+                    context.Response.Redirect(context.RedirectUri + "&auth_type=reauthenticate");
+                    return Task.CompletedTask;
+                };
+            });
 
 
 
