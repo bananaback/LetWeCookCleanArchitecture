@@ -1,13 +1,10 @@
-namespace LetWeCook.Domain.Common
+namespace LetWeCook.Domain.Common;
+public abstract class DomainEvent
 {
-    public abstract class DomainEvent
+    public DateTime OccurredOn { get; } = DateTime.UtcNow;
+
+    protected DomainEvent()
     {
-        public DateTime OccurredOn { get; } = DateTime.UtcNow;
-
-        protected DomainEvent()
-        {
-            OccurredOn = DateTime.UtcNow;
-        }
+        OccurredOn = DateTime.UtcNow;
     }
-
 }

@@ -1,8 +1,103 @@
-﻿@{
+﻿@using System.Security.Claims
+
+@{
     ViewData["Title"] = "Home Page";
+    string? pictureUrl = null;
+    pictureUrl = User.FindFirst("picture")?.Value;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="min-h-screen bg-cream-100 flex flex-col items-center">
+    <!-- Header -->
+    <div class="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between p-4 bg-white shadow-md">
+        <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-green-600" viewBox="0 -960 960 960">
+                <path
+                    d="M177-560q14-36 4.5-64T149-680q-33-40-43.5-75.5T102-840h78q-8 38-2.5 62t28.5 52q38 46 48.5 81.5t.5 84.5h-78Zm160 0q14-36 5-64t-32-56q-33-40-44-75.5t-4-84.5h78q-8 38-2.5 62t28.5 52q38 46 48.5 81.5t.5 84.5h-78Zm160 0q14-36 5-64t-32-56q-33-40-44-75.5t-4-84.5h78q-8 38-2.5 62t28.5 52q38 46 48.5 81.5t.5 84.5h-78ZM200-160q-50 0-85-35t-35-85v-200h561q5-34 27-59.5t54-36.5l185-62 25 76-185 62q-12 4-19.5 14.5T720-462v182q0 50-35 85t-85 35H200Zm0-80h400q17 0 28.5-11.5T640-280v-120H160v120q0 17 11.5 28.5T200-240Zm200-80Z" />
+            </svg>
+            <h1 class="text-2xl font-bold text-green-700">LetWeCook</h1>
+        </div>
+
+        <!-- Navigation and Profile/Login -->
+        <div class="flex items-center gap-4 mt-4 md:mt-0">
+            <a href="#" class="text-gray-600 hover:text-green-600">About</a>
+            <a href="#" class="text-gray-600 hover:text-green-600">Recipes</a>
+            <a href="#" class="text-gray-600 hover:text-green-600">Ingredients</a>
+
+            @if (User.Identity!.IsAuthenticated)
+            {
+                <div class="relative inline-block text-left">
+                    <!-- Profile Image -->
+                    <div id="profile-dropdown-trigger" class="cursor-pointer">
+                        @if (!string.IsNullOrEmpty(pictureUrl))
+                        {
+                            <img class="h-9 w-9 rounded-full hover:ring-2 hover:ring-orange-400" src="@pictureUrl"
+                                alt="Profile Image" />
+                        }
+                        else
+                        {
+                            <img class="h-9 w-9 rounded-full hover:ring-2 hover:ring-orange-400"
+                                src="~/images/default-profile.jpg" alt="Profile Image" />
+                        }
+                    </div>
+
+                    <!-- Dropdown Menu -->
+                    <div id="profile-dropdown-menu"
+                        class="absolute right-0 hidden w-40 mt-2 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+                        <a asp-area="Identity" asp-controller="Account" asp-action="Profile"
+                            class="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600">Profile</a>
+                        <form asp-area="Identity" asp-controller="Account" asp-action="Logout" method="post"
+                            class="block w-full">
+                            @Html.AntiForgeryToken()
+                            <button type="submit"
+                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-controller="Account" asp-action="Login"
+                    class="text-orange-500 hover:text-orange-600 font-semibold">Login</a>
+            }
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="w-full max-w-5xl flex flex-col items-center justify-center p-4 text-center">
+        @if (User.Identity!.IsAuthenticated)
+        {
+            <div class="bg-green-100 p-6 rounded-lg text-green-800 shadow-md">
+                <h2 class="text-3xl font-semibold">Welcome, @User.Identity.Name!</h2>
+                <p class="mt-2">Time to whip up something tasty! What’s on your menu today?</p>
+            </div>
+        }
+        else
+        {
+            <div class="bg-cream-200 p-6 rounded-lg text-gray-800 shadow-md">
+                <h2 class="text-3xl font-semibold">Welcome to LetWeCook</h2>
+                <p class="mt-2">Discover delicious recipes and cooking tips—log in to get started!</p>
+                <a asp-area="Identity" asp-controller="Account" asp-action="Login"
+                    class="mt-4 inline-block text-orange-500 hover:text-orange-600 underline font-semibold">
+                    Login Now
+                </a>
+            </div>
+        }
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#profile-dropdown-trigger").click(function (e) {
+                e.stopPropagation();
+                $("#profile-dropdown-menu").toggleClass("hidden");
+            });
+
+            $(document).click(function (e) {
+                if (!$("#profile-dropdown-trigger").is(e.target) && !$("#profile-dropdown-menu").is(e.target) && $("#profile-dropdown-menu").has(e.target).length === 0) {
+                    $("#profile-dropdown-menu").addClass("hidden");
+                }
+            });
+        });
+    </script>
+}

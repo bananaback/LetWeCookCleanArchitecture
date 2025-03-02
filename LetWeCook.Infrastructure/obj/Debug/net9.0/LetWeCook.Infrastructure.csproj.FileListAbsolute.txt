@@ -15,3 +15,4 @@ D:\.NET_related\LetWeCookRework\LetWeCook.Infrastructure\obj\Debug\net9.0\LetWeC
 D:\.NET_related\LetWeCookRework\LetWeCook.Infrastructure\obj\Debug\net9.0\refint\LetWeCook.Infrastructure.dll
 D:\.NET_related\LetWeCookRework\LetWeCook.Infrastructure\obj\Debug\net9.0\LetWeCook.Infrastructure.pdb
 D:\.NET_related\LetWeCookRework\LetWeCook.Infrastructure\obj\Debug\net9.0\ref\LetWeCook.Infrastructure.dll
+D:\.NET_related\LetWeCookRework\LetWeCook.Infrastructure\obj\Debug\net9.0\LetWeCook.Infrastructure.sourcelink.json

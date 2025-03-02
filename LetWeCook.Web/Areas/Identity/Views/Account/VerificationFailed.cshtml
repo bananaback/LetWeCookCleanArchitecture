@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Verification Failed";
+}
+
+<div class="min-h-screen bg-gray-900 flex items-center justify-center p-6">
+    <div class="max-w-md w-full bg-gray-800 rounded-lg shadow-xl p-8 text-center">
+        <h1 class="text-3xl font-bold text-red-400 mb-4">Verification Failed</h1>
+        <p class="text-gray-300 mb-6">
+            We couldn’t verify your email. The link may be invalid or expired. Please try registering again or resend
+            the verification email.
+        </p>
+        <a href="/Identity/Account/Register"
+            class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+            Register Again
+        </a>
+    </div>
+</div>

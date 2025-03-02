@@ -9,3 +9,4 @@ D:\.NET_related\LetWeCookRework\LetWeCook.Domain\obj\Debug\net9.0\LetWeCook.Doma
 D:\.NET_related\LetWeCookRework\LetWeCook.Domain\obj\Debug\net9.0\refint\LetWeCook.Domain.dll
 D:\.NET_related\LetWeCookRework\LetWeCook.Domain\obj\Debug\net9.0\LetWeCook.Domain.pdb
 D:\.NET_related\LetWeCookRework\LetWeCook.Domain\obj\Debug\net9.0\ref\LetWeCook.Domain.dll
+D:\.NET_related\LetWeCookRework\LetWeCook.Domain\obj\Debug\net9.0\LetWeCook.Domain.sourcelink.json

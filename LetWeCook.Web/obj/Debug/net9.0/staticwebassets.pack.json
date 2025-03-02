@@ -2,7 +2,11 @@
   "Files": [
     {
       "Id": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\LetWeCook.Web.bundle.scp.css",
-      "PackagePath": "staticwebassets\\LetWeCook.Web.fhtxeim9fd.bundle.scp.css"
+      "PackagePath": "staticwebassets\\LetWeCook.Web.qt2w6dj5qp.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\css\\output.css",
+      "PackagePath": "staticwebassets\\css\\output.css"
     },
     {
       "Id": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\css\\site.css",
@@ -11,6 +15,30 @@
     {
       "Id": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\default-profile.jpg",
+      "PackagePath": "staticwebassets\\images\\default-profile.jpg"
+    },
+    {
+      "Id": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_1.jpg",
+      "PackagePath": "staticwebassets\\images\\intro_dish_1.jpg"
+    },
+    {
+      "Id": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_2.jpg",
+      "PackagePath": "staticwebassets\\images\\intro_dish_2.jpg"
+    },
+    {
+      "Id": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_3.jpg",
+      "PackagePath": "staticwebassets\\images\\intro_dish_3.jpg"
+    },
+    {
+      "Id": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_4.jpg",
+      "PackagePath": "staticwebassets\\images\\intro_dish_4.jpg"
+    },
+    {
+      "Id": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\js\\register.js",
+      "PackagePath": "staticwebassets\\js\\register.js"
     },
     {
       "Id": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\js\\site.js",

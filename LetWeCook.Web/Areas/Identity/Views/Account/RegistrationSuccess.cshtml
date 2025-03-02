@@ -1,0 +1,104 @@
+@{
+    ViewData["Title"] = "Registration Successful";
+}
+
+<div class="min-h-screen bg-gray-900 flex items-center justify-center p-6">
+    <div class="max-w-md w-full bg-gray-800 rounded-lg shadow-xl p-8 text-center">
+        <h1 class="text-3xl font-bold text-green-400 mb-4">Registration Successful!</h1>
+        <p class="text-gray-300 mb-6">
+            Thank you for joining LetWeCook! We’ve sent a verification email to <span
+                class="font-semibold text-green-300">@ViewData["Email"]</span>.
+            Please check your inbox (and spam/junk folder) to verify your account.
+        </p>
+        <p class="text-gray-400 mb-6">
+            Didn’t get the email? Resend it below and wait a moment.
+        </p>
+
+        <button id="resendButton"
+            class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+            Resend Verification Email
+        </button>
+
+        <p id="timerText" class="mt-4 text-gray-400" style="display: none;">
+            Please wait <span id="countdown" class="font-semibold text-green-400">60</span> seconds before resending.
+        </p>
+
+        @Html.AntiForgeryToken() <!-- Correctly renders the token -->
+    </div>
+</div>
+
+@section Scripts {
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#resendButton").on("click", function () {
+                var $button = $(this);
+                var $timerText = $("#timerText");
+                var $countdown = $("#countdown");
+                var timeLeft = 60;
+
+                var token = $('input[name="__RequestVerificationToken"]').val();
+                console.log('CSRF Token:', token);
+                if (!token) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'CSRF token not found!',
+                        confirmButtonColor: '#10B981' // Tailwind green-500
+                    });
+                    return;
+                }
+
+                // Disable button and start countdown
+                $button.prop("disabled", true).addClass("opacity-50 cursor-not-allowed");
+                $timerText.show();
+                $countdown.text(timeLeft);
+
+                var countdown = setInterval(function () {
+                    timeLeft--;
+                    $countdown.text(timeLeft);
+                    if (timeLeft <= 0) {
+                        clearInterval(countdown);
+                        $button.prop("disabled", false).removeClass("opacity-50 cursor-not-allowed");
+                        $timerText.hide();
+                    }
+                }, 1000);
+
+                // Instantly notify user without waiting for server response
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Email Sent!',
+                    text: 'We’ve resent the verification email to @ViewData["Email"]. Please check your inbox.',
+                    confirmButtonColor: '#10B981', // Tailwind green-500
+                    timer: 3000, // Auto-close after 3 seconds
+                    timerProgressBar: true
+                });
+
+                // Send AJAX request in the background
+                $.ajax({
+                    url: '/Identity/Account/ResendVerificationEmail',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    headers: {
+                        'RequestVerificationToken': token
+                    },
+                    data: JSON.stringify({ email: '@ViewData["Email"]' }),
+                    success: function (response) {
+                        console.log('Server response:', response.message || 'Email resent successfully');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error resending email:', xhr.responseText || error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: xhr.responseJSON?.message || 'Failed to resend email. Please try again later.',
+                            confirmButtonColor: '#10B981'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

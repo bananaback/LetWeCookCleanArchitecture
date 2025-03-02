@@ -13,3 +13,4 @@ D:\.NET_related\LetWeCookRework\LetWeCook.Application\obj\Debug\net9.0\LetWeCook
 D:\.NET_related\LetWeCookRework\LetWeCook.Application\obj\Debug\net9.0\refint\LetWeCook.Application.dll
 D:\.NET_related\LetWeCookRework\LetWeCook.Application\obj\Debug\net9.0\LetWeCook.Application.pdb
 D:\.NET_related\LetWeCookRework\LetWeCook.Application\obj\Debug\net9.0\ref\LetWeCook.Application.dll
+D:\.NET_related\LetWeCookRework\LetWeCook.Application\obj\Debug\net9.0\LetWeCook.Application.sourcelink.json

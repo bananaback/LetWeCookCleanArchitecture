@@ -1,0 +1,127 @@
+@{
+    @model LetWeCook.Web.Areas.Identity.Models.ViewModels.RegisterViewModel
+}
+
+<div class="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#191920] to-[#232329] p-6">
+    <div class="flex w-full max-w-5xl flex-row items-center justify-between gap-12">
+        <!-- Left Decorative Section -->
+        <div class="hidden lg:block w-1/2">
+            <div class="relative">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 fill-white mx-auto mb-6"
+                    viewBox="0 -960 960 960">
+                    <path
+                        d="M177-560q14-36 4.5-64T149-680q-33-40-43.5-75.5T102-840h78q-8 38-2.5 62t28.5 52q38 46 48.5 81.5t.5 84.5h-78Zm160 0q14-36 5-64t-32-56q-33-40-44-75.5t-4-84.5h78q-8 38-2.5 62t28.5 52q38 46 48.5 81.5t.5 84.5h-78Zm160 0q14-36 5-64t-32-56q-33-40-44-75.5t-4-84.5h78q-8 38-2.5 62t28.5 52q38 46 48.5 81.5t.5 84.5h-78ZM200-160q-50 0-85-35t-35-85v-200h561q5-34 27-59.5t54-36.5l185-62 25 76-185 62q-12 4-19.5 14.5T720-462v182q0 50-35 85t-85 35H200Zm0-80h400q17 0 28.5-11.5T640-280v-120H160v120q0 17 11.5 28.5T200-240Zm200-80Z" />
+                </svg>
+                <h1 class="text-5xl font-bold text-white text-center tracking-wide">LETWECOOK</h1>
+                <p class="text-lg text-gray-400 text-center mt-4">Join the culinary revolution</p>
+                <div class="absolute -top-20 -left-20 h-96 w-96 rounded-full bg-[#4BBC05]/20 blur-3xl -z-10"></div>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div
+            class="w-full lg:w-1/2 bg-[#232329]/80 backdrop-blur-lg rounded-2xl shadow-xl p-8 border border-[#4BBC05]/20">
+            <h2 class="text-3xl font-semibold text-white text-center mb-2">Create Your Account</h2>
+            <p class="text-gray-400 text-center mb-8">Start your cooking journey today</p>
+
+            <form asp-action="Register" method="post" class="space-y-6">
+                <div asp-validation-summary="ModelOnly" class="text-sm text-red-500 text-center"></div>
+
+                <!-- Username -->
+                <div>
+                    <label asp-for="Username" class="block text-sm font-medium text-white mb-2">Username</label>
+                    <input asp-for="Username"
+                        class="w-full px-4 py-3 bg-[#191920] text-white rounded-lg border border-gray-700 focus:border-[#4BBC05] focus:ring-2 focus:ring-[#4BBC05]/50 outline-none transition-all"
+                        placeholder="Choose a username" />
+                    <span asp-validation-for="Username" class="text-sm text-red-500 block mt-1"></span>
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label asp-for="Email" class="block text-sm font-medium text-white mb-2">Email</label>
+                    <input asp-for="Email"
+                        class="w-full px-4 py-3 bg-[#191920] text-white rounded-lg border border-gray-700 focus:border-[#4BBC05] focus:ring-2 focus:ring-[#4BBC05]/50 outline-none transition-all"
+                        placeholder="Enter your email" />
+                    <span asp-validation-for="Email" class="text-sm text-red-500 block mt-1"></span>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label asp-for="Password" class="block text-sm font-medium text-white mb-2">Password</label>
+                    <input asp-for="Password" type="password" data-val="true"
+                        class="w-full px-4 py-3 bg-[#191920] text-white rounded-lg border border-gray-700 focus:border-[#4BBC05] focus:ring-2 focus:ring-[#4BBC05]/50 outline-none transition-all"
+                        placeholder="Create a password" />
+                    <span asp-validation-for="Password" class="text-sm text-red-500 block mt-1"></span>
+                </div>
+
+                <!-- Confirm Password -->
+                <div>
+                    <label asp-for="ConfirmPassword" class="block text-sm font-medium text-white mb-2">Confirm
+                        Password</label>
+                    <input asp-for="ConfirmPassword" type="password"
+                        class="w-full px-4 py-3 bg-[#191920] text-white rounded-lg border border-gray-700 focus:border-[#4BBC05] focus:ring-2 focus:ring-[#4BBC05]/50 outline-none transition-all"
+                        placeholder="Confirm your password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-sm text-red-500 block mt-1"></span>
+                </div>
+
+                <button type="submit"
+                    class="w-full py-3 bg-[#4BBC05] text-white font-bold rounded-lg hover:bg-[#3A9504] transition-colors duration-300">REGISTER</button>
+            </form>
+
+            <p class="text-center mt-6 text-gray-400">
+                Already have an account?
+                <a asp-area="Account" asp-controller="Auth" asp-action="Login"
+                    class="text-[#8C29E2] font-semibold hover:underline">Log in</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            if (typeof $.validator === 'undefined') {
+                console.error('jQuery Validation is not loaded.');
+                return;
+            }
+            if (typeof $.validator.unobtrusive === 'undefined') {
+                console.error('jQuery Validation Unobtrusive is not loaded.');
+                return;
+            }
+
+            // Custom password validation method
+            $.validator.addMethod('custompassword', function (value, element, params) {
+                if (!value) return false; // Required check
+                return value.length >= 6 &&
+                    /\d/.test(value) &&              // At least one digit
+                    /[a-z]/.test(value) &&           // At least one lowercase letter
+                    /[A-Z]/.test(value) &&           // At least one uppercase letter
+                    /[^a-zA-Z0-9]/.test(value);      // At least one special character
+            }, function (params, element) {
+                var value = $(element).val();
+                if (!value) return "Password is required.";
+                if (value.length < 6) return "Password must be at least 6 characters long.";
+                if (!/\d/.test(value)) return "Password must contain at least one digit.";
+                if (!/[a-z]/.test(value)) return "Password must contain at least one lowercase letter.";
+                if (!/[A-Z]/.test(value)) return "Password must contain at least one uppercase letter.";
+                if (!/[^a-zA-Z0-9]/.test(value)) return "Password must contain at least one special character.";
+                return "Invalid password format.";
+            });
+
+            // Register validation rule with unobtrusive
+            $.validator.unobtrusive.adapters.add('custompassword', [], function (options) {
+                options.rules['custompassword'] = true;
+                options.messages['custompassword'] = options.message;
+            });
+
+            // Reparse the form to apply the new validation rules
+            $("form").each(function () {
+                $(this).removeData("validator");
+                $(this).removeData("unobtrusiveValidation");
+                $.validator.unobtrusive.parse(this);
+            });
+        });
+
+    </script>
+
+}

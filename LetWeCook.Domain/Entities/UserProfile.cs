@@ -13,6 +13,9 @@ public class UserProfile : Entity
     public string? ProfilePictureUrl { get; private set; }
     public Gender Gender { get; private set; }
     public Address Address { get; private set; } = null!;
+    private readonly List<DietaryPreference> _dietaryPreferences = new();
+    public IReadOnlyList<DietaryPreference> DietaryPreferences => _dietaryPreferences.AsReadOnly();
+
 
     private UserProfile() : base() { } // For EF Core
 
@@ -52,4 +55,18 @@ public class UserProfile : Entity
         Address = new Address(houseNumber, street, ward, district, provinceOrCity);
     }
 
+    public void AddDietaryPreference(DietaryPreference preference)
+    {
+        if (_dietaryPreferences.Any(dp => dp.Id == preference.Id)) return; // Avoid duplicates by Id
+        _dietaryPreferences.Add(preference);
+    }
+
+    public void RemoveDietaryPreference(DietaryPreference preference)
+    {
+        var toRemove = _dietaryPreferences.FirstOrDefault(dp => dp.Id == preference.Id);
+        if (toRemove != null)
+        {
+            _dietaryPreferences.Remove(toRemove);
+        }
+    }
 }

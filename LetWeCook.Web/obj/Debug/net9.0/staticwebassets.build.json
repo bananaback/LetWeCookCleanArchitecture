@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Hn6jREE7/nEZsspnWOtEavHzGb/BkduxnJqVfvbvuFU=",
+  "Hash": "RVQSxUnRsdkgAVk0Oy4IujLCMotFBYcjiL3MRTGAkzc=",
   "Source": "LetWeCook.Web",
   "BasePath": "_content/LetWeCook.Web",
   "Mode": "Default",
@@ -416,12 +416,33 @@
       "OriginalItemSpec": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8zqcmsd4dj-fhtxeim9fd.gz",
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8sdv469cuy-zf0vcmsp44.gz",
+      "SourceId": "LetWeCook.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/LetWeCook.Web",
+      "RelativePath": "css/output#[.{fingerprint=zf0vcmsp44}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\css\\output.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "5pzp2y7jeh",
+      "Integrity": "B0UmDPxIww/UwLkzPftlZAhzBi2ikBlCpJiDQhr8HW4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\css\\output.css"
+    },
+    {
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8zqcmsd4dj-qt2w6dj5qp.gz",
       "SourceId": "LetWeCook.Web",
       "SourceType": "Computed",
       "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/LetWeCook.Web",
-      "RelativePath": "LetWeCook.Web#[.{fingerprint=fhtxeim9fd}]?.styles.css.gz",
+      "RelativePath": "LetWeCook.Web#[.{fingerprint=qt2w6dj5qp}]?.styles.css.gz",
       "AssetKind": "All",
       "AssetMode": "CurrentProject",
       "AssetRole": "Alternative",
@@ -430,19 +451,19 @@
       "RelatedAsset": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\scopedcss\\bundle\\LetWeCook.Web.styles.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "zt0yy32teo",
-      "Integrity": "t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o=",
+      "Fingerprint": "pxem2kinwv",
+      "Integrity": "HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\scopedcss\\bundle\\LetWeCook.Web.styles.css"
     },
     {
-      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\9p5ufo62qw-fhtxeim9fd.gz",
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\9p5ufo62qw-qt2w6dj5qp.gz",
       "SourceId": "LetWeCook.Web",
       "SourceType": "Computed",
       "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/LetWeCook.Web",
-      "RelativePath": "LetWeCook.Web#[.{fingerprint=fhtxeim9fd}]!.bundle.scp.css.gz",
+      "RelativePath": "LetWeCook.Web#[.{fingerprint=qt2w6dj5qp}]!.bundle.scp.css.gz",
       "AssetKind": "All",
       "AssetMode": "Reference",
       "AssetRole": "Alternative",
@@ -451,8 +472,8 @@
       "RelatedAsset": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\LetWeCook.Web.bundle.scp.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "zt0yy32teo",
-      "Integrity": "t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o=",
+      "Fingerprint": "pxem2kinwv",
+      "Integrity": "HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\LetWeCook.Web.bundle.scp.css"
@@ -605,12 +626,12 @@
       "OriginalItemSpec": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\dhqzyh1tow-b9sayid5wm.gz",
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\dhqzyh1tow-7and8guzmx.gz",
       "SourceId": "LetWeCook.Web",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/LetWeCook.Web",
-      "RelativePath": "css/site#[.{fingerprint=b9sayid5wm}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=7and8guzmx}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -619,8 +640,8 @@
       "RelatedAsset": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "0suozzrugb",
-      "Integrity": "0FC1RbVkLkwKhJ1oi+r2Hw4Tm9av6DyJeo95YVvfA3Y=",
+      "Fingerprint": "3rk369jwon",
+      "Integrity": "z0VWBzbYV4ddonVhrkHj3FAX8yTxiI2y+EGemk3BBjE=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\css\\site.css"
@@ -918,6 +939,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\o3zyoq14v5-5ipweew5fc.gz",
+      "SourceId": "LetWeCook.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/LetWeCook.Web",
+      "RelativePath": "js/register#[.{fingerprint=5ipweew5fc}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\js\\register.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\js\\register.js"
     },
     {
       "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\oicl31sm33-rzd6atqjts.gz",
@@ -1375,8 +1417,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "fhtxeim9fd",
-      "Integrity": "ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY=",
+      "Fingerprint": "qt2w6dj5qp",
+      "Integrity": "TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\scopedcss\\bundle\\LetWeCook.Web.styles.css"
@@ -1396,11 +1438,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "fhtxeim9fd",
-      "Integrity": "ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY=",
+      "Fingerprint": "qt2w6dj5qp",
+      "Integrity": "TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\LetWeCook.Web.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\css\\output.css",
+      "SourceId": "LetWeCook.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\",
+      "BasePath": "_content/LetWeCook.Web",
+      "RelativePath": "css/output#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "zf0vcmsp44",
+      "Integrity": "AUhep9yPLsvT3BN74AS3LDxHdjUyQLqeJ+gon4CzGnA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\output.css"
     },
     {
       "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\css\\site.css",
@@ -1417,8 +1480,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "b9sayid5wm",
-      "Integrity": "j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg=",
+      "Fingerprint": "7and8guzmx",
+      "Integrity": "4WAeFD2IVKfD6B9797hosHbXsM10d7fixO9RHWF8b6I=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -1443,6 +1506,132 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\default-profile.jpg",
+      "SourceId": "LetWeCook.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\",
+      "BasePath": "_content/LetWeCook.Web",
+      "RelativePath": "images/default-profile#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "53ldxowi5a",
+      "Integrity": "/7JZytv4WhbNkTmCIn3c5qB1jDy+YJYgAWipKeXvCq0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\default-profile.jpg"
+    },
+    {
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_1.jpg",
+      "SourceId": "LetWeCook.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\",
+      "BasePath": "_content/LetWeCook.Web",
+      "RelativePath": "images/intro_dish_1#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "b42tt6p8vz",
+      "Integrity": "+1TB1e6qn51bkxWQno5kXKlyZr3J0w9vz7jBUJa0LaI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\intro_dish_1.jpg"
+    },
+    {
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_2.jpg",
+      "SourceId": "LetWeCook.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\",
+      "BasePath": "_content/LetWeCook.Web",
+      "RelativePath": "images/intro_dish_2#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bjqdhmf7m9",
+      "Integrity": "ab+4T0LC7fvbHR5VQwnEWN1FRS45WFOpi6XmSGSp8Ec=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\intro_dish_2.jpg"
+    },
+    {
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_3.jpg",
+      "SourceId": "LetWeCook.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\",
+      "BasePath": "_content/LetWeCook.Web",
+      "RelativePath": "images/intro_dish_3#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "zvgrkz16ag",
+      "Integrity": "weGo4Zr7nGqQStoHq+oyzVTqR5ixZWHYl75h1UmSVUc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\intro_dish_3.jpg"
+    },
+    {
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_4.jpg",
+      "SourceId": "LetWeCook.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\",
+      "BasePath": "_content/LetWeCook.Web",
+      "RelativePath": "images/intro_dish_4#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "3ze9prblgr",
+      "Integrity": "8VacAUbb8ov7Z442aSkqnqGrSKR4pAeFgyW4Jb0l5II=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\intro_dish_4.jpg"
+    },
+    {
+      "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\js\\register.js",
+      "SourceId": "LetWeCook.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\",
+      "BasePath": "_content/LetWeCook.Web",
+      "RelativePath": "js/register#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\register.js"
     },
     {
       "Identity": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\js\\site.js",
@@ -2728,13 +2917,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.b9sayid5wm.css",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\dhqzyh1tow-b9sayid5wm.gz",
+      "Route": "css/output.css",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8sdv469cuy-zf0vcmsp44.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.003134796238"
+          "Quality": "0.000178443969"
         }
       ],
       "ResponseHeaders": [
@@ -2744,15 +2933,152 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "318"
+          "Value": "5603"
         },
         {
           "Name": "ETag",
-          "Value": "\"0FC1RbVkLkwKhJ1oi+r2Hw4Tm9av6DyJeo95YVvfA3Y=\""
+          "Value": "\"B0UmDPxIww/UwLkzPftlZAhzBi2ikBlCpJiDQhr8HW4=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:07:36 GMT"
+          "Value": "Sun, 02 Mar 2025 18:20:52 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"AUhep9yPLsvT3BN74AS3LDxHdjUyQLqeJ+gon4CzGnA=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AUhep9yPLsvT3BN74AS3LDxHdjUyQLqeJ+gon4CzGnA="
+        }
+      ]
+    },
+    {
+      "Route": "css/output.css",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\css\\output.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "24781"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AUhep9yPLsvT3BN74AS3LDxHdjUyQLqeJ+gon4CzGnA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 02 Mar 2025 18:20:52 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AUhep9yPLsvT3BN74AS3LDxHdjUyQLqeJ+gon4CzGnA="
+        }
+      ]
+    },
+    {
+      "Route": "css/output.css.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8sdv469cuy-zf0vcmsp44.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5603"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"B0UmDPxIww/UwLkzPftlZAhzBi2ikBlCpJiDQhr8HW4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 02 Mar 2025 18:20:52 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-B0UmDPxIww/UwLkzPftlZAhzBi2ikBlCpJiDQhr8HW4="
+        }
+      ]
+    },
+    {
+      "Route": "css/output.zf0vcmsp44.css",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8sdv469cuy-zf0vcmsp44.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000178443969"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5603"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"B0UmDPxIww/UwLkzPftlZAhzBi2ikBlCpJiDQhr8HW4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 02 Mar 2025 18:20:52 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2772,13 +3098,174 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg=\""
+          "Value": "W/\"AUhep9yPLsvT3BN74AS3LDxHdjUyQLqeJ+gon4CzGnA=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "b9sayid5wm"
+          "Value": "zf0vcmsp44"
+        },
+        {
+          "Name": "label",
+          "Value": "css/output.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AUhep9yPLsvT3BN74AS3LDxHdjUyQLqeJ+gon4CzGnA="
+        }
+      ]
+    },
+    {
+      "Route": "css/output.zf0vcmsp44.css",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\css\\output.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "24781"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AUhep9yPLsvT3BN74AS3LDxHdjUyQLqeJ+gon4CzGnA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 02 Mar 2025 18:20:52 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zf0vcmsp44"
+        },
+        {
+          "Name": "label",
+          "Value": "css/output.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AUhep9yPLsvT3BN74AS3LDxHdjUyQLqeJ+gon4CzGnA="
+        }
+      ]
+    },
+    {
+      "Route": "css/output.zf0vcmsp44.css.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8sdv469cuy-zf0vcmsp44.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5603"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"B0UmDPxIww/UwLkzPftlZAhzBi2ikBlCpJiDQhr8HW4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 02 Mar 2025 18:20:52 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zf0vcmsp44"
+        },
+        {
+          "Name": "label",
+          "Value": "css/output.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-B0UmDPxIww/UwLkzPftlZAhzBi2ikBlCpJiDQhr8HW4="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.7and8guzmx.css",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\dhqzyh1tow-7and8guzmx.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.015873015873"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "62"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"z0VWBzbYV4ddonVhrkHj3FAX8yTxiI2y+EGemk3BBjE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Feb 2025 07:48:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"4WAeFD2IVKfD6B9797hosHbXsM10d7fixO9RHWF8b6I=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "7and8guzmx"
         },
         {
           "Name": "label",
@@ -2786,12 +3273,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg="
+          "Value": "sha256-4WAeFD2IVKfD6B9797hosHbXsM10d7fixO9RHWF8b6I="
         }
       ]
     },
     {
-      "Route": "css/site.b9sayid5wm.css",
+      "Route": "css/site.7and8guzmx.css",
       "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -2801,7 +3288,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "667"
+          "Value": "60"
         },
         {
           "Name": "Content-Type",
@@ -2809,11 +3296,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg=\""
+          "Value": "\"4WAeFD2IVKfD6B9797hosHbXsM10d7fixO9RHWF8b6I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:07:36 GMT"
+          "Value": "Thu, 27 Feb 2025 07:48:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2823,7 +3310,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "b9sayid5wm"
+          "Value": "7and8guzmx"
         },
         {
           "Name": "label",
@@ -2831,13 +3318,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg="
+          "Value": "sha256-4WAeFD2IVKfD6B9797hosHbXsM10d7fixO9RHWF8b6I="
         }
       ]
     },
     {
-      "Route": "css/site.b9sayid5wm.css.gz",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\dhqzyh1tow-b9sayid5wm.gz",
+      "Route": "css/site.7and8guzmx.css.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\dhqzyh1tow-7and8guzmx.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2846,7 +3333,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "318"
+          "Value": "62"
         },
         {
           "Name": "Content-Type",
@@ -2854,11 +3341,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"0FC1RbVkLkwKhJ1oi+r2Hw4Tm9av6DyJeo95YVvfA3Y=\""
+          "Value": "\"z0VWBzbYV4ddonVhrkHj3FAX8yTxiI2y+EGemk3BBjE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:07:36 GMT"
+          "Value": "Thu, 27 Feb 2025 07:48:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2876,7 +3363,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "b9sayid5wm"
+          "Value": "7and8guzmx"
         },
         {
           "Name": "label",
@@ -2884,18 +3371,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-0FC1RbVkLkwKhJ1oi+r2Hw4Tm9av6DyJeo95YVvfA3Y="
+          "Value": "sha256-z0VWBzbYV4ddonVhrkHj3FAX8yTxiI2y+EGemk3BBjE="
         }
       ]
     },
     {
       "Route": "css/site.css",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\dhqzyh1tow-b9sayid5wm.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\dhqzyh1tow-7and8guzmx.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.003134796238"
+          "Quality": "0.015873015873"
         }
       ],
       "ResponseHeaders": [
@@ -2905,15 +3392,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "318"
+          "Value": "62"
         },
         {
           "Name": "ETag",
-          "Value": "\"0FC1RbVkLkwKhJ1oi+r2Hw4Tm9av6DyJeo95YVvfA3Y=\""
+          "Value": "\"z0VWBzbYV4ddonVhrkHj3FAX8yTxiI2y+EGemk3BBjE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:07:36 GMT"
+          "Value": "Thu, 27 Feb 2025 07:48:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2933,13 +3420,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg=\""
+          "Value": "W/\"4WAeFD2IVKfD6B9797hosHbXsM10d7fixO9RHWF8b6I=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg="
+          "Value": "sha256-4WAeFD2IVKfD6B9797hosHbXsM10d7fixO9RHWF8b6I="
         }
       ]
     },
@@ -2954,7 +3441,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "667"
+          "Value": "60"
         },
         {
           "Name": "Content-Type",
@@ -2962,11 +3449,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg=\""
+          "Value": "\"4WAeFD2IVKfD6B9797hosHbXsM10d7fixO9RHWF8b6I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:07:36 GMT"
+          "Value": "Thu, 27 Feb 2025 07:48:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2976,13 +3463,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg="
+          "Value": "sha256-4WAeFD2IVKfD6B9797hosHbXsM10d7fixO9RHWF8b6I="
         }
       ]
     },
     {
       "Route": "css/site.css.gz",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\dhqzyh1tow-b9sayid5wm.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\dhqzyh1tow-7and8guzmx.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2991,7 +3478,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "318"
+          "Value": "62"
         },
         {
           "Name": "Content-Type",
@@ -2999,11 +3486,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"0FC1RbVkLkwKhJ1oi+r2Hw4Tm9av6DyJeo95YVvfA3Y=\""
+          "Value": "\"z0VWBzbYV4ddonVhrkHj3FAX8yTxiI2y+EGemk3BBjE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:07:36 GMT"
+          "Value": "Thu, 27 Feb 2025 07:48:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3021,7 +3508,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-0FC1RbVkLkwKhJ1oi+r2Hw4Tm9av6DyJeo95YVvfA3Y="
+          "Value": "sha256-z0VWBzbYV4ddonVhrkHj3FAX8yTxiI2y+EGemk3BBjE="
         }
       ]
     },
@@ -3320,6 +3807,714 @@
         {
           "Name": "integrity",
           "Value": "sha256-wfFuuYm+Lh6RbCeeiUqxw334b/hIOkp5j9eokGUM1Y0="
+        }
+      ]
+    },
+    {
+      "Route": "images/default-profile.53ldxowi5a.jpg",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\default-profile.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13321"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/7JZytv4WhbNkTmCIn3c5qB1jDy+YJYgAWipKeXvCq0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 15 Feb 2025 16:27:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "53ldxowi5a"
+        },
+        {
+          "Name": "label",
+          "Value": "images/default-profile.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/7JZytv4WhbNkTmCIn3c5qB1jDy+YJYgAWipKeXvCq0="
+        }
+      ]
+    },
+    {
+      "Route": "images/default-profile.jpg",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\default-profile.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13321"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/7JZytv4WhbNkTmCIn3c5qB1jDy+YJYgAWipKeXvCq0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 15 Feb 2025 16:27:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/7JZytv4WhbNkTmCIn3c5qB1jDy+YJYgAWipKeXvCq0="
+        }
+      ]
+    },
+    {
+      "Route": "images/intro_dish_1.b42tt6p8vz.jpg",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_1.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "217084"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+1TB1e6qn51bkxWQno5kXKlyZr3J0w9vz7jBUJa0LaI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 04 Oct 2024 11:41:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "b42tt6p8vz"
+        },
+        {
+          "Name": "label",
+          "Value": "images/intro_dish_1.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-+1TB1e6qn51bkxWQno5kXKlyZr3J0w9vz7jBUJa0LaI="
+        }
+      ]
+    },
+    {
+      "Route": "images/intro_dish_1.jpg",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_1.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "217084"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+1TB1e6qn51bkxWQno5kXKlyZr3J0w9vz7jBUJa0LaI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 04 Oct 2024 11:41:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-+1TB1e6qn51bkxWQno5kXKlyZr3J0w9vz7jBUJa0LaI="
+        }
+      ]
+    },
+    {
+      "Route": "images/intro_dish_2.bjqdhmf7m9.jpg",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "322568"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ab+4T0LC7fvbHR5VQwnEWN1FRS45WFOpi6XmSGSp8Ec=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Oct 2024 08:47:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bjqdhmf7m9"
+        },
+        {
+          "Name": "label",
+          "Value": "images/intro_dish_2.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ab+4T0LC7fvbHR5VQwnEWN1FRS45WFOpi6XmSGSp8Ec="
+        }
+      ]
+    },
+    {
+      "Route": "images/intro_dish_2.jpg",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "322568"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ab+4T0LC7fvbHR5VQwnEWN1FRS45WFOpi6XmSGSp8Ec=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Oct 2024 08:47:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ab+4T0LC7fvbHR5VQwnEWN1FRS45WFOpi6XmSGSp8Ec="
+        }
+      ]
+    },
+    {
+      "Route": "images/intro_dish_3.jpg",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_3.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "110191"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"weGo4Zr7nGqQStoHq+oyzVTqR5ixZWHYl75h1UmSVUc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Oct 2024 08:47:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-weGo4Zr7nGqQStoHq+oyzVTqR5ixZWHYl75h1UmSVUc="
+        }
+      ]
+    },
+    {
+      "Route": "images/intro_dish_3.zvgrkz16ag.jpg",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_3.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "110191"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"weGo4Zr7nGqQStoHq+oyzVTqR5ixZWHYl75h1UmSVUc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Oct 2024 08:47:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zvgrkz16ag"
+        },
+        {
+          "Name": "label",
+          "Value": "images/intro_dish_3.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-weGo4Zr7nGqQStoHq+oyzVTqR5ixZWHYl75h1UmSVUc="
+        }
+      ]
+    },
+    {
+      "Route": "images/intro_dish_4.3ze9prblgr.jpg",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "45660"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8VacAUbb8ov7Z442aSkqnqGrSKR4pAeFgyW4Jb0l5II=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Oct 2024 08:47:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "3ze9prblgr"
+        },
+        {
+          "Name": "label",
+          "Value": "images/intro_dish_4.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8VacAUbb8ov7Z442aSkqnqGrSKR4pAeFgyW4Jb0l5II="
+        }
+      ]
+    },
+    {
+      "Route": "images/intro_dish_4.jpg",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\images\\intro_dish_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "45660"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8VacAUbb8ov7Z442aSkqnqGrSKR4pAeFgyW4Jb0l5II=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Oct 2024 08:47:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8VacAUbb8ov7Z442aSkqnqGrSKR4pAeFgyW4Jb0l5II="
+        }
+      ]
+    },
+    {
+      "Route": "js/register.5ipweew5fc.js",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\o3zyoq14v5-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Feb 2025 11:09:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/register.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/register.5ipweew5fc.js",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\js\\register.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Feb 2025 11:09:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/register.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/register.5ipweew5fc.js.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\o3zyoq14v5-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Feb 2025 11:09:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/register.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/register.js",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\o3zyoq14v5-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Feb 2025 11:09:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/register.js",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\wwwroot\\js\\register.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Feb 2025 11:09:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/register.js.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\o3zyoq14v5-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Feb 2025 11:09:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
         }
       ]
     },
@@ -3623,12 +4818,12 @@
     },
     {
       "Route": "LetWeCook.Web.bundle.scp.css",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\9p5ufo62qw-fhtxeim9fd.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\9p5ufo62qw-qt2w6dj5qp.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001831501832"
+          "Quality": "0.011111111111"
         }
       ],
       "ResponseHeaders": [
@@ -3638,15 +4833,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "545"
+          "Value": "89"
         },
         {
           "Name": "ETag",
-          "Value": "\"t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o=\""
+          "Value": "\"HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3666,13 +4861,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY=\""
+          "Value": "W/\"TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY="
+          "Value": "sha256-TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY="
         }
       ]
     },
@@ -3687,7 +4882,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1131"
+          "Value": "69"
         },
         {
           "Name": "Content-Type",
@@ -3695,11 +4890,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY=\""
+          "Value": "\"TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3709,13 +4904,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY="
+          "Value": "sha256-TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY="
         }
       ]
     },
     {
       "Route": "LetWeCook.Web.bundle.scp.css.gz",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\9p5ufo62qw-fhtxeim9fd.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\9p5ufo62qw-qt2w6dj5qp.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3724,7 +4919,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "545"
+          "Value": "89"
         },
         {
           "Name": "Content-Type",
@@ -3732,11 +4927,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o=\""
+          "Value": "\"HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3754,18 +4949,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o="
+          "Value": "sha256-HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw="
         }
       ]
     },
     {
-      "Route": "LetWeCook.Web.fhtxeim9fd.bundle.scp.css",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\9p5ufo62qw-fhtxeim9fd.gz",
+      "Route": "LetWeCook.Web.qt2w6dj5qp.bundle.scp.css",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\9p5ufo62qw-qt2w6dj5qp.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001831501832"
+          "Quality": "0.011111111111"
         }
       ],
       "ResponseHeaders": [
@@ -3775,15 +4970,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "545"
+          "Value": "89"
         },
         {
           "Name": "ETag",
-          "Value": "\"t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o=\""
+          "Value": "\"HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3803,13 +4998,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY=\""
+          "Value": "W/\"TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fhtxeim9fd"
+          "Value": "qt2w6dj5qp"
         },
         {
           "Name": "label",
@@ -3817,12 +5012,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY="
+          "Value": "sha256-TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY="
         }
       ]
     },
     {
-      "Route": "LetWeCook.Web.fhtxeim9fd.bundle.scp.css",
+      "Route": "LetWeCook.Web.qt2w6dj5qp.bundle.scp.css",
       "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\LetWeCook.Web.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3832,7 +5027,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1131"
+          "Value": "69"
         },
         {
           "Name": "Content-Type",
@@ -3840,11 +5035,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY=\""
+          "Value": "\"TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3854,7 +5049,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fhtxeim9fd"
+          "Value": "qt2w6dj5qp"
         },
         {
           "Name": "label",
@@ -3862,13 +5057,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY="
+          "Value": "sha256-TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY="
         }
       ]
     },
     {
-      "Route": "LetWeCook.Web.fhtxeim9fd.bundle.scp.css.gz",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\9p5ufo62qw-fhtxeim9fd.gz",
+      "Route": "LetWeCook.Web.qt2w6dj5qp.bundle.scp.css.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\9p5ufo62qw-qt2w6dj5qp.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3877,7 +5072,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "545"
+          "Value": "89"
         },
         {
           "Name": "Content-Type",
@@ -3885,11 +5080,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o=\""
+          "Value": "\"HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3907,7 +5102,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fhtxeim9fd"
+          "Value": "qt2w6dj5qp"
         },
         {
           "Name": "label",
@@ -3915,18 +5110,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o="
+          "Value": "sha256-HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw="
         }
       ]
     },
     {
-      "Route": "LetWeCook.Web.fhtxeim9fd.styles.css",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8zqcmsd4dj-fhtxeim9fd.gz",
+      "Route": "LetWeCook.Web.qt2w6dj5qp.styles.css",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8zqcmsd4dj-qt2w6dj5qp.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001831501832"
+          "Quality": "0.011111111111"
         }
       ],
       "ResponseHeaders": [
@@ -3936,15 +5131,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "545"
+          "Value": "89"
         },
         {
           "Name": "ETag",
-          "Value": "\"t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o=\""
+          "Value": "\"HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3964,13 +5159,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY=\""
+          "Value": "W/\"TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fhtxeim9fd"
+          "Value": "qt2w6dj5qp"
         },
         {
           "Name": "label",
@@ -3978,12 +5173,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY="
+          "Value": "sha256-TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY="
         }
       ]
     },
     {
-      "Route": "LetWeCook.Web.fhtxeim9fd.styles.css",
+      "Route": "LetWeCook.Web.qt2w6dj5qp.styles.css",
       "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\scopedcss\\bundle\\LetWeCook.Web.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3993,7 +5188,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1131"
+          "Value": "69"
         },
         {
           "Name": "Content-Type",
@@ -4001,11 +5196,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY=\""
+          "Value": "\"TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4015,7 +5210,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fhtxeim9fd"
+          "Value": "qt2w6dj5qp"
         },
         {
           "Name": "label",
@@ -4023,13 +5218,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY="
+          "Value": "sha256-TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY="
         }
       ]
     },
     {
-      "Route": "LetWeCook.Web.fhtxeim9fd.styles.css.gz",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8zqcmsd4dj-fhtxeim9fd.gz",
+      "Route": "LetWeCook.Web.qt2w6dj5qp.styles.css.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8zqcmsd4dj-qt2w6dj5qp.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4038,7 +5233,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "545"
+          "Value": "89"
         },
         {
           "Name": "Content-Type",
@@ -4046,11 +5241,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o=\""
+          "Value": "\"HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4068,7 +5263,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fhtxeim9fd"
+          "Value": "qt2w6dj5qp"
         },
         {
           "Name": "label",
@@ -4076,18 +5271,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o="
+          "Value": "sha256-HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw="
         }
       ]
     },
     {
       "Route": "LetWeCook.Web.styles.css",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8zqcmsd4dj-fhtxeim9fd.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8zqcmsd4dj-qt2w6dj5qp.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001831501832"
+          "Quality": "0.011111111111"
         }
       ],
       "ResponseHeaders": [
@@ -4097,15 +5292,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "545"
+          "Value": "89"
         },
         {
           "Name": "ETag",
-          "Value": "\"t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o=\""
+          "Value": "\"HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4125,13 +5320,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY=\""
+          "Value": "W/\"TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY="
+          "Value": "sha256-TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY="
         }
       ]
     },
@@ -4146,7 +5341,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1131"
+          "Value": "69"
         },
         {
           "Name": "Content-Type",
@@ -4154,11 +5349,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY=\""
+          "Value": "\"TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4168,13 +5363,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-ffaScedqQQuM0IC/XHBIVrt8fiLwBzNq7WhMGu+vNsY="
+          "Value": "sha256-TmAee1FkmE1yWuDjuWPyY4+/fkUVAS5/I1Q9r8wsiLY="
         }
       ]
     },
     {
       "Route": "LetWeCook.Web.styles.css.gz",
-      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8zqcmsd4dj-fhtxeim9fd.gz",
+      "AssetFile": "D:\\.NET_related\\LetWeCookRework\\LetWeCook.Web\\obj\\Debug\\net9.0\\compressed\\8zqcmsd4dj-qt2w6dj5qp.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4183,7 +5378,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "545"
+          "Value": "89"
         },
         {
           "Name": "Content-Type",
@@ -4191,11 +5386,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o=\""
+          "Value": "\"HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Feb 2025 16:08:46 GMT"
+          "Value": "Thu, 27 Feb 2025 08:00:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4213,7 +5408,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-t+ZYzTJYeZ8MuaHkAGwHvFA+dvkgn5AnF7Mi68ATe2o="
+          "Value": "sha256-HecqhncswWYZYy9ybnMqRDXLCtBylqtJnqiMaDsXozw="
         }
       ]
     },

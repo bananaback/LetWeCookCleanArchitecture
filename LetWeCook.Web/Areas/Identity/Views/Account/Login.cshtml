@@ -1,0 +1,203 @@
+@model LetWeCook.Web.Areas.Identity.Models.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    string? returnUrl = Context.Request.Query["ReturnUrl"];
+}
+
+<div class="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
+    <!-- Header -->
+    <div class="flex items-center gap-3 mb-12">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 fill-white" viewBox="0 -960 960 960">
+            <path
+                d="M177-560q14-36 4.5-64T149-680q-33-40-43.5-75.5T102-840h78q-8 38-2.5 62t28.5 52q38 46 48.5 81.5t.5 84.5h-78Zm160 0q14-36 5-64t-32-56q-33-40-44-75.5t-4-84.5h78q-8 38-2.5 62t28.5 52q38 46 48.5 81.5t.5 84.5h-78Zm160 0q14-36 5-64t-32-56q-33-40-44-75.5t-4-84.5h78q-8 38-2.5 62t28.5 52q38 46 48.5 81.5t.5 84.5h-78ZM200-160q-50 0-85-35t-35-85v-200h561q5-34 27-59.5t54-36.5l185-62 25 76-185 62q-12 4-19.5 14.5T720-462v182q0 50-35 85t-85 35H200Zm0-80h400q17 0 28.5-11.5T640-280v-120H160v120q0 17 11.5 28.5T200-240Zm200-80Z" />
+        </svg>
+        <h1 class="text-3xl font-bold text-white">LetWeCook</h1>
+    </div>
+
+    <!-- Main Content -->
+    <div class="w-full max-w-5xl flex flex-col md:flex-row gap-12 items-center">
+        <!-- Slideshow -->
+        <div class="w-full md:w-1/2">
+            <div class="relative h-80 rounded-xl overflow-hidden">
+                <img data-imageindex="1" class="absolute w-full h-full object-cover transition-opacity duration-500"
+                    src="~/images/intro_dish_1.jpg" alt="intro-dish-1" />
+                <img data-imageindex="2"
+                    class="absolute w-full h-full object-cover opacity-0 transition-opacity duration-500"
+                    src="~/images/intro_dish_2.jpg" alt="intro-dish-2" />
+                <img data-imageindex="3"
+                    class="absolute w-full h-full object-cover opacity-0 transition-opacity duration-500"
+                    src="~/images/intro_dish_3.jpg" alt="intro-dish-3" />
+                <img data-imageindex="4"
+                    class="absolute w-full h-full object-cover opacity-0 transition-opacity duration-500"
+                    src="~/images/intro_dish_4.jpg" alt="intro-dish-4" />
+            </div>
+            <div class="flex justify-center gap-2 mt-4">
+                <div data-index="1"
+                    class="w-8 h-2 rounded-full bg-gray-600 hover:bg-gray-500 transition-all duration-300 cursor-pointer">
+                </div>
+                <div data-index="2"
+                    class="w-2 h-2 rounded-full bg-white hover:bg-gray-500 transition-all duration-300 cursor-pointer">
+                </div>
+                <div data-index="3"
+                    class="w-2 h-2 rounded-full bg-white hover:bg-gray-500 transition-all duration-300 cursor-pointer">
+                </div>
+                <div data-index="4"
+                    class="w-2 h-2 rounded-full bg-white hover:bg-gray-500 transition-all duration-300 cursor-pointer">
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="w-full md:w-1/2 bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h2 class="text-2xl font-semibold text-white text-center mb-2">Welcome Back</h2>
+            <p class="text-gray-400 text-center mb-6">Sign in to continue</p>
+
+            <!-- OAuth Buttons -->
+            <div class="flex justify-center gap-4 mb-6">
+                <form asp-area="Identity" asp-controller="Account" asp-action="ExternalLogin"
+                    asp-route-provider="Google" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="returnUrl" value="@returnUrl" />
+                    <button type="submit" class="p-2 bg-gray-700 rounded-full hover:bg-gray-600 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 32 33">
+                            <path
+                                d="M30.0014 17.1604C30.0014 16.0093 29.9061 15.1693 29.6998 14.2982H16.2871V19.4937H24.1601C24.0014 20.7849 23.1442 22.7293 21.2394 24.0359L25.7474 27.4582C28.4458 25.016 30.0014 21.4226 30.0014 17.1604Z"
+                                fill="#4285F4" />
+                            <path
+                                d="M16.2863 30.8495C20.1434 30.8495 23.3814 29.605 25.7466 27.4584L21.2386 24.036C20.0323 24.8605 18.4132 25.436 16.2863 25.436C12.5086 25.436 9.30225 22.9939 8.15929 19.6183L3.52441 23.1338C5.87359 27.7072 10.699 30.8495 16.2863 30.8495Z"
+                                fill="#34A853" />
+                            <path
+                                d="M8.15964 19.6183C7.85806 18.7472 7.68352 17.8138 7.68352 16.8494C7.68352 15.8849 7.85806 14.9516 8.14377 14.0805L3.52475 10.5649C2.55654 12.4627 2.00098 14.5939 2.00098 16.8494C2.00098 19.105 2.55654 21.236 3.52475 23.1338L8.15964 19.6183Z"
+                                fill="#FBBC05" />
+                            <path
+                                d="M16.2864 8.26278C18.9689 8.26278 20.7784 9.39833 21.8102 10.3473L25.8419 6.48949C23.3658 4.23394 20.1435 2.84949 16.2864 2.84949C10.699 2.84949 5.8736 5.99168 3.52441 10.565L8.14345 14.0806C9.30229 10.705 12.5086 8.26278 16.2864 8.26278Z"
+                                fill="#EB4335" />
+                        </svg>
+                    </button>
+                </form>
+
+                <form asp-area="Identity" asp-controller="Account" asp-action="ExternalLogin"
+                    asp-route-provider="Facebook" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="returnUrl" value="@returnUrl" />
+                    <button type="submit" class="p-2 bg-gray-700 rounded-full hover:bg-gray-600 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 32 33">
+                            <circle cx="16" cy="16.8495" r="14" fill="url(#paint0_linear_15855_187608)" />
+                            <path
+                                d="M21.2137 21.131L21.8356 17.1796H17.9452V14.6165C17.9452 13.5352 18.4877 12.4806 20.2302 12.4806H22V9.11648C22 9.11648 20.3945 8.84949 18.8603 8.84949C15.6548 8.84949 13.5617 10.7424 13.5617 14.1679V17.1796H10V21.131H13.5617V30.684C14.2767 30.7934 15.0082 30.8495 15.7534 30.8495C16.4986 30.8495 17.2302 30.7934 17.9452 30.684V21.131H21.2137Z"
+                                fill="white" />
+                            <defs>
+                                <linearGradient id="paint0_linear_15855_187608" x1="16" y1="2.84949" x2="16"
+                                    y2="30.7664" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#18ACFE" />
+                                    <stop offset="1" stop-color="#0163E0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Divider -->
+            <div class="relative mb-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-700"></div>
+                </div>
+                <div class="relative flex justify-center">
+                    <span class="bg-gray-800 px-2 text-gray-400 text-sm">or</span>
+                </div>
+            </div>
+
+            <!-- Email/Password Form -->
+            <form asp-area="Identity" asp-controller="Account" asp-action="Login" method="post" class="space-y-4">
+                <div asp-validation-summary="All" class="text-red-500 text-sm text-center"></div>
+
+                <div>
+                    <label asp-for="Email" class="block text-white font-medium mb-1">Email</label>
+                    <input asp-for="Email"
+                        class="w-full bg-gray-700 text-white rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                    <span asp-validation-for="Email" class="text-red-500 text-sm"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Password" class="block text-white font-medium mb-1">Password</label>
+                    <input asp-for="Password" data-val="true"
+                        class="w-full bg-gray-700 text-white rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                    <span asp-validation-for="Password" class="text-red-500 text-sm"></span>
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors font-semibold">
+                    Login
+                </button>
+            </form>
+
+            <!-- Links -->
+            <div class="mt-6 text-center space-y-2">
+                <a asp-area="Identity" asp-controller="Account" asp-action="Register"
+                    class="text-purple-400 hover:text-purple-300">Create an account</a>
+                <div>
+                    <a asp-area="Identity" asp-controller="Account" asp-action="ForgotPassword"
+                        class="text-purple-400 hover:text-purple-300">Forgot password?</a>
+                </div>
+                <p class="text-gray-400 text-sm mt-4">
+                    By signing in, you agree to our
+                    <a asp-action="Privacy" asp-controller="Home"
+                        class="text-purple-400 hover:text-purple-300">Terms</a>
+                    and
+                    <a asp-action="Privacy" asp-controller="Home" class="text-purple-400 hover:text-purple-300">Privacy
+                        Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/login.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            if (typeof $.validator === 'undefined') {
+                console.error('jQuery Validation is not loaded.');
+                return;
+            }
+            if (typeof $.validator.unobtrusive === 'undefined') {
+                console.error('jQuery Validation Unobtrusive is not loaded.');
+                return;
+            }
+
+            // Custom password validation method
+            $.validator.addMethod('custompassword', function (value, element, params) {
+                if (!value) return false; // Required check
+                return value.length >= 6 &&
+                    /\d/.test(value) &&              // At least one digit
+                    /[a-z]/.test(value) &&           // At least one lowercase letter
+                    /[A-Z]/.test(value) &&           // At least one uppercase letter
+                    /[^a-zA-Z0-9]/.test(value);      // At least one special character
+            }, function (params, element) {
+                var value = $(element).val();
+                if (!value) return "Password is required.";
+                if (value.length < 6) return "Password must be at least 6 characters long.";
+                if (!/\d/.test(value)) return "Password must contain at least one digit.";
+                if (!/[a-z]/.test(value)) return "Password must contain at least one lowercase letter.";
+                if (!/[A-Z]/.test(value)) return "Password must contain at least one uppercase letter.";
+                if (!/[^a-zA-Z0-9]/.test(value)) return "Password must contain at least one special character.";
+                return "Invalid password format.";
+            });
+
+            // Register validation rule with unobtrusive
+            $.validator.unobtrusive.adapters.add('custompassword', [], function (options) {
+                options.rules['custompassword'] = true;
+                options.messages['custompassword'] = options.message;
+            });
+
+            // Reparse the form to apply the new validation rules
+            $("form").each(function () {
+                $(this).removeData("validator");
+                $(this).removeData("unobtrusiveValidation");
+                $.validator.unobtrusive.parse(this);
+            });
+        });
+    </script>
+}
