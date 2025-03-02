@@ -10,4 +10,5 @@ public interface IAuthenticationService
     Task LogoutAsync(CancellationToken cancellationToken = default);
     Task SendPasswordResetLinkAsync(string email, CancellationToken cancellationToken = default);
     Task ResetPasswordAsync(string email, string token, string password, CancellationToken cancellationToken = default);
+    Task<bool> SignInWithExternalProviderAsync(string provider, string returnUrl);
 }

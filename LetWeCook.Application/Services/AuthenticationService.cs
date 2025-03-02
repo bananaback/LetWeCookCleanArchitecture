@@ -15,17 +15,20 @@ public class AuthenticationService : IAuthenticationService
     private readonly IIdentityService _identityService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IDomainEventDispatcher _domainEventDispatcher;
+    private readonly IHttpContextService _httpContextService;
 
     public AuthenticationService(
         IUserRepository userRepository,
         IIdentityService identityService,
         IUnitOfWork unitOfWork,
-        IDomainEventDispatcher domainEventDispatcher)
+        IDomainEventDispatcher domainEventDispatcher,
+        IHttpContextService httpContextService)
     {
         _userRepository = userRepository;
         _identityService = identityService;
         _unitOfWork = unitOfWork;
         _domainEventDispatcher = domainEventDispatcher;
+        _httpContextService = httpContextService;
     }
 
     public async Task<RegisterResponseDTO> RegisterAsync(RegisterRequestDTO request, CancellationToken cancellationToken = default)
@@ -149,4 +152,11 @@ public class AuthenticationService : IAuthenticationService
         }
     }
 
+
+    public async Task<bool> SignInWithExternalProviderAsync(string provider, string returnUrl)
+    {
+        // Pass provider and returnUrl directly; no AuthenticationProperties here
+        await _httpContextService.ChallengeAsync(provider, returnUrl);
+        return true; // Challenge redirects, so assume success
+    }
 }

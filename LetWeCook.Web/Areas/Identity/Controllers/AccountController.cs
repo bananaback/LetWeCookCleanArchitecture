@@ -249,16 +249,11 @@ public class AccountController : Controller
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public IActionResult ExternalLogin(string provider, string? returnUrl)
+    public async Task<IActionResult> ExternalLogin(string provider, string? returnUrl)
     {
-        AuthenticationProperties? properties = null;
-        // Request a redirect to the external login provider with Challenge()
-        // redirectUrl is the url that I should redirect the user after successfully authenticated user in "my app"
-        // redirecrUrl in this method != google callback path in program.cs
-        var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Auth", new { returnUrl });
-        properties = _authenticationService.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-
-        return Challenge(properties!, provider);
+        // No need to deal with AuthenticationProperties here
+        await _authenticationService.SignInWithExternalProviderAsync(provider, Url.Action("ExternalLoginCallback", "Account", new { returnUrl }));
+        return new EmptyResult(); // Challenge redirects
     }
 
     [HttpGet]
