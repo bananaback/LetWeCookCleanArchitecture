@@ -137,4 +137,16 @@ public class AuthenticationService : IAuthenticationService
         await _domainEventDispatcher.DispatchEventsAsync(new List<DomainEvent> { newEvent }, cancellationToken);
     }
 
+    public async Task ResetPasswordAsync(string email, string token, string password, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await _identityService.ResetPasswordAsync(email, token, password, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            throw new PasswordResetException($"Password reset failed: {ex.Message}");
+        }
+    }
+
 }

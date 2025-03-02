@@ -9,4 +9,5 @@ public interface IIdentityService
     Task<bool> ConfirmEmailAsync(string email, string token, CancellationToken cancellationToken = default);
     Task SignOutAsync(CancellationToken cancellationToken = default);
     Task<string> GeneratePasswordResetTokenAsync(string email, CancellationToken cancellationToken = default);
+    Task ResetPasswordAsync(string email, string token, string password, CancellationToken cancellationToken = default);
 }

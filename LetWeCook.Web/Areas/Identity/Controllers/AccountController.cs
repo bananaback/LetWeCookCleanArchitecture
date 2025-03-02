@@ -1,10 +1,14 @@
+using System.Threading.Tasks;
 using LetWeCook.Application.DTOs.Authentication;
 using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Exceptions;
 using LetWeCook.Web.Areas.Identity.Models.DTOs;
 using LetWeCook.Web.Areas.Identity.Models.ViewModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using IAuthenticationService = LetWeCook.Application.Interfaces.IAuthenticationService;
 
 namespace LetWeCook.Web.Areas.Identity.Controllers;
 
@@ -181,14 +185,14 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public IActionResult ForgotPassword(ForgotPasswordViewModel viewModel)
+    public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel viewModel)
     {
         if (!ModelState.IsValid)
             return View(viewModel);
 
         try
         {
-            _authenticationService.SendPasswordResetLinkAsync(viewModel.Email);
+            await _authenticationService.SendPasswordResetLinkAsync(viewModel.Email);
             return RedirectToAction("ForgotPasswordConfirmation");
         }
         catch (Exception ex)
@@ -202,5 +206,77 @@ public class AccountController : Controller
     public IActionResult ForgotPasswordConfirmation()
     {
         return View();
+    }
+
+    [HttpGet]
+    public IActionResult ResetPassword(string email, string token)
+    {
+        var model = new ResetPasswordViewModel
+        {
+            Email = email,
+            Token = token
+        };
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        try
+        {
+            await _authenticationService.ResetPasswordAsync(model.Email, model.Token, model.Password);
+            return RedirectToAction("ResetPasswordConfirmation");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error resetting password for {Email}", model.Email);
+            ModelState.AddModelError(string.Empty, "Invalid or expired token.");
+            return View(model);
+        }
+    }
+
+    [HttpGet]
+    public IActionResult ResetPasswordConfirmation()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public IActionResult ExternalLogin(string provider, string? returnUrl)
+    {
+        AuthenticationProperties? properties = null;
+        // Request a redirect to the external login provider with Challenge()
+        // redirectUrl is the url that I should redirect the user after successfully authenticated user in "my app"
+        // redirecrUrl in this method != google callback path in program.cs
+        var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Auth", new { returnUrl });
+        properties = _authenticationService.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+
+        return Challenge(properties!, provider);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> ExternalLoginCallback(string returnUrl = "/")
+    {
+        // var loginData = await _authService.GetExternalLoginInfoAsync();
+        // if (loginData == null)
+        // {
+        //     return RedirectToAction("Login"); // Authentication failed or was canceled
+        // }
+
+        // var success = await _authService.RegisterExternalUserAsync(loginData, loginData.Email);
+        // if (!success)
+        // {
+        //     return RedirectToAction("Login"); // Registration or sign-in failed
+        // }
+
+        // return Redirect(returnUrl); // User is signed in, redirect to original page
+        return View("Test");
     }
 }

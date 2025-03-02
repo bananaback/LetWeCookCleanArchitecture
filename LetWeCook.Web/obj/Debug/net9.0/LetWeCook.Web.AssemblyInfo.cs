@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LetWeCook.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+524b6ab6b1ac821d87a50c5321f54df03421fcc9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e761eb2bb17fd716a94840e3e84fca8eed13bc2a")]
 [assembly: System.Reflection.AssemblyProductAttribute("LetWeCook.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LetWeCook.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

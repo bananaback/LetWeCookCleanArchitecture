@@ -79,4 +79,15 @@ public class IdentityService : IIdentityService
 
         return await _userManager.GeneratePasswordResetTokenAsync(user);
     }
+
+    public async Task ResetPasswordAsync(string email, string token, string password, CancellationToken cancellationToken = default)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user == null)
+            throw new InvalidOperationException("User not found.");
+
+        var result = await _userManager.ResetPasswordAsync(user, token, password);
+        if (!result.Succeeded)
+            throw new InvalidOperationException("Password reset failed.");
+    }
 }
