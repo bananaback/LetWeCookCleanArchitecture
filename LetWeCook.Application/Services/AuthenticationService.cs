@@ -1,4 +1,5 @@
 using LetWeCook.Application.DTOs.Authentication;
+using LetWeCook.Application.DTOs.Authentications;
 using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Aggregates;
@@ -16,19 +17,22 @@ public class AuthenticationService : IAuthenticationService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IDomainEventDispatcher _domainEventDispatcher;
     private readonly IHttpContextService _httpContextService;
+    private readonly IExternalAuthService _externalAuthService;
 
     public AuthenticationService(
         IUserRepository userRepository,
         IIdentityService identityService,
         IUnitOfWork unitOfWork,
         IDomainEventDispatcher domainEventDispatcher,
-        IHttpContextService httpContextService)
+        IHttpContextService httpContextService,
+        IExternalAuthService externalAuthService)
     {
         _userRepository = userRepository;
         _identityService = identityService;
         _unitOfWork = unitOfWork;
         _domainEventDispatcher = domainEventDispatcher;
         _httpContextService = httpContextService;
+        _externalAuthService = externalAuthService;
     }
 
     public async Task<RegisterResponseDTO> RegisterAsync(RegisterRequestDTO request, CancellationToken cancellationToken = default)
@@ -36,16 +40,20 @@ public class AuthenticationService : IAuthenticationService
         if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Password))
             throw new UserRegistrationException("Email, username, and password are required.");
 
-        var existingUser = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
-        if (existingUser != null && !existingUser.IsRemoved)
+        var existingAppUserIdByEmail = await _identityService.FindAppUserByEmailAsync(request.Email, cancellationToken);
+        if (existingAppUserIdByEmail != null)
             throw new UserAlreadyExistsException(request.Email);
+
+        var existingAppUserIdByUsername = await _identityService.FindAppUserByUsernameAsync(request.Username, cancellationToken);
+        if (existingAppUserIdByUsername != null)
+            throw new UserAlreadyExistsException(request.Username);
 
         var siteUser = new SiteUser(request.Email); // No token generation here
 
         try
         {
             await _userRepository.AddAsync(siteUser, cancellationToken);
-            var identityCreated = await _identityService.CreateUserAsync(request.Email, request.Username, request.Password, siteUser.Id, cancellationToken);
+            var identityCreated = await _identityService.CreateAppUserWithPasswordAsync(request.Email, request.Username, request.Password, siteUser.Id, cancellationToken);
             if (!identityCreated)
                 throw new UserRegistrationException("Failed to register user in identity system.");
 
@@ -76,13 +84,6 @@ public class AuthenticationService : IAuthenticationService
             if (!success)
                 throw new AuthenticationException("Invalid email or password, or email not verified.");
 
-            var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
-            if (user != null)
-            {
-                user.RecordLogin(request.Email);
-                await _unitOfWork.CommitAsync(cancellationToken);
-            }
-
             return new LoginResponseDTO
             {
                 Email = request.Email,
@@ -109,11 +110,11 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task ResendVerificationEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        var user = await _userRepository.GetByEmailAsync(email, cancellationToken);
-        if (user == null || user.IsRemoved)
+        Guid? userId = await _identityService.FindAppUserByEmailAsync(email, cancellationToken);
+        if (userId == null)
             throw new InvalidOperationException("User not found.");
 
-        var newEvent = new UserRequestedEmailEvent(user.Id, email);
+        var newEvent = new UserRequestedEmailEvent(userId!, email);
         // Dispatch the event to trigger email sending
         await _domainEventDispatcher.DispatchEventsAsync(new List<DomainEvent> { newEvent }, cancellationToken);
     }
@@ -158,5 +159,65 @@ public class AuthenticationService : IAuthenticationService
         // Pass provider and returnUrl directly; no AuthenticationProperties here
         await _httpContextService.ChallengeAsync(provider, returnUrl);
         return true; // Challenge redirects, so assume success
+    }
+
+    public async Task<ExternalLoginData?> GetExternalLoginInfoAsync()
+    {
+        return await _externalAuthService.GetExternalLoginDataAsync();
+    }
+
+    public async Task<bool> RegisterExternalUserAsync(ExternalLoginData loginData, string email, CancellationToken cancellationToken = default)
+    {
+        // Find existing SiteUser by email (returns SiteUser.Id)
+        var appUserId = await _identityService.FindAppUserByEmailAsync(email, cancellationToken);
+
+        if (appUserId == null)
+        {
+            // Create SiteUser
+            var siteUser = new SiteUser(email);
+            await _userRepository.AddAsync(siteUser, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+
+            // Create ApplicationUser and link it
+            var appUser = new ApplicationUser
+            {
+                UserName = email,
+                Email = email
+            };
+            appUser.SyncFromSiteUser(siteUser); // Sets SiteUserId and SiteUser reference
+
+            var createResult = await _userManager.CreateAsync(appUser); // Creates ApplicationUser with its own Id
+            if (!createResult.Succeeded)
+                return false;
+
+            applicationUserId = appUser.Id; // Use ApplicationUser.Id for Identity operations
+            siteUserId = siteUser.Id;       // Keep SiteUser.Id for domain operations
+        }
+        else
+        {
+            // Find the corresponding ApplicationUser by SiteUserId
+            var appUser = await _userManager.Users.FirstOrDefaultAsync(u => u.SiteUserId == siteUserId.Value, cancellationToken);
+            if (appUser == null)
+                return false; // Inconsistent state: SiteUser exists but no ApplicationUser
+            applicationUserId = appUser.Id;
+        }
+
+        // Check for existing external login
+        var existingLoginUserId = await _identityService.FindUserByLoginAsync(loginData.Provider, loginData.ProviderKey);
+        if (existingLoginUserId == null)
+        {
+            // Add external login using ApplicationUser.Id
+            var addLoginResult = await _identityService.AddLoginAsync(applicationUserId, loginData);
+            if (!addLoginResult)
+                return false;
+        }
+        else if (existingLoginUserId != siteUserId) // Compare with SiteUser.Id
+        {
+            return false; // Login already linked to a different user
+        }
+
+        // Sign in using ApplicationUser.Id
+        await _identityService.SignInAsync(applicationUserId, isPersistent: false);
+        return true;
     }
 }

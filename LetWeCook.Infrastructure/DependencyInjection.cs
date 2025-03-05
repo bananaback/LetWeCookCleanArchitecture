@@ -107,6 +107,7 @@ public static class DependencyInjection
 
         // Register Application Services
         services.AddScoped<IAuthenticationService, AuthenticationService>();
+        services.AddScoped<IExternalAuthService, ExternalAuthService>();
 
         // Register Infrastructure Services
         services.AddScoped<IUnitOfWork, UnitOfWork>();

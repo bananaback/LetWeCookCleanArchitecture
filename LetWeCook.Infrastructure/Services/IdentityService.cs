@@ -1,3 +1,4 @@
+using LetWeCook.Application.DTOs.Authentications;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
@@ -31,11 +32,6 @@ public class IdentityService : IIdentityService
             return true;
         }
         return false;
-    }
-
-    public async Task<bool> CreateUserAsync(string email, string password, Guid siteUserId, CancellationToken cancellationToken = default)
-    {
-        return await CreateUserAsync(email, email, password, siteUserId, cancellationToken);
     }
 
     public async Task<bool> SignInAsync(string email, string password, CancellationToken cancellationToken = default)
@@ -89,5 +85,73 @@ public class IdentityService : IIdentityService
         var result = await _userManager.ResetPasswordAsync(user, token, password);
         if (!result.Succeeded)
             throw new InvalidOperationException("Password reset failed.");
+    }
+
+    public async Task<Guid?> FindUserByEmailAsync(string email, CancellationToken cancellationToken = default)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        return user?.SiteUserId;
+    }
+
+    public async Task<bool> AddLoginAsync(Guid userId, ExternalLoginData loginData, CancellationToken cancellationToken = default)
+    {
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+        if (user == null)
+            return false;
+
+        var externalLoginInfo = new ExternalLoginInfo(
+            principal: null,
+            loginProvider: loginData.Provider,
+            providerKey: loginData.ProviderKey,
+            displayName: loginData.Provider
+        );
+        var result = await _userManager.AddLoginAsync(user, externalLoginInfo);
+        return result.Succeeded;
+    }
+
+    public async Task<Guid?> FindUserByLoginAsync(string provider, string providerKey, CancellationToken cancellationToken = default)
+    {
+        var user = await _userManager.FindByLoginAsync(provider, providerKey);
+        return user?.SiteUserId; // Return SiteUserId or null    }
+    }
+
+    public async Task<bool> CreateUserAsync(string email, Guid siteUserId, CancellationToken cancellationToken = default)
+    {
+        var appUser = new ApplicationUser
+        {
+            UserName = email, // Use email as username for external logins
+            Email = email,
+            SiteUserId = siteUserId,
+            Id = siteUserId, // ApplicationUser.Id matches SiteUserId
+        };
+
+        // Create without password for external login
+        var result = await _userManager.CreateAsync(appUser);
+        if (result.Succeeded)
+        {
+            appUser.SyncFromSiteUser(appUser.SiteUser); // Sync with SiteUser
+            return true;
+        }
+        return false;
+    }
+
+    public async Task SignInAsync(Guid userId, bool isPersistent, CancellationToken cancellationToken = default)
+    {
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+        if (user == null)
+            throw new InvalidOperationException("User not found for sign-in.");
+
+        await _signInManager.SignInAsync(user, isPersistent);
+    }
+
+    public Task<Guid?> FindAppUserByEmailAsync(string email, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<Guid?> FindAppUserByUsernameAsync(string username, CancellationToken cancellationToken = default)
+    {
+        var user = await _userManager.FindByNameAsync(username);
+        return user?.SiteUserId;
     }
 }

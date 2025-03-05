@@ -259,19 +259,18 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> ExternalLoginCallback(string returnUrl = "/")
     {
-        // var loginData = await _authService.GetExternalLoginInfoAsync();
-        // if (loginData == null)
-        // {
-        //     return RedirectToAction("Login"); // Authentication failed or was canceled
-        // }
+        var loginData = await _authenticationService.GetExternalLoginInfoAsync();
+        if (loginData == null)
+        {
+            return RedirectToAction("Login"); // Authentication failed or was canceled
+        }
 
-        // var success = await _authService.RegisterExternalUserAsync(loginData, loginData.Email);
-        // if (!success)
-        // {
-        //     return RedirectToAction("Login"); // Registration or sign-in failed
-        // }
+        var success = await _authenticationService.RegisterExternalUserAsync(loginData, loginData.Email);
+        if (!success)
+        {
+            return RedirectToAction("Login"); // Registration or sign-in failed
+        }
 
-        // return Redirect(returnUrl); // User is signed in, redirect to original page
-        return View("Test");
+        return Redirect(returnUrl); // User is signed in, redirect to original page
     }
 }

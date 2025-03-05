@@ -20,14 +20,6 @@ public class UserRepository : IUserRepository
             .FirstOrDefaultAsync(su => su.Id == id, cancellationToken);
     }
 
-    public async Task<SiteUser?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
-    {
-        var appUser = await _context.Users
-            .Include(au => au.SiteUser)
-            .FirstOrDefaultAsync(au => au.Email == email, cancellationToken);
-        return appUser?.SiteUser;
-    }
-
     public async Task AddAsync(SiteUser user, CancellationToken cancellationToken = default)
     {
         await _context.SiteUsers.AddAsync(user, cancellationToken);
