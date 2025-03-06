@@ -15,12 +15,12 @@ public class SiteUser : AggregateRoot
 
     private SiteUser() : base() { } // For EF Core
 
-    public SiteUser(string email, string? verificationToken = null)
+    public SiteUser(string email, bool verify)
     {
         Id = Guid.NewGuid();
 
         // Embed the UserRegisteredEvent in the constructor
-        AddDomainEvent(new UserRegisteredEvent(Id, email, string.Empty));
+        AddDomainEvent(new UserRegisteredEvent(Id, email, verify));
     }
 
     public void SetProfile(Name name, string phoneNumber, string? profilePicture = null, DateTime? birthDate = null, Gender gender = Gender.Unspecified, Address? address = null)

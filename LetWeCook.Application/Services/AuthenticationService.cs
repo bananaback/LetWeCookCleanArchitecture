@@ -48,11 +48,13 @@ public class AuthenticationService : IAuthenticationService
         if (existingAppUserIdByUsername != null)
             throw new UserAlreadyExistsException(request.Username);
 
-        var siteUser = new SiteUser(request.Email); // No token generation here
+        var siteUser = new SiteUser(request.Email, true); // No token generation here
 
         try
         {
             await _userRepository.AddAsync(siteUser, cancellationToken);
+            //await _unitOfWork.CommitAsync(cancellationToken);
+
             var identityCreated = await _identityService.CreateAppUserWithPasswordAsync(request.Email, request.Username, request.Password, siteUser.Id, cancellationToken);
             if (!identityCreated)
                 throw new UserRegistrationException("Failed to register user in identity system.");
@@ -168,56 +170,45 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task<bool> RegisterExternalUserAsync(ExternalLoginData loginData, string email, CancellationToken cancellationToken = default)
     {
-        // Find existing SiteUser by email (returns SiteUser.Id)
+        // Find existing SiteUser by email
         var appUserId = await _identityService.FindAppUserByEmailAsync(email, cancellationToken);
 
         if (appUserId == null)
         {
             // Create SiteUser
-            var siteUser = new SiteUser(email);
+            var siteUser = new SiteUser(email, false);
             await _userRepository.AddAsync(siteUser, cancellationToken);
-            await _unitOfWork.CommitAsync(cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken); // Commit SiteUser creation
 
-            // Create ApplicationUser and link it
-            var appUser = new ApplicationUser
+            // Ensure another request didn’t create the user in the meantime
+            appUserId = await _identityService.FindAppUserByEmailAsync(email, cancellationToken);
+            if (appUserId == null)
             {
-                UserName = email,
-                Email = email
-            };
-            appUser.SyncFromSiteUser(siteUser); // Sets SiteUserId and SiteUser reference
+                appUserId = await _identityService.CreateAppUserAsync(email, siteUser.Id, cancellationToken);
+                if (appUserId == null) return false; // Fail early if user creation fails
 
-            var createResult = await _userManager.CreateAsync(appUser); // Creates ApplicationUser with its own Id
-            if (!createResult.Succeeded)
-                return false;
+                await _unitOfWork.CommitAsync(cancellationToken); // Commit ApplicationUser creation
+            }
+        }
 
-            applicationUserId = appUser.Id; // Use ApplicationUser.Id for Identity operations
-            siteUserId = siteUser.Id;       // Keep SiteUser.Id for domain operations
-        }
-        else
-        {
-            // Find the corresponding ApplicationUser by SiteUserId
-            var appUser = await _userManager.Users.FirstOrDefaultAsync(u => u.SiteUserId == siteUserId.Value, cancellationToken);
-            if (appUser == null)
-                return false; // Inconsistent state: SiteUser exists but no ApplicationUser
-            applicationUserId = appUser.Id;
-        }
+        // Ensure appUserId is valid
+        if (appUserId == null) return false;
 
         // Check for existing external login
         var existingLoginUserId = await _identityService.FindUserByLoginAsync(loginData.Provider, loginData.ProviderKey);
         if (existingLoginUserId == null)
         {
-            // Add external login using ApplicationUser.Id
-            var addLoginResult = await _identityService.AddLoginAsync(applicationUserId, loginData);
+            // Add external login
+            var addLoginResult = await _identityService.AddLoginAsync((Guid)appUserId, loginData);
             if (!addLoginResult)
-                return false;
-        }
-        else if (existingLoginUserId != siteUserId) // Compare with SiteUser.Id
-        {
-            return false; // Login already linked to a different user
+            {
+                return false; // Fail if adding login fails
+            }
         }
 
-        // Sign in using ApplicationUser.Id
-        await _identityService.SignInAsync(applicationUserId, isPersistent: false);
+        // Sign in the user
+        await _identityService.SignInAsync((Guid)appUserId, isPersistent: false);
         return true;
     }
+
 }

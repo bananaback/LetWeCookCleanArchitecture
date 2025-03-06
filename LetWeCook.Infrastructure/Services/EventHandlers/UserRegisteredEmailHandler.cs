@@ -22,6 +22,7 @@ public class UserRegisteredEmailHandler : INonBlockingDomainEventHandler<UserReg
 
     public async Task HandleAsync(UserRegisteredEvent domainEvent, CancellationToken cancellationToken = default)
     {
+        if (!domainEvent.Verify) return;
         try
         {
             // Always generate the token here

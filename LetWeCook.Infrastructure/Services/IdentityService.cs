@@ -16,7 +16,7 @@ public class IdentityService : IIdentityService
         _signInManager = signInManager;
     }
 
-    public async Task<bool> CreateUserAsync(string email, string username, string password, Guid siteUserId, CancellationToken cancellationToken = default)
+    public async Task<bool> CreateAppUserWithPasswordAsync(string email, string username, string password, Guid siteUserId, CancellationToken cancellationToken = default)
     {
         var appUser = new ApplicationUser
         {
@@ -26,12 +26,21 @@ public class IdentityService : IIdentityService
             EmailConfirmed = false // Require confirmation
         };
         var result = await _userManager.CreateAsync(appUser, password);
-        if (result.Succeeded)
+        return result.Succeeded;
+    }
+
+    public async Task<Guid> CreateAppUserAsync(string email, Guid siteUserId, CancellationToken cancellationToken = default)
+    {
+        var appUser = new ApplicationUser
         {
-            appUser.SyncFromSiteUser(appUser.SiteUser);
-            return true;
-        }
-        return false;
+            UserName = email, // Use email as username for external logins
+            Email = email,
+            SiteUserId = siteUserId,
+            EmailConfirmed = true // Skip confirmation for external logins
+        };
+
+        await _userManager.CreateAsync(appUser);
+        return appUser.Id;
     }
 
     public async Task<bool> SignInAsync(string email, string password, CancellationToken cancellationToken = default)
@@ -115,25 +124,7 @@ public class IdentityService : IIdentityService
         return user?.SiteUserId; // Return SiteUserId or null    }
     }
 
-    public async Task<bool> CreateUserAsync(string email, Guid siteUserId, CancellationToken cancellationToken = default)
-    {
-        var appUser = new ApplicationUser
-        {
-            UserName = email, // Use email as username for external logins
-            Email = email,
-            SiteUserId = siteUserId,
-            Id = siteUserId, // ApplicationUser.Id matches SiteUserId
-        };
 
-        // Create without password for external login
-        var result = await _userManager.CreateAsync(appUser);
-        if (result.Succeeded)
-        {
-            appUser.SyncFromSiteUser(appUser.SiteUser); // Sync with SiteUser
-            return true;
-        }
-        return false;
-    }
 
     public async Task SignInAsync(Guid userId, bool isPersistent, CancellationToken cancellationToken = default)
     {
@@ -144,10 +135,12 @@ public class IdentityService : IIdentityService
         await _signInManager.SignInAsync(user, isPersistent);
     }
 
-    public Task<Guid?> FindAppUserByEmailAsync(string email, CancellationToken cancellationToken = default)
+    public async Task<Guid?> FindAppUserByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var user = await _userManager.FindByEmailAsync(email);
+        return user?.Id;
     }
+
 
     public async Task<Guid?> FindAppUserByUsernameAsync(string username, CancellationToken cancellationToken = default)
     {
