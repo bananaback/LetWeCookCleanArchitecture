@@ -23,10 +23,63 @@ public class SiteUser : AggregateRoot
         AddDomainEvent(new UserRegisteredEvent(Id, email, verify));
     }
 
-    public void SetProfile(Name name, string phoneNumber, string? profilePicture = null, DateTime? birthDate = null, Gender gender = Gender.Unspecified, Address? address = null)
+    public void UpdateProfile(
+        Name name,
+        DateTime birthDate,
+        string email,
+        Gender gender,
+        Address address,
+        List<string> dietaryPreferences,
+        List<DietaryPreference> allPreferences, // Pass all preferences for validation
+        string? bio = null,
+        string? facebook = null,
+        string? instagram = null,
+        string? phoneNumber = null,
+        string? profilePicture = null
+    )
     {
-        Profile = new UserProfile(Id, name, phoneNumber, profilePicture, birthDate, gender, address);
+        if (IsRemoved)
+        {
+            throw new InvalidOperationException("Cannot update profile for a removed user.");
+        }
+
+        if (Profile == null)
+        {
+            // Create a new UserProfile if none exists
+            Profile = new UserProfile(
+                name,
+                birthDate,
+                gender,
+                email,
+                address,
+                bio,
+                facebook,
+                instagram,
+                phoneNumber,
+                profilePicture
+            );
+        }
+        else
+        {
+            // Update existing profile
+            Profile.UpdateProfile(
+                name,
+                birthDate,
+                gender,
+                Profile.Email, // Keep existing email
+                address,
+                bio,
+                facebook,
+                instagram,
+                phoneNumber,
+                profilePicture
+            );
+        }
+
+        // Update dietary preferences
+        Profile.UpdateDietaryPreferences(dietaryPreferences, allPreferences);
     }
+
 
     public void Remove()
     {

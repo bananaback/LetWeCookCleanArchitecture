@@ -1,5 +1,6 @@
 using LetWeCook.Application.DTOs.Authentications;
 using LetWeCook.Application.Interfaces;
+using LetWeCook.Domain.Enums;
 using LetWeCook.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 
@@ -16,7 +17,12 @@ public class IdentityService : IIdentityService
         _signInManager = signInManager;
     }
 
-    public async Task<bool> CreateAppUserWithPasswordAsync(string email, string username, string password, Guid siteUserId, CancellationToken cancellationToken = default)
+    public async Task<bool> CreateAppUserWithPasswordAsync(
+    string email,
+    string username,
+    string password,
+    Guid siteUserId,
+    CancellationToken cancellationToken = default)
     {
         var appUser = new ApplicationUser
         {
@@ -25,11 +31,23 @@ public class IdentityService : IIdentityService
             SiteUserId = siteUserId,
             EmailConfirmed = false // Require confirmation
         };
+
+        // Create the user
         var result = await _userManager.CreateAsync(appUser, password);
-        return result.Succeeded;
+        if (!result.Succeeded)
+        {
+            return false; // Early return if user creation fails
+        }
+
+        // Assign the fixed "User" role using enum
+        var roleResult = await _userManager.AddToRoleAsync(appUser, UserRole.User.ToString());
+        return roleResult.Succeeded;
     }
 
-    public async Task<Guid> CreateAppUserAsync(string email, Guid siteUserId, CancellationToken cancellationToken = default)
+    public async Task<Guid> CreateAppUserAsync(
+        string email,
+        Guid siteUserId,
+        CancellationToken cancellationToken = default)
     {
         var appUser = new ApplicationUser
         {
@@ -39,7 +57,20 @@ public class IdentityService : IIdentityService
             EmailConfirmed = true // Skip confirmation for external logins
         };
 
-        await _userManager.CreateAsync(appUser);
+        // Create the user
+        var result = await _userManager.CreateAsync(appUser);
+        if (!result.Succeeded)
+        {
+            throw new Exception($"Failed to create user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+        }
+
+        // Assign the fixed "User" role using enum
+        var roleResult = await _userManager.AddToRoleAsync(appUser, UserRole.User.ToString());
+        if (!roleResult.Succeeded)
+        {
+            throw new Exception($"Failed to assign '{UserRole.User}' role: {string.Join(", ", roleResult.Errors.Select(e => e.Description))}");
+        }
+
         return appUser.Id;
     }
 

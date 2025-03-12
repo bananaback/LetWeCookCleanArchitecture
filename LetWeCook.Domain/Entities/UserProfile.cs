@@ -7,66 +7,94 @@ namespace LetWeCook.Domain.Entities;
 public class UserProfile : Entity
 {
     public Guid UserId { get; private set; }
-    public Name Name { get; private set; } = null!;
-    public string PhoneNumber { get; private set; } = string.Empty;
-    public DateTime? BirthDate { get; private set; }
-    public string? ProfilePictureUrl { get; private set; }
-    public Gender Gender { get; private set; }
+
+    // Mandatory properties (sorted alphabetically)
     public Address Address { get; private set; } = null!;
+    public DateTime BirthDate { get; private set; }
+    public string Email { get; private set; } = string.Empty;
+    public Gender Gender { get; private set; }
+    public Name Name { get; private set; } = null!;
+
+    // Optional properties (sorted alphabetically)
+    public string? Bio { get; private set; }
+    public string? Facebook { get; private set; }
+    public string? Instagram { get; private set; }
+    public string? PhoneNumber { get; private set; }
+    public string? ProfilePic { get; private set; }
+
     private readonly List<DietaryPreference> _dietaryPreferences = new();
     public IReadOnlyList<DietaryPreference> DietaryPreferences => _dietaryPreferences.AsReadOnly();
 
-
     private UserProfile() : base() { } // For EF Core
 
-    public UserProfile(Guid userId, Name name, string phoneNumber, string? profilePicture, DateTime? birthDate = null, Gender gender = Gender.Unspecified, Address? address = null) : base(Guid.NewGuid())
+    public UserProfile(
+        Name name,
+        DateTime birthDate,
+        Gender gender,
+        string email,
+        Address address,
+        string? bio = null,
+        string? facebook = null,
+        string? instagram = null,
+        string? phoneNumber = null,
+        string? profilePicture = null
+    ) : base(Guid.NewGuid())
     {
-        UserId = userId;
         Name = name;
-        PhoneNumber = phoneNumber;
         BirthDate = birthDate;
-        ProfilePictureUrl = profilePicture;
         Gender = gender;
-        Address = address ?? Address.Empty;
-    }
-
-    public void UpdateName(string firstName, string lastName)
-    {
-        Name = new Name(firstName, lastName);
-    }
-
-    public void UpdatePhoneNumber(string phoneNumber)
-    {
+        Email = email;
+        Address = address;
+        Bio = bio;
+        Facebook = facebook;
+        Instagram = instagram;
         PhoneNumber = phoneNumber;
+        ProfilePic = profilePicture;
     }
 
-    public void UpdateBirthDate(DateTime? birthDate)
+    public void UpdateProfile(
+        Name name,
+        DateTime birthDate,
+        Gender gender,
+        string email,
+        Address address,
+        string? bio = null,
+        string? facebook = null,
+        string? instagram = null,
+        string? phoneNumber = null,
+        string? profilePicture = null
+    )
     {
+        Name = name;
         BirthDate = birthDate;
-    }
-
-    public void UpdateGender(Gender gender)
-    {
         Gender = gender;
+        Email = email;
+        Address = address;
+        Bio = bio;
+        Facebook = facebook;
+        Instagram = instagram;
+        PhoneNumber = phoneNumber;
+        ProfilePic = profilePicture;
     }
 
-    public void UpdateAddress(string houseNumber, string street, string ward, string district, string provinceOrCity)
+    public void UpdateDietaryPreferences(List<string> preferenceNames, List<DietaryPreference> allPreferences)
     {
-        Address = new Address(houseNumber, street, ward, district, provinceOrCity);
-    }
+        if (preferenceNames == null) throw new ArgumentNullException(nameof(preferenceNames));
+        if (allPreferences == null) throw new ArgumentNullException(nameof(allPreferences));
 
-    public void AddDietaryPreference(DietaryPreference preference)
-    {
-        if (_dietaryPreferences.Any(dp => dp.Id == preference.Id)) return; // Avoid duplicates by Id
-        _dietaryPreferences.Add(preference);
-    }
+        // Find preferences to keep
+        var validPreferences = allPreferences.Where(dp => preferenceNames.Contains(dp.Name)).ToList();
 
-    public void RemoveDietaryPreference(DietaryPreference preference)
-    {
-        var toRemove = _dietaryPreferences.FirstOrDefault(dp => dp.Id == preference.Id);
-        if (toRemove != null)
+        // Remove those not in the new list
+        _dietaryPreferences.RemoveAll(dp => !validPreferences.Contains(dp));
+
+        // Add missing preferences
+        foreach (var preference in validPreferences)
         {
-            _dietaryPreferences.Remove(toRemove);
+            if (!_dietaryPreferences.Contains(preference))
+            {
+                _dietaryPreferences.Add(preference);
+            }
         }
     }
 }

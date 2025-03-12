@@ -36,4 +36,9 @@ public class UserRepository : IUserRepository
         _context.SiteUsers.Remove(user);
         return Task.CompletedTask; // Marking for removal; no async operation needed
     }
+
+    public async Task<SiteUser?> GetWithProfileByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await _context.SiteUsers.Include(u => u.Profile).FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
+    }
 }

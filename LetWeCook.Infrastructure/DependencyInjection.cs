@@ -1,8 +1,6 @@
-using System.Security.Claims;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Application.Services;
 using LetWeCook.Domain.Events;
-using LetWeCook.Infrastructure.Configurations;
 using LetWeCook.Infrastructure.Persistence;
 using LetWeCook.Infrastructure.Services;
 using LetWeCook.Infrastructure.Services.EventHandlers;
@@ -18,10 +16,6 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        // Bind Authentication Configuration
-        var authenticationConfiguration = new AuthenticationConfiguration();
-        configuration.GetSection("Authentications").Bind(authenticationConfiguration);
-        services.AddSingleton(authenticationConfiguration);
 
         // Add DbContext
         services.AddDbContext<LetWeCookDbContext>(options =>
@@ -41,69 +35,16 @@ public static class DependencyInjection
             .AddEntityFrameworkStores<LetWeCookDbContext>()
             .AddDefaultTokenProviders();
 
-        services.AddAuthentication(IdentityConstants.ApplicationScheme)
-           .AddCookie(options =>
-           {
-               options.LoginPath = "/Identity/Account/Login";
-               options.LogoutPath = "/Identity/Account/Logout";
-               options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-           })
-           .AddGoogle(googleOptions =>
-            {
-                googleOptions.ClientId = authenticationConfiguration.Google.ClientId;
-                googleOptions.ClientSecret = authenticationConfiguration.Google.ClientSecret;
-                googleOptions.Scope.Add("profile");
-                googleOptions.Events.OnCreatingTicket = (context) =>
-                {
-                    var picture = context.User.GetProperty("picture").GetString();
-                    if (picture != null)
-                    {
-                        context.Identity?.AddClaim(new Claim("picture", picture));
-                    }
-                    return Task.CompletedTask;
-                };
-                googleOptions.Events.OnRedirectToAuthorizationEndpoint = context =>
-                {
-                    // Always prompt the user to choose their account
-                    context.Response.Redirect(context.RedirectUri + "&prompt=select_account");
-                    return Task.CompletedTask;
-                };
-            })
-            .AddFacebook(facebookOptions =>
-            {
-                facebookOptions.AppId = authenticationConfiguration.Facebook.ClientId;
-                facebookOptions.AppSecret = authenticationConfiguration.Facebook.ClientSecret;
-                facebookOptions.Fields.Add("picture");
-                facebookOptions.Events.OnCreatingTicket = (context) =>
-                {
-                    var picture = context.User.GetProperty("picture").GetProperty("data").GetProperty("url").ToString();
-                    if (picture != null)
-                    {
-                        context.Identity?.AddClaim(new Claim("picture", picture));
-                    }
-
-                    return Task.CompletedTask;
-                };
-                facebookOptions.Events.OnRedirectToAuthorizationEndpoint = context =>
-                {
-                    // Always prompt the user to choose their Facebook account
-                    context.Response.Redirect(context.RedirectUri + "&auth_type=reauthenticate");
-                    return Task.CompletedTask;
-                };
-            });
-
-
-
         // Register Email Services
         services.AddScoped<IEmailSender, EmailSender>();
         services.AddScoped<IEmailService, EmailService>();
 
+        // Register Domain Event Handlers
         services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
         services.AddScoped<IDomainEventHandler<UserRegisteredEvent>, UserRegisteredLoggingHandler>();
         services.AddScoped<INonBlockingDomainEventHandler<UserRegisteredEvent>, UserRegisteredEmailHandler>();
         services.AddScoped<INonBlockingDomainEventHandler<UserRequestedEmailEvent>, UserRequestedEmailHandler>();
         services.AddScoped<INonBlockingDomainEventHandler<UserRequestedPasswordResetEvent>, UserRequestedPasswordResetEventHandler>();
-
 
         // Register Application Services
         services.AddScoped<IAuthenticationService, AuthenticationService>();

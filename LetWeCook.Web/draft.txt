@@ -1,0 +1,14 @@
+
+optional
+    profile pic
+    bio
+    phone number
+    instagram
+    facebook
+    dietary perferences
+mandatory
+    first name last name (name)
+    birth day
+    gender
+    email (dont allow to update)
+    address

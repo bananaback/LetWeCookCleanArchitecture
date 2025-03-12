@@ -4,16 +4,19 @@ using LetWeCook.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LetWeCook.Infrastructure.Migrations
+namespace LetWeCook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(LetWeCookDbContext))]
-    partial class LetWeCookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250312165737_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,6 +56,11 @@ namespace LetWeCook.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("description");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
@@ -66,22 +74,74 @@ namespace LetWeCook.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
+                            Description = "No specific dietary preference",
                             Name = "None"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000002"),
+                            Description = "Excludes meat, includes dairy and eggs",
                             Name = "Vegetarian"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000003"),
+                            Description = "Excludes all animal products",
                             Name = "Vegan"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000004"),
+                            Description = "Excludes gluten-containing grains",
                             Name = "GlutenFree"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000005"),
+                            Description = "Excludes meat but allows fish",
+                            Name = "Pescatarian"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000006"),
+                            Description = "Focuses on low-calorie meals",
+                            Name = "LowCalorie"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000007"),
+                            Description = "Emphasizes protein-rich foods",
+                            Name = "HighProtein"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000008"),
+                            Description = "Limits carbohydrate intake (Keto-friendly)",
+                            Name = "LowCarb"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000009"),
+                            Description = "Focuses on reducing fat intake",
+                            Name = "LowFat"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000010"),
+                            Description = "Reduces added sugar consumption",
+                            Name = "LowSugar"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000011"),
+                            Description = "Emphasizes fiber-rich foods",
+                            Name = "HighFiber"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000012"),
+                            Description = "Focuses on reducing salt intake",
+                            Name = "LowSodium"
                         });
                 });
 
@@ -109,20 +169,36 @@ namespace LetWeCook.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
-                    b.Property<DateTime?>("BirthDate")
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("bio");
+
+                    b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("birth_date");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Facebook")
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("facebook_url");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int")
                         .HasColumnName("gender");
 
+                    b.Property<string>("Instagram")
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("instagram_url");
+
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(15)")
                         .HasColumnName("phone_number");
 
-                    b.Property<string>("ProfilePictureUrl")
+                    b.Property<string>("ProfilePic")
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("profile_picture_url");
 
@@ -417,7 +493,7 @@ namespace LetWeCook.Infrastructure.Migrations
 
                             b1.Property<string>("LastName")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasColumnType("nvarchar(50)")
                                 .HasColumnName("last_name");
 
                             b1.HasKey("UserProfileId");

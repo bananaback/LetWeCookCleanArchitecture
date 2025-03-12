@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace LetWeCook.Infrastructure.Migrations
+namespace LetWeCook.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -32,7 +32,8 @@ namespace LetWeCook.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(50)", nullable: false)
+                    name = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,17 +112,21 @@ namespace LetWeCook.Infrastructure.Migrations
                 {
                     id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    first_name = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    last_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    phone_number = table.Column<string>(type: "nvarchar(15)", nullable: false),
-                    birth_date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    profile_picture_url = table.Column<string>(type: "nvarchar(255)", nullable: true),
-                    gender = table.Column<int>(type: "int", nullable: false),
                     house_number = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     street = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     ward = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     district = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    province_or_city = table.Column<string>(type: "nvarchar(50)", nullable: false)
+                    province_or_city = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    birth_date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    email = table.Column<string>(type: "nvarchar(255)", nullable: false),
+                    gender = table.Column<int>(type: "int", nullable: false),
+                    first_name = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    last_name = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    bio = table.Column<string>(type: "nvarchar(500)", nullable: true),
+                    facebook_url = table.Column<string>(type: "nvarchar(255)", nullable: true),
+                    instagram_url = table.Column<string>(type: "nvarchar(255)", nullable: true),
+                    phone_number = table.Column<string>(type: "nvarchar(15)", nullable: true),
+                    profile_picture_url = table.Column<string>(type: "nvarchar(255)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -245,13 +250,21 @@ namespace LetWeCook.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "dietary_preferences",
-                columns: new[] { "id", "name" },
+                columns: new[] { "id", "description", "name" },
                 values: new object[,]
                 {
-                    { new Guid("00000000-0000-0000-0000-000000000001"), "None" },
-                    { new Guid("00000000-0000-0000-0000-000000000002"), "Vegetarian" },
-                    { new Guid("00000000-0000-0000-0000-000000000003"), "Vegan" },
-                    { new Guid("00000000-0000-0000-0000-000000000004"), "GlutenFree" }
+                    { new Guid("00000000-0000-0000-0000-000000000001"), "No specific dietary preference", "None" },
+                    { new Guid("00000000-0000-0000-0000-000000000002"), "Excludes meat, includes dairy and eggs", "Vegetarian" },
+                    { new Guid("00000000-0000-0000-0000-000000000003"), "Excludes all animal products", "Vegan" },
+                    { new Guid("00000000-0000-0000-0000-000000000004"), "Excludes gluten-containing grains", "GlutenFree" },
+                    { new Guid("00000000-0000-0000-0000-000000000005"), "Excludes meat but allows fish", "Pescatarian" },
+                    { new Guid("00000000-0000-0000-0000-000000000006"), "Focuses on low-calorie meals", "LowCalorie" },
+                    { new Guid("00000000-0000-0000-0000-000000000007"), "Emphasizes protein-rich foods", "HighProtein" },
+                    { new Guid("00000000-0000-0000-0000-000000000008"), "Limits carbohydrate intake (Keto-friendly)", "LowCarb" },
+                    { new Guid("00000000-0000-0000-0000-000000000009"), "Focuses on reducing fat intake", "LowFat" },
+                    { new Guid("00000000-0000-0000-0000-000000000010"), "Reduces added sugar consumption", "LowSugar" },
+                    { new Guid("00000000-0000-0000-0000-000000000011"), "Emphasizes fiber-rich foods", "HighFiber" },
+                    { new Guid("00000000-0000-0000-0000-000000000012"), "Focuses on reducing salt intake", "LowSodium" }
                 });
 
             migrationBuilder.CreateIndex(

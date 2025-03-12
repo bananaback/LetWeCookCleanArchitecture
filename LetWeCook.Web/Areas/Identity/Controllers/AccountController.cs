@@ -29,6 +29,15 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous] // Ensure anyone can access this
+    public IActionResult AccessDenied(string? returnUrl = null)
+    {
+        ViewData["ReturnUrl"] = returnUrl;
+        return View();
+    }
+
+    [HttpGet]
+    [AllowAnonymous]
     public IActionResult Login()
     {
         return View(new LoginViewModel()); // Ensure ViewModel is initialized

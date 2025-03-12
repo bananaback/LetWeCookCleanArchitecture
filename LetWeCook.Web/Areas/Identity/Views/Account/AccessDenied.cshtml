@@ -1,0 +1,8 @@
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<h1>Access Denied</h1>
+<p>You do not have permission to access this page.</p>
+<p><strong>Attempted URL:</strong> @ViewData["ReturnUrl"]</p>
+<p><a asp-controller="Home" asp-action="Index" asp-area="">Back to Home</a></p>

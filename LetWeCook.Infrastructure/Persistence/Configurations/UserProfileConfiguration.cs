@@ -15,39 +15,6 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
         builder.Property(us => us.Id)
             .HasColumnName("id");
 
-        builder.OwnsOne(us => us.Name, name =>
-        {
-            name.Property(n => n.FirstName)
-                .HasColumnType("nvarchar(50)")
-                .HasColumnName("first_name")
-                .IsRequired();
-
-            name.Property(n => n.LastName)
-                .HasColumnName("nvarchar(50)")
-                .HasColumnName("last_name")
-                .IsRequired();
-        });
-
-        builder.Property(up => up.PhoneNumber)
-            .HasColumnType("nvarchar(15)")
-            .HasColumnName("phone_number")
-            .IsRequired();
-
-        builder.Property(up => up.BirthDate)
-            .HasColumnName("birth_date")
-            .HasColumnType("datetime2")
-            .IsRequired(false);
-
-        builder.Property(up => up.ProfilePictureUrl)
-            .HasColumnName("profile_picture_url")
-            .HasColumnType("nvarchar(255)")
-            .IsRequired(false);
-
-        builder.Property(up => up.Gender)
-            .HasConversion<int>()
-            .HasColumnName("gender")
-            .IsRequired();
-
         builder.OwnsOne(up => up.Address, address =>
         {
             address.Property(a => a.HouseNumber)
@@ -75,6 +42,60 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
                 .HasColumnType("nvarchar(50)")
                 .IsRequired();
         });
+
+        builder.Property(up => up.BirthDate)
+            .HasColumnName("birth_date")
+            .HasColumnType("datetime2")
+            .IsRequired();
+
+        builder.Property(up => up.Email)
+            .HasColumnName("email")
+            .HasColumnType("nvarchar(255)")
+            .IsRequired();
+
+        builder.Property(up => up.Gender)
+            .HasConversion<int>()
+            .HasColumnName("gender")
+            .IsRequired();
+
+        builder.OwnsOne(us => us.Name, name =>
+        {
+            name.Property(n => n.FirstName)
+                .HasColumnType("nvarchar(50)")
+                .HasColumnName("first_name")
+                .IsRequired();
+
+            name.Property(n => n.LastName)
+                .HasColumnType("nvarchar(50)")
+                .HasColumnName("last_name")
+                .IsRequired();
+        });
+
+        builder.Property(up => up.Bio)
+            .HasColumnName("bio")
+            .HasColumnType("nvarchar(500)") // Allowing up to 500 characters for flexibility
+            .IsRequired(false);
+
+        builder.Property(up => up.Facebook)
+                    .HasColumnName("facebook_url")
+                    .HasColumnType("nvarchar(255)")
+                    .IsRequired(false);
+
+        builder.Property(up => up.Instagram)
+            .HasColumnName("instagram_url")
+            .HasColumnType("nvarchar(255)")
+            .IsRequired(false);
+
+
+        builder.Property(up => up.PhoneNumber)
+            .HasColumnType("nvarchar(15)")
+            .HasColumnName("phone_number")
+            .IsRequired(false);
+
+        builder.Property(up => up.ProfilePic)
+            .HasColumnName("profile_picture_url")
+            .HasColumnType("nvarchar(255)")
+            .IsRequired(false);
 
         builder.HasMany(up => up.DietaryPreferences)
                .WithMany()
@@ -106,6 +127,5 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
             .HasColumnName("user_id")
             .HasColumnType("uniqueidentifier")
             .IsRequired();
-
     }
 }
