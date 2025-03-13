@@ -11,12 +11,26 @@ public class UserProfileService : IUserProfileService
 {
     private readonly IUserRepository _userRepository;
     private readonly IDietaryPreferenceRepository _dietaryPreferenceRepository;
+    private readonly IUserProfileRepository _userProfileRepository;
     private readonly IUnitOfWork _unitOfWork;
-    public UserProfileService(IUserRepository userRepository, IDietaryPreferenceRepository dietaryPreferenceRepository, IUnitOfWork unitOfWork)
+    public UserProfileService(IUserRepository userRepository, IDietaryPreferenceRepository dietaryPreferenceRepository, IUserProfileRepository userProfileRepository, IUnitOfWork unitOfWork)
     {
         _userRepository = userRepository;
         _dietaryPreferenceRepository = dietaryPreferenceRepository;
+        _userProfileRepository = userProfileRepository;
         _unitOfWork = unitOfWork;
+    }
+
+    public async Task<List<DietaryPreferenceDTO>> GetAllSystemDietaryPreferencesAsync(CancellationToken cancellationToken)
+    {
+        var dietaryPreferences = await _dietaryPreferenceRepository.GetAllAsync(cancellationToken);
+        return dietaryPreferences.Select(dp => new DietaryPreferenceDTO
+        {
+            Name = dp.Name,
+            Description = dp.Description,
+            Color = dp.Color,
+            Emoji = dp.Emoji
+        }).ToList();
     }
 
     public async Task<UserProfileDTO?> GetProfileAsync(Guid siteUserId, CancellationToken cancellationToken)
@@ -40,7 +54,7 @@ public class UserProfileService : IUserProfileService
             Street = user.Profile.Address.Street,
             Ward = user.Profile.Address.Ward,
             District = user.Profile.Address.District,
-            City = user.Profile.Address.ProvinceOrCity,
+            ProvinceOrCity = user.Profile.Address.ProvinceOrCity,
             Bio = user.Profile.Bio,
             Facebook = user.Profile.Facebook,
             Instagram = user.Profile.Instagram,
@@ -67,9 +81,32 @@ public class UserProfileService : IUserProfileService
                 throw new UpdateProfileException($"Invalid gender value: {request.Gender}");
             }
             Name name = new Name(request.FirstName, request.LastName);
-            Address address = new Address(request.Address.HouseNumber, request.Address.Street, request.Address.Ward, request.Address.District, request.Address.City);
+            Address address = new Address(request.Address.HouseNumber, request.Address.Street, request.Address.Ward, request.Address.District, request.Address.ProvinceOrCity);
             List<DietaryPreference> dietaryPreferences = await _dietaryPreferenceRepository.GetAllAsync(cancellationToken);
 
+            if (user.Profile == null)
+            {
+                // Create and track the new UserProfile explicitly
+                var newProfile = new UserProfile(
+                    name,
+                    request.BirthDate,
+                    genderEnum,
+                    request.Email,
+                    address,
+                    request.Bio,
+                    request.Facebook,
+                    request.Instagram,
+                    request.PhoneNumber,
+                    request.ProfilePicture
+                )
+                {
+                    UserId = user.Id // Set the foreign key explicitly
+                };
+                await _userProfileRepository.AddAsync(newProfile, cancellationToken);
+
+            }
+
+            // Update existing profile
             user.UpdateProfile(
                 name,
                 request.BirthDate,
@@ -82,7 +119,10 @@ public class UserProfileService : IUserProfileService
                 request.Facebook,
                 request.Instagram,
                 request.PhoneNumber,
-                request.ProfilePicture);
+                request.ProfilePicture
+            );
+
+            await _userRepository.UpdateAsync(user, cancellationToken);
 
             await _unitOfWork.CommitAsync(cancellationToken);
 
@@ -98,7 +138,7 @@ public class UserProfileService : IUserProfileService
                 Street = user.Profile.Address.Street,
                 Ward = user.Profile.Address.Ward,
                 District = user.Profile.Address.District,
-                City = user.Profile.Address.ProvinceOrCity,
+                ProvinceOrCity = user.Profile.Address.ProvinceOrCity,
                 Bio = user.Profile.Bio,
                 Facebook = user.Profile.Facebook,
                 Instagram = user.Profile.Instagram,

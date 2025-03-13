@@ -53,10 +53,20 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("color");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("description");
+
+                    b.Property<string>("Emoji")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(5)")
+                        .HasColumnName("emoji");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -71,73 +81,97 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
+                            Color = "#808080",
                             Description = "No specific dietary preference",
+                            Emoji = "❌",
                             Name = "None"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000002"),
+                            Color = "#4CAF50",
                             Description = "Excludes meat, includes dairy and eggs",
+                            Emoji = "🥦",
                             Name = "Vegetarian"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000003"),
+                            Color = "#8BC34A",
                             Description = "Excludes all animal products",
+                            Emoji = "🌱",
                             Name = "Vegan"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000004"),
+                            Color = "#FF9800",
                             Description = "Excludes gluten-containing grains",
+                            Emoji = "🚫🌾",
                             Name = "GlutenFree"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000005"),
+                            Color = "#03A9F4",
                             Description = "Excludes meat but allows fish",
+                            Emoji = "🐟",
                             Name = "Pescatarian"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000006"),
+                            Color = "#FFEB3B",
                             Description = "Focuses on low-calorie meals",
+                            Emoji = "🔥",
                             Name = "LowCalorie"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000007"),
+                            Color = "#FF5722",
                             Description = "Emphasizes protein-rich foods",
+                            Emoji = "💪",
                             Name = "HighProtein"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000008"),
+                            Color = "#9C27B0",
                             Description = "Limits carbohydrate intake (Keto-friendly)",
+                            Emoji = "🥩",
                             Name = "LowCarb"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000009"),
+                            Color = "#2196F3",
                             Description = "Focuses on reducing fat intake",
+                            Emoji = "🥗",
                             Name = "LowFat"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000010"),
+                            Color = "#E91E63",
                             Description = "Reduces added sugar consumption",
+                            Emoji = "🚫🍭",
                             Name = "LowSugar"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000011"),
+                            Color = "#673AB7",
                             Description = "Emphasizes fiber-rich foods",
+                            Emoji = "🌾",
                             Name = "HighFiber"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000012"),
+                            Color = "#00BCD4",
                             Description = "Focuses on reducing salt intake",
+                            Emoji = "🧂🚫",
                             Name = "LowSodium"
                         });
                 });

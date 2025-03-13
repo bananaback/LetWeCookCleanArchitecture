@@ -26,6 +26,5 @@ public class AddressDTO
     public string Street { get; set; } = string.Empty; // Mandatory
     public string Ward { get; set; } = string.Empty; // Mandatory
     public string District { get; set; } = string.Empty; // Mandatory
-    public string City { get; set; } = string.Empty; // Mandatory
-    public string Province { get; set; } = string.Empty; // Mandatory
+    public string ProvinceOrCity { get; set; } = string.Empty; // Mandatory
 }

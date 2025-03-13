@@ -6,7 +6,7 @@ namespace LetWeCook.Domain.Entities;
 
 public class UserProfile : Entity
 {
-    public Guid UserId { get; private set; }
+    public Guid UserId { get; set; }
 
     // Mandatory properties (sorted alphabetically)
     public Address Address { get; private set; } = null!;

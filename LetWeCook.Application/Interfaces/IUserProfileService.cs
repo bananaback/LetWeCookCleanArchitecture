@@ -7,4 +7,5 @@ public interface IUserProfileService
 {
     Task<UserProfileDTO> UpdateProfileAsync(Guid siteUserId, UpdateUserProfileRequestDTO request, CancellationToken cancellationToken);
     Task<UserProfileDTO?> GetProfileAsync(Guid siteUserId, CancellationToken cancellationToken);
+    Task<List<DietaryPreferenceDTO>> GetAllSystemDietaryPreferencesAsync(CancellationToken cancellationToken);
 }

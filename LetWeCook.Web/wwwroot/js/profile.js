@@ -2,6 +2,42 @@ $(document).ready(function () {
     // Load profile data when the page loads
     loadUserProfile();
 
+    function loadDietaryPreferences(selectedPreferences = []) {
+        $.ajax({
+            url: "/api/dietary-preferences",
+            method: "GET",
+            success: function (data) {
+                renderDietaryPreferences(data, selectedPreferences);
+            },
+            error: function () {
+                console.error("Failed to load dietary preferences.");
+            }
+        });
+    }
+
+    function renderDietaryPreferences(preferences, selectedPreferences) {
+        const container = $(".dietary-preferences-container");
+        container.empty(); // Clear existing preferences
+
+        preferences.forEach(pref => {
+            const isChecked = selectedPreferences.includes(pref.name) ? "checked" : "";
+            const preferenceHTML = `
+                <label class="group relative flex cursor-pointer flex-col items-center rounded-xl p-5 shadow-md transition hover:scale-105 hover:shadow-lg" style="background-color: ${pref.color}">
+                    <input type="checkbox" class="peer hidden" name="dietaryPreferences" value="${pref.name}" ${isChecked}>
+                    <div class="absolute top-3 right-3 flex items-center justify-center h-6 w-6 rounded-full border-2 border-white peer-checked:bg-white peer-checked:border-gray-700">
+                        <svg class="hidden peer-checked:block w-4 h-4 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <div class="mb-3 flex h-12 w-12 items-center justify-center text-3xl text-white">${pref.emoji}</div>
+                    <span class="text-lg font-medium text-white">${pref.name}</span>
+                    <p class="opacity-80 mt-1 text-center text-sm text-white">${pref.description}</p>
+                </label>
+            `;
+            container.append(preferenceHTML);
+        });
+    }
+
     $("#btnUploadPhoto").click(function (event) {
         event.preventDefault();
         cloudinary.openUploadWidget({
@@ -23,16 +59,22 @@ $(document).ready(function () {
         $(".gender-btn").removeClass("bg-green-500 text-white").addClass("bg-gray-200 text-gray-600");
         $(this).removeClass("bg-gray-200 text-gray-600").addClass("bg-green-500 text-white");
         $(this).find("input").prop("checked", true);
+        console.log("gender hey");
     });
 
     $(".save-btn").on("click", function () {
+        let $btn = $(this);
+        if ($btn.prop("disabled")) return; // Prevent multiple submissions
+
+        $btn.prop("disabled", true); // Disable button to prevent multiple clicks
+
         const profileData = {
             profilePicture: $(".profile-picture").attr("src") || "",
             firstName: $(".first-name").val().trim(),
             lastName: $(".last-name").val().trim(),
             bio: $(".bio").val().trim() || null,
             birthDate: $(".birth-date").val(),
-            gender: $(".gender-btn.bg-green-500").data("gender") || "",
+            gender: $(".gender-btn.bg-green-500 input").val() || "",
             email: $(".email").val().trim(),
             phoneNumber: $(".phone-number").val().trim() || null,
             instagram: $(".instagram").val().trim() || null,
@@ -42,12 +84,12 @@ $(document).ready(function () {
                 street: $(".street").val().trim(),
                 ward: $(".ward").val().trim(),
                 district: $(".district").val().trim(),
-                city: $(".city").val().trim(),
                 province: $(".province").val().trim()
             },
             dietaryPreferences: $(".peer:checked").map(function () {
-                return $(this).next("span").text().trim();
+                return $(this).val(); // Get the checkbox value instead of trying to extract text
             }).get()
+
         };
 
         let errors = [];
@@ -82,9 +124,6 @@ $(document).ready(function () {
         if (!profileData.address.district || profileData.address.district.length < 3 || profileData.address.district.length > 50) {
             errors.push("District must be between 3 and 50 characters.");
         }
-        if (!profileData.address.city || profileData.address.city.length < 3 || profileData.address.city.length > 50) {
-            errors.push("City must be between 3 and 50 characters.");
-        }
         if (!profileData.address.province || profileData.address.province.length < 3 || profileData.address.province.length > 50) {
             errors.push("Province must be between 3 and 50 characters.");
         }
@@ -94,12 +133,13 @@ $(document).ready(function () {
                 title: "Oops! Something went wrong",
                 icon: "warning",
                 html: `<ul style="text-align: left; font-size: 14px; color: #d32f2f; padding: 0; list-style-type: none;">
-                ${errors.map(error => `<li>• ${error}</li>`).join("")}
-            </ul>`,
+                    ${errors.map(error => `<li>• ${error}</li>`).join("")}
+                </ul>`,
                 confirmButtonText: "Try Again",
                 confirmButtonColor: "#d32f2f",
                 background: "#fff5f5",
             });
+            $btn.prop("disabled", false); // Re-enable button if validation fails
             return;
         }
 
@@ -130,16 +170,21 @@ $(document).ready(function () {
                     confirmButtonText: "Try Again",
                     confirmButtonColor: "#d32f2f",
                 });
+            },
+            complete: function () {
+                $btn.prop("disabled", false); // Re-enable button after request completes
             }
         });
     });
+
 
     function loadUserProfile() {
         $.ajax({
             url: "/api/profile",
             method: "GET",
             success: function (data) {
-                $(".profile-picture").attr("src", data.profilePicture || "/default-profile.png");
+                console.log(data);
+                $(".profile-picture").attr("src", data.profilePicture || "~/images/default-profile.jpg");
                 $(".first-name").val(data.firstName || "");
                 $(".last-name").val(data.lastName || "");
                 $(".bio").val(data.bio || "");
@@ -149,31 +194,35 @@ $(document).ready(function () {
                 $(".instagram").val(data.instagram || "");
                 $(".facebook").val(data.facebook || "");
 
-                $(".house-number").val(data.address?.houseNumber || "");
-                $(".street").val(data.address?.street || "");
-                $(".ward").val(data.address?.ward || "");
-                $(".district").val(data.address?.district || "");
-                $(".city").val(data.address?.city || "");
-                $(".province").val(data.address?.province || "");
+                $(".house-number").val(data.houseNumber || "");
+                $(".street").val(data.street || "");
+                $(".ward").val(data.ward || "");
+                $(".district").val(data.district || "");
+                $(".province").val(data.provinceOrCity || "");
 
                 // Handle gender selection properly
                 $(".gender-btn").removeClass("bg-green-500 text-white").addClass("bg-gray-200 text-gray-600");
 
-                let selectedGender = data.gender && data.gender !== "Unspecified" ? data.gender : "Unspecified";
-                $(".gender-btn[data-gender='" + selectedGender + "']")
-                    .removeClass("bg-gray-200 text-gray-600")
-                    .addClass("bg-green-500 text-white")
-                    .find("input").prop("checked", true);
 
-                // Handle dietary preferences
-                $(".peer").prop("checked", false);
-                if (data.dietaryPreferences) {
-                    $(".peer").each(function () {
-                        if (data.dietaryPreferences.includes($(this).next("span").text().trim())) {
-                            $(this).prop("checked", true);
-                        }
-                    });
+                // Ensure selectedGender is valid
+                let selectedGender = data.gender ? data.gender.toLowerCase() : "unspecified";
+
+                // Select the correct button based on gender value
+                if (selectedGender === "male") {
+                    $(".gender-btn.male")
+                        .removeClass("bg-gray-200 text-gray-600")
+                        .addClass("bg-green-500 text-white")
+                        .find("input")
+                        .prop("checked", true);
+                } else if (selectedGender === "female") {
+                    $(".gender-btn.female")
+                        .removeClass("bg-gray-200 text-gray-600")
+                        .addClass("bg-green-500 text-white")
+                        .find("input")
+                        .prop("checked", true);
                 }
+
+                loadDietaryPreferences(data.dietaryPreferences);
             },
             error: function () {
                 console.error("Failed to load profile data.");

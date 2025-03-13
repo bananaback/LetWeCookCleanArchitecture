@@ -16,8 +16,7 @@ public class UserProfileDTO
     public string Street { get; set; } = string.Empty;
     public string Ward { get; set; } = string.Empty;
     public string District { get; set; } = string.Empty;
-    public string City { get; set; } = string.Empty;
-    public string Province { get; set; } = string.Empty;
+    public string ProvinceOrCity { get; set; } = string.Empty;
 
     // Optional properties
     public string? Bio { get; set; }

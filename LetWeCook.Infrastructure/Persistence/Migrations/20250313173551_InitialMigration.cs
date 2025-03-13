@@ -33,7 +33,9 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 {
                     id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     name = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(100)", nullable: false)
+                    description = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    color = table.Column<string>(type: "nvarchar(10)", nullable: false),
+                    emoji = table.Column<string>(type: "nvarchar(5)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -250,21 +252,21 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "dietary_preferences",
-                columns: new[] { "id", "description", "name" },
+                columns: new[] { "id", "color", "description", "emoji", "name" },
                 values: new object[,]
                 {
-                    { new Guid("00000000-0000-0000-0000-000000000001"), "No specific dietary preference", "None" },
-                    { new Guid("00000000-0000-0000-0000-000000000002"), "Excludes meat, includes dairy and eggs", "Vegetarian" },
-                    { new Guid("00000000-0000-0000-0000-000000000003"), "Excludes all animal products", "Vegan" },
-                    { new Guid("00000000-0000-0000-0000-000000000004"), "Excludes gluten-containing grains", "GlutenFree" },
-                    { new Guid("00000000-0000-0000-0000-000000000005"), "Excludes meat but allows fish", "Pescatarian" },
-                    { new Guid("00000000-0000-0000-0000-000000000006"), "Focuses on low-calorie meals", "LowCalorie" },
-                    { new Guid("00000000-0000-0000-0000-000000000007"), "Emphasizes protein-rich foods", "HighProtein" },
-                    { new Guid("00000000-0000-0000-0000-000000000008"), "Limits carbohydrate intake (Keto-friendly)", "LowCarb" },
-                    { new Guid("00000000-0000-0000-0000-000000000009"), "Focuses on reducing fat intake", "LowFat" },
-                    { new Guid("00000000-0000-0000-0000-000000000010"), "Reduces added sugar consumption", "LowSugar" },
-                    { new Guid("00000000-0000-0000-0000-000000000011"), "Emphasizes fiber-rich foods", "HighFiber" },
-                    { new Guid("00000000-0000-0000-0000-000000000012"), "Focuses on reducing salt intake", "LowSodium" }
+                    { new Guid("00000000-0000-0000-0000-000000000001"), "#808080", "No specific dietary preference", "❌", "None" },
+                    { new Guid("00000000-0000-0000-0000-000000000002"), "#4CAF50", "Excludes meat, includes dairy and eggs", "🥦", "Vegetarian" },
+                    { new Guid("00000000-0000-0000-0000-000000000003"), "#8BC34A", "Excludes all animal products", "🌱", "Vegan" },
+                    { new Guid("00000000-0000-0000-0000-000000000004"), "#FF9800", "Excludes gluten-containing grains", "🚫🌾", "GlutenFree" },
+                    { new Guid("00000000-0000-0000-0000-000000000005"), "#03A9F4", "Excludes meat but allows fish", "🐟", "Pescatarian" },
+                    { new Guid("00000000-0000-0000-0000-000000000006"), "#FFEB3B", "Focuses on low-calorie meals", "🔥", "LowCalorie" },
+                    { new Guid("00000000-0000-0000-0000-000000000007"), "#FF5722", "Emphasizes protein-rich foods", "💪", "HighProtein" },
+                    { new Guid("00000000-0000-0000-0000-000000000008"), "#9C27B0", "Limits carbohydrate intake (Keto-friendly)", "🥩", "LowCarb" },
+                    { new Guid("00000000-0000-0000-0000-000000000009"), "#2196F3", "Focuses on reducing fat intake", "🥗", "LowFat" },
+                    { new Guid("00000000-0000-0000-0000-000000000010"), "#E91E63", "Reduces added sugar consumption", "🚫🍭", "LowSugar" },
+                    { new Guid("00000000-0000-0000-0000-000000000011"), "#673AB7", "Emphasizes fiber-rich foods", "🌾", "HighFiber" },
+                    { new Guid("00000000-0000-0000-0000-000000000012"), "#00BCD4", "Focuses on reducing salt intake", "🧂🚫", "LowSodium" }
                 });
 
             migrationBuilder.CreateIndex(

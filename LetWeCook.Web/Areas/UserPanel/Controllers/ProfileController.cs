@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace LetWeCook.Areas.UserPanel.Controllers;
 
@@ -27,6 +26,13 @@ public class ProfileController : Controller
     public IActionResult Index()
     {
         return View();
+    }
+
+    [HttpGet("/api/dietary-preferences")]
+    public async Task<IActionResult> GetDietaryPreferences(CancellationToken cancellationToken = default)
+    {
+        var dietaryPreferences = await _userProfileService.GetAllSystemDietaryPreferencesAsync(cancellationToken);
+        return Ok(dietaryPreferences);
     }
 
     [HttpGet("/api/profile")]
@@ -55,7 +61,7 @@ public class ProfileController : Controller
             Street = string.Empty,
             Ward = string.Empty,
             District = string.Empty,
-            City = string.Empty,
+            ProvinceOrCity = string.Empty,
             Bio = string.Empty,
             Facebook = string.Empty,
             Instagram = string.Empty,
@@ -92,8 +98,7 @@ public class ProfileController : Controller
                 Street = request.Address.Street,
                 Ward = request.Address.Ward,
                 District = request.Address.District,
-                City = request.Address.City,
-                Province = request.Address.Province
+                ProvinceOrCity = request.Address.Province
             },
             DietaryPreferences = request.DietaryPreferences
         };

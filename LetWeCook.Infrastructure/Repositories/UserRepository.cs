@@ -14,6 +14,6 @@ public class UserRepository : Repository<SiteUser>, IUserRepository
 
     public async Task<SiteUser?> GetWithProfileByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _dbSet.Include(u => u.Profile).FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
+        return await _dbSet.Include(u => u.Profile).ThenInclude(p => p.DietaryPreferences).FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
     }
 }

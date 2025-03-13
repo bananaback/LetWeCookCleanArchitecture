@@ -75,7 +75,7 @@ public class SiteUser : AggregateRoot
                 profilePicture
             );
         }
-
+        Profile.UserId = Id;
         // Update dietary preferences
         Profile.UpdateDietaryPreferences(dietaryPreferences, allPreferences);
     }
