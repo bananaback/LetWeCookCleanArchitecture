@@ -2,6 +2,7 @@ using LetWeCook.Application.Interfaces;
 using LetWeCook.Application.Services;
 using LetWeCook.Domain.Events;
 using LetWeCook.Infrastructure.Persistence;
+using LetWeCook.Infrastructure.Repositories;
 using LetWeCook.Infrastructure.Services;
 using LetWeCook.Infrastructure.Services.EventHandlers;
 using Microsoft.AspNetCore.Identity;
@@ -48,11 +49,14 @@ public static class DependencyInjection
 
         // Register Application Services
         services.AddScoped<IAuthenticationService, AuthenticationService>();
+        services.AddScoped<IUserProfileService, UserProfileService>();
         services.AddScoped<IExternalAuthService, ExternalAuthService>();
 
         // Register Infrastructure Services
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IDietaryPreferenceRepository, DietaryPreferenceRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<IHttpContextService, HttpContextService>();
 

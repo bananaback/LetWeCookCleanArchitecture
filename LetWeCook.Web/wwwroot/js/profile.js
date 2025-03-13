@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    // Load profile data when the page loads
+    loadUserProfile();
+
     $("#btnUploadPhoto").click(function (event) {
         event.preventDefault();
         cloudinary.openUploadWidget({
@@ -24,16 +27,16 @@ $(document).ready(function () {
 
     $(".save-btn").on("click", function () {
         const profileData = {
-            profilePicture: $(".profile-picture").attr("src") || "", // Optional (can be empty)
+            profilePicture: $(".profile-picture").attr("src") || "",
             firstName: $(".first-name").val().trim(),
             lastName: $(".last-name").val().trim(),
-            bio: $(".bio").val().trim() || null, // Optional
+            bio: $(".bio").val().trim() || null,
             birthDate: $(".birth-date").val(),
-            gender: $(".gender-btn.bg-green-500").data("gender") || "", // Ensures selection
+            gender: $(".gender-btn.bg-green-500").data("gender") || "",
             email: $(".email").val().trim(),
-            phoneNumber: $(".phone-number").val().trim() || null, // Optional
-            instagram: $(".instagram").val().trim() || null, // Optional
-            facebook: $(".facebook").val().trim() || null, // Optional
+            phoneNumber: $(".phone-number").val().trim() || null,
+            instagram: $(".instagram").val().trim() || null,
+            facebook: $(".facebook").val().trim() || null,
             address: {
                 houseNumber: $(".house-number").val().trim(),
                 street: $(".street").val().trim(),
@@ -44,7 +47,7 @@ $(document).ready(function () {
             },
             dietaryPreferences: $(".peer:checked").map(function () {
                 return $(this).next("span").text().trim();
-            }).get() // Optional
+            }).get()
         };
 
         let errors = [];
@@ -130,5 +133,52 @@ $(document).ready(function () {
             }
         });
     });
+
+    function loadUserProfile() {
+        $.ajax({
+            url: "/api/profile",
+            method: "GET",
+            success: function (data) {
+                $(".profile-picture").attr("src", data.profilePicture || "/default-profile.png");
+                $(".first-name").val(data.firstName || "");
+                $(".last-name").val(data.lastName || "");
+                $(".bio").val(data.bio || "");
+                $(".birth-date").val(data.birthDate ? new Date(data.birthDate).toISOString().split('T')[0] : ""); // Ensure valid date format
+                $(".email").val(data.email || "");
+                $(".phone-number").val(data.phoneNumber || "");
+                $(".instagram").val(data.instagram || "");
+                $(".facebook").val(data.facebook || "");
+
+                $(".house-number").val(data.address?.houseNumber || "");
+                $(".street").val(data.address?.street || "");
+                $(".ward").val(data.address?.ward || "");
+                $(".district").val(data.address?.district || "");
+                $(".city").val(data.address?.city || "");
+                $(".province").val(data.address?.province || "");
+
+                // Handle gender selection properly
+                $(".gender-btn").removeClass("bg-green-500 text-white").addClass("bg-gray-200 text-gray-600");
+
+                let selectedGender = data.gender && data.gender !== "Unspecified" ? data.gender : "Unspecified";
+                $(".gender-btn[data-gender='" + selectedGender + "']")
+                    .removeClass("bg-gray-200 text-gray-600")
+                    .addClass("bg-green-500 text-white")
+                    .find("input").prop("checked", true);
+
+                // Handle dietary preferences
+                $(".peer").prop("checked", false);
+                if (data.dietaryPreferences) {
+                    $(".peer").each(function () {
+                        if (data.dietaryPreferences.includes($(this).next("span").text().trim())) {
+                            $(this).prop("checked", true);
+                        }
+                    });
+                }
+            },
+            error: function () {
+                console.error("Failed to load profile data.");
+            }
+        });
+    }
 
 });

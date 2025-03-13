@@ -5,5 +5,6 @@ namespace LetWeCook.Application.Interfaces;
 
 public interface IUserProfileService
 {
-    Task<UserProfile> UpdateProfileAsync(Guid siteUserId, UpdateUserProfileRequestDTO request, CancellationToken cancellationToken);
+    Task<UserProfileDTO> UpdateProfileAsync(Guid siteUserId, UpdateUserProfileRequestDTO request, CancellationToken cancellationToken);
+    Task<UserProfileDTO?> GetProfileAsync(Guid siteUserId, CancellationToken cancellationToken);
 }

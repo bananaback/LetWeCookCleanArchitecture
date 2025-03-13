@@ -1,3 +1,6 @@
+using LetWeCook.Application.DTOs.Profile;
+using LetWeCook.Application.Interfaces;
+using LetWeCook.Domain.Enums;
 using LetWeCook.Infrastructure.Persistence;
 using LetWeCook.Web.Areas.UserPanel.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
@@ -13,15 +16,57 @@ namespace LetWeCook.Areas.UserPanel.Controllers;
 public class ProfileController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    public ProfileController(UserManager<ApplicationUser> userManager)
+    private readonly IUserProfileService _userProfileService;
+    public ProfileController(UserManager<ApplicationUser> userManager, IUserProfileService userProfileService)
     {
         _userManager = userManager;
+        _userProfileService = userProfileService;
     }
+
     // GET: /UserPanel/Profile
     public IActionResult Index()
     {
         return View();
     }
+
+    [HttpGet("/api/profile")]
+    public async Task<IActionResult> GetProfile(CancellationToken cancellationToken = default)
+    {
+        var siteUserId = await GetSiteUserId(cancellationToken);
+        var userProfile = await _userProfileService.GetProfileAsync(siteUserId, cancellationToken);
+
+        if (userProfile != null)
+        {
+            return Ok(userProfile);
+        }
+
+        // If userProfile is null, create a default DTO and attempt to get email from claims
+        var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? string.Empty;
+
+        var emptyProfile = new UserProfileDTO
+        {
+            SiteUserId = siteUserId,
+            FirstName = string.Empty,
+            LastName = string.Empty,
+            BirthDate = DateTime.MinValue,
+            Gender = Gender.Unspecified.ToString(),
+            Email = email,
+            HouseNumber = string.Empty,
+            Street = string.Empty,
+            Ward = string.Empty,
+            District = string.Empty,
+            City = string.Empty,
+            Bio = string.Empty,
+            Facebook = string.Empty,
+            Instagram = string.Empty,
+            PhoneNumber = string.Empty,
+            ProfilePic = string.Empty,
+            DietaryPreferences = new List<string>()
+        };
+
+        return Ok(emptyProfile);
+    }
+
 
 
     [HttpPost("/api/profile")]
@@ -29,7 +74,33 @@ public class ProfileController : Controller
     {
         var siteUserId = await GetSiteUserId(cancellationToken);
 
-        return Ok();
+        var updateUserProfileRequestDTO = new UpdateUserProfileRequestDTO
+        {
+            ProfilePicture = request.ProfilePicture,
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+            Bio = request.Bio,
+            BirthDate = request.BirthDate,
+            Gender = request.Gender,
+            Email = request.Email,
+            PhoneNumber = request.PhoneNumber,
+            Instagram = request.Instagram,
+            Facebook = request.Facebook,
+            Address = new AddressDTO
+            {
+                HouseNumber = request.Address.HouseNumber,
+                Street = request.Address.Street,
+                Ward = request.Address.Ward,
+                District = request.Address.District,
+                City = request.Address.City,
+                Province = request.Address.Province
+            },
+            DietaryPreferences = request.DietaryPreferences
+        };
+
+        var updatedProfile = await _userProfileService.UpdateProfileAsync(siteUserId, updateUserProfileRequestDTO, cancellationToken);
+
+        return Ok(updatedProfile);
     }
 
     private async Task<Guid> GetSiteUserId(CancellationToken cancellationToken = default)
