@@ -22,6 +22,87 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("LetWeCook.Domain.Aggregates.Ingredient", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<double?>("Calories")
+                        .HasColumnType("float")
+                        .HasColumnName("calories");
+
+                    b.Property<double?>("Carbohydrates")
+                        .HasColumnType("float")
+                        .HasColumnName("carbohydrates");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CoverImageUrlId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("description");
+
+                    b.Property<double?>("ExpirationDays")
+                        .HasColumnType("float")
+                        .HasColumnName("expiration_days");
+
+                    b.Property<double?>("Fat")
+                        .HasColumnType("float")
+                        .HasColumnName("fat");
+
+                    b.Property<double?>("Fiber")
+                        .HasColumnType("float")
+                        .HasColumnName("fiber");
+
+                    b.Property<bool>("IsGlutenFree")
+                        .HasColumnType("bit")
+                        .HasColumnName("is_gluten_free");
+
+                    b.Property<bool>("IsPescatarian")
+                        .HasColumnType("bit")
+                        .HasColumnName("is_pescatarian");
+
+                    b.Property<bool>("IsVegan")
+                        .HasColumnType("bit")
+                        .HasColumnName("is_vegan");
+
+                    b.Property<bool>("IsVegetarian")
+                        .HasColumnType("bit")
+                        .HasColumnName("is_vegetarian");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("name");
+
+                    b.Property<double?>("Protein")
+                        .HasColumnType("float")
+                        .HasColumnName("protein");
+
+                    b.Property<double?>("Sodium")
+                        .HasColumnType("float")
+                        .HasColumnName("sodium");
+
+                    b.Property<double?>("Sugar")
+                        .HasColumnType("float")
+                        .HasColumnName("sugar");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CoverImageUrlId")
+                        .IsUnique();
+
+                    b.ToTable("ingredients", (string)null);
+                });
+
             modelBuilder.Entity("LetWeCook.Domain.Aggregates.SiteUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -44,6 +125,37 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("site_users", (string)null);
+                });
+
+            modelBuilder.Entity("LetWeCook.Domain.Entities.Detail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnName("description");
+
+                    b.Property<Guid>("IngredientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int")
+                        .HasColumnName("order");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IngredientId");
+
+                    b.ToTable("details", (string)null);
                 });
 
             modelBuilder.Entity("LetWeCook.Domain.Entities.DietaryPreference", b =>
@@ -174,6 +286,183 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                             Emoji = "🧂🚫",
                             Name = "LowSodium"
                         });
+                });
+
+            modelBuilder.Entity("LetWeCook.Domain.Entities.IngredientCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ingredient_categories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
+                            Description = "All types of red and white meat",
+                            Name = "Meat"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000002"),
+                            Description = "Chicken, turkey, duck, and other birds",
+                            Name = "Poultry"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000003"),
+                            Description = "Fish, shellfish, and other seafood",
+                            Name = "Seafood"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000004"),
+                            Description = "All types of eggs used in cooking",
+                            Name = "Eggs"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000005"),
+                            Description = "Milk, cheese, yogurt, and butter",
+                            Name = "Dairy"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000006"),
+                            Description = "Plant-based dairy substitutes like almond milk and soy milk",
+                            Name = "Dairy alternatives"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000007"),
+                            Description = "Fresh, frozen, and canned vegetables",
+                            Name = "Vegetables"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000008"),
+                            Description = "Fresh, dried, and preserved fruits",
+                            Name = "Fruits"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000009"),
+                            Description = "Rice, wheat, oats, and other grains",
+                            Name = "Grains"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-00000000000a"),
+                            Description = "Beans, lentils, chickpeas, and peas",
+                            Name = "Legumes"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-00000000000b"),
+                            Description = "Fresh and dried herbs like basil and parsley",
+                            Name = "Herbs"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-00000000000c"),
+                            Description = "All types of spices such as cinnamon and cumin",
+                            Name = "Spices"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-00000000000d"),
+                            Description = "Cooking oils such as olive oil and vegetable oil",
+                            Name = "Oils"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-00000000000e"),
+                            Description = "Sugar, honey, and artificial sweeteners",
+                            Name = "Sweeteners"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-00000000000f"),
+                            Description = "Non-alcoholic and alcoholic drinks",
+                            Name = "Beverages"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000010"),
+                            Description = "Sauces, dressings, and seasonings",
+                            Name = "Condiments"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000011"),
+                            Description = "Pickled and fermented ingredients like kimchi and miso",
+                            Name = "Fermented foods"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000012"),
+                            Description = "Almonds, cashews, walnuts, and other tree nuts",
+                            Name = "Nuts"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000013"),
+                            Description = "Chia seeds, flaxseeds, sunflower seeds, and others",
+                            Name = "Seeds"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000014"),
+                            Description = "Flour, yeast, baking powder, and cocoa powder",
+                            Name = "Baking essentials"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000015"),
+                            Description = "Vegetable, chicken, and beef broths or stocks",
+                            Name = "Broths and stocks"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000016"),
+                            Description = "Fallback category for unspecified ingredients",
+                            Name = "Uncategorized"
+                        });
+                });
+
+            modelBuilder.Entity("LetWeCook.Domain.Entities.MediaUrl", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<int>("MediaType")
+                        .HasColumnType("int")
+                        .HasColumnName("media_type");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("url");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("media_urls", (string)null);
                 });
 
             modelBuilder.Entity("LetWeCook.Domain.Entities.UserDietaryPreference", b =>
@@ -317,6 +606,22 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("LetWeCook.Infrastructure.Persistence.Models.DetailMediaUrl", b =>
+                {
+                    b.Property<Guid>("DetailId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MediaUrlId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("DetailId", "MediaUrlId");
+
+                    b.HasIndex("MediaUrlId")
+                        .IsUnique();
+
+                    b.ToTable("detail_media_urls", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
@@ -448,6 +753,34 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("LetWeCook.Domain.Aggregates.Ingredient", b =>
+                {
+                    b.HasOne("LetWeCook.Domain.Entities.IngredientCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("LetWeCook.Domain.Entities.MediaUrl", "CoverImageUrl")
+                        .WithOne()
+                        .HasForeignKey("LetWeCook.Domain.Aggregates.Ingredient", "CoverImageUrlId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("CoverImageUrl");
+                });
+
+            modelBuilder.Entity("LetWeCook.Domain.Entities.Detail", b =>
+                {
+                    b.HasOne("LetWeCook.Domain.Aggregates.Ingredient", null)
+                        .WithMany("Details")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("LetWeCook.Domain.Entities.UserDietaryPreference", b =>
                 {
                     b.HasOne("LetWeCook.Domain.Entities.DietaryPreference", "DietaryPreference")
@@ -553,6 +886,25 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.Navigation("SiteUser");
                 });
 
+            modelBuilder.Entity("LetWeCook.Infrastructure.Persistence.Models.DetailMediaUrl", b =>
+                {
+                    b.HasOne("LetWeCook.Domain.Entities.Detail", "Detail")
+                        .WithMany()
+                        .HasForeignKey("DetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LetWeCook.Domain.Entities.MediaUrl", "MediaUrl")
+                        .WithMany()
+                        .HasForeignKey("MediaUrlId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Detail");
+
+                    b.Navigation("MediaUrl");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -602,6 +954,11 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LetWeCook.Domain.Aggregates.Ingredient", b =>
+                {
+                    b.Navigation("Details");
                 });
 
             modelBuilder.Entity("LetWeCook.Domain.Aggregates.SiteUser", b =>

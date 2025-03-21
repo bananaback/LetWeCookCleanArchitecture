@@ -69,7 +69,9 @@ $(document).ready(function () {
         $btn.prop("disabled", true); // Disable button to prevent multiple clicks
 
         const profileData = {
-            profilePicture: $(".profile-picture").attr("src") || "",
+            profilePicture: ($(".profile-picture").attr("src").endsWith("/images/default-profile.jpg"))
+                ? ""
+                : $(".profile-picture").attr("src"),
             firstName: $(".first-name").val().trim(),
             lastName: $(".last-name").val().trim(),
             bio: $(".bio").val().trim() || null,
@@ -184,7 +186,7 @@ $(document).ready(function () {
             method: "GET",
             success: function (data) {
                 console.log(data);
-                $(".profile-picture").attr("src", data.profilePicture || "~/images/default-profile.jpg");
+                $(".profile-picture").attr("src", data.profilePic || "/images/default-profile.jpg");
                 $(".first-name").val(data.firstName || "");
                 $(".last-name").val(data.lastName || "");
                 $(".bio").val(data.bio || "");

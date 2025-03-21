@@ -17,6 +17,9 @@
     "tailwindcss": "^3.4.1"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "dotenv": "^16.4.7",
     "letwecook.web": "file:"
-  }
+  },
+  "type": "module"
 }

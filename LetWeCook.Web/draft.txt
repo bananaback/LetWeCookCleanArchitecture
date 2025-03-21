@@ -12,3 +12,26 @@ mandatory
     gender
     email (dont allow to update)
     address
+
+
+Domain Layer Organization
+Aggregates and Entities
+In Clean Architecture, aggregates group related entities and enforce business rules. Entities should be lightweight, focusing only on data and simple behaviors, while aggregates handle business logic.
+
+Aggregate	Entities & Value Objects	Purpose
+IngredientAggregate	Ingredient
+IngredientCategory
+Detail (shared)
+MediaUrl (shared)	Represents an ingredient with nutritional details, category, and media.
+
+
+RecipeAggregate	Recipe
+RecipeStep
+Detail (shared)
+MediaUrl (shared)	Represents a recipe with steps, media, and descriptions.
+RequestAggregate	Request	Handles user requests for new ingredients, recipes, or categories.
+
+
+UserAggregate (Existing)	SiteUser
+UserProfile
+DietaryPreference (value object)	Manages user accounts and preferences.
