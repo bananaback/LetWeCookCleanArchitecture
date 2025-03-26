@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LetWeCook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(LetWeCookDbContext))]
-    [Migration("20250321030831_InitialMigration")]
+    [Migration("20250326155215_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -460,7 +460,7 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("nvarchar(255)")
+                        .HasColumnType("nvarchar(2048)")
                         .HasColumnName("url");
 
                     b.HasKey("Id");

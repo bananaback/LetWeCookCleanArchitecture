@@ -4,6 +4,8 @@ import { GoogleGenerativeAI } from "https://esm.sh/@google/generative-ai";
 const genAI = new GoogleGenerativeAI("AIzaSyCdBbtTfxOgYKBq7frKFmwOlOKSLDjxY94");
 
 $(document).ready(function () {
+    populateCategorySelect();
+
     let detailCount = 0;
 
     // Cloudinary Configuration
@@ -108,6 +110,53 @@ $(document).ready(function () {
 
     // Auto-fill Nutrition Values with AI
     $('#auto-fill-nutrition').on('click', autoFillNutritionValues);
+
+    $('#save-btn').on('click', function () {
+        const data = extractInputs();
+
+        if (!data) {
+            return; // Stop execution if validation failed
+        }
+
+        $.ajax({
+            url: '/api/ingredients', // Replace with your actual API endpoint
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Ingredient Created',
+                    text: 'The ingredient has been successfully created!',
+                    customClass: {
+                        confirmButton: 'swal-custom-btn'
+                    },
+                    didOpen: () => {
+                        $('.swal-custom-btn').css({
+                            'background-color': '#28a745', // Green
+                            'color': '#FFFFFF' // White text
+                        });
+                    }
+                });
+            },
+            error: function (xhr) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: xhr.responseJSON?.message || 'Something went wrong while saving.',
+                    customClass: {
+                        confirmButton: 'swal-custom-btn'
+                    },
+                    didOpen: () => {
+                        $('.swal-custom-btn').css({
+                            'background-color': '#dc3545', // Red
+                            'color': '#FFFFFF' // White text
+                        });
+                    }
+                });
+            }
+        });
+    });
 
 });
 
@@ -256,4 +305,202 @@ async function getNutrition(ingredient) {
         console.error("Error calling Gemini API:", error.message);
         return null; // ✅ Ensure function returns something on error
     }
+}
+
+function populateCategorySelect() {
+    $.ajax({
+        url: '/api/ingredient-categories',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            const $categorySelect = $('#category_id');
+            $categorySelect.empty();
+            $categorySelect.append('<option value="">Select Category</option>');
+
+            $.each(data, function (index, category) {
+                $categorySelect.append(`<option value="${category.id}">${category.name}</option>`);
+            });
+        },
+        error: function (error) {
+            console.error('Error fetching categories:', error);
+        }
+    });
+}
+
+function extractName() {
+    return $('#name').val();
+}
+
+function extractCategory() {
+    return $('#category_id').val();
+}
+
+function extractDescription() {
+    return $('#description').val();
+}
+
+function extractNutritionValues() {
+    let nutritionValues = {
+        calories: $('#calories').val(),
+        protein: $('#protein').val(),
+        carbohydrates: $('#carbohydrates').val(),
+        fats: $('#fats').val(),
+        sugars: $('#sugars').val(),
+        fiber: $('#fiber').val(),
+        sodium: $('#sodium').val(),
+    };
+    return nutritionValues;
+}
+
+function extractDietaryInformation() {
+    let dietaryInfo = {
+        isVegetarian: $('#is_vegetarian').is(':checked'),
+        isVegan: $('#is_vegan').is(':checked'),
+        isGlutenFree: $('#is_glutenFree').is(':checked'),
+        isPescatarian: $('#is_pescatarian').is(':checked'),
+    };
+    return dietaryInfo;
+}
+
+function extractCoverImage() {
+    return $('#cover_image_url_id').val();
+}
+
+function extractExpirationDays() {
+    return $('#expiration_days').val();
+}
+
+function extractDetails() {
+    let details = [];
+    $('.detail-item').each(function (index) {
+        let $detail = $(this);
+        let title = $detail.find('input[name="detail_title[]"]').val().trim();
+        let description = $detail.find('textarea[name="detail_description[]"]').val().trim();
+        let mediaUrls = $detail.find('.media-urls').val() || ""; // Default to empty string if undefined
+        let mediaArray = mediaUrls ? mediaUrls.split(',').filter(url => url.trim() !== "") : [];
+
+        details.push({
+            order: index, // Start from 0 for synchronization
+            title: title,
+            description: description,
+            mediaUrls: mediaArray
+        });
+    });
+    return details;
+}
+
+function extractInputs() {
+    // Declare variables for each property
+    const name = extractName();
+    const categoryId = extractCategory();
+    const description = extractDescription();
+    const nutritionValues = extractNutritionValues();
+    const dietaryInfo = extractDietaryInformation();
+    const coverImage = extractCoverImage();
+    const expirationDays = extractExpirationDays();
+    const details = extractDetails();
+
+    // Validate each property
+    if (!name) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Missing Name',
+            text: 'Please enter a name for the ingredient.',
+            customClass: {
+                confirmButton: 'swal-custom-btn'
+            },
+            didOpen: () => {
+                $('.swal-custom-btn').css({
+                    'background-color': '#007BFF', // Blue
+                    'color': '#FFFFFF' // White text
+                });
+            }
+        });
+        return;
+    }
+
+    if (!category_id) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Missing Category',
+            text: 'Please select a category for the ingredient.',
+            customClass: {
+                confirmButton: 'swal-custom-btn'
+            },
+            didOpen: () => {
+                $('.swal-custom-btn').css({
+                    'background-color': '#007BFF', // Blue
+                    'color': '#FFFFFF' // White text
+                });
+            }
+        });
+        return;
+    }
+
+    if (!description) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Missing Description',
+            text: 'Please provide a description for the ingredient.',
+            customClass: {
+                confirmButton: 'swal-custom-btn'
+            },
+            didOpen: () => {
+                $('.swal-custom-btn').css({
+                    'background-color': '#007BFF', // Blue
+                    'color': '#FFFFFF' // White text
+                });
+            }
+        });
+        return;
+    }
+
+    if (!coverImage) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Missing Cover Image',
+            text: 'Please upload a cover image for the ingredient.',
+            customClass: {
+                confirmButton: 'swal-custom-btn'
+            },
+            didOpen: () => {
+                $('.swal-custom-btn').css({
+                    'background-color': '#007BFF', // Blue
+                    'color': '#FFFFFF' // White text
+                });
+            }
+        });
+        return;
+    }
+
+    if (details.length === 0 || details.some(d => !d.title && !d.description && d.mediaUrls.length === 0)) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Incomplete Detail',
+            text: 'Each detail must have at least a title, description, or media.',
+            customClass: {
+                confirmButton: 'swal-custom-btn'
+            },
+            didOpen: () => {
+                $('.swal-custom-btn').css({
+                    'background-color': '#007BFF', // Blue
+                    'color': '#FFFFFF' // White text
+                });
+            }
+        });
+        return;
+    }
+
+
+    // Return a JSON object with all the extracted data
+    return {
+        name,
+        categoryId,
+        description,
+        nutritionValues,
+        dietaryInfo,
+        coverImage,
+        expirationDays,
+        details
+    };
 }

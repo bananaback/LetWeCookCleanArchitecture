@@ -1,0 +1,54 @@
+Poultry
+
+Chicken breast
+
+Chicken thighs
+
+Chicken drumsticks
+
+Chicken wings
+
+Whole chicken
+
+Turkey breast
+
+Turkey thighs
+
+Whole turkey
+
+Quail
+
+Pheasant
+
+Cornish hen
+
+Instructions:
+Generate one line per ingredient in the minimal flat format specified below. Do NOT perform any web searches; use only general knowledge. Output only the minimal format lines with no extra commentary or formatting.
+
+Format for each ingredient line (fields separated by a single pipe "|" in the exact order):
+
+name | description | categoryName | calories | protein (g) | carbohydrates (g) | fats (g) | sugars (g) | fiber (g) | sodium (mg) | isVegetarian | isVegan | isGlutenFree | isPescatarian | expirationDays | details
+
+Field Definitions:
+- name: The ingredient name exactly as provided.
+- description: A comprehensive, serious, and detailed description covering the ingredient’s taste, texture, common culinary applications, and cultural significance.
+- categoryName: The category provided in the first line.
+- calories: Approximate calorie count (numeric value).
+- protein (g), carbohydrates (g), fats (g), sugars (g), fiber (g): Nutritional values in grams.
+- sodium (mg): Nutritional value in milligrams.
+- isVegetarian, isVegan, isGlutenFree, isPescatarian: Boolean values ("true" or "false").
+- expirationDays: Realistic numeric value indicating the shelf life in days.
+- details: Contains three detail entries separated by "||". Each detail entry must have two parts separated by a tilde "~":
+    • First detail:  
+      Nutritional Benefits ~ [Provide a detailed explanation of the ingredient's nutritional profile, including key vitamins, minerals, protein quality (in grams), and any scientifically supported health benefits.]
+    • Second detail:  
+      Culinary Uses ~ [Provide an in-depth description of how the ingredient is used in cooking. Explain various cooking methods, popular recipes or dishes, and any regional culinary traditions if applicable.]
+    • Third detail:  
+      Storage and Shelf Life ~ [Offer comprehensive guidelines on how to store the ingredient. Include optimal temperature, humidity, packaging methods, recommended shelf life in days, and best practices for preservation and thawing.]
+
+Output Requirements:
+- Each ingredient must be output as a single line.
+- Use the pipe symbol ("|") to separate top-level fields.
+- Use a double pipe ("||") to separate the three detail entries.
+- Use a tilde ("~") within each detail entry to separate the title and its description.
+- Do NOT include any extra text, commentary, or formatting outside of this structure.

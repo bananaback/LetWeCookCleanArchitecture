@@ -120,6 +120,10 @@ using (var scope = app.Services.CreateScope())
     try
     {
         await DataSeeder.SeedRolesAndAdminAsync(services);
+
+        //string jsonFilePath = "../LetWeCook.Infrastructure/Persistence/DataImporters/ingredients.json";
+
+        //await DataSeeder.SeedIngredientsAsync(services, jsonFilePath, CancellationToken.None);
     }
     catch (Exception ex)
     {

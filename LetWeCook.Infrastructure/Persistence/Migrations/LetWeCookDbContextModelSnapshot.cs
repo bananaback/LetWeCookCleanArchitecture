@@ -457,7 +457,7 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("nvarchar(255)")
+                        .HasColumnType("nvarchar(2048)")
                         .HasColumnName("url");
 
                     b.HasKey("Id");

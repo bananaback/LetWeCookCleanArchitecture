@@ -24,7 +24,7 @@ public class MediaUrlConfiguration : IEntityTypeConfiguration<MediaUrl>
 
         builder.Property(mu => mu.Url)
             .HasColumnName("url")
-            .HasColumnType("nvarchar(255)")
+            .HasColumnType("nvarchar(2048)")
             .IsRequired();
     }
 }

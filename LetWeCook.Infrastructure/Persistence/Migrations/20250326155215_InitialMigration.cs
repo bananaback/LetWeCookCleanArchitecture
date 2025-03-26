@@ -61,7 +61,7 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 {
                     id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     media_type = table.Column<int>(type: "int", nullable: false),
-                    url = table.Column<string>(type: "nvarchar(255)", nullable: false)
+                    url = table.Column<string>(type: "nvarchar(2048)", nullable: false)
                 },
                 constraints: table =>
                 {

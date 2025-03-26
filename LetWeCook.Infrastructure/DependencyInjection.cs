@@ -51,6 +51,7 @@ public static class DependencyInjection
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IUserProfileService, UserProfileService>();
         services.AddScoped<IExternalAuthService, ExternalAuthService>();
+        services.AddScoped<IIngredientService, IngredientService>();
 
         // Register Infrastructure Services
         services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -58,6 +59,10 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IDietaryPreferenceRepository, DietaryPreferenceRepository>();
         services.AddScoped<IUserProfileRepository, UserProfileRepository>();
+        services.AddScoped<IIngredientCategoryRepository, IngredientCategoryRepository>();
+        services.AddScoped<IMediaUrlRepository, MediaUrlRepository>();
+        services.AddScoped<IDetailRepository, DetailRepository>();
+        services.AddScoped<IIngredientRepository, IngredientRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<IHttpContextService, HttpContextService>();
 

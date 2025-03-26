@@ -10,6 +10,26 @@ namespace LetWeCook.Infrastructure.Persistence;
 
 public class DataSeeder
 {
+    public static async Task SeedIngredientsAsync(IServiceProvider services, string jsonFilePath, CancellationToken cancellationToken)
+    {
+        var ingredientService = services.GetRequiredService<IIngredientService>();
+        var ingredientCategoryRepository = services.GetRequiredService<IIngredientCategoryRepository>();
+        var ingredientRepository = services.GetRequiredService<IIngredientRepository>();
+        var logger = services.GetRequiredService<ILogger<DataSeeder>>();
+
+        var importer = new IngredientImporter(ingredientService, ingredientCategoryRepository, ingredientRepository);
+
+        try
+        {
+            await importer.ImportIngredientsAsync(jsonFilePath, cancellationToken);
+            logger.LogInformation("Successfully imported ingredients from JSON.");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "An error occurred while importing ingredients.");
+        }
+    }
+
     public static async Task SeedRolesAndAdminAsync(IServiceProvider services)
     {
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
