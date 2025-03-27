@@ -15,6 +15,11 @@ public class IngredientController : Controller
         _ingredientService = ingredientService;
     }
 
+    public IActionResult Browser()
+    {
+        return View();
+    }
+
     public IActionResult Details(Guid id)
     {
         ViewData["IngredientId"] = id;
@@ -119,5 +124,14 @@ public class IngredientController : Controller
 
         return Ok(ingredients);
     }
+
+    [AllowAnonymous]
+    [HttpGet("api/ingredients/overview")]
+    public async Task<IActionResult> GetIngredientsOverviewAsync(CancellationToken cancellationToken)
+    {
+        var ingredientsOverview = await _ingredientService.GetIngredientsOverviewAsync(cancellationToken);
+        return Ok(ingredientsOverview);
+    }
+
 
 }

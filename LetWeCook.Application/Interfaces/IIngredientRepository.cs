@@ -9,4 +9,5 @@ public interface IIngredientRepository : IRepository<Ingredient>
     Task<List<Ingredient>> GetRandomIngredientOverviewsAsync(int count, CancellationToken cancellationToken);
 
     Task<List<Ingredient>> GetIngredientOverviewsByCategoryNameAsync(string categoryName, int count, CancellationToken cancellationToken);
+    Task<List<Ingredient>> GetAllIngredientOverviewsAsync(CancellationToken cancellationToken);
 }

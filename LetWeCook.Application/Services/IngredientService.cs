@@ -185,6 +185,39 @@ public class IngredientService : IIngredientService
         }).ToList();
     }
 
+    public async Task<List<IngredientDto>> GetIngredientsOverviewAsync(CancellationToken cancellationToken)
+    {
+        var ingredients = await _ingredientRepository.GetAllIngredientOverviewsAsync(cancellationToken);
+        return ingredients.Select(ingredient => new IngredientDto
+        {
+            Id = ingredient.Id,
+            Name = ingredient.Name,
+            Description = ingredient.Description,
+            CategoryId = ingredient.CategoryId,
+            CategoryName = ingredient.Category.Name,
+            Calories = ingredient.Calories,
+            Protein = ingredient.Protein,
+            Carbohydrates = ingredient.Carbohydrates,
+            Fats = ingredient.Fat,
+            Sugars = ingredient.Sugar,
+            Fiber = ingredient.Fiber,
+            Sodium = ingredient.Sodium,
+            IsVegetarian = ingredient.IsVegetarian,
+            IsVegan = ingredient.IsVegan,
+            IsGlutenFree = ingredient.IsGlutenFree,
+            IsPescatarian = ingredient.IsPescatarian,
+            CoverImageUrl = ingredient.CoverImageUrl.Url,
+            ExpirationDays = ingredient.ExpirationDays,
+            Details = ingredient.Details.Select(detail => new DetailDto
+            {
+                Title = detail.Title,
+                Description = detail.Description,
+                MediaUrls = detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
+                Order = detail.Order
+            }).ToList()
+        }).ToList();
+    }
+
     public async Task<List<IngredientDto>> GetRandomIngredientsAsync(int count, CancellationToken cancellationToken)
     {
         var ingredients = await _ingredientRepository.GetRandomIngredientOverviewsAsync(count, cancellationToken);

@@ -16,6 +16,13 @@ public class IngredientRepository : Repository<Ingredient>, IIngredientRepositor
         return _dbSet.AnyAsync(i => i.Name == name, cancellationToken);
     }
 
+    public Task<List<Ingredient>> GetAllIngredientOverviewsAsync(CancellationToken cancellationToken)
+    {
+        return _dbSet.Include(i => i.Category)
+            .Include(i => i.CoverImageUrl)
+            .ToListAsync(cancellationToken);
+    }
+
     public Task<Ingredient?> GetIngredientByIdWithCategoryAndDetailsAsync(Guid id, CancellationToken cancellationToken)
     {
         return _dbSet

@@ -74,7 +74,7 @@ $(document).ready(function () {
                     detail.MediaUrls.forEach(url => {
                         // Assuming URLs are images for now; adjust if other media types are needed
                         mediaHtml += `
-                                <img src="${url}" class="zoomable-img w-32 h-32 rounded-lg object-cover border-2 border-amber-200 shadow-md hover:shadow-lg transition-all duration-300" alt="${detail.Title} Media">
+                                <img src="${url}" class="cursor-pointer zoomable-img w-32 h-32 rounded-lg object-cover border-2 border-amber-200 shadow-md hover:shadow-lg transition-all duration-300" alt="${detail.Title} Media">
                             `;
                     });
                     mediaHtml += '</div>';

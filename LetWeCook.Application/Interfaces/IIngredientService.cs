@@ -10,4 +10,5 @@ public interface IIngredientService
     Task<IngredientDto> GetIngredientAsync(Guid id, CancellationToken cancellationToken);
     Task<List<IngredientDto>> GetRandomIngredientsAsync(int count, CancellationToken cancellationToken);
     Task<List<IngredientDto>> GetIngredientsByCategoryAsync(string category, int count, CancellationToken cancellationToken);
+    Task<List<IngredientDto>> GetIngredientsOverviewAsync(CancellationToken cancellationToken);
 }

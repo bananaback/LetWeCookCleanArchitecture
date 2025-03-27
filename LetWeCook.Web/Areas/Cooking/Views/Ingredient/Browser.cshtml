@@ -1,0 +1,143 @@
+<!-- Background Accent -->
+<div class="w-full h-auto z-0 inset-0 bg-gradient-to-tr from-amber-100 to-transparent">
+
+    <!-- Main Content -->
+    <div class="flex justify-center items-start min-h-screen p-6 pt-12">
+        <div class="w-full max-w-6xl p-6 rounded-3xl shadow-lg bg-white relative z-10">
+            <!-- Search Section with Integrated Suggestions -->
+            <div class="mb-4">
+                <div class="relative max-w-3xl mx-auto">
+                    <input type="text" id="searchInput" placeholder="Stir up some ingredients..."
+                        class="w-full p-4 pr-12 rounded-full border-2 border-rose-400 bg-amber-50 text-rose-800 placeholder-rose-400 focus:outline-none focus:ring-2 focus:ring-lime-400 shadow-md">
+                    <button id="searchBtn"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 bg-lime-500 text-white px-4 py-2 rounded-full hover:bg-lime-600 transition duration-300 font-semibold transform rotate-2">
+                        Simmer!
+                    </button>
+                </div>
+                <!-- Search Suggestions (Non-Scrollable Grid) -->
+                <div id="suggestions" class="mt-2 max-w-3xl mx-auto">
+                    <div
+                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 bg-amber-100 rounded-2xl shadow-md border border-amber-200 p-6">
+                        <a href="#"
+                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform -rotate-2 hover:rotate-0">Tomato</a>
+                        <a href="#"
+                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform rotate-1 hover:rotate-0">Chicken</a>
+                        <a href="#"
+                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform -rotate-1 hover:rotate-0">Basil</a>
+                        <a href="#"
+                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform rotate-2 hover:rotate-0">Pasta</a>
+                        <a href="#"
+                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform -rotate-3 hover:rotate-0">Garlic</a>
+                        <a href="#"
+                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform rotate-3 hover:rotate-0">Olive</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="mb-4">
+                <h3 class="text-3xl font-handwritten font-bold text-emerald-800 mb-3 text-center">Recipe Mix</h3>
+                <div id="categoryList" class="flex flex-wrap justify-center gap-4 mb-3">
+                    <!-- Categories will be populated dynamically via AJAX -->
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform -rotate-2 hover:rotate-0">Vegetables</button>
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform rotate-1 hover:rotate-0">Meat</button>
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform -rotate-1 hover:rotate-0">Spices</button>
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform rotate-2 hover:rotate-0">Dairy</button>
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform -rotate-3 hover:rotate-0">Grains</button>
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform rotate-3 hover:rotate-0">Fruits</button>
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform -rotate-2 hover:rotate-0">Seafood</button>
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform rotate-1 hover:rotate-0">Herbs</button>
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform -rotate-1 hover:rotate-0">Oils</button>
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform rotate-2 hover:rotate-0">Nuts</button>
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform -rotate-3 hover:rotate-0">Legumes</button>
+                    <button
+                        class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition duration-300 shadow transform rotate-3 hover:rotate-0">Bakery</button>
+                </div>
+
+                <!-- Selected Tags -->
+                <div id="selectedTags" class="flex flex-wrap justify-center gap-3">
+
+                </div>
+            </div>
+
+            <!-- Pagination and Items per Page -->
+            <div class="flex items-center justify-between max-w-3xl mb-5 mx-auto">
+                <div class="flex items-center gap-3">
+                    <label for="itemsPerPage"
+                        class="text-sm text-emerald-800 font-semibold transform -rotate-2">Portions:</label>
+                    <select id="itemsPerPage"
+                        class="border-2 border-emerald-500 rounded-full p-2 bg-amber-50 text-emerald-700 transform rotate-1">
+                        <option value="9">9</option>
+                        <option value="27">27</option>
+                        <option value="63">63</option>
+                    </select>
+                </div>
+                <div class="flex gap-3 pagination-container">
+
+                </div>
+                <!-- Go to Page -->
+                <div class="flex items-center gap-2">
+                    <input type="number" id="goToPageInput" min="1"
+                        class="border-2 border-emerald-500 rounded-full p-2 w-16 text-center bg-amber-50 text-emerald-700"
+                        placeholder="Pg#">
+                    <button id="goToPageBtn"
+                        class="px-4 py-2 bg-amber-200 text-emerald-800 rounded-full hover:bg-amber-300 transition duration-300">
+                        Go
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Container -->
+            <div id="results-container" class="mb-8 flex-grow">
+                <!-- Dynamic content will be injected here -->
+            </div>
+
+            <!-- Pagination and Items per Page -->
+            <div class="flex items-center justify-between max-w-3xl mx-auto">
+                <div class="flex items-center gap-3">
+                    <label for="itemsPerPage"
+                        class="text-sm text-emerald-800 font-semibold transform -rotate-2">Portions:</label>
+                    <select id="itemsPerPage"
+                        class="border-2 border-emerald-500 rounded-full p-2 bg-amber-50 text-emerald-700 transform rotate-1">
+                        <option value="9">9</option>
+                        <option value="27">27</option>
+                        <option value="63">63</option>
+                    </select>
+                </div>
+                <div class="flex gap-3 pagination-container">
+
+                </div>
+                <!-- Go to Page -->
+                <div class="flex items-center gap-2">
+                    <input type="number" id="goToPageInput" min="1"
+                        class="border-2 border-emerald-500 rounded-full p-2 w-16 text-center bg-amber-50 text-emerald-700"
+                        placeholder="Pg#">
+                    <button id="goToPageBtn"
+                        class="px-4 py-2 bg-amber-200 text-emerald-800 rounded-full hover:bg-amber-300 transition duration-300">
+                        Go
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="~/js/ingredient-browser.js"></script>
+}
