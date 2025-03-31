@@ -8,30 +8,20 @@
             <div class="mb-4">
                 <div class="relative max-w-3xl mx-auto">
                     <input type="text" id="searchInput" placeholder="Stir up some ingredients..."
-                        class="w-full p-4 pr-12 rounded-full border-2 border-rose-400 bg-amber-50 text-rose-800 placeholder-rose-400 focus:outline-none focus:ring-2 focus:ring-lime-400 shadow-md">
-                    <button id="searchBtn"
-                        class="absolute right-2 top-1/2 -translate-y-1/2 bg-lime-500 text-white px-4 py-2 rounded-full hover:bg-lime-600 transition duration-300 font-semibold transform rotate-2">
-                        Simmer!
-                    </button>
+                        class="w-full p-4 pr-12 rounded-full border-2 border-rose-400 bg-amber-50 text-rose-800 placeholder-rose-400 focus:outline-none focus:ring-2 focus:ring-lime-400 shadow-md"
+                        autocomplete="off" autocorrect="off" spellcheck="false" />
+
                 </div>
-                <!-- Search Suggestions (Non-Scrollable Grid) -->
+
+
+                <!-- Search Suggestions (Dynamic) -->
                 <div id="suggestions" class="mt-2 max-w-3xl mx-auto">
                     <div
                         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 bg-amber-100 rounded-2xl shadow-md border border-amber-200 p-6">
-                        <a href="#"
-                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform -rotate-2 hover:rotate-0">Tomato</a>
-                        <a href="#"
-                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform rotate-1 hover:rotate-0">Chicken</a>
-                        <a href="#"
-                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform -rotate-1 hover:rotate-0">Basil</a>
-                        <a href="#"
-                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform rotate-2 hover:rotate-0">Pasta</a>
-                        <a href="#"
-                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform -rotate-3 hover:rotate-0">Garlic</a>
-                        <a href="#"
-                            class="p-3 text-rose-700 hover:bg-amber-200 rounded-md transition duration-200 transform rotate-3 hover:rotate-0">Olive</a>
+                        <!-- Dynamic content will be added here -->
                     </div>
                 </div>
+
             </div>
 
             <!-- Categories -->
@@ -137,6 +127,8 @@
 
 
 @section Scripts {
+    <script src="~/js/fuzzy-match.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="~/js/ingredient-browser.js"></script>

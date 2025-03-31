@@ -114,6 +114,8 @@ $(document).ready(function () {
     $('#save-btn').on('click', function () {
         const data = extractInputs();
 
+        console.log(data);
+
         if (!data) {
             return; // Stop execution if validation failed
         }
@@ -140,6 +142,7 @@ $(document).ready(function () {
                 });
             },
             error: function (xhr) {
+                console.log("Error Response:", xhr.responseText); // Log server response
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
@@ -158,6 +161,31 @@ $(document).ready(function () {
         });
     });
 
+    $('#debug-btn').on('click', function () {
+        $('#name').val('Testing apple' + Math.floor(Math.random() * 1000));
+        $('#description').val('A test ingredient for debugging purposes.');
+        // set default guid for category_id
+        $('#category_id').val('00000000-0000-0000-0000-000000000008');
+        const defaultUrl = 'https://th.bing.com/th/id/R.e7feee901a35fcb48b0ea3267298792f?rik=XMBDloAHyW5l5w&riu=http%3a%2f%2fimages6.fanpop.com%2fimage%2fphotos%2f34900000%2fApple-fruit-34914774-693-693.jpg&ehk=xkzD601LGQUIwWLmIjwDApmx6A7DM1foeMgDAPz4X7Q%3d&risl=&pid=ImgRaw&r=0';
+        // set deafult value for cover image url
+        $('#cover_image_url_id').val(defaultUrl);
+        $('#cover-preview').html(`
+                                <div class="relative inline-block">
+                                    <img src="${defaultUrl}" class="w-32 h-32 object-cover rounded-md">
+                                    <button type="button" class="absolute top-0 right-0 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center remove-cover">×</button>
+                                </div>
+                            `);
+        $('.remove-cover').click(function () {
+            $('#cover_image_url_id').val('');
+            $('#cover-preview').empty();
+        });
+        $('#add-detail').click();
+        $('.detail-item').each(function (index) {
+            let $detail = $(this);
+            let title = $detail.find('input[name="detail_title[]"]').val("Test detail")
+            let description = $detail.find('textarea[name="detail_description[]"]').val("Test description");
+        });
+    });
 });
 
 async function autoFillNutritionValues() {
@@ -332,7 +360,7 @@ function extractName() {
 }
 
 function extractCategory() {
-    return $('#category_id').val();
+    return $('#category_id').find(':selected').val();
 }
 
 function extractDescription() {
@@ -341,16 +369,17 @@ function extractDescription() {
 
 function extractNutritionValues() {
     let nutritionValues = {
-        calories: $('#calories').val(),
-        protein: $('#protein').val(),
-        carbohydrates: $('#carbohydrates').val(),
-        fats: $('#fats').val(),
-        sugars: $('#sugars').val(),
-        fiber: $('#fiber').val(),
-        sodium: $('#sodium').val(),
+        calories: parseFloat($('#calories').val()) || null,
+        protein: parseFloat($('#protein').val()) || null,
+        carbohydrates: parseFloat($('#carbohydrates').val()) || null,
+        fats: parseFloat($('#fats').val()) || null,
+        sugars: parseFloat($('#sugars').val()) || null,
+        fiber: parseFloat($('#fiber').val()) || null,
+        sodium: parseFloat($('#sodium').val()) || null,
     };
     return nutritionValues;
 }
+
 
 function extractDietaryInformation() {
     let dietaryInfo = {
@@ -367,7 +396,7 @@ function extractCoverImage() {
 }
 
 function extractExpirationDays() {
-    return $('#expiration_days').val();
+    return parseFloat($('#expiration_days').val());
 }
 
 function extractDetails() {
@@ -419,7 +448,21 @@ function extractInputs() {
         return;
     }
 
-    if (!category_id) {
+    function isValidGuid(guid) {
+        if (typeof guid !== "string") return false;
+
+        let parts = guid.split("-");
+        return (
+            parts.length === 5 &&
+            parts[0].length === 8 &&
+            parts[1].length === 4 &&
+            parts[2].length === 4 &&
+            parts[3].length === 4 &&
+            parts[4].length === 12
+        );
+    }
+
+    if (!isValidGuid(categoryId)) {
         Swal.fire({
             icon: 'warning',
             title: 'Missing Category',

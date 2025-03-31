@@ -40,6 +40,7 @@ function fetchIngredientsOverview() {
             ingredientList = data;
             groupIngredientsByCategory();
             updatePagination();
+
         },
         error: function (xhr, status, error) {
             console.error("Error fetching ingredients:", status, error);
@@ -177,6 +178,19 @@ function setupEventListeners() {
             $("#goToPageBtn").click();
         }
     });
+
+    $("#searchInput").on("input", function () {
+        const query = $(this).val().trim(); // Get the input value and trim whitespace
+
+        console.log("Search Input Changed:", query);
+
+        // Call your function here (e.g., fuzzy match, update results, etc.)
+        if (query.length > 0) {
+            performSearch(query); // Example function to handle search
+        } else {
+            clearSuggestions(); // Example function to clear results
+        }
+    });
 }
 
 /** ========================== HELPER FUNCTIONS ========================== */
@@ -273,6 +287,120 @@ function updateResults() {
     }
 }
 
+function performSearch(query) {
+    // Ensure query is a valid string and not just spaces
+    if (typeof query !== "string" || query.trim().length === 0) {
+        clearSuggestions();
+        return;
+    }
+
+    let trimmedQuery = query.trim();
+
+    // Generate a list with ID, Name, and Image
+    let searchList = ingredientList.map(ingredient => ({
+        id: ingredient.id,
+        name: ingredient.name,
+        image: ingredient.coverImageUrl
+    }));
+
+    // 🛑 If query is empty at this point, stop execution (extra safeguard)
+    if (trimmedQuery === "") {
+        clearSuggestions();
+        return;
+    }
+
+    // Get fuzzy matched candidates (only names are passed to the matcher)
+    let results = FuzzyMatcher.match(trimmedQuery, searchList.map(item => item.name), 12);
+
+    // Filter out results with no matches
+    let filteredResults = results.filter(result => result.matchScore > 0);
+
+    // Map results back to the original searchList (ensuring ID and Image are included)
+    let finalResults = filteredResults
+        .map(result => {
+            let ingredient = searchList.find(item => item.name.toLowerCase() === result.word.toLowerCase());
+            if (!ingredient) return null; // Ignore undefined results
+
+            return {
+                id: ingredient.id,
+                name: ingredient.name,
+                image: ingredient.image,
+                highlighted: result.highlighted
+            };
+        })
+        .filter(item => item !== null); // Remove null values
+
+    // Populate the UI with matched results
+    populateSuggestions(finalResults);
+}
+
+
+function clearSuggestions() {
+    console.log("Clearing suggestions...");
+    const $container = $("#suggestions .grid");
+    $container.empty(); // Clear previous suggestions
+
+    // Add a placeholder message spanning 4 columns
+    const $placeholder = $("<div>")
+        .addClass("text-gray-500 text-center col-span-4 p-4")
+        .text("Search results will be shown here...");
+
+    $container.append($placeholder);
+}
+
+
+function populateSuggestions(suggestions) {
+    console.log("Populating suggestions:", suggestions);
+    const $container = $("#suggestions .grid");
+    $container.empty(); // Clear previous suggestions
+
+    suggestions.forEach((suggestion, index) => {
+        const rotation = (index % 6) - 3; // Generate slight rotation effect
+
+        // Create the suggestion wrapper (fixed size & clickable link)
+        const $suggestion = $("<a>")
+            .attr("href", `https://localhost:7212/Cooking/Ingredient/Details/${suggestion.id}`) // Dynamic route
+            .addClass("flex flex-col items-center justify-center w-24 h-24 bg-white shadow-md rounded-lg p-2 transition duration-200 transform")
+            .addClass(`rotate-${rotation} hover:rotate-0`) // Apply rotation
+            .click(function (e) {
+                console.log(`Navigating to: ${$(this).attr("href")}`);
+            });
+
+        // Create the image container (fixed size, ratio preserved)
+        if (suggestion.image) {
+            const $imgContainer = $("<div>")
+                .addClass("w-16 h-16 flex items-center justify-center overflow-hidden rounded-full bg-gray-100");
+
+            const $img = $("<img>")
+                .attr("src", suggestion.image)
+                .addClass("max-w-full max-h-full object-contain");
+
+            $imgContainer.append($img);
+            $suggestion.append($imgContainer);
+        }
+
+        // Create the text element with highlighted characters
+        const $text = $("<div>").addClass("text-center mt-1 text-sm text-rose-700");
+
+        // ✅ Ensure highlighted exists before using forEach
+        if (Array.isArray(suggestion.highlighted)) {
+            suggestion.highlighted.forEach(({ char, matched }) => {
+                const span = $("<span>")
+                    .text(char)
+                    .addClass(matched ? "bg-green-300 px-1 rounded" : ""); // Green highlight for matches
+                $text.append(span);
+            });
+        } else {
+            // Fallback: Show name normally if highlighted is missing
+            $text.text(suggestion.name);
+        }
+
+        $suggestion.append($text);
+        $container.append($suggestion);
+    });
+}
+
+
 
 window.getSelectedCategories = function () {
     return Array.from(selectedCategories);
@@ -283,5 +411,6 @@ window.getSelectedCategories = function () {
 $(document).ready(function () {
     fetchIngredientCategories();
     fetchIngredientsOverview();
+    clearSuggestions();
     setupEventListeners();
 });

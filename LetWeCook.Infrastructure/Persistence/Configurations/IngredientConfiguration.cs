@@ -35,6 +35,16 @@ public class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
             .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
+        builder.HasOne(i => i.CreatedByUser)
+            .WithMany()
+            .HasForeignKey(i => i.CreatedByUserId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.Property(i => i.CreatedByUserId)
+            .HasColumnName("created_by_user_id") // Custom column name
+            .HasColumnType("uniqueidentifier")   // Explicitly setting it as GUID
+            .IsRequired(false);
+
         builder.Property(i => i.Calories)
             .HasColumnName("calories")
             .HasColumnType("float");

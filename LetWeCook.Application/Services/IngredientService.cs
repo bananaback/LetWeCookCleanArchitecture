@@ -11,27 +11,31 @@ namespace LetWeCook.Application.Services;
 public class IngredientService : IIngredientService
 {
     private readonly IIngredientCategoryRepository _ingredientCategoryRepository;
-    private readonly IMediaUrlRepository _mediaUrlRepository;
-    private readonly IDetailRepository _detailRepository;
     private readonly IIngredientRepository _ingredientRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IIdentityService _identityService;
     public IngredientService(
         IIngredientCategoryRepository ingredientCategoryRepository,
-        IMediaUrlRepository mediaUrlRepository,
-        IDetailRepository detailRepository,
         IIngredientRepository ingredientRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IIdentityService identityService)
     {
         _ingredientCategoryRepository = ingredientCategoryRepository;
-        _mediaUrlRepository = mediaUrlRepository;
-        _detailRepository = detailRepository;
         _ingredientRepository = ingredientRepository;
         _unitOfWork = unitOfWork;
+        _identityService = identityService;
     }
 
 
-    public async Task<IngredientDto> CreateIngredientAsync(CreateIngredientRequestDto request, CancellationToken cancellationToken)
+    public async Task<IngredientDto> CreateIngredientAsync(Guid appUserId, CreateIngredientRequestDto request, CancellationToken cancellationToken)
     {
+        // Get site user id, if null return
+        var siteUserId = await _identityService.GetReferenceSiteUserIdAsync(appUserId, cancellationToken);
+        if (siteUserId == null)
+        {
+            throw new IngredientCreationException("Site user not found.");
+        }
+
         // Create cover image (not yet saved)
         var coverImage = new MediaUrl(MediaType.Image, request.CoverImage);
 
@@ -63,7 +67,8 @@ public class IngredientService : IIngredientService
             request.DietaryInfo.IsPescatarian,
             coverImage,
             request.ExpirationDays,
-            details // ✅ Pass details in constructor, EF will handle saving them
+            details,
+            siteUserId
         );
 
         await _ingredientRepository.AddAsync(ingredient, cancellationToken);

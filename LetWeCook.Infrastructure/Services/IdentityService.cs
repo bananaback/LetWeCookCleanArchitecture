@@ -178,4 +178,10 @@ public class IdentityService : IIdentityService
         var user = await _userManager.FindByNameAsync(username);
         return user?.SiteUserId;
     }
+
+    public Task<Guid?> GetReferenceSiteUserIdAsync(Guid appUserId, CancellationToken cancellationToken = default)
+    {
+        var user = _userManager.Users.FirstOrDefault(u => u.Id == appUserId);
+        return Task.FromResult(user?.SiteUserId);
+    }
 }

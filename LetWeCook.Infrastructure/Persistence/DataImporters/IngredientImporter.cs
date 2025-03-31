@@ -106,7 +106,8 @@ public class IngredientImporter
                 try
                 {
                     Console.WriteLine($"⚡ Adding ingredient '{ingredient.Name}'...");
-                    await _ingredientService.CreateIngredientAsync(request, cancellationToken);
+                    // await _ingredientService.CreateIngredientAsync(null, request, cancellationToken);
+                    // remember to add fixed user id here
                     Console.WriteLine($"✅ Successfully added ingredient: {ingredient.Name}");
                 }
                 catch (Exception ex)

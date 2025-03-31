@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using LetWeCook.Application.DTOs.Ingredient;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Areas.Cooking.Models.Request;
@@ -61,6 +62,15 @@ public class IngredientController : Controller
             return BadRequest("Request body is required.");
         }
 
+        // Get Authenticated user ID as GUID
+        var appUserIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(appUserIdClaim) || !Guid.TryParse(appUserIdClaim, out var appUserId))
+        {
+            return Unauthorized("User is not authenticated or invalid ID format.");
+        }
+
+        Console.WriteLine($"Authenticated User ID: {appUserId}");
+
         var requestDto = new CreateIngredientRequestDto
         {
             Name = request.Name,
@@ -94,7 +104,7 @@ public class IngredientController : Controller
             }).ToList()
         };
 
-        var ingredientDto = await _ingredientService.CreateIngredientAsync(requestDto, cancellationToken);
+        var ingredientDto = await _ingredientService.CreateIngredientAsync(appUserId, requestDto, cancellationToken);
 
         return Ok(ingredientDto);
     }
