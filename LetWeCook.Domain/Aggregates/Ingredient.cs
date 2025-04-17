@@ -10,8 +10,8 @@ public class Ingredient : AggregateRoot
     public Guid CategoryId { get; private set; }
     public IngredientCategory Category { get; private set; } = null!;
 
-    public Guid? CreatedByUserId { get; private set; }
-    public SiteUser? CreatedByUser { get; private set; }
+    public Guid CreatedByUserId { get; private set; }
+    public SiteUser CreatedByUser { get; private set; } = null!;
 
     public float? Calories { get; private set; }
     public float? Protein { get; private set; }
@@ -25,6 +25,9 @@ public class Ingredient : AggregateRoot
     public bool IsVegan { get; private set; }
     public bool IsGlutenFree { get; private set; }
     public bool IsPescatarian { get; private set; }
+
+    public bool Visible { get; private set; }
+    public bool IsPreview { get; private set; } = false;
 
     public MediaUrl CoverImageUrl { get; private set; } = null!;
     public Guid CoverImageUrlId { get; private set; }
@@ -49,10 +52,12 @@ public class Ingredient : AggregateRoot
         bool isVegan,
         bool isGlutenFree,
         bool isPescatarian,
+        bool visible,
+        bool isPreview,
         MediaUrl coverImageUrl,
         float? expirationDays,
         List<Detail> details,
-        Guid? createdByUserId // Now nullable
+        Guid createdByUserId
     )
     {
         Id = Guid.NewGuid();
@@ -70,6 +75,8 @@ public class Ingredient : AggregateRoot
         IsVegan = isVegan;
         IsGlutenFree = isGlutenFree;
         IsPescatarian = isPescatarian;
+        Visible = visible;
+        IsPreview = isPreview;
         CoverImageUrl = coverImageUrl;
         ExpirationDays = expirationDays;
         Details = details;

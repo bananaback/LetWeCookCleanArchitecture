@@ -18,6 +18,8 @@ public interface IIdentityService
     // Updated methods
     Task<Guid?> FindAppUserByEmailAsync(string email, CancellationToken cancellationToken = default);
     Task<Guid?> FindAppUserByUsernameAsync(string username, CancellationToken cancellationToken = default);
+    Task<string> GetUserNameFromAppUserIdAsync(Guid appUserId, CancellationToken cancellationToken = default);
+    Task<string> GetUserNameFromSiteUserIdAsync(Guid siteUserId, CancellationToken cancellationToken = default);
     Task<Guid?> GetReferenceSiteUserIdAsync(Guid appUserId, CancellationToken cancellationToken = default);
     Task<bool> AddLoginAsync(Guid userId, ExternalLoginData loginData, CancellationToken cancellationToken = default);
     Task<Guid?> FindUserByLoginAsync(string provider, string providerKey, CancellationToken cancellationToken = default);

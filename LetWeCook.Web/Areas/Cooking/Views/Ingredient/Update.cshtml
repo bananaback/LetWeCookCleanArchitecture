@@ -1,0 +1,141 @@
+<div class="min-h-screen bg-gradient-to-br from-teal-100 via-indigo-100 to-lime-100 py-16">
+    <button id="debug-btn" type="button"
+        class="mt-6 bg-indigo-500 text-white px-6 py-3 rounded-2xl hover:bg-indigo-600 transition-all duration-300 transform hover:scale-105 border-2 border-teal-300 shadow-md hover:shadow-lg">Debug
+        fill</button>
+    <div class="max-w-5xl mx-auto px-8">
+        <h1 class="text-5xl font-extrabold text-indigo-800 mb-10 text-center drop-shadow-lg animate-pulse-slow">
+            Edit Your Recipe Ingredient
+        </h1>
+
+        <div class="hidden" id="ingredient-id">@ViewData["IngredientId"]</div>
+
+        <form id="ingredient-form"
+            class="bg-white shadow-xl rounded-3xl p-10 space-y-10 border-4 border-lime-200 transform transition-all duration-500 hover:shadow-2xl hover:scale-102">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <label class="block text-teal-700 font-bold mb-3" for="name">Name *</label>
+                    <input type="text" id="name" name="name" required
+                        class="w-full p-4 border-2 border-indigo-200 rounded-2xl focus:ring-4 focus:ring-teal-400 focus:border-teal-400 transition-all duration-300">
+                </div>
+                <div>
+                    <label class="block text-teal-700 font-bold mb-3" for="category_id">Category *</label>
+                    <select id="category_id" name="category_id" required
+                        class="w-full p-4 border-2 border-indigo-200 rounded-2xl focus:ring-4 focus:ring-teal-400 focus:border-teal-400 transition-all duration-300">
+                        <option value="">Select Category</option>
+                        <!-- Populate with your categories -->
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-teal-700 font-bold mb-3" for="description">Description *</label>
+                <textarea id="description" name="description" required rows="5"
+                    class="w-full p-4 border-2 border-indigo-200 rounded-2xl focus:ring-4 focus:ring-teal-400 focus:border-teal-400 transition-all duration-300"></textarea>
+            </div>
+
+            <div class="bg-lime-50 p-8 rounded-3xl border-2 border-teal-200 shadow-md">
+                <h2 class="text-3xl text-indigo-800 font-extrabold mb-8">Nutritional Values</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div><label class="block text-teal-700 mb-3" for="calories">Calories</label><input type="number"
+                            id="calories" name="calories" step="0.1"
+                            class="w-full p-4 border-2 border-indigo-200 rounded-2xl focus:ring-4 focus:ring-teal-400">
+                    </div>
+                    <div><label class="block text-teal-700 mb-3" for="protein">Protein (g)</label><input type="number"
+                            id="protein" name="protein" step="0.1"
+                            class="w-full p-4 border-2 border-indigo-200 rounded-2xl focus:ring-4 focus:ring-teal-400">
+                    </div>
+                    <div><label class="block text-teal-700 mb-3" for="carbohydrates">Carbohydrates (g)</label><input
+                            type="number" id="carbohydrates" name="carbohydrates" step="0.1"
+                            class="w-full p-4 border-2 border-indigo-200 rounded-2xl focus:ring-4 focus:ring-teal-400">
+                    </div>
+                    <div><label class="block text-teal-700 mb-3" for="fat">Fat (g)</label><input type="number" id="fats"
+                            name="fats" step="0.1"
+                            class="w-full p-4 border-2 border-indigo-200 rounded-2xl focus:ring-4 focus:ring-teal-400">
+                    </div>
+                    <div><label class="block text-teal-700 mb-3" for="sugar">Sugar (g)</label><input type="number"
+                            id="sugars" name="sugars" step="0.1"
+                            class="w-full p-4 border-2 border-indigo-200 rounded-2xl focus:ring-4 focus:ring-teal-400">
+                    </div>
+                    <div><label class="block text-teal-700 mb-3" for="fiber">Fiber (g)</label><input type="number"
+                            id="fiber" name="fiber" step="0.1"
+                            class="w-full p-4 border-2 border-indigo-200 rounded-2xl focus:ring-4 focus:ring-teal-400">
+                    </div>
+                    <div><label class="block text-teal-700 mb-3" for="sodium">Sodium (mg)</label><input type="number"
+                            id="sodium" name="sodium" step="0.1"
+                            class="w-full p-4 border-2 border-indigo-200 rounded-2xl focus:ring-4 focus:ring-teal-400">
+                    </div>
+                </div>
+                <button type="button" id="auto-fill-nutrition"
+                    class="mt-8 bg-teal-600 text-white px-8 py-4 rounded-2xl hover:bg-teal-700 transition-all duration-300 transform hover:scale-105">
+                    Add Nutrition Values with AI 🤖
+                </button>
+            </div>
+
+            <div class="bg-lime-50 p-8 rounded-3xl border-2 border-teal-200 shadow-md">
+                <h2 class="text-3xl text-indigo-800 font-extrabold mb-8">Dietary Information</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="is_vegetarian" name="is_vegetarian"
+                            class="h-6 w-6 text-teal-600 border-teal-300 focus:ring-teal-500">
+                        <label for="is_vegetarian" class="ml-4 text-teal-700 font-semibold">Vegetarian 🌿</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="is_vegan" name="is_vegan"
+                            class="h-6 w-6 text-teal-600 border-teal-300 focus:ring-teal-500">
+                        <label for="is_vegan" class="ml-4 text-teal-700 font-semibold">Vegan 🥑</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="is_gluten_free" name="is_gluten_free"
+                            class="h-6 w-6 text-teal-600 border-teal-300 focus:ring-teal-500">
+                        <label for="is_gluten_free" class="ml-4 text-teal-700 font-semibold">Gluten Free 🌾</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="is_pescatarian" name="is_pescatarian"
+                            class="h-6 w-6 text-teal-600 border-teal-300 focus:ring-teal-500">
+                        <label for="is_pescatarian" class="ml-4 text-teal-700 font-semibold">Pescatarian 🐟</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <label class="block text-teal-700 font-bold mb-3">Cover Image *</label>
+                    <button type="button" id="upload-cover"
+                        class="w-full p-4 bg-lime-100 border-2 border-teal-300 rounded-2xl hover:bg-lime-200 transition-all duration-300 transform hover:scale-105">
+                        Upload Cover Image
+                    </button>
+                    <input type="hidden" id="cover_image_url_id" name="cover_image_url_id" required>
+                    <div id="cover-preview" class="mt-6 relative inline-block"></div>
+                </div>
+                <div>
+                    <label class="block text-teal-700 font-bold mb-3" for="expiration_days">Expiration Days</label>
+                    <input type="number" id="expiration_days" name="expiration_days" step="1"
+                        class="w-full p-4 border-2 border-indigo-200 rounded-2xl focus:ring-4 focus:ring-teal-400">
+                </div>
+            </div>
+
+            <div class="bg-lime-50 p-8 rounded-3xl border-2 border-teal-200 shadow-md">
+                <h2 class="text-3xl text-indigo-800 font-extrabold mb-8">Additional Details</h2>
+                <div id="details-container" class="space-y-8 relative"></div>
+                <button type="button" id="add-detail"
+                    class="mt-8 bg-teal-600 text-white px-8 py-4 rounded-2xl hover:bg-teal-700 transition-all duration-300 transform hover:scale-105">
+                    Add New Detail
+                </button>
+            </div>
+
+            <div class="text-center">
+                <button id="save-btn" type="button"
+                    class="bg-indigo-700 text-white px-10 py-5 rounded-2xl hover:bg-indigo-800 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                    Save Ingredient
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="~/js/ingredient-update.js"></script>
+    <script defer src="~/js/drag.js"></script>
+}

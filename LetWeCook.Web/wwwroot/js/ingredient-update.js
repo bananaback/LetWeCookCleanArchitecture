@@ -3,7 +3,145 @@ import { GoogleGenerativeAI } from "https://esm.sh/@google/generative-ai";
 // Initialize the Google Generative AI client with the API key from .env
 const genAI = new GoogleGenerativeAI("AIzaSyCdBbtTfxOgYKBq7frKFmwOlOKSLDjxY94");
 
+let ingredientId = "";
+
+function populateInputs(data) {
+    $('#name').val(data.name);
+    $('#category_id').val(data.categoryId);
+    $('#description').val(data.description);
+
+    // Populate Cover Image
+    if (data.coverImageUrl) {
+        $('#cover_image_url_id').val(data.coverImageUrl);
+        $('#cover-preview').html(`
+            <div class="relative inline-block">
+                <img src="${data.coverImageUrl}" class="w-32 h-32 object-cover rounded-md">
+                <button type="button" class="absolute top-0 right-0 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center remove-cover">×</button>
+            </div>
+        `);
+
+        $('.remove-cover').click(function () {
+            $('#cover_image_url_id').val('');
+            $('#cover-preview').empty();
+        });
+    } else {
+        $('#cover_image_url_id').val('');
+        $('#cover-preview').empty();
+    }
+
+    $('#calories').val(data.calories);
+    $('#protein').val(data.protein);
+    $('#carbohydrates').val(data.carbohydrates);
+    $('#fats').val(data.fats);
+    $('#sugars').val(data.sugars);
+    $('#fiber').val(data.fiber);
+    $('#sodium').val(data.sodium);
+
+    $('#is_vegetarian').prop('checked', data.isVegetarian);
+    $('#is_vegan').prop('checked', data.isVegan);
+    $('#is_glutenFree').prop('checked', data.isGlutenFree);
+    $('#is_pescatarian').prop('checked', data.isPescatarian);
+
+    $('#cover_image_url_id').val(data.coverImageUrl);
+    $('#expiration_days').val(data.expirationDays);
+
+    populateDetails(data.details);
+}
+
+function populateDetails(details) {
+    $('#details-container').empty();
+
+    details
+        .sort((a, b) => a.order - b.order)
+        .forEach(detail => {
+            const mediaHtml = detail.mediaUrls.map(url => `
+                <div class="relative media-item" data-url="${url}">
+                    <img src="${url}" class="w-24 h-24 object-cover rounded-md">
+                    <button type="button" class="absolute top-0 right-0 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center remove-media">×</button>
+                </div>
+            `).join('');
+
+            const detailHtml = `
+                <div class="detail-item draggable border border-teal-200 rounded-md p-4 mb-4 relative" draggable="true">
+                    <div class="flex items-center justify-between mb-2">
+                        <input type="text" name="detail_title[]" value="${detail.title || ''}" placeholder="Detail Title" 
+                               class="w-full p-2 border border-teal-200 rounded-md focus:ring-2 focus:ring-teal-500">
+                        <button type="button" class="ml-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center remove-detail shrink-0">×</button>
+                    </div>
+                    <textarea name="detail_description[]" placeholder="Detail Description" rows="2"
+                              class="w-full p-2 mb-2 border border-teal-200 rounded-md focus:ring-2 focus:ring-teal-500">${detail.description || ''}</textarea>
+                    <button type="button" class="upload-media w-full p-2 bg-cream-200 border border-teal-300 rounded-md hover:bg-cream-300">
+                        Upload Media
+                    </button>
+                    <div class="media-preview flex flex-wrap gap-2 mt-2">
+                        ${mediaHtml}
+                    </div>
+                    <input type="hidden" name="detail_media[]" class="media-urls" value="${detail.mediaUrls.join(',')}">
+                </div>
+            `;
+
+            $('#details-container').append(detailHtml);
+        });
+}
+
+
+
+function fetchEditingIngredient() {
+    // call the API to get the ingredient data with ajax
+    $.ajax({
+        url: `/api/ingredients/editing/${ingredientId}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            populateInputs(data); // Populate the inputs with the data
+            console.log("Ingredient Data:", data); // Log the ingredient data
+        },
+        error: function (xhr) {
+            // check for 403 and route to home if so
+            if (xhr.status === 403) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Unauthorized',
+                    text: 'You are not authorized to view this ingredient.',
+                    customClass: {
+                        confirmButton: 'swal-custom-btn'
+                    },
+                    didOpen: () => {
+                        $('.swal-custom-btn').css({
+                            'background-color': '#dc3545', // Red
+                            'color': '#FFFFFF' // White text
+                        });
+                    },
+                }).then(() => {
+                    window.location.href = '/Home'; // Redirect to home page
+                });
+            } else {
+                console.error('Error fetching ingredient data:', xhr.responseText); // Log the error response
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to fetch ingredient data.',
+                    customClass: {
+                        confirmButton: 'swal-custom-btn'
+                    },
+                    didOpen: () => {
+                        $('.swal-custom-btn').css({
+                            'background-color': '#dc3545', // Red
+                            'color': '#FFFFFF' // White text
+                        });
+                    }
+                });
+            }
+        }
+    });
+}
+
 $(document).ready(function () {
+    ingredientId = $('#ingredient-id').text();
+    $('#ingredient-id').remove(); // Remove the element from the DOM
+
+    fetchEditingIngredient();
+
     populateCategorySelect();
 
     let detailCount = 0;
@@ -121,15 +259,15 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: '/api/ingredients', // Replace with your actual API endpoint
-            type: 'POST',
+            url: `/api/ingredients/${ingredientId}`, // Replace with actual ingredient ID
+            type: 'PUT',
             contentType: 'application/json',
-            data: JSON.stringify(data),
+            data: JSON.stringify(data), // Your CreateIngredientRequest payload
             success: function (response) {
                 Swal.fire({
                     icon: 'info',
-                    title: 'Request Submitted',
-                    html: `Your request to create the ingredient "<strong>${data.name}</strong>" has been submitted and is awaiting admin review.<br><br>
+                    title: 'Update Request Submitted',
+                    html: `Your request to update the ingredient "<strong>${data.name}</strong>" has been submitted and is awaiting admin review.<br><br>
                            <a href="/UserPanel/Profile/Requests" style="color: #007BFF; text-decoration: underline;">View Your Request</a>`,
                     customClass: {
                         confirmButton: 'swal-custom-btn'
@@ -141,26 +279,26 @@ $(document).ready(function () {
                         });
                     }
                 });
-
             },
             error: function (xhr) {
-                console.log("Error Response:", xhr.responseText); // Log server response
+                console.log("Error Response:", xhr.responseText);
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: xhr.responseJSON?.message || 'Something went wrong while saving.',
+                    text: xhr.responseJSON?.message || 'Something went wrong while submitting your update request.',
                     customClass: {
                         confirmButton: 'swal-custom-btn'
                     },
                     didOpen: () => {
                         $('.swal-custom-btn').css({
                             'background-color': '#dc3545', // Red
-                            'color': '#FFFFFF' // White text
+                            'color': '#FFFFFF'
                         });
                     }
                 });
             }
         });
+
     });
 
     $('#debug-btn').on('click', function () {

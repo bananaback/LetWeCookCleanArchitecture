@@ -1,0 +1,210 @@
+<div class="w-full min-h-screen bg-amber-50 flex justify-center relative overflow-hidden">
+    <div id="ingredientId" class="hidden">@ViewData["IngredientId"]</div>
+    <!-- Background Accent (extended to full width) -->
+    <div class="absolute inset-0 bg-gradient-to-tr from-amber-100 to-transparent opacity-50 pointer-events-none"></div>
+
+
+    <!-- Main Content -->
+    <div class="container mt-6 p-6 rounded-3xl shadow-lg max-w-4xl relative z-10">
+        <!-- Ingredient Header -->
+        <div class="relative flex flex-col md:flex-row items-center md:items-start gap-8 pb-8">
+            <img id="ingredient-image"
+                class="cursor-pointer zoomable-img w-48 h-48 rounded-full object-cover border-8 border-amber-200 shadow-2xl transform -rotate-6 transition-transform duration-700 scale-90 opacity-0 z-10"
+                alt="Ingredient Image">
+            <div class="text-center md:text-left z-10">
+                <h1 id="ingredient-name"
+                    class="text-5xl font-handwritten font-bold text-rose-800 tracking-wide transition-transform duration-700 transform translate-x-10 opacity-0">
+                </h1>
+                <p id="ingredient-description"
+                    class="text-rose-600 mt-3 text-xl italic max-w-md transition-transform duration-700 transform translate-x-10 opacity-0 delay-200">
+                </p>
+            </div>
+            <!-- Decorative Accent -->
+            <div
+                class="absolute top-0 right-0 w-24 h-24 bg-lime-300 rounded-full opacity-20 transform translate-x-12 -translate-y-12 pointer-events-none">
+            </div>
+        </div>
+
+        <!-- Category -->
+        <div class="relative mt-6 flex items-center gap-4 bg-amber-100 p-4 rounded-full w-fit mx-auto shadow-md">
+            <span class="text-sm text-rose-600 font-bold uppercase tracking-wide">Picked From</span>
+            <span id="category-name" class="text-lg font-medium text-lime-700"></span>
+        </div>
+
+        <!-- Nutrition Facts -->
+        <div class="mt-10 relative">
+            <h2 class="text-3xl font-handwritten font-bold text-rose-800 text-center">What’s Inside</h2>
+            <div class="flex flex-wrap justify-center gap-6 mt-6">
+                <div
+                    class="group bg-white p-4 rounded-2xl shadow-lg w-32 transform rotate-2 hover:rotate-0 transition-all duration-300 relative">
+                    <span class="text-xs text-rose-500 uppercase">Calories</span>
+                    <p id="calories" class="font-bold text-rose-700 text-lg"></p>
+                    <div
+                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-rose-600 text-white text-xs p-2 rounded-lg w-40 text-center shadow-md">
+                        Energy your body uses daily.</div>
+                </div>
+                <div
+                    class="group bg-white p-4 rounded-2xl shadow-lg w-32 transform -rotate-3 hover:rotate-0 transition-all duration-300 relative">
+                    <span class="text-xs text-rose-500 uppercase">Protein</span>
+                    <p id="protein" class="font-bold text-rose-700 text-lg"></p>
+                    <div
+                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-rose-600 text-white text-xs p-2 rounded-lg w-40 text-center shadow-md">
+                        Builds muscle and repairs tissue.</div>
+                </div>
+                <div
+                    class="group bg-white p-4 rounded-2xl shadow-lg w-32 transform rotate-1 hover:rotate-0 transition-all duration-300 relative">
+                    <span class="text-xs text-rose-500 uppercase">Carbs</span>
+                    <p id="carbohydrates" class="font-bold text-rose-700 text-lg"></p>
+                    <div
+                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-rose-600 text-white text-xs p-2 rounded-lg w-40 text-center shadow-md">
+                        Quick fuel for energy and brain.</div>
+                </div>
+                <div
+                    class="group bg-white p-4 rounded-2xl shadow-lg w-32 transform -rotate-2 hover:rotate-0 transition-all duration-300 relative">
+                    <span class="text-xs text-rose-500 uppercase">Fats</span>
+                    <p id="fats" class="font-bold text-rose-700 text-lg"></p>
+                    <div
+                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-rose-600 text-white text-xs p-2 rounded-lg w-40 text-center shadow-md">
+                        Stores energy, aids vitamin uptake.</div>
+                </div>
+                <div
+                    class="group bg-white p-4 rounded-2xl shadow-lg w-32 transform rotate-3 hover:rotate-0 transition-all duration-300 relative">
+                    <span class="text-xs text-rose-500 uppercase">Sugars</span>
+                    <p id="sugars" class="font-bold text-rose-700 text-lg"></p>
+                    <div
+                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-rose-600 text-white text-xs p-2 rounded-lg w-40 text-center shadow-md">
+                        Fast energy, but watch excess!</div>
+                </div>
+                <div
+                    class="group bg-white p-4 rounded-2xl shadow-lg w-32 transform -rotate-1 hover:rotate-0 transition-all duration-300 relative">
+                    <span class="text-xs text-rose-500 uppercase">Fiber</span>
+                    <p id="fiber" class="font-bold text-rose-700 text-lg"></p>
+                    <div
+                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-rose-600 text-white text-xs p-2 rounded-lg w-40 text-center shadow-md">
+                        Keeps digestion smooth and full.</div>
+                </div>
+                <div
+                    class="group bg-white p-4 rounded-2xl shadow-lg w-32 transform rotate-2 hover:rotate-0 transition-all duration-300 relative">
+                    <span class="text-xs text-rose-500 uppercase">Sodium</span>
+                    <p id="sodium" class="font-bold text-rose-700 text-lg"></p>
+                    <div
+                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-rose-600 text-white text-xs p-2 rounded-lg w-40 text-center shadow-md">
+                        Balances fluids, but less is best.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dietary Preferences -->
+        <div class="mt-12 relative">
+            <h2 class="text-3xl font-handwritten font-bold text-rose-800 text-center">Flavor Fit</h2>
+            <div class="flex flex-wrap justify-center gap-4 mt-6">
+                <span id="is-vegetarian"
+                    class="hidden px-4 py-2 text-sm bg-lime-100 text-lime-800 rounded-full font-semibold shadow-md transition-transform duration-500 transform scale-75 opacity-0">Vegetarian</span>
+                <span id="is-vegan"
+                    class="hidden px-4 py-2 text-sm bg-lime-100 text-lime-800 rounded-full font-semibold shadow-md transition-transform duration-500 transform scale-75 opacity-0">Vegan</span>
+                <span id="is-gluten-free"
+                    class="hidden px-4 py-2 text-sm bg-lime-100 text-lime-800 rounded-full font-semibold shadow-md transition-transform duration-500 transform scale-75 opacity-0">Gluten-Free</span>
+                <span id="is-pescatarian"
+                    class="hidden px-4 py-2 text-sm bg-lime-100 text-lime-800 rounded-full font-semibold shadow-md transition-transform duration-500 transform scale-75 opacity-0">Pescatarian</span>
+            </div>
+        </div>
+
+        <!-- Expiration Days -->
+        <div
+            class="mt-12 relative flex justify-center items-center gap-6 bg-amber-100 p-4 rounded-full w-fit mx-auto shadow-md">
+            <span class="text-sm text-rose-600 font-bold uppercase tracking-wide">Good For</span>
+            <span id="expiration-days" class="font-medium text-xl text-rose-700"></span>
+            <div id="freshness-bar" class="w-36 h-3 bg-amber-200 rounded-full overflow-hidden shadow-inner">
+                <div class="h-full bg-lime-500 transition-all duration-700" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Details Section -->
+        <div class="mt-12 relative">
+            <h2 class="text-3xl font-handwritten font-bold text-rose-800 text-center">Cook’s Secrets</h2>
+            <div id="details-container" class="mt-8 space-y-8">
+                <!-- Details will be added dynamically here -->
+            </div>
+        </div>
+    </div>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <!-- Admin Response Panel -->
+        <div class="w-1/3 flex flex-col justify-start items-center gap-6 mt-12">
+            <div class="bg-amber-100 p-6 rounded-2xl shadow-lg max-w-md w-full">
+                <h3 class="text-2xl font-handwritten font-bold text-rose-800 mb-6 text-center">
+                    📝 Admin Review Panel
+                </h3>
+
+                <!-- Response Message -->
+                <label for="admin-response" class="block mb-2 text-sm font-medium text-rose-900">
+                    Response Message
+                </label>
+                <textarea id="admin-response" rows="6" placeholder="Type your general message here..."
+                class="w-full rounded-xl border border-orange-300 px-4 py-2 text-sm text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-both"></textarea>
+
+                <!-- Problems -->
+                <label for="problems" class="block mt-6 mb-2 text-sm font-medium text-rose-900">
+                    Problems
+                </label>
+                <textarea id="problems" rows="6" placeholder="List the problems or issues found..."
+                class="w-full rounded-xl border border-red-300 px-4 py-2 text-sm text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400 resize-both"></textarea>
+
+                <!-- Suggestions -->
+                <label for="suggestions" class="block mt-6 mb-2 text-sm font-medium text-rose-900">
+                    Suggestions
+                </label>
+                <textarea id="suggestions" rows="6" placeholder="List your suggestions or improvements..."
+                class="w-full rounded-xl border border-yellow-300 px-4 py-2 text-sm text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-both"></textarea>
+
+                <!-- Accept & Reject Side-by-Side -->
+                <div class="mt-6 flex gap-4">
+                    <button
+                        class="accept-btn w-1/2 bg-green-500 text-white font-semibold py-2 px-4 rounded-xl shadow hover:bg-green-600 transition focus:outline-none focus:ring-2 focus:ring-green-300">
+                        ✅ Accept
+                    </button>
+
+                    <button
+                        class="reject-btn w-1/2 bg-rose-600 text-white font-semibold py-2 px-4 rounded-xl shadow hover:bg-rose-700 transition focus:outline-none focus:ring-2 focus:ring-rose-400">
+                        ❌ Reject
+                    </button>
+                </div>
+
+                <!-- Review by AI -->
+                <div class="mt-4">
+                    <button
+                        class="review-ai-btn w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-xl shadow hover:bg-blue-600 transition focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        🤖 Review by AI
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+
+
+</div>
+
+<!-- Image Viewer Modal -->
+<div id="imageModal" class="fixed inset-0 z-[1000] hidden overflow-hidden">
+    <div class="absolute inset-0 bg-gray-900 bg-opacity-75" id="modalOverlay"></div>
+    <div class="flex items-center justify-center min-h-screen px-4">
+        <div
+            class="relative w-1/3 bg-white h-auto flex items-center justify-center border-2 rounded-lg border-orange-500">
+            <div class=" h-full w-full bg-white p-4 rounded-lg shadow-xl flex items-center justify-center">
+                <div class="w-full h-[500px] flex items-center justify-center bg-gray-200 rounded-lg overflow-hidden">
+                    <img id="modalImage" src="" class="max-w-full max-h-full object-contain" alt="Zoomed image">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="~/js/ingredient-preview.js"></script>
+}

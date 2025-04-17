@@ -16,16 +16,52 @@ public class ProfileController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IUserProfileService _userProfileService;
-    public ProfileController(UserManager<ApplicationUser> userManager, IUserProfileService userProfileService)
+    private readonly IRequestService _requestService;
+    public ProfileController(UserManager<ApplicationUser> userManager, IUserProfileService userProfileService, IRequestService requestService)
     {
         _userManager = userManager;
         _userProfileService = userProfileService;
+        _requestService = requestService;
+
     }
 
     // GET: /UserPanel/Profile
     public IActionResult Index()
     {
         return View();
+    }
+
+    public IActionResult Requests()
+    {
+        return View();
+    }
+
+    [HttpGet("/api/requests")]
+    public async Task<IActionResult> GetRequests(CancellationToken cancellationToken = default)
+    {
+        var siteUserId = await GetSiteUserId(cancellationToken);
+        var userRoles = await GetUserRolesAsync(cancellationToken);
+
+        // log user roles for debugging
+        foreach (var role in userRoles)
+        {
+            Console.WriteLine($"User Role: {role}");
+        }
+        // check if user or admin
+        if (userRoles.Contains("Admin"))
+        {
+            var requests = await _requestService.GetAllRequestsAsync(cancellationToken);
+            return Ok(requests);
+        }
+        else if (userRoles.Contains("User"))
+        {
+            var requests = await _requestService.GetUserRequestsAsync(siteUserId, cancellationToken);
+            return Ok(requests);
+        }
+        else
+        {
+            return Forbid(); // User does not have permission to access this resource
+        }
     }
 
     [HttpGet("/api/dietary-preferences")]
@@ -115,5 +151,15 @@ public class ProfileController : Controller
         var appUser = await _userManager.FindByIdAsync(userIdClaim.Value);
         if (appUser == null) throw new UnauthorizedAccessException("User not found in database.");
         return appUser.SiteUserId;
+    }
+
+    private async Task<List<string>> GetUserRolesAsync(CancellationToken cancellationToken = default)
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null) throw new UnauthorizedAccessException("User ID not found in claims.");
+        var user = await _userManager.FindByIdAsync(userIdClaim.Value);
+        if (user == null) return new List<string>();
+        var roles = await _userManager.GetRolesAsync(user);
+        return roles.ToList();
     }
 }

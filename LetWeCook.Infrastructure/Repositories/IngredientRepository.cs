@@ -23,9 +23,18 @@ public class IngredientRepository : Repository<Ingredient>, IIngredientRepositor
             .ToListAsync(cancellationToken);
     }
 
+    public Task<List<Ingredient>> GetAllUserIngreidientOverviewsAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        return _dbSet.Include(i => i.Category)
+            .Include(i => i.CoverImageUrl)
+            .Where(i => i.CreatedByUser.Id == userId)
+            .ToListAsync(cancellationToken);
+    }
+
     public Task<Ingredient?> GetIngredientByIdWithCategoryAndDetailsAsync(Guid id, CancellationToken cancellationToken)
     {
         return _dbSet
+            .Include(i => i.CreatedByUser)
             .Include(i => i.Category)
             .Include(i => i.CoverImageUrl)
             .Include(i => i.Details)

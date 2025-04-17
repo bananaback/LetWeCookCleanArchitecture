@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LetWeCook.Web</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LetWeCook.Web.styles.css" asp-append-version="true" />
+</head>
+
+<body class="bg-gradient-to-br from-amber-50 via-orange-100 to-red-50 min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-amber-100 text-rose-900 shadow-md">
+        <div class="p-6 text-2xl font-bold font-handwritten text-center border-b border-rose-200">
+            🍽️ Admin Panel
+        </div>
+        <nav class="flex flex-col gap-2 p-4">
+            <a href="/AdminPanel/Evaluation" class="text-sm px-4 py-2 rounded hover:bg-amber-200 transition">📋
+                Evaluation</a>
+            <a href="/Admin/Ingredients" class="text-sm px-4 py-2 rounded hover:bg-amber-200 transition">🥦
+                Ingredients</a>
+            <a href="/Admin/Users" class="text-sm px-4 py-2 rounded hover:bg-amber-200 transition">👥 Users</a>
+        </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 p-8 overflow-auto">
+        @RenderBody()
+    </main>
+
+    <!-- Scripts (unchanged) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>

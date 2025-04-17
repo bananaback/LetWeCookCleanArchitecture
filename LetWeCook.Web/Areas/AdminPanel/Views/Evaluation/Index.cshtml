@@ -1,0 +1,113 @@
+@{
+    ViewData["Title"] = "Evaluate Submissions";
+}
+
+<h2 class="text-3xl font-bold text-rose-800 mb-6">🧐 Evaluate User Submissions</h2>
+
+<div class="flex-1 p-6 bg-gradient-to-br from-orange-100 to-pink-100"> <!-- Warm gradient background -->
+
+    <div class="mb-6 flex flex-col flex-1 sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+        <!-- Left Side: Filters for Admin -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
+            <!-- Status Filter -->
+            <div>
+                <label for="status" class="block text-sm font-medium text-amber-800 mb-1">Status:</label>
+                <select id="status"
+                    class="w-40 pl-3 pr-10 py-2 text-sm border border-amber-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 rounded-lg bg-white shadow-md hover:bg-amber-50 transition">
+                    <option value="">All</option>
+                    <option value="PENDING">Pending</option>
+                    <option value="APPROVED">Approved</option>
+                    <option value="REJECTED">Rejected</option>
+                </select>
+            </div>
+
+            <!-- Sort Filter -->
+            <div>
+                <label for="sort" class="block text-sm font-medium text-amber-800 mb-1">Sort By:</label>
+                <select id="sort"
+                    class="w-52 pl-3 pr-10 py-2 text-sm border border-amber-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 rounded-lg bg-white shadow-md hover:bg-amber-50 transition">
+                    <option value="">All</option>
+                    <option value="DATE_REQUESTED">Date Requested</option>
+                    <option value="DATE_UPDATED">Date Updated</option>
+                </select>
+            </div>
+
+            <!-- Items per Page -->
+            <div>
+                <label for="itemsPerPage" class="block text-sm font-medium text-amber-800 mb-1">Items/Page:</label>
+                <select id="itemsPerPage"
+                    class="w-40 pl-3 pr-10 py-2 text-sm border border-amber-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 rounded-lg bg-white shadow-md hover:bg-amber-50 transition">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+
+            <!-- Request Type -->
+            <div>
+                <label for="requestType" class="block text-sm font-medium text-amber-800 mb-1">Request Type:</label>
+                <select id="requestType"
+                    class="w-52 pl-3 pr-10 py-2 text-sm border border-amber-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 rounded-lg bg-white shadow-md hover:bg-amber-50 transition">
+                    <option value="">All</option>
+                    <option value="CREATE_INGREDIENT">Create Ingredient</option>
+                    <option value="UPDATE_INGREDIENT">Update Ingredient</option>
+                    <option value="CREATE_RECIPE">Create Recipe</option>
+                    <option value="UPDATE_RECIPE">Update Recipe</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Right Side: Pagination and Actions -->
+        <div class="flex flex-col flex-1 items-center space-y-4">
+            <!-- Pagination Controls -->
+            <div class="flex space-x-2">
+                <button id="first-page-btn"
+                    class="bg-teal-200 hover:bg-teal-300 text-teal-700 text-sm py-2 px-4 rounded-lg shadow-sm transition">
+                    First
+                </button>
+                <button id="prev-page-btn"
+                    class="bg-teal-200 hover:bg-teal-300 text-teal-700 text-sm py-2 px-4 rounded-lg shadow-sm transition">
+                    Prev
+                </button>
+                <button id="current-page-btn"
+                    class="bg-teal-500 hover:bg-teal-600 text-white text-sm py-2 px-4 rounded-lg shadow-md transition">
+                    1
+                </button>
+                <button id="next-page-btn"
+                    class="bg-teal-200 hover:bg-teal-300 text-teal-700 text-sm py-2 px-4 rounded-lg shadow-sm transition">
+                    Next
+                </button>
+                <button id="last-page-btn"
+                    class="bg-teal-200 hover:bg-teal-300 text-teal-700 text-sm py-2 px-4 rounded-lg shadow-sm transition">
+                    Last
+                </button>
+            </div>
+
+            <!-- Go to Page -->
+            <div class="flex items-center space-x-2">
+                <label for="goToPage" class="block text-sm font-medium text-amber-800">Go to Page:</label>
+                <input id="goToPage" type="number" min="1" placeholder="Page"
+                    class="w-16 pl-3 pr-2 py-2 text-sm border border-teal-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 rounded-lg shadow-sm">
+                <button id="goButton"
+                    class="bg-teal-500 hover:bg-teal-600 text-white text-sm py-2 px-4 rounded-lg shadow-md transition">
+                    Go
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Requests List -->
+    <div id="requestsList" class="grid grid-cols-1 gap-4">
+        <!-- Request Cards will be populated here dynamically -->
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="~/js/evaluation.js"></script>
+}

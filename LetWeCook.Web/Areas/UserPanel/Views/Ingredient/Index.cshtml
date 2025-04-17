@@ -1,0 +1,117 @@
+﻿<div
+    class="flex flex-col items-center justify-center mx-auto max-w-6xl px-4 py-8 bg-orange-50 bg-cover bg-no-repeat bg-center min-h-screen">
+    <!-- Header -->
+    <div class="mb-6 flex flex-col w-full items-center justify-between gap-4 sm:flex-row">
+        <h1 class="text-3xl font-bold text-orange-800">🍴 My Ingredients</h1>
+        <a href="/Ingredients/Add"
+            class="rounded-xl bg-orange-600 px-4 py-2 text-white shadow transition hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            aria-label="Add a new ingredient">
+            + Add Ingredient
+        </a>
+    </div>
+
+    <div class="w-full flex flex-row flex-wrap">
+        <!-- Categories -->
+        <div class="w-full flex flex-col items-start justify-center gap-y-4">
+            <label for="categorySelect" class="w-full text-left">Choose category</label>
+            <div class="option-container w-full flex flex-row flex-wrap items-center justify-start gap-x-4 gap-y-2">
+                <!-- Categories will be inserted here -->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="flex flex-row h-32 items-center w-full justify-between gap-x-4">
+        <!-- Filter Bar -->
+        <div class="">
+            <!-- Search -->
+            <div>
+                <input type="text" id="searchName" placeholder="Search by name..."
+                    class="filter-search h-12 w-full min-w-0 rounded-xl border border-orange-300 px-4 py-2 shadow focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    aria-label="Search ingredients by name" />
+            </div>
+        </div>
+        <!-- Items per page -->
+        <div class="flex w-1/4 flex-row items-center justify-center">
+            <label for="itemsPerPage" class="flex flex-1 text-center w-48">Items per page</label>
+            <select id="itemsPerPage"
+                class="h-12 w-48 rounded-xl border border-orange-300 py-2 shadow focus:outline-none focus:ring-2 focus:ring-orange-400"
+                aria-label="Select items per page">
+                <option value="6">6 per page</option>
+                <option value="12" selected>12 per page</option>
+                <option value="24">24 per page</option>
+                <option value="36">36 per page</option>
+                <option value="48">48 per page</option>
+                <option value="60">60 per page</option>
+                <option value="100">100 per page</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination-controls mt-2 mb-8 flex flex-wrap items-center justify-center gap-2">
+        <button
+            class="pagination-button first-page rounded bg-orange-200 px-4 py-2 hover:bg-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            aria-label="Go to first page">
+            ⏮ First
+        </button>
+        <button
+            class="pagination-button prev-page rounded bg-orange-200 px-4 py-2 hover:bg-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            aria-label="Go to previous page">
+            ◀ Prev
+        </button>
+        <span class="pagination-info current-page px-4 py-2 font-semibold text-orange-800" aria-live="polite">
+            Page 1
+        </span>
+        <button
+            class="pagination-button next-page rounded bg-orange-200 px-4 py-2 hover:bg-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            aria-label="Go to next page">
+            Next ▶
+        </button>
+        <button
+            class="pagination-button last-page rounded bg-orange-200 px-4 py-2 hover:bg-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            aria-label="Go to last page">
+            Last ⏭
+        </button>
+    </div>
+
+
+    <!-- Ingredient Cards Container -->
+    <div id="ingredientList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-center">
+        <!-- Ingredient cards will go here -->
+    </div>
+
+
+
+    <!-- Pagination Controls -->
+    <div class="pagination-controls mt-8 flex flex-wrap items-center justify-center gap-2">
+        <button
+            class="pagination-button first-page rounded bg-orange-200 px-4 py-2 hover:bg-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            aria-label="Go to first page">
+            ⏮ First
+        </button>
+        <button
+            class="pagination-button prev-page rounded bg-orange-200 px-4 py-2 hover:bg-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            aria-label="Go to previous page">
+            ◀ Prev
+        </button>
+        <span class="pagination-info current-page px-4 py-2 font-semibold text-orange-800" aria-live="polite">
+            Page 1
+        </span>
+        <button
+            class="pagination-button next-page rounded bg-orange-200 px-4 py-2 hover:bg-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            aria-label="Go to next page">
+            Next ▶
+        </button>
+        <button
+            class="pagination-button last-page rounded bg-orange-200 px-4 py-2 hover:bg-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            aria-label="Go to last page">
+            Last ⏭
+        </button>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/profile-ingredient.js"></script>
+}

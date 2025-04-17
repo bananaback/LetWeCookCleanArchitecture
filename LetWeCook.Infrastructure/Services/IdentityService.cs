@@ -184,4 +184,20 @@ public class IdentityService : IIdentityService
         var user = _userManager.Users.FirstOrDefault(u => u.Id == appUserId);
         return Task.FromResult(user?.SiteUserId);
     }
+
+    public Task<string> GetUserNameFromAppUserIdAsync(Guid appUserId, CancellationToken cancellationToken = default)
+    {
+        var user = _userManager.Users.FirstOrDefault(u => u.Id == appUserId);
+        if (user == null)
+            return Task.FromResult(string.Empty);
+        return Task.FromResult(user.UserName ?? "");
+    }
+
+    public Task<string> GetUserNameFromSiteUserIdAsync(Guid siteUserId, CancellationToken cancellationToken = default)
+    {
+        var user = _userManager.Users.FirstOrDefault(u => u.SiteUserId == siteUserId);
+        if (user == null)
+            return Task.FromResult(string.Empty);
+        return Task.FromResult(user.UserName ?? "");
+    }
 }

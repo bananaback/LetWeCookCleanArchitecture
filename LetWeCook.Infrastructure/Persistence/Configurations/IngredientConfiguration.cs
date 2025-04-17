@@ -35,15 +35,20 @@ public class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
             .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
+        builder.Property(i => i.CategoryId)
+            .HasColumnName("category_id")
+            .HasColumnType("uniqueidentifier")
+            .IsRequired();
+
         builder.HasOne(i => i.CreatedByUser)
             .WithMany()
             .HasForeignKey(i => i.CreatedByUserId)
             .OnDelete(DeleteBehavior.SetNull);
 
         builder.Property(i => i.CreatedByUserId)
-            .HasColumnName("created_by_user_id") // Custom column name
-            .HasColumnType("uniqueidentifier")   // Explicitly setting it as GUID
-            .IsRequired(false);
+            .HasColumnName("created_by_user_id")
+            .HasColumnType("uniqueidentifier")
+            .IsRequired(true);
 
         builder.Property(i => i.Calories)
             .HasColumnName("calories")
@@ -93,11 +98,27 @@ public class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
             .HasColumnType("bit")
             .IsRequired();
 
+        builder.Property(i => i.Visible)
+            .HasColumnName("visible")
+            .HasColumnType("bit")
+            .IsRequired(true);
+
+        builder.Property(i => i.IsPreview)
+            .HasColumnName("is_preview")
+            .HasColumnType("bit")
+            .IsRequired(true)
+            .HasDefaultValue(false);
+
         builder.HasOne(i => i.CoverImageUrl)
             .WithOne()
             .HasForeignKey<Ingredient>(i => i.CoverImageUrlId)
             .OnDelete(DeleteBehavior.NoAction)
             .IsRequired();
+
+        builder.Property(i => i.CoverImageUrlId)
+            .HasColumnName("cover_image_url_id")
+            .HasColumnType("uniqueidentifier")
+            .IsRequired(true);
 
         builder.Property(i => i.ExpirationDays)
             .HasColumnName("expiration_days")

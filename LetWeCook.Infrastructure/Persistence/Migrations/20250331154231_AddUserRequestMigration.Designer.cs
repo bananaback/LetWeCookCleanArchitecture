@@ -4,6 +4,7 @@ using LetWeCook.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LetWeCook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(LetWeCookDbContext))]
-    partial class LetWeCookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250331154231_AddUserRequestMigration")]
+    partial class AddUserRequestMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,12 +76,6 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.Property<bool>("IsPescatarian")
                         .HasColumnType("bit")
                         .HasColumnName("is_pescatarian");
-
-                    b.Property<bool>("IsPreview")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("is_preview");
 
                     b.Property<bool>("IsVegan")
                         .HasColumnType("bit")
@@ -574,13 +571,9 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("created_by_user_name");
 
-                    b.Property<Guid>("NewReferenceId")
+                    b.Property<Guid>("ReferenceId")
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("new_reference_id");
-
-                    b.Property<Guid?>("OldReferenceId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("old_reference_id");
+                        .HasColumnName("reference_id");
 
                     b.Property<string>("ResponseMessage")
                         .HasColumnType("nvarchar(500)")
