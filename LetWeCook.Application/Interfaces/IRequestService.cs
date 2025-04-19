@@ -10,6 +10,6 @@ public interface IRequestService
     Task<RequestDTO> GetRequestByIdAsync(Guid requestId, CancellationToken cancellationToken = default);
     Task<IEnumerable<RequestDTO>> GetAllRequestsAsync(CancellationToken cancellationToken = default);
     Task<IEnumerable<RequestDTO>> GetUserRequestsAsync(Guid userId, CancellationToken cancellationToken = default);
-    Task<bool> ApproveRequestByRequestIdAsync(Guid requestId, string responseMessage, CancellationToken cancellationToken = default);
-    Task<bool> RejectRequestByRequestIdAsync(Guid requestId, string responseMessage, CancellationToken cancellationToken = default);
+    Task ApproveRequestByNewRefIdAsync(Guid newReferenceId, string responseMessage, CancellationToken cancellationToken = default);
+    Task RejectRequestByNewRefIdAsync(Guid newReferenceId, string responseMessage, CancellationToken cancellationToken = default);
 }

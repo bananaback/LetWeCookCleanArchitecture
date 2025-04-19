@@ -10,5 +10,6 @@ public interface IIngredientRepository : IRepository<Ingredient>
 
     Task<List<Ingredient>> GetIngredientOverviewsByCategoryNameAsync(string categoryName, int count, CancellationToken cancellationToken);
     Task<List<Ingredient>> GetAllIngredientOverviewsAsync(CancellationToken cancellationToken);
+    Task<Ingredient?> GetIngredientOverviewByIdAsync(Guid ingredientId, CancellationToken cancellationToken);
     Task<List<Ingredient>> GetAllUserIngreidientOverviewsAsync(Guid userId, CancellationToken cancellationToken);
 }

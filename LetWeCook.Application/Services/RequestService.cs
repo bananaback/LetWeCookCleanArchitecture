@@ -1,4 +1,5 @@
 using LetWeCook.Application.DTOs.Profile;
+using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Enums;
 
@@ -8,25 +9,76 @@ public class RequestService : IRequestService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserRequestRepository _userRequestRepository;
-    public RequestService(IUnitOfWork unitOfWork, IUserRequestRepository userRequestRepository)
+    private readonly IMediaUrlRepository _mediaUrlRepository;
+    private readonly IIngredientRepository _ingredientRepository;
+    public RequestService(
+        IUnitOfWork unitOfWork,
+        IUserRequestRepository userRequestRepository,
+        IIngredientRepository ingredientRepository,
+        IMediaUrlRepository mediaUrlRepository)
     {
         _unitOfWork = unitOfWork;
         _userRequestRepository = userRequestRepository;
+        _ingredientRepository = ingredientRepository;
+        _mediaUrlRepository = mediaUrlRepository;
     }
 
-    public async Task<bool> ApproveRequestByRequestIdAsync(Guid requestId, string responseMessage, CancellationToken cancellationToken = default)
+    public async Task ApproveRequestByNewRefIdAsync(Guid newReferenceId, string responseMessage, CancellationToken cancellationToken = default)
     {
-        var request = await _userRequestRepository.GetByIdAsync(requestId, cancellationToken);
+        var request = await _userRequestRepository.GetPendingByNewReferenceIdAsync(newReferenceId, cancellationToken);
         if (request == null)
         {
-            return false;
+            throw new RequestRetrievalException("Request not found or already processed.");
         }
-        request.UpdateStatus(UserRequestStatus.APPROVED, responseMessage);
-        await _userRequestRepository.UpdateAsync(request, cancellationToken);
-        var result = await _unitOfWork.CommitAsync(cancellationToken);
-        return result > 0;
-    }
 
+        if (request.Type == UserRequestType.CREATE_INGREDIENT)
+        {
+            var ingredientId = request.NewReferenceId;
+            var ingredient = await _ingredientRepository.GetByIdAsync(ingredientId, cancellationToken);
+            if (ingredient == null)
+            {
+                throw new IngredientRetrievalException($"Ingredient with ID {ingredientId} not found.");
+            }
+
+            ingredient.SetVisible(true);
+            ingredient.SetPreview(false);
+
+            await _ingredientRepository.UpdateAsync(ingredient, cancellationToken);
+            request.UpdateStatus(UserRequestStatus.APPROVED, responseMessage);
+
+            await _userRequestRepository.UpdateAsync(request, cancellationToken);
+
+            await _unitOfWork.CommitAsync(cancellationToken);
+        }
+        else if (request.Type == UserRequestType.UPDATE_INGREDIENT)
+        {
+            Console.WriteLine("!!! OLD REF ID: " + request.OldReferenceId);
+            if (request.OldReferenceId == null)
+            {
+                throw new InvalidOperationException("Old reference ID is required for update requests.");
+            }
+            var oldIngredient = await _ingredientRepository.GetIngredientByIdWithCategoryAndDetailsAsync(request.OldReferenceId!.Value, cancellationToken);
+            var newIngredient = await _ingredientRepository.GetIngredientByIdWithCategoryAndDetailsAsync(request.NewReferenceId, cancellationToken);
+
+            // check null of old and new ingredient
+            if (oldIngredient == null || newIngredient == null)
+            {
+                throw new IngredientRetrievalException($"Ingredient with ID {request.OldReferenceId} or {request.NewReferenceId} not found.");
+            }
+
+            // deep copy new ingredient to old ingredient
+            oldIngredient.CopyFrom(newIngredient);
+
+            oldIngredient.SetVisible(true);
+            oldIngredient.SetPreview(false);
+
+            await _ingredientRepository.UpdateAsync(oldIngredient, cancellationToken);
+            request.UpdateStatus(UserRequestStatus.APPROVED, responseMessage);
+
+            await _userRequestRepository.UpdateAsync(request, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+        }
+    }
 
     public Task<bool> DeleteRequestAsync(Guid requestId, CancellationToken cancellationToken = default)
     {
@@ -78,16 +130,19 @@ public class RequestService : IRequestService
         });
     }
 
-    public async Task<bool> RejectRequestByRequestIdAsync(Guid requestId, string responseMessage, CancellationToken cancellationToken = default)
+    public async Task RejectRequestByNewRefIdAsync(Guid newReferenceId, string responseMessage, CancellationToken cancellationToken = default)
     {
-        var request = await _userRequestRepository.GetByIdAsync(requestId, cancellationToken);
+        var request = await _userRequestRepository.GetPendingByNewReferenceIdAsync(newReferenceId, cancellationToken);
+
         if (request == null)
         {
-            return false;
+            throw new RequestRetrievalException("Request not found or already processed.");
         }
+
         request.UpdateStatus(UserRequestStatus.REJECTED, responseMessage);
+
         await _userRequestRepository.UpdateAsync(request, cancellationToken);
-        var result = await _unitOfWork.CommitAsync(cancellationToken);
-        return result > 0;
+
+        await _unitOfWork.CommitAsync(cancellationToken);
     }
 }

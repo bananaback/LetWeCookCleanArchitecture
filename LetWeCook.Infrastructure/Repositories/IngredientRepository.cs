@@ -20,6 +20,7 @@ public class IngredientRepository : Repository<Ingredient>, IIngredientRepositor
     {
         return _dbSet.Include(i => i.Category)
             .Include(i => i.CoverImageUrl)
+            .Where(i => i.Visible && !i.IsPreview)
             .ToListAsync(cancellationToken);
     }
 
@@ -27,7 +28,7 @@ public class IngredientRepository : Repository<Ingredient>, IIngredientRepositor
     {
         return _dbSet.Include(i => i.Category)
             .Include(i => i.CoverImageUrl)
-            .Where(i => i.CreatedByUser.Id == userId)
+            .Where(i => i.CreatedByUser.Id == userId && i.Visible && !i.IsPreview)
             .ToListAsync(cancellationToken);
     }
 
@@ -42,13 +43,22 @@ public class IngredientRepository : Repository<Ingredient>, IIngredientRepositor
             .FirstOrDefaultAsync(i => i.Id == id, cancellationToken);
     }
 
+    public Task<Ingredient?> GetIngredientOverviewByIdAsync(Guid ingredientId, CancellationToken cancellationToken)
+    {
+        return _dbSet.Include(i => i.Category)
+            .Include(i => i.CreatedByUser)
+            .Include(i => i.CoverImageUrl)
+            .Where(i => i.Id == ingredientId)
+            .FirstOrDefaultAsync(i => i.Id == ingredientId, cancellationToken);
+    }
+
     public Task<List<Ingredient>> GetIngredientOverviewsByCategoryNameAsync(string categoryName, int count, CancellationToken cancellationToken)
     {
 
         return _dbSet
             .Include(i => i.Category)
             .Include(i => i.CoverImageUrl)
-            .Where(i => i.Category.Name == categoryName)
+            .Where(i => i.Category.Name == categoryName && i.Visible && !i.IsPreview)
             .OrderBy(_ => Guid.NewGuid()) // Randomize the order
             .Take(count)
             .ToListAsync(cancellationToken);
@@ -59,6 +69,7 @@ public class IngredientRepository : Repository<Ingredient>, IIngredientRepositor
         return _dbSet
             .Include(i => i.Category)
             .Include(i => i.CoverImageUrl)
+            .Where(i => i.Visible && !i.IsPreview)
             .OrderBy(_ => Guid.NewGuid()) // Randomize the order
             .Take(count)
             .ToListAsync(cancellationToken);

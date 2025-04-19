@@ -203,16 +203,76 @@ $(document).ready(function () {
 
     // Accept button
     $('.accept-btn').on('click', function () {
-        const message = $('#admin-response').val().trim();
-        console.log("✅ Accepted with message:", message);
-        // TODO: Send to backend or handle accept logic here
+        const formattedMessage = collectEvaluationInputs();
+        const newRefId = ingredientId; // Assuming ingredientId is defined elsewhere
+
+        $.ajax({
+            url: `/api/evaluation/accept/${newRefId}`,
+            method: 'POST',
+            data: { responseMessage: formattedMessage },
+            success: function () {
+                Swal.fire({
+                    title: '✅ Accepted!',
+                    text: 'The request has been successfully accepted.',
+                    icon: 'success',
+                    confirmButtonText: 'Got it!',
+                    confirmButtonColor: '#28a745',
+                    background: 'rgba(255, 255, 255, 0.8)',  // Transparent background
+                    color: '#333',  // Text color to make it readable
+                    backdrop: 'rgba(0, 0, 0, 0.3)',  // Slight dimming for the backdrop
+                });
+            },
+            error: function (xhr) {
+                const error = xhr.responseJSON?.error || 'Something went wrong';
+                Swal.fire({
+                    title: '❌ Oops!',
+                    text: error + error.details,
+                    icon: 'error',
+                    confirmButtonText: 'Close',
+                    confirmButtonColor: '#d33',
+                    background: 'rgba(255, 255, 255, 0.9)',  // Transparent background
+                    color: '#333',  // Text color for clarity
+                    backdrop: 'rgba(0, 0, 0, 0.3)',  // Slight dimming for the backdrop
+                });
+            }
+        });
     });
 
     // Reject button
     $('.reject-btn').on('click', function () {
-        const message = $('#admin-response').val().trim();
-        console.log("❌ Rejected with message:", message);
-        // TODO: Send to backend or handle reject logic here
+        const formattedMessage = collectEvaluationInputs();
+        const newRefId = ingredientId; // Assuming ingredientId is defined elsewhere
+
+        $.ajax({
+            url: `/api/evaluation/reject/${newRefId}`,
+            method: 'POST',
+            data: { responseMessage: formattedMessage },
+            success: function () {
+                Swal.fire({
+                    title: '🚫 Rejected!',
+                    text: 'The request has been rejected as per your response.',
+                    icon: 'warning',
+                    confirmButtonText: 'Understood',
+                    confirmButtonColor: '#dc3545',
+                    background: 'rgba(255, 255, 255, 0.8)',  // Transparent background
+                    color: '#333',  // Text color to make it readable
+                    backdrop: 'rgba(0, 0, 0, 0.3)',  // Slight dimming for the backdrop
+                });
+            },
+            error: function (xhr) {
+                const error = xhr.responseJSON?.error || 'Something went wrong';
+                Swal.fire({
+                    title: '❌ Oops!',
+                    text: error,
+                    icon: 'error',
+                    confirmButtonText: 'Close',
+                    confirmButtonColor: '#d33',
+                    background: 'rgba(255, 255, 255, 0.9)',  // Transparent background
+                    color: '#333',  // Text color for clarity
+                    backdrop: 'rgba(0, 0, 0, 0.3)',  // Slight dimming for the backdrop
+                });
+            }
+        });
     });
 
     $('.review-ai-btn').on('click', async function () {
@@ -271,3 +331,11 @@ $(document).ready(function () {
     }
 
 });
+
+function collectEvaluationInputs() {
+    const adminResponse = $('#admin-response').val().trim();
+    const problems = $('#problems').val().trim();
+    const suggestions = $('#suggestions').val().trim();
+
+    return `|${adminResponse}|${problems}|${suggestions}|`;
+}

@@ -57,6 +57,23 @@ public class IngredientController : Controller
         return View();
     }
 
+    [HttpGet("api/ingredient-overview/{id}")]
+    public async Task<IActionResult> GetIngredientOverviewAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var siteUserId = await GetSiteUserId(cancellationToken);
+        var isAdmin = User.IsInRole("Admin");
+
+        try
+        {
+            var ingredient = await _ingredientService.GetIngredientOverviewByIdAsync(id, siteUserId, bypassOwnershipCheck: isAdmin, cancellationToken);
+            return Ok(ingredient);
+        }
+        catch (IngredientRetrievalException)
+        {
+            return Forbid(); // 403 Forbidden
+        }
+    }
+
     [HttpPut("api/ingredients/{id}")]
     public async Task<IActionResult> UpdateIngredientAsync(Guid id, [FromBody] CreateIngredientRequest request, CancellationToken cancellationToken)
     {

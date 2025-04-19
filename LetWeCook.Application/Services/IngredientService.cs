@@ -95,35 +95,6 @@ public class IngredientService : IIngredientService
 
         // ✅ Commit all at once
         await _unitOfWork.CommitAsync(cancellationToken);
-
-        // Return DTO
-        // return new IngredientDto
-        // {
-        //     Id = ingredient.Id,
-        //     Name = ingredient.Name,
-        //     Description = ingredient.Description,
-        //     CategoryId = ingredient.CategoryId,
-        //     Calories = ingredient.Calories,
-        //     Protein = ingredient.Protein,
-        //     Carbohydrates = ingredient.Carbohydrates,
-        //     Fats = ingredient.Fat,
-        //     Sugars = ingredient.Sugar,
-        //     Fiber = ingredient.Fiber,
-        //     Sodium = ingredient.Sodium,
-        //     IsVegetarian = ingredient.IsVegetarian,
-        //     IsVegan = ingredient.IsVegan,
-        //     IsGlutenFree = ingredient.IsGlutenFree,
-        //     IsPescatarian = ingredient.IsPescatarian,
-        //     CoverImageUrl = ingredient.CoverImageUrl.Url,
-        //     ExpirationDays = ingredient.ExpirationDays,
-        //     Details = ingredient.Details.Select(detail => new DetailDto
-        //     {
-        //         Title = detail.Title,
-        //         Description = detail.Description,
-        //         MediaUrls = detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
-        //         Order = detail.Order
-        //     }).ToList()
-        // };
         return createIngredientRequest.Id;
     }
 
@@ -217,6 +188,42 @@ public class IngredientService : IIngredientService
                 MediaUrls = detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
                 Order = detail.Order
             }).ToList()
+        };
+    }
+
+    public async Task<IngredientDto> GetIngredientOverviewByIdAsync(Guid ingredientId, Guid siteUserId, bool bypassOwnershipCheck, CancellationToken cancellationToken)
+    {
+        var ingredient = await _ingredientRepository.GetIngredientOverviewByIdAsync(ingredientId, cancellationToken);
+        if (ingredient == null)
+        {
+            throw new IngredientRetrievalException($"Ingredient with ID {ingredientId} not found.");
+        }
+
+        if (!bypassOwnershipCheck && ingredient.CreatedByUser.Id != siteUserId)
+        {
+            throw new IngredientRetrievalException($"Ingredient with ID {ingredientId} not owned by user {siteUserId}.");
+        }
+
+        return new IngredientDto
+        {
+            Id = ingredient.Id,
+            Name = ingredient.Name,
+            Description = ingredient.Description,
+            CategoryId = ingredient.CategoryId,
+            CategoryName = ingredient.Category.Name,
+            Calories = ingredient.Calories,
+            Protein = ingredient.Protein,
+            Carbohydrates = ingredient.Carbohydrates,
+            Fats = ingredient.Fat,
+            Sugars = ingredient.Sugar,
+            Fiber = ingredient.Fiber,
+            Sodium = ingredient.Sodium,
+            IsVegetarian = ingredient.IsVegetarian,
+            IsVegan = ingredient.IsVegan,
+            IsGlutenFree = ingredient.IsGlutenFree,
+            IsPescatarian = ingredient.IsPescatarian,
+            CoverImageUrl = ingredient.CoverImageUrl.Url,
+            ExpirationDays = ingredient.ExpirationDays
         };
     }
 

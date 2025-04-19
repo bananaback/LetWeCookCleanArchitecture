@@ -27,14 +27,12 @@ $(document).ready(function () {
             initializePagination();
 
             updatePaginationDisplay();
-            updateRequestList(filteredRequests.slice((pagination.currentPage - 1) * pagination.itemsPerPage, pagination.currentPage * pagination.itemsPerPage)); // Update the request list with the filtered requests
         },
         error: function (xhr, status, error) {
             console.error('API call failed:', error);
             initializePagination();
 
             updatePaginationDisplay();
-            updateRequestList(filteredRequests.slice((pagination.currentPage - 1) * pagination.itemsPerPage, pagination.currentPage * pagination.itemsPerPage)); // Update the request list with the filtered requests
         }
     });
 
@@ -255,7 +253,7 @@ function getStatusColor(status) {
 
 function updateRequestList(filteredRequests) {
     const $requestsList = $('#requestsList');
-    $requestsList.empty(); // clear old content
+    $requestsList.empty();
 
     if (filteredRequests.length === 0) {
         $requestsList.append(`
@@ -266,72 +264,124 @@ function updateRequestList(filteredRequests) {
         return;
     }
 
-    filteredRequests.forEach(request => {
-        let requestTypeString = "";
-        if (request.type === "CREATE_INGREDIENT") {
-            requestTypeString = "Create Ingredient";
-        } else if (request.type === "UPDATE_INGREDIENT") {
-            requestTypeString = "Update Ingredient";
-        } else if (request.type === "CREATE_RECIPE") {
-            requestTypeString = "Create Recipe";
-        } else if (request.type === "UPDATE_RECIPE") {
-            requestTypeString = "Update Recipe";
+    // Sequential fetch + render
+    (async () => {
+        for (const request of filteredRequests) {
+            let ingredientData = null;
+
+            if (request.type === "CREATE_INGREDIENT" || request.type === "UPDATE_INGREDIENT") {
+                try {
+                    ingredientData = await $.ajax({
+                        url: `https://localhost:7212/api/ingredient-overview/${request.newReferenceId}`,
+                        method: 'GET',
+                        dataType: 'json'
+                    });
+                } catch (err) {
+                    // optional: console.warn('Failed to fetch ingredient data:', err);
+                }
+            }
+
+            const ingredientSection = ingredientData ? `
+                <div class="bg-emerald-50 px-6 py-4 grid grid-cols-3 gap-4 items-center">
+                    <dt class="text-sm font-medium text-gray-700 col-span-1">Ingredient</dt>
+                    <dd class="col-span-2 flex items-center gap-4">
+                        <span class="text-sm text-gray-900 font-sans">${ingredientData.name}</span>
+                        <div class="w-20 h-20 bg-gray-100 flex items-center justify-center rounded-md shadow overflow-hidden">
+                            <img src="${ingredientData.coverImageUrl}" alt="Cover Image" class="object-contain w-full h-full">
+                        </div>
+                    </dd>
+                </div>
+            ` : '';
+
+            console.log(request.responseMessage);
+            // Split the response message into parts and ensure it has exactly 3 parts, filling empty parts if necessary
+            let formattedResponseMessage = '';
+            if (request.responseMessage) {
+                const responseParts = request.responseMessage.split('|');
+
+                // Ensure there are exactly 3 parts, filling missing parts with an empty string
+                const adminResponse = responseParts[1] || '';
+                const problemsRaw = responseParts[2] || '';
+                const suggestionsRaw = responseParts[3] || '';
+
+                // Helper function to turn "- item" into list with icons
+                const parseList = (text, icon) =>
+                    text
+                        .split('-')
+                        .map(item => item.trim())
+                        .filter(item => item.length > 0)
+                        .map(item => `<li class="flex items-start gap-2"><span>${icon}</span><span>${item}</span></li>`)
+                        .join('');
+
+                const problemsList = parseList(problemsRaw, '❌');
+                const suggestionsList = parseList(suggestionsRaw, '✅');
+
+                formattedResponseMessage = `
+                    <div class="flex space-x-4 text-sm text-gray-700 font-sans">
+                        <div class="flex-1">
+                            <strong class="block text-emerald-700 mb-1">Admin Response:</strong>
+                            <p class="text-gray-900 whitespace-pre-line">${adminResponse}</p>
+                        </div>
+                        <div class="flex-1">
+                            <strong class="block text-red-700 mb-1">Problems:</strong>
+                            <ul class="space-y-1">${problemsList}</ul>
+                        </div>
+                        <div class="flex-1">
+                            <strong class="block text-green-700 mb-1">Suggestions:</strong>
+                            <ul class="space-y-1">${suggestionsList}</ul>
+                        </div>
+                    </div>
+                `;
+            }
+
+            const card = `
+                <div class="pt-4">
+                    <div class="bg-white shadow-lg overflow-hidden rounded-xl border border-emerald-100 transform hover:shadow-xl transition duration-300">
+                        <div class="px-6 py-4">
+                            <h3 class="text-xl font-sans font-medium text-emerald-800 flex items-center gap-3">
+                                <span class="inline-block px-3 py-1.5 text-sm tracking-wide font-semibold text-white ${getBadgeColor(request.type)} rounded-full">
+                                    ${request.type.replaceAll('_', ' ')}
+                                </span>
+                            </h3>
+                            <p class="mt-1 max-w-2xl">
+                                <span class="inline-block px-2 py-0.5 text-xs font-medium text-white ${getStatusColor(request.status)} rounded">
+                                    ${request.status}
+                                </span>
+                            </p>
+                        </div>
+                        <div class="border-t border-emerald-50">
+                            <dl>
+                                <div class="bg-emerald-50 px-6 py-4 grid grid-cols-3 gap-4">
+                                    <dt class="text-sm font-medium text-gray-700">Date Requested</dt>
+                                    <dd class="mt-1 text-sm text-gray-900 col-span-2 font-sans">${formatDate(request.createdAt)}</dd>
+                                </div>
+                                <div class="bg-white px-6 py-4 grid grid-cols-3 gap-4">
+                                    <dt class="text-sm font-medium text-gray-700">Date Updated</dt>
+                                    <dd class="mt-1 text-sm text-gray-900 col-span-2 font-sans">${formatDate(request.updatedAt) || '-'}</dd>
+                                </div>
+                                ${formattedResponseMessage ? `
+                                    <div class="bg-emerald-50 px-6 py-4">
+                                        <dt class="text-sm font-medium text-gray-700">Response Message</dt>
+                                        <dd class="mt-1 text-sm text-gray-900">${formattedResponseMessage}</dd>
+                                    </div>` : ""}
+                                ${ingredientSection}
+                            </dl>
+                        </div>
+                        <div class="px-6 py-3 bg-white text-right">
+                            <button onclick="window.location.href='https://localhost:7212/Cooking/Ingredient/Preview/${request.newReferenceId}'"
+                                class="bg-cyan-600 hover:bg-cyan-700 text-white font-sans font-medium text-sm py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition duration-300">
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            $requestsList.append(card);
         }
-
-        const card = `
-        <div class="pt-4">
-            <div class="bg-white shadow-lg overflow-hidden rounded-xl border border-emerald-100 transform hover:shadow-xl transition duration-300">
-                <div class="px-6 py-4">
-                    <h3 class="text-xl font-sans font-medium text-emerald-800 flex items-center gap-3">
-                        <span class="inline-block px-3 py-1.5 text-sm tracking-wide font-semibold text-white ${getBadgeColor(request.type)} rounded-full">
-                            ${request.type.replaceAll('_', ' ')}
-                        </span>
-                    </h3>
-
-                    <div id="request-id" class="hidden">${request.id}</div>
-
-                    <p class="mt-1 max-w-2xl">
-                        <span class="inline-block px-2 py-0.5 text-xs font-medium text-white ${getStatusColor(request.status)} rounded">
-                            ${request.status}
-                        </span>
-                    </p>
-
-                </div>
-                <div class="border-t border-emerald-50">
-                    <dl>
-                        <div class="bg-emerald-50 px-6 py-4 grid grid-cols-3 gap-4">
-                            <dt class="text-sm font-medium text-gray-700">Date Requested</dt>
-                            <dd class="mt-1 text-sm text-gray-900 col-span-2 font-sans">${formatDate(request.createdAt)}</dd>
-                        </div>
-                        <div class="bg-white px-6 py-4 grid grid-cols-3 gap-4">
-                            <dt class="text-sm font-medium text-gray-700">Date Updated</dt>
-                            <dd class="mt-1 text-sm text-gray-900 col-span-2 font-sans">${formatDate(request.updatedAt) || '-'}</dd>
-                        </div>
-                        ${request.responseMessage ? `
-                        <div class="bg-emerald-50 px-6 py-4 grid grid-cols-3 gap-4">
-                            <dt class="text-sm font-medium text-gray-700">Response Message</dt>
-                            <dd class="mt-1 text-sm text-gray-900 col-span-2 font-sans">${request.responseMessage}</dd>
-                        </div>` : ""}
-                    </dl>
-                </div>
-                <div class="px-6 py-3 bg-emerald-50 text-right">
-                    <button onclick="window.location.href='https://localhost:7212/Cooking/Ingredient/Preview/${request.newReferenceId}'"
-                        class="bg-cyan-600 hover:bg-cyan-700 text-white font-sans font-medium text-sm py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition duration-300">
-                        Preview
-                    </button>
-
-                </div>
-                <div class="hidden reference-id">${request.newReferenceId}</div>
-            </div>
-        </div>
-        `;
-
-        $requestsList.append(card);
-    });
-
-
-
+    })();
 }
+
 
 
 function updatePaginationDisplay() {

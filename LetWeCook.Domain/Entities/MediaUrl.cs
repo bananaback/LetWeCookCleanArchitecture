@@ -14,4 +14,9 @@ public class MediaUrl : Entity
         MediaType = mediaType;
         Url = url;
     }
+
+    public void SetUrl(string url)
+    {
+        Url = url;
+    }
 }

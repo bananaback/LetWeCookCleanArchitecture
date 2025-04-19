@@ -920,7 +920,7 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("UserProfileId");
 
-                            b1.ToTable("user_profiles");
+                            b1.ToTable("user_profiles", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserProfileId");
@@ -943,7 +943,7 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("UserProfileId");
 
-                            b1.ToTable("user_profiles");
+                            b1.ToTable("user_profiles", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserProfileId");

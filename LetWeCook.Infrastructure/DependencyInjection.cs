@@ -20,7 +20,11 @@ public static class DependencyInjection
 
         // Add DbContext
         services.AddDbContext<LetWeCookDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        {
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            options.EnableSensitiveDataLogging(); // helpful during dev
+
+        });
 
         // Add Identity with configuration
         services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>

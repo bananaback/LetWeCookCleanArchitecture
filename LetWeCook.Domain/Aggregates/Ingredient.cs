@@ -82,4 +82,54 @@ public class Ingredient : AggregateRoot
         Details = details;
         CreatedByUserId = createdByUserId;
     }
+
+    public void SetVisible(bool visible)
+    {
+        Visible = visible;
+    }
+
+    public void SetPreview(bool isPreview)
+    {
+        IsPreview = isPreview;
+    }
+
+    public void CopyFrom(Ingredient source)
+    {
+        if (source == null) throw new ArgumentNullException(nameof(source));
+
+        Name = source.Name;
+        Description = source.Description;
+        CategoryId = source.CategoryId;
+
+        Calories = source.Calories;
+        Protein = source.Protein;
+        Carbohydrates = source.Carbohydrates;
+        Fat = source.Fat;
+        Sugar = source.Sugar;
+        Fiber = source.Fiber;
+        Sodium = source.Sodium;
+
+        IsVegetarian = source.IsVegetarian;
+        IsVegan = source.IsVegan;
+        IsGlutenFree = source.IsGlutenFree;
+        IsPescatarian = source.IsPescatarian;
+
+        Visible = source.Visible;
+        IsPreview = source.IsPreview;
+
+        CoverImageUrl.SetUrl(source.CoverImageUrl.Url);
+        ExpirationDays = source.ExpirationDays;
+
+        // Deep copy Details
+        // Details = source.Details
+        //     .Select(d => new Detail(
+        //         d.Title,
+        //         d.Description,
+        //         d.MediaUrls.Select(m => new MediaUrl(m.MediaType, m.Url)).ToList(),
+        //         d.Order))
+        //     .ToList();
+
+    }
+
+
 }
