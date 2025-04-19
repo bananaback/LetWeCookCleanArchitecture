@@ -1,10 +1,10 @@
-using System.Security.Claims;
 using LetWeCook.Infrastructure;
 using LetWeCook.Infrastructure.Configurations;
 using LetWeCook.Infrastructure.Persistence;
 using LetWeCook.Web.Areas.Identity.ViewModelValidators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -121,9 +121,9 @@ using (var scope = app.Services.CreateScope())
     {
         await DataSeeder.SeedRolesAndAdminAsync(services);
 
-        //string jsonFilePath = "../LetWeCook.Infrastructure/Persistence/DataImporters/ingredients.json";
+        string jsonFilePath = "../LetWeCook.Infrastructure/Persistence/DataImporters/ingredients.json";
 
-        //await DataSeeder.SeedIngredientsAsync(services, jsonFilePath, CancellationToken.None);
+        await DataSeeder.SeedIngredientsAsync(services, jsonFilePath, CancellationToken.None);
     }
     catch (Exception ex)
     {

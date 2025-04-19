@@ -66,7 +66,11 @@ $(document).ready(function () {
 
             // Populate Details with wider cards, including MediaUrls
             let detailsContainer = $("#details-container");
-            ingredient.Details.forEach(detail => {
+
+            // First, sort the details by 'Order'
+            const sortedDetails = [...ingredient.Details].sort((a, b) => a.Order - b.Order);
+
+            sortedDetails.forEach(detail => {
                 // Build media HTML if MediaUrls exist
                 let mediaHtml = '';
                 if (detail.MediaUrls && detail.MediaUrls.length > 0) {
@@ -74,21 +78,23 @@ $(document).ready(function () {
                     detail.MediaUrls.forEach(url => {
                         // Assuming URLs are images for now; adjust if other media types are needed
                         mediaHtml += `
-                                <img src="${url}" class="cursor-pointer zoomable-img w-32 h-32 rounded-lg object-cover border-2 border-amber-200 shadow-md hover:shadow-lg transition-all duration-300" alt="${detail.Title} Media">
-                            `;
+                <img src="${url}" class="cursor-pointer zoomable-img w-32 h-32 rounded-lg object-cover border-2 border-amber-200 shadow-md hover:shadow-lg transition-all duration-300" alt="${detail.Title} Media">
+            `;
                     });
                     mediaHtml += '</div>';
                 }
 
                 // Combine title, description, and media
                 let detailHtml = `
-                    <div class="bg-white p-6 rounded-2xl shadow-lg transform rotate-1 hover:rotate-0 transition-all duration-300 max-w-3xl mx-auto">
-                        <h3 class="font-handwritten font-bold text-rose-700 text-2xl">${detail.Title}</h3>
-                        <p class="text-rose-600 mt-2">${detail.Description}</p>
-                        ${mediaHtml}
-                    </div>`;
+        <div class="bg-white p-6 rounded-2xl shadow-lg transform rotate-1 hover:rotate-0 transition-all duration-300 max-w-3xl mx-auto">
+            <h3 class="font-handwritten font-bold text-rose-700 text-2xl">${detail.Title}</h3>
+            <p class="text-rose-600 mt-2">${detail.Description}</p>
+            ${mediaHtml}
+        </div>`;
+
                 detailsContainer.append(detailHtml);
             });
+
 
         },
         error: function (xhr, status, error) {

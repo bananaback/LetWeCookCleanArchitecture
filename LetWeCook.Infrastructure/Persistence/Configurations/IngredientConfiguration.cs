@@ -43,7 +43,7 @@ public class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
         builder.HasOne(i => i.CreatedByUser)
             .WithMany()
             .HasForeignKey(i => i.CreatedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(i => i.CreatedByUserId)
             .HasColumnName("created_by_user_id")

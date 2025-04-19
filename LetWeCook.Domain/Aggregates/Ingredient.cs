@@ -120,16 +120,12 @@ public class Ingredient : AggregateRoot
         CoverImageUrl.SetUrl(source.CoverImageUrl.Url);
         ExpirationDays = source.ExpirationDays;
 
-        // Deep copy Details
-        // Details = source.Details
-        //     .Select(d => new Detail(
-        //         d.Title,
-        //         d.Description,
-        //         d.MediaUrls.Select(m => new MediaUrl(m.MediaType, m.Url)).ToList(),
-        //         d.Order))
-        //     .ToList();
-
     }
 
+    public void AddDetail(Detail detail)
+    {
+        if (detail == null) throw new ArgumentNullException(nameof(detail));
+        Details.Add(detail);
+    }
 
 }

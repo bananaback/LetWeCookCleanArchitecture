@@ -7,6 +7,8 @@ public interface IIngredientService
 {
     Task<List<IngredientCategoryDTO>> GetAllIngredientCategoriesAsync(CancellationToken cancellationToken);
     Task<Guid?> CreateIngredientAsync(Guid appUserId, CreateIngredientRequestDto request, CancellationToken cancellationToken);
+    Task<Guid?> CreateIngredientForSeedAsync(Guid appUserId, CreateIngredientRequestDto request, CancellationToken cancellationToken);
+
     Task<IngredientDto> GetIngredientAsync(Guid id, CancellationToken cancellationToken);
     Task<List<IngredientDto>> GetUserIngredientsAsync(Guid siteUserId, CancellationToken cancellationToken);
     Task<List<IngredientDto>> GetRandomIngredientsAsync(int count, CancellationToken cancellationToken);

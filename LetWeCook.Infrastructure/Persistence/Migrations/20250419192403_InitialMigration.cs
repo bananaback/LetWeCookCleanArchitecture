@@ -103,44 +103,6 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ingredients",
-                columns: table => new
-                {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(500)", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    calories = table.Column<double>(type: "float", nullable: true),
-                    protein = table.Column<double>(type: "float", nullable: true),
-                    carbohydrates = table.Column<double>(type: "float", nullable: true),
-                    fat = table.Column<double>(type: "float", nullable: true),
-                    sugar = table.Column<double>(type: "float", nullable: true),
-                    fiber = table.Column<double>(type: "float", nullable: true),
-                    sodium = table.Column<double>(type: "float", nullable: true),
-                    is_vegetarian = table.Column<bool>(type: "bit", nullable: false),
-                    is_vegan = table.Column<bool>(type: "bit", nullable: false),
-                    is_gluten_free = table.Column<bool>(type: "bit", nullable: false),
-                    is_pescatarian = table.Column<bool>(type: "bit", nullable: false),
-                    CoverImageUrlId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    expiration_days = table.Column<double>(type: "float", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ingredients", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_ingredients_ingredient_categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "ingredient_categories",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ingredients_media_urls_CoverImageUrlId",
-                        column: x => x.CoverImageUrlId,
-                        principalTable: "media_urls",
-                        principalColumn: "id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -167,6 +129,53 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUsers_site_users_SiteUserId",
                         column: x => x.SiteUserId,
+                        principalTable: "site_users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ingredients",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(500)", nullable: false),
+                    category_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    created_by_user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    calories = table.Column<double>(type: "float", nullable: true),
+                    protein = table.Column<double>(type: "float", nullable: true),
+                    carbohydrates = table.Column<double>(type: "float", nullable: true),
+                    fat = table.Column<double>(type: "float", nullable: true),
+                    sugar = table.Column<double>(type: "float", nullable: true),
+                    fiber = table.Column<double>(type: "float", nullable: true),
+                    sodium = table.Column<double>(type: "float", nullable: true),
+                    is_vegetarian = table.Column<bool>(type: "bit", nullable: false),
+                    is_vegan = table.Column<bool>(type: "bit", nullable: false),
+                    is_gluten_free = table.Column<bool>(type: "bit", nullable: false),
+                    is_pescatarian = table.Column<bool>(type: "bit", nullable: false),
+                    visible = table.Column<bool>(type: "bit", nullable: false),
+                    is_preview = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    cover_image_url_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    expiration_days = table.Column<double>(type: "float", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ingredients", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_ingredients_ingredient_categories_category_id",
+                        column: x => x.category_id,
+                        principalTable: "ingredient_categories",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ingredients_media_urls_cover_image_url_id",
+                        column: x => x.cover_image_url_id,
+                        principalTable: "media_urls",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_ingredients_site_users_created_by_user_id",
+                        column: x => x.created_by_user_id,
                         principalTable: "site_users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -206,22 +215,27 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "details",
+                name: "user_requests",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    title = table.Column<string>(type: "nvarchar(255)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(1024)", nullable: false),
-                    order = table.Column<int>(type: "int", nullable: false),
-                    IngredientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    type = table.Column<int>(type: "int", nullable: false),
+                    old_reference_id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    new_reference_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    response_message = table.Column<string>(type: "nvarchar(500)", nullable: true),
+                    status = table.Column<int>(type: "int", nullable: false),
+                    created_by_user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    created_by_user_name = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    created_at = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    updated_at = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "NULL")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_details", x => x.id);
+                    table.PrimaryKey("PK_user_requests", x => x.id);
                     table.ForeignKey(
-                        name: "FK_details_ingredients_IngredientId",
-                        column: x => x.IngredientId,
-                        principalTable: "ingredients",
+                        name: "FK_user_requests_site_users_created_by_user_id",
+                        column: x => x.created_by_user_id,
+                        principalTable: "site_users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -308,6 +322,27 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "details",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    title = table.Column<string>(type: "nvarchar(255)", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(1024)", nullable: false),
+                    order = table.Column<int>(type: "int", nullable: false),
+                    IngredientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_details", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_details_ingredients_IngredientId",
+                        column: x => x.IngredientId,
+                        principalTable: "ingredients",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -464,15 +499,20 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 column: "IngredientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ingredients_CategoryId",
+                name: "IX_ingredients_category_id",
                 table: "ingredients",
-                column: "CategoryId");
+                column: "category_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ingredients_CoverImageUrlId",
+                name: "IX_ingredients_cover_image_url_id",
                 table: "ingredients",
-                column: "CoverImageUrlId",
+                column: "cover_image_url_id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ingredients_created_by_user_id",
+                table: "ingredients",
+                column: "created_by_user_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_user_dietary_preferences_dietary_preference_id",
@@ -484,6 +524,11 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 table: "user_profiles",
                 column: "user_id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_requests_created_by_user_id",
+                table: "user_requests",
+                column: "created_by_user_id");
         }
 
         /// <inheritdoc />
@@ -511,6 +556,9 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 name: "user_dietary_preferences");
 
             migrationBuilder.DropTable(
+                name: "user_requests");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -529,13 +577,13 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 name: "ingredients");
 
             migrationBuilder.DropTable(
-                name: "site_users");
-
-            migrationBuilder.DropTable(
                 name: "ingredient_categories");
 
             migrationBuilder.DropTable(
                 name: "media_urls");
+
+            migrationBuilder.DropTable(
+                name: "site_users");
         }
     }
 }

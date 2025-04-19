@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using LetWeCook.Application.DTOs.Ingredient;
 using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
@@ -7,6 +6,7 @@ using LetWeCook.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LetWeCook.Web.Areas.Cooking.Controllers;
 
@@ -161,6 +161,7 @@ public class IngredientController : Controller
     private async Task<Guid> GetSiteUserId(CancellationToken cancellationToken = default)
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        Console.WriteLine("User ID Claim: " + userIdClaim?.Value);
         if (userIdClaim == null) throw new UnauthorizedAccessException("User ID not found in claims.");
         var appUser = await _userManager.FindByIdAsync(userIdClaim.Value);
         if (appUser == null) throw new UnauthorizedAccessException("User not found in database.");

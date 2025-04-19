@@ -1,10 +1,9 @@
+using LetWeCook.Application.Interfaces;
+using LetWeCook.Domain.Aggregates;
 using LetWeCook.Domain.Enums;
-using LetWeCook.Domain.Entities; // For SiteUser
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using LetWeCook.Domain.Aggregates;
-using LetWeCook.Application.Interfaces;
 
 namespace LetWeCook.Infrastructure.Persistence;
 
@@ -15,9 +14,10 @@ public class DataSeeder
         var ingredientService = services.GetRequiredService<IIngredientService>();
         var ingredientCategoryRepository = services.GetRequiredService<IIngredientCategoryRepository>();
         var ingredientRepository = services.GetRequiredService<IIngredientRepository>();
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
         var logger = services.GetRequiredService<ILogger<DataSeeder>>();
 
-        var importer = new IngredientImporter(ingredientService, ingredientCategoryRepository, ingredientRepository);
+        var importer = new IngredientImporter(ingredientService, ingredientCategoryRepository, ingredientRepository, userManager);
 
         try
         {

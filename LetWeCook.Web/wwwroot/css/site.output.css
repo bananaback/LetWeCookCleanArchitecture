@@ -120,6 +120,9 @@
 .col-auto {
   grid-column: auto;
 }
+.col-span-1 {
+  grid-column: span 1 / span 1;
+}
 .col-span-2 {
   grid-column: span 2 / span 2;
 }
@@ -379,6 +382,9 @@
 .justify-center {
   justify-content: center;
 }
+.justify-start {
+  justify-content: flex-start;
+}
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -471,6 +477,10 @@
   border-right-style: var(--tw-border-style);
   border-right-width: 1px;
 }
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
 .border-\[\#4BBC05\]\/20 {
   border-color: color-mix(in oklab, #4BBC05 20%, transparent);
 }
@@ -508,6 +518,15 @@
 .to-transparent {
   --tw-gradient-to: transparent;
   --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+}
+.bg-cover {
+  background-size: cover;
+}
+.bg-center {
+  background-position: center;
+}
+.bg-no-repeat {
+  background-repeat: no-repeat;
 }
 .object-contain {
   object-fit: contain;
@@ -553,6 +572,15 @@
 }
 .text-wrap {
   text-wrap: wrap;
+}
+.text-ellipsis {
+  text-overflow: ellipsis;
+}
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+.whitespace-pre-line {
+  white-space: pre-line;
 }
 .text-\[\#8C29E2\] {
   color: #8C29E2;

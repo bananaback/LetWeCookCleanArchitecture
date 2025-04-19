@@ -254,11 +254,11 @@ function getStatusColor(status) {
 }
 
 
-function updateRequestList(filteredRequests) {
+function updateRequestList(requestsToUpdate) {
     const $requestsList = $('#requestsList');
     $requestsList.empty();
 
-    if (filteredRequests.length === 0) {
+    if (requestsToUpdate.length === 0) {
         $requestsList.append(`
             <div class="text-center text-gray-500 py-8">
                 No requests found.
@@ -269,7 +269,7 @@ function updateRequestList(filteredRequests) {
 
     // Sequential fetch + render
     (async () => {
-        for (const request of filteredRequests) {
+        for (const request of requestsToUpdate) {
             let ingredientData = null;
 
             if (request.type === "CREATE_INGREDIENT" || request.type === "UPDATE_INGREDIENT") {

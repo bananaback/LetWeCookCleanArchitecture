@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LetWeCook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(LetWeCookDbContext))]
-    [Migration("20250327133759_SecondMigration")]
-    partial class SecondMigration
+    [Migration("20250419192403_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,13 +41,16 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         .HasColumnName("carbohydrates");
 
                     b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("category_id");
 
                     b.Property<Guid>("CoverImageUrlId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("cover_image_url_id");
 
-                    b.Property<Guid?>("CreatedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<Guid>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("created_by_user_id");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -74,6 +77,12 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("is_pescatarian");
 
+                    b.Property<bool>("IsPreview")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_preview");
+
                     b.Property<bool>("IsVegan")
                         .HasColumnType("bit")
                         .HasColumnName("is_vegan");
@@ -98,6 +107,10 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.Property<double?>("Sugar")
                         .HasColumnType("float")
                         .HasColumnName("sugar");
+
+                    b.Property<bool>("Visible")
+                        .HasColumnType("bit")
+                        .HasColumnName("visible");
 
                     b.HasKey("Id");
 
@@ -542,6 +555,61 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.ToTable("user_profiles", (string)null);
                 });
 
+            modelBuilder.Entity("LetWeCook.Domain.Entities.UserRequest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<Guid>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("created_by_user_id");
+
+                    b.Property<string>("CreatedByUserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("created_by_user_name");
+
+                    b.Property<Guid>("NewReferenceId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("new_reference_id");
+
+                    b.Property<Guid?>("OldReferenceId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("old_reference_id");
+
+                    b.Property<string>("ResponseMessage")
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("response_message");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasColumnName("status");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int")
+                        .HasColumnName("type");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("updated_at")
+                        .HasDefaultValueSql("NULL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.ToTable("user_requests", (string)null);
+                });
+
             modelBuilder.Entity("LetWeCook.Infrastructure.Persistence.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -778,7 +846,8 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.HasOne("LetWeCook.Domain.Aggregates.SiteUser", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
@@ -888,6 +957,17 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
 
                     b.Navigation("Name")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LetWeCook.Domain.Entities.UserRequest", b =>
+                {
+                    b.HasOne("LetWeCook.Domain.Aggregates.SiteUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedByUser");
                 });
 
             modelBuilder.Entity("LetWeCook.Infrastructure.Persistence.ApplicationUser", b =>

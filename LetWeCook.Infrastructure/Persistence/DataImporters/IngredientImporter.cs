@@ -1,24 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using LetWeCook.Application.DTOs.Ingredient;
 using LetWeCook.Application.Interfaces;
+using LetWeCook.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Identity;
+using System.Text.Json;
 
 public class IngredientImporter
 {
     private readonly IIngredientService _ingredientService;
     private readonly IIngredientCategoryRepository _ingredientCategoryRepository;
     private readonly IIngredientRepository _ingredientRepository;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public IngredientImporter(IIngredientService ingredientService, IIngredientCategoryRepository ingredientCategoryRepository, IIngredientRepository ingredientRepository)
+    public IngredientImporter(
+        IIngredientService ingredientService,
+        IIngredientCategoryRepository ingredientCategoryRepository,
+        IIngredientRepository ingredientRepository,
+        UserManager<ApplicationUser> userManager)
     {
         _ingredientService = ingredientService;
         _ingredientCategoryRepository = ingredientCategoryRepository;
         _ingredientRepository = ingredientRepository;
+        _userManager = userManager;
     }
 
     public async Task ImportIngredientsAsync(string filePath, CancellationToken cancellationToken)
@@ -106,7 +108,12 @@ public class IngredientImporter
                 try
                 {
                     Console.WriteLine($"⚡ Adding ingredient '{ingredient.Name}'...");
-                    // await _ingredientService.CreateIngredientAsync(null, request, cancellationToken);
+                    var admin = await _userManager.FindByNameAsync("admin");
+                    if (admin == null)
+                    {
+                        throw new Exception("Admin user not found.");
+                    }
+                    await _ingredientService.CreateIngredientForSeedAsync(admin.Id, request, cancellationToken);
                     // remember to add fixed user id here
                     Console.WriteLine($"✅ Successfully added ingredient: {ingredient.Name}");
                 }

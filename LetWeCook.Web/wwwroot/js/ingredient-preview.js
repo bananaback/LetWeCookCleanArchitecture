@@ -226,7 +226,7 @@ $(document).ready(function () {
                 const error = xhr.responseJSON?.error || 'Something went wrong';
                 Swal.fire({
                     title: '❌ Oops!',
-                    text: error + error.details,
+                    text: error,
                     icon: 'error',
                     confirmButtonText: 'Close',
                     confirmButtonColor: '#d33',

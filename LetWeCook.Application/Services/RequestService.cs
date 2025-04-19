@@ -1,6 +1,7 @@
 using LetWeCook.Application.DTOs.Profile;
 using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
+using LetWeCook.Domain.Entities;
 using LetWeCook.Domain.Enums;
 
 namespace LetWeCook.Application.Services;
@@ -9,17 +10,20 @@ public class RequestService : IRequestService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserRequestRepository _userRequestRepository;
-    private readonly IMediaUrlRepository _mediaUrlRepository;
+    private readonly IDetailRepository _detailRepository;
     private readonly IIngredientRepository _ingredientRepository;
+    private readonly IMediaUrlRepository _mediaUrlRepository;
     public RequestService(
         IUnitOfWork unitOfWork,
         IUserRequestRepository userRequestRepository,
         IIngredientRepository ingredientRepository,
+        IDetailRepository detailRepository,
         IMediaUrlRepository mediaUrlRepository)
     {
         _unitOfWork = unitOfWork;
         _userRequestRepository = userRequestRepository;
         _ingredientRepository = ingredientRepository;
+        _detailRepository = detailRepository;
         _mediaUrlRepository = mediaUrlRepository;
     }
 
@@ -52,7 +56,6 @@ public class RequestService : IRequestService
         }
         else if (request.Type == UserRequestType.UPDATE_INGREDIENT)
         {
-            Console.WriteLine("!!! OLD REF ID: " + request.OldReferenceId);
             if (request.OldReferenceId == null)
             {
                 throw new InvalidOperationException("Old reference ID is required for update requests.");
@@ -66,8 +69,31 @@ public class RequestService : IRequestService
                 throw new IngredientRetrievalException($"Ingredient with ID {request.OldReferenceId} or {request.NewReferenceId} not found.");
             }
 
-            // deep copy new ingredient to old ingredient
+            // Copy scalar properties
             oldIngredient.CopyFrom(newIngredient);
+
+            // Get reference to details before clearing
+            var detailsToRemove = oldIngredient.Details.ToList();
+
+            // First remove all existing details from the collection (but keep references)
+            oldIngredient.Details.Clear();
+
+            // Now tell the context to remove these details
+            //foreach (var detail in detailsToRemove)
+            //{
+            //    await _detailRepository.RemoveAsync(detail, cancellationToken);
+            //}
+
+            // Add new details
+            foreach (var sourceDetail in newIngredient.Details)
+            {
+                var mediaUrls = sourceDetail.MediaUrls.Select(m => new MediaUrl(m.MediaType, m.Url)).ToList();
+                var detail = new Detail(sourceDetail.Title, sourceDetail.Description, mediaUrls, sourceDetail.Order);
+
+                oldIngredient.AddDetail(detail);
+
+                await _detailRepository.AddAsync(detail, cancellationToken);
+            }
 
             oldIngredient.SetVisible(true);
             oldIngredient.SetPreview(false);

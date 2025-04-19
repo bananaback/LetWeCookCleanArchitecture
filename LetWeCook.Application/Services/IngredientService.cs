@@ -98,6 +98,61 @@ public class IngredientService : IIngredientService
         return createIngredientRequest.Id;
     }
 
+    public async Task<Guid?> CreateIngredientForSeedAsync(Guid appUserId, CreateIngredientRequestDto request, CancellationToken cancellationToken)
+    {
+        // Get site user id, if null return
+        var siteUserId = await _identityService.GetReferenceSiteUserIdAsync(appUserId, cancellationToken);
+        if (siteUserId == null)
+        {
+            throw new IngredientCreationException("Site user not found.");
+        }
+
+        // Create cover image (not yet saved)
+        var coverImage = new MediaUrl(MediaType.Image, request.CoverImage);
+
+        // Process media URLs for details but do not save yet
+        var details = request.Details.Select(detail =>
+        {
+            var mediaUrls = detail.MediaUrls
+                .Select(url => new MediaUrl(
+                    url.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) ? MediaType.Video : MediaType.Image,
+                    url))
+                .ToList();
+
+            return new Detail(detail.Title, detail.Description, mediaUrls, detail.Order);
+        }).ToList();
+
+        // Create Ingredient with Visible = true, Preview = false (as in constructor)
+        var ingredient = new Ingredient(
+            request.Name,
+            request.Description,
+            request.CategoryId,
+            request.NutritionValues.Calories,
+            request.NutritionValues.Protein,
+            request.NutritionValues.Carbohydrates,
+            request.NutritionValues.Fats,
+            request.NutritionValues.Sugars,
+            request.NutritionValues.Fiber,
+            request.NutritionValues.Sodium,
+            request.DietaryInfo.IsVegetarian,
+            request.DietaryInfo.IsVegan,
+            request.DietaryInfo.IsGlutenFree,
+            request.DietaryInfo.IsPescatarian,
+            true, // isVisible
+            false,  // isPreview
+            coverImage,
+            request.ExpirationDays,
+            details,
+            siteUserId.Value
+        );
+
+        // Add to DB
+        await _ingredientRepository.AddAsync(ingredient, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
+
+        return ingredient.Id;
+    }
+
 
     public async Task<List<IngredientCategoryDTO>> GetAllIngredientCategoriesAsync(CancellationToken cancellationToken)
     {
