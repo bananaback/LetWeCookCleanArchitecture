@@ -32,7 +32,7 @@ public class Ingredient : AggregateRoot
     public MediaUrl CoverImageUrl { get; private set; } = null!;
     public Guid CoverImageUrlId { get; private set; }
     public float? ExpirationDays { get; private set; }
-    public List<Detail> Details { get; private set; } = new List<Detail>();
+    public List<IngredientDetail> IngredientDetails { get; private set; } = new List<IngredientDetail>();
 
 
     public Ingredient() : base() { } // For EF Core
@@ -56,7 +56,7 @@ public class Ingredient : AggregateRoot
         bool isPreview,
         MediaUrl coverImageUrl,
         float? expirationDays,
-        List<Detail> details,
+        List<IngredientDetail> details,
         Guid createdByUserId
     )
     {
@@ -79,7 +79,7 @@ public class Ingredient : AggregateRoot
         IsPreview = isPreview;
         CoverImageUrl = coverImageUrl;
         ExpirationDays = expirationDays;
-        Details = details;
+        IngredientDetails = details;
         CreatedByUserId = createdByUserId;
     }
 
@@ -122,10 +122,10 @@ public class Ingredient : AggregateRoot
 
     }
 
-    public void AddDetail(Detail detail)
+    public void AddDetail(IngredientDetail detail)
     {
         if (detail == null) throw new ArgumentNullException(nameof(detail));
-        Details.Add(detail);
+        IngredientDetails.Add(detail);
     }
 
 }

@@ -1,4 +1,5 @@
 using LetWeCook.Domain.Entities;
+using LetWeCook.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

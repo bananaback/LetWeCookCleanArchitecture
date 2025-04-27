@@ -121,6 +121,93 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.ToTable("ingredients", (string)null);
                 });
 
+            modelBuilder.Entity("LetWeCook.Domain.Aggregates.Recipe", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<double>("AverageRating")
+                        .HasColumnType("float")
+                        .HasColumnName("average_rating");
+
+                    b.Property<int>("CookTime")
+                        .HasColumnType("int")
+                        .HasColumnName("cook_time");
+
+                    b.Property<Guid>("CoverMediaUrlId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("cover_media_url_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("created_by_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("DifficultyLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("difficulty_level");
+
+                    b.Property<bool>("IsPreview")
+                        .HasColumnType("bit")
+                        .HasColumnName("is_preview");
+
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("bit")
+                        .HasColumnName("is_visible");
+
+                    b.Property<string>("MealCategory")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("meal_category");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("name");
+
+                    b.Property<int>("PrepareTime")
+                        .HasColumnType("int")
+                        .HasColumnName("prepare_time");
+
+                    b.Property<int>("Servings")
+                        .HasColumnType("int")
+                        .HasColumnName("servings");
+
+                    b.Property<int>("TotalRatings")
+                        .HasColumnType("int")
+                        .HasColumnName("total_ratings");
+
+                    b.Property<int>("TotalViews")
+                        .HasColumnType("int")
+                        .HasColumnName("total_views");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoverMediaUrlId")
+                        .IsUnique();
+
+                    b.HasIndex("CreatedById");
+
+                    b.ToTable("recipes", (string)null);
+                });
+
             modelBuilder.Entity("LetWeCook.Domain.Aggregates.SiteUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -157,21 +244,12 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(1024)")
                         .HasColumnName("description");
 
-                    b.Property<Guid>("IngredientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int")
-                        .HasColumnName("order");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("title");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IngredientId");
 
                     b.ToTable("details", (string)null);
                 });
@@ -462,6 +540,35 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("LetWeCook.Domain.Entities.IngredientDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("DetailId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("detail_id");
+
+                    b.Property<Guid>("IngredientId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("ingredient_id");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int")
+                        .HasColumnName("order");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DetailId")
+                        .IsUnique();
+
+                    b.HasIndex("IngredientId");
+
+                    b.ToTable("ingredient_details", (string)null);
+                });
+
             modelBuilder.Entity("LetWeCook.Domain.Entities.MediaUrl", b =>
                 {
                     b.Property<Guid>("Id")
@@ -483,21 +590,76 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.ToTable("media_urls", (string)null);
                 });
 
-            modelBuilder.Entity("LetWeCook.Domain.Entities.UserDietaryPreference", b =>
+            modelBuilder.Entity("LetWeCook.Domain.Entities.RecipeDetail", b =>
                 {
-                    b.Property<Guid>("UserProfileId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("user_profile_id");
+                        .HasColumnName("id");
 
-                    b.Property<Guid>("DietaryPreferenceId")
+                    b.Property<Guid>("DetailId")
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("dietary_preference_id");
+                        .HasColumnName("detail_id");
 
-                    b.HasKey("UserProfileId", "DietaryPreferenceId");
+                    b.Property<int>("Order")
+                        .HasColumnType("int")
+                        .HasColumnName("order");
 
-                    b.HasIndex("DietaryPreferenceId");
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("recipe_id");
 
-                    b.ToTable("user_dietary_preferences", (string)null);
+                    b.HasKey("Id");
+
+                    b.HasIndex("DetailId")
+                        .IsUnique();
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("recipe_details", (string)null);
+                });
+
+            modelBuilder.Entity("LetWeCook.Domain.Entities.RecipeIngredient", b =>
+                {
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("recipe_id");
+
+                    b.Property<Guid>("IngredientId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("ingredient_id");
+
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float")
+                        .HasColumnName("quantity");
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("unit");
+
+                    b.HasKey("RecipeId", "IngredientId");
+
+                    b.HasIndex("IngredientId");
+
+                    b.ToTable("recipe_ingredients", (string)null);
+                });
+
+            modelBuilder.Entity("LetWeCook.Domain.Entities.RecipeTag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("recipe_tags", (string)null);
                 });
 
             modelBuilder.Entity("LetWeCook.Domain.Entities.UserProfile", b =>
@@ -682,10 +844,12 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("LetWeCook.Infrastructure.Persistence.Models.DetailMediaUrl", b =>
                 {
                     b.Property<Guid>("DetailId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("detail_id");
 
                     b.Property<Guid>("MediaUrlId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("media_url_id");
 
                     b.HasKey("DetailId", "MediaUrlId");
 
@@ -693,6 +857,40 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("detail_media_urls", (string)null);
+                });
+
+            modelBuilder.Entity("LetWeCook.Infrastructure.Persistence.Models.RecipeTagging", b =>
+                {
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("recipe_id");
+
+                    b.Property<Guid>("RecipeTagId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("recipe_tag_id");
+
+                    b.HasKey("RecipeId", "RecipeTagId");
+
+                    b.HasIndex("RecipeTagId");
+
+                    b.ToTable("recipe_tags_recipes", (string)null);
+                });
+
+            modelBuilder.Entity("LetWeCook.Infrastructure.Persistence.Models.UserDietaryPreference", b =>
+                {
+                    b.Property<Guid>("UserProfileId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("user_profile_id");
+
+                    b.Property<Guid>("DietaryPreferenceId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("dietary_preference_id");
+
+                    b.HasKey("UserProfileId", "DietaryPreferenceId");
+
+                    b.HasIndex("DietaryPreferenceId");
+
+                    b.ToTable("user_dietary_preferences", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -853,32 +1051,76 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.Navigation("CreatedByUser");
                 });
 
-            modelBuilder.Entity("LetWeCook.Domain.Entities.Detail", b =>
+            modelBuilder.Entity("LetWeCook.Domain.Aggregates.Recipe", b =>
                 {
+                    b.HasOne("LetWeCook.Domain.Entities.MediaUrl", "CoverMediaUrl")
+                        .WithOne()
+                        .HasForeignKey("LetWeCook.Domain.Aggregates.Recipe", "CoverMediaUrlId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LetWeCook.Domain.Aggregates.SiteUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CoverMediaUrl");
+
+                    b.Navigation("CreatedBy");
+                });
+
+            modelBuilder.Entity("LetWeCook.Domain.Entities.IngredientDetail", b =>
+                {
+                    b.HasOne("LetWeCook.Domain.Entities.Detail", "Detail")
+                        .WithOne()
+                        .HasForeignKey("LetWeCook.Domain.Entities.IngredientDetail", "DetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("LetWeCook.Domain.Aggregates.Ingredient", null)
-                        .WithMany("Details")
+                        .WithMany("IngredientDetails")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Detail");
                 });
 
-            modelBuilder.Entity("LetWeCook.Domain.Entities.UserDietaryPreference", b =>
+            modelBuilder.Entity("LetWeCook.Domain.Entities.RecipeDetail", b =>
                 {
-                    b.HasOne("LetWeCook.Domain.Entities.DietaryPreference", "DietaryPreference")
-                        .WithMany()
-                        .HasForeignKey("DietaryPreferenceId")
+                    b.HasOne("LetWeCook.Domain.Entities.Detail", "Detail")
+                        .WithOne()
+                        .HasForeignKey("LetWeCook.Domain.Entities.RecipeDetail", "DetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LetWeCook.Domain.Entities.UserProfile", "UserProfile")
-                        .WithMany()
-                        .HasForeignKey("UserProfileId")
+                    b.HasOne("LetWeCook.Domain.Aggregates.Recipe", null)
+                        .WithMany("RecipeDetails")
+                        .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DietaryPreference");
+                    b.Navigation("Detail");
+                });
 
-                    b.Navigation("UserProfile");
+            modelBuilder.Entity("LetWeCook.Domain.Entities.RecipeIngredient", b =>
+                {
+                    b.HasOne("LetWeCook.Domain.Aggregates.Ingredient", "Ingredient")
+                        .WithMany()
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("LetWeCook.Domain.Aggregates.Recipe", "Recipe")
+                        .WithMany("RecipeIngredients")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("LetWeCook.Domain.Entities.UserProfile", b =>
@@ -997,6 +1239,44 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.Navigation("MediaUrl");
                 });
 
+            modelBuilder.Entity("LetWeCook.Infrastructure.Persistence.Models.RecipeTagging", b =>
+                {
+                    b.HasOne("LetWeCook.Domain.Aggregates.Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LetWeCook.Domain.Entities.RecipeTag", "RecipeTag")
+                        .WithMany()
+                        .HasForeignKey("RecipeTagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("RecipeTag");
+                });
+
+            modelBuilder.Entity("LetWeCook.Infrastructure.Persistence.Models.UserDietaryPreference", b =>
+                {
+                    b.HasOne("LetWeCook.Domain.Entities.DietaryPreference", "DietaryPreference")
+                        .WithMany()
+                        .HasForeignKey("DietaryPreferenceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LetWeCook.Domain.Entities.UserProfile", "UserProfile")
+                        .WithMany()
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DietaryPreference");
+
+                    b.Navigation("UserProfile");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -1050,7 +1330,14 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("LetWeCook.Domain.Aggregates.Ingredient", b =>
                 {
-                    b.Navigation("Details");
+                    b.Navigation("IngredientDetails");
+                });
+
+            modelBuilder.Entity("LetWeCook.Domain.Aggregates.Recipe", b =>
+                {
+                    b.Navigation("RecipeDetails");
+
+                    b.Navigation("RecipeIngredients");
                 });
 
             modelBuilder.Entity("LetWeCook.Domain.Aggregates.SiteUser", b =>

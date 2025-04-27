@@ -39,17 +39,25 @@ public class IngredientService : IIngredientService
             throw new IngredientCreationException("Site user not found.");
         }
 
+        // check if ingredient with same name already exists
+        var existingIngredientWithSameName = await _ingredientRepository.CheckExistByNameAsync(request.Name, cancellationToken);
+        if (existingIngredientWithSameName == true)
+        {
+            throw new IngredientCreationException($"Ingredient with name {request.Name} already exists.");
+        }
+
+
         // Create cover image (not yet saved)
         var coverImage = new MediaUrl(MediaType.Image, request.CoverImage);
 
         // Process media URLs for details but do not save yet
-        var details = request.Details.Select(detail =>
+        var ingredientDetails = request.Details.Select(detail =>
         {
             var mediaUrls = detail.MediaUrls
                 .Select(url => new MediaUrl(url.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) ? MediaType.Video : MediaType.Image, url))
                 .ToList();
 
-            return new Detail(detail.Title, detail.Description, mediaUrls, detail.Order);
+            return new IngredientDetail(new Detail(detail.Title, detail.Description, mediaUrls), detail.Order);
         }).ToList();
 
         // Create Ingredient (respects constructor signature)
@@ -72,7 +80,7 @@ public class IngredientService : IIngredientService
             true,
             coverImage,
             request.ExpirationDays,
-            details,
+            ingredientDetails,
             siteUserId ?? throw new IngredientCreationException("Site user ID is null.")
         );
 
@@ -107,19 +115,25 @@ public class IngredientService : IIngredientService
             throw new IngredientCreationException("Site user not found.");
         }
 
+        // check if ingredient with same name already exists
+        var existingIngredientWithSameName = await _ingredientRepository.CheckExistByNameAsync(request.Name, cancellationToken);
+        if (existingIngredientWithSameName == true)
+        {
+            throw new IngredientCreationException($"Ingredient with name {request.Name} already exists.");
+        }
+
         // Create cover image (not yet saved)
         var coverImage = new MediaUrl(MediaType.Image, request.CoverImage);
 
         // Process media URLs for details but do not save yet
-        var details = request.Details.Select(detail =>
+        var ingredientDetails = request.Details.Select(detail =>
         {
             var mediaUrls = detail.MediaUrls
                 .Select(url => new MediaUrl(
                     url.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) ? MediaType.Video : MediaType.Image,
                     url))
                 .ToList();
-
-            return new Detail(detail.Title, detail.Description, mediaUrls, detail.Order);
+            return new IngredientDetail(new Detail(detail.Title, detail.Description, mediaUrls), detail.Order);
         }).ToList();
 
         // Create Ingredient with Visible = true, Preview = false (as in constructor)
@@ -142,7 +156,7 @@ public class IngredientService : IIngredientService
             false,  // isPreview
             coverImage,
             request.ExpirationDays,
-            details,
+            ingredientDetails,
             siteUserId.Value
         );
 
@@ -197,11 +211,11 @@ public class IngredientService : IIngredientService
             IsPescatarian = ingredient.IsPescatarian,
             CoverImageUrl = ingredient.CoverImageUrl.Url,
             ExpirationDays = ingredient.ExpirationDays,
-            Details = ingredient.Details.Select(detail => new DetailDto
+            Details = ingredient.IngredientDetails.Select(detail => new DetailDto
             {
-                Title = detail.Title,
-                Description = detail.Description,
-                MediaUrls = detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
+                Title = detail.Detail.Title,
+                Description = detail.Detail.Description,
+                MediaUrls = detail.Detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
                 Order = detail.Order
             }).ToList()
         };
@@ -236,12 +250,12 @@ public class IngredientService : IIngredientService
             IsPescatarian = ingredient.IsPescatarian,
             CoverImageUrl = ingredient.CoverImageUrl.Url,
             ExpirationDays = ingredient.ExpirationDays,
-            Details = ingredient.Details.Select(detail => new DetailDto
+            Details = ingredient.IngredientDetails.Select(ingredientDetail => new DetailDto
             {
-                Title = detail.Title,
-                Description = detail.Description,
-                MediaUrls = detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
-                Order = detail.Order
+                Title = ingredientDetail.Detail.Title,
+                Description = ingredientDetail.Detail.Description,
+                MediaUrls = ingredientDetail.Detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
+                Order = ingredientDetail.Order
             }).ToList()
         };
     }
@@ -315,12 +329,12 @@ public class IngredientService : IIngredientService
             IsPescatarian = ingredient.IsPescatarian,
             CoverImageUrl = ingredient.CoverImageUrl.Url,
             ExpirationDays = ingredient.ExpirationDays,
-            Details = ingredient.Details.Select(detail => new DetailDto
+            Details = ingredient.IngredientDetails.Select(ingredientDetail => new DetailDto
             {
-                Title = detail.Title,
-                Description = detail.Description,
-                MediaUrls = detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
-                Order = detail.Order
+                Title = ingredientDetail.Detail.Title,
+                Description = ingredientDetail.Detail.Description,
+                MediaUrls = ingredientDetail.Detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
+                Order = ingredientDetail.Order
             }).ToList()
         };
     }
@@ -349,13 +363,6 @@ public class IngredientService : IIngredientService
             IsPescatarian = ingredient.IsPescatarian,
             CoverImageUrl = ingredient.CoverImageUrl.Url,
             ExpirationDays = ingredient.ExpirationDays,
-            Details = ingredient.Details.Select(detail => new DetailDto
-            {
-                Title = detail.Title,
-                Description = detail.Description,
-                MediaUrls = detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
-                Order = detail.Order
-            }).ToList()
         }).ToList();
     }
 
@@ -382,13 +389,6 @@ public class IngredientService : IIngredientService
             IsPescatarian = ingredient.IsPescatarian,
             CoverImageUrl = ingredient.CoverImageUrl.Url,
             ExpirationDays = ingredient.ExpirationDays,
-            Details = ingredient.Details.Select(detail => new DetailDto
-            {
-                Title = detail.Title,
-                Description = detail.Description,
-                MediaUrls = detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
-                Order = detail.Order
-            }).ToList()
         }).ToList();
     }
 
@@ -415,13 +415,6 @@ public class IngredientService : IIngredientService
             IsPescatarian = ingredient.IsPescatarian,
             CoverImageUrl = ingredient.CoverImageUrl.Url,
             ExpirationDays = ingredient.ExpirationDays,
-            Details = ingredient.Details.Select(detail => new DetailDto
-            {
-                Title = detail.Title,
-                Description = detail.Description,
-                MediaUrls = detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
-                Order = detail.Order
-            }).ToList()
         }).ToList();
     }
 
@@ -448,13 +441,6 @@ public class IngredientService : IIngredientService
             IsPescatarian = ingredient.IsPescatarian,
             CoverImageUrl = ingredient.CoverImageUrl.Url,
             ExpirationDays = ingredient.ExpirationDays,
-            Details = ingredient.Details.Select(detail => new DetailDto
-            {
-                Title = detail.Title,
-                Description = detail.Description,
-                MediaUrls = detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
-                Order = detail.Order
-            }).ToList()
         }).ToList();
     }
 
@@ -477,13 +463,13 @@ public class IngredientService : IIngredientService
         var coverImage = new MediaUrl(MediaType.Image, request.CoverImage);
 
         // Process media URLs for details but do not save yet
-        var details = request.Details.Select(detail =>
+        var ingredientDetails = request.Details.Select(detail =>
         {
             var mediaUrls = detail.MediaUrls
                 .Select(url => new MediaUrl(url.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) ? MediaType.Video : MediaType.Image, url))
                 .ToList();
 
-            return new Detail(detail.Title, detail.Description, mediaUrls, detail.Order);
+            return new IngredientDetail(new Detail(detail.Title, detail.Description, mediaUrls), detail.Order);
         }).ToList();
 
         // Create Ingredient (respects constructor signature)
@@ -506,7 +492,7 @@ public class IngredientService : IIngredientService
             true,
             coverImage,
             request.ExpirationDays,
-            details,
+            ingredientDetails,
             siteUserId
         );
 

@@ -28,10 +28,6 @@ public class DetailConfiguration : IEntityTypeConfiguration<Detail>
             .HasColumnType("nvarchar(1024)")
             .IsRequired();
 
-        builder.Property(d => d.Order)
-            .HasColumnName("order")
-            .HasColumnType("int")
-            .IsRequired();
 
         builder.HasMany(d => d.MediaUrls)
             .WithMany()
@@ -47,6 +43,16 @@ public class DetailConfiguration : IEntityTypeConfiguration<Detail>
                     j.ToTable("detail_media_urls");
                     j.HasKey(dmu => new { dmu.DetailId, dmu.MediaUrlId });
                     j.HasIndex(dmu => dmu.MediaUrlId).IsUnique();
+
+                    j.Property(dmu => dmu.MediaUrlId)
+                        .HasColumnName("media_url_id")
+                        .HasColumnType("uniqueidentifier")
+                        .IsRequired();
+
+                    j.Property(dmu => dmu.DetailId)
+                        .HasColumnName("detail_id")
+                        .HasColumnType("uniqueidentifier")
+                        .IsRequired();
                 }
             );
     }

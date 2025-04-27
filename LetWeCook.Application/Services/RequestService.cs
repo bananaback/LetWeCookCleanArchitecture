@@ -72,27 +72,18 @@ public class RequestService : IRequestService
             // Copy scalar properties
             oldIngredient.CopyFrom(newIngredient);
 
-            // Get reference to details before clearing
-            var detailsToRemove = oldIngredient.Details.ToList();
-
             // First remove all existing details from the collection (but keep references)
-            oldIngredient.Details.Clear();
-
-            // Now tell the context to remove these details
-            //foreach (var detail in detailsToRemove)
-            //{
-            //    await _detailRepository.RemoveAsync(detail, cancellationToken);
-            //}
+            oldIngredient.IngredientDetails.Clear();
 
             // Add new details
-            foreach (var sourceDetail in newIngredient.Details)
+            foreach (var sourceDetail in newIngredient.IngredientDetails)
             {
-                var mediaUrls = sourceDetail.MediaUrls.Select(m => new MediaUrl(m.MediaType, m.Url)).ToList();
-                var detail = new Detail(sourceDetail.Title, sourceDetail.Description, mediaUrls, sourceDetail.Order);
-
-                oldIngredient.AddDetail(detail);
-
+                var mediaUrls = sourceDetail.Detail.MediaUrls.Select(m => new MediaUrl(m.MediaType, m.Url)).ToList();
+                var detail = new Detail(sourceDetail.Detail.Title, sourceDetail.Detail.Description, mediaUrls);
                 await _detailRepository.AddAsync(detail, cancellationToken);
+                var ingredientDetail = new IngredientDetail(detail, sourceDetail.Order);
+
+                oldIngredient.AddDetail(ingredientDetail);
             }
 
             oldIngredient.SetVisible(true);

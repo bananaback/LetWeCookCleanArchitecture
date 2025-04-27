@@ -133,3 +133,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+namespace LetWeCook.Web
+{
+    public partial class Program { }
+}

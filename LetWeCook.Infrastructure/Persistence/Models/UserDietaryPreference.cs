@@ -1,4 +1,6 @@
-namespace LetWeCook.Domain.Entities;
+using LetWeCook.Domain.Entities;
+
+namespace LetWeCook.Infrastructure.Persistence.Models;
 
 public class UserDietaryPreference
 {

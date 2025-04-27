@@ -1,4 +1,5 @@
 using LetWeCook.Domain.Aggregates;
+using LetWeCook.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -125,9 +126,11 @@ public class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
             .HasColumnType("float")
             .IsRequired(false);
 
-        builder.HasMany(i => i.Details)
+        builder.HasMany(i => i.IngredientDetails)
             .WithOne()
+            .HasForeignKey("IngredientId")
             .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired();
+            .IsRequired(true);
+
     }
 }

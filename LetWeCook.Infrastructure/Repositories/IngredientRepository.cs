@@ -38,7 +38,8 @@ public class IngredientRepository : Repository<Ingredient>, IIngredientRepositor
             .Include(i => i.CreatedByUser)
             .Include(i => i.Category)
             .Include(i => i.CoverImageUrl)
-            .Include(i => i.Details)
+            .Include(i => i.IngredientDetails)
+                .ThenInclude(id => id.Detail)
             .ThenInclude(d => d.MediaUrls)
             .FirstOrDefaultAsync(i => i.Id == id, cancellationToken);
     }
