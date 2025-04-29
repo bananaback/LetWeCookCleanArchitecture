@@ -1,0 +1,266 @@
+<div class="bg-yellow-50 min-h-screen p-6 font-sans grid grid-cols-2">
+    <h1 class="col-span-2 text-4xl font-bold text-indigo-600 mb-8 text-center select-none">
+        Recipe Editor
+    </h1>
+
+    <div class="col-span-1 mb-10">
+
+
+        <!-- Category Buttons -->
+        <div id="ingredient-category-container" class="flex flex-wrap gap-3 mb-8">
+
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mb-6">
+            <input id="search-bar" type="text" placeholder="🔍 Search for an ingredient..."
+                class="w-full p-4 rounded-full border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 placeholder:text-teal-400 bg-white shadow-sm" />
+        </div>
+
+        <!-- Updated Pagination -->
+        <div id="pagination-button-container" class="flex justify-center gap-3 mb-10">
+
+        </div>
+
+        <!-- Ingredient Grid -->
+        <div id="ingredient-list" class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+
+        </div>
+
+        <!-- Selected Ingredient Panel -->
+        <div id="selected-ingredient-panel" class="bg-white p-6 rounded-2xl shadow-lg mb-10">
+            <div class="flex flex-col lg:flex-row gap-6 items-start">
+
+                <!-- Left: Ingredient Info -->
+                <div class="flex flex-col items-center gap-4 w-full lg:w-1/3 text-center">
+                    <div class="text-xl font-semibold text-teal-600">
+                        Selected: <span id="selected-ingredient-name" class="text-teal-500">Ingredient</span>
+                    </div>
+                    <div
+                        class="w-32 h-32 bg-gray-100 rounded-xl overflow-hidden shadow flex items-center justify-center">
+                        <img id="selected-ingredient-img" src="https://via.placeholder.com/100" alt="Ingredient Image"
+                            class="max-w-full max-h-full object-contain">
+                    </div>
+                </div>
+
+                <!-- Right: Input Fields -->
+                <div class="flex-1 flex flex-col gap-4 w-full">
+
+                    <!-- Quantity Input -->
+                    <input type="number" placeholder="Quantity" id="quantity-input"
+                        class="w-32 p-3 rounded-full border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-center bg-yellow-50" />
+
+                    <!-- Unit Selector -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                        <div
+                            class="unit-chip flex items-center justify-center px-4 py-2 rounded-full border border-teal-300 text-teal-600 cursor-pointer hover:bg-teal-100 transition duration-200 ease-in-out">
+                            Gram
+                        </div>
+                        <div
+                            class="unit-chip flex items-center justify-center px-4 py-2 rounded-full border border-teal-300 text-teal-600 cursor-pointer hover:bg-teal-100 transition duration-200 ease-in-out">
+                            Kilogram
+                        </div>
+                        <div
+                            class="unit-chip flex items-center justify-center px-4 py-2 rounded-full border border-teal-300 text-teal-600 cursor-pointer hover:bg-teal-100 transition duration-200 ease-in-out">
+                            Milliliter
+                        </div>
+                        <div
+                            class="unit-chip flex items-center justify-center px-4 py-2 rounded-full border border-teal-300 text-teal-600 cursor-pointer hover:bg-teal-100 transition duration-200 ease-in-out">
+                            Liter
+                        </div>
+                        <div
+                            class="unit-chip flex items-center justify-center px-4 py-2 rounded-full border border-teal-300 text-teal-600 cursor-pointer hover:bg-teal-100 transition duration-200 ease-in-out">
+                            Ounce
+                        </div>
+                        <div
+                            class="unit-chip flex items-center justify-center px-4 py-2 rounded-full border border-teal-300 text-teal-600 cursor-pointer hover:bg-teal-100 transition duration-200 ease-in-out">
+                            Cup
+                        </div>
+                        <div
+                            class="unit-chip flex items-center justify-center px-4 py-2 rounded-full border border-teal-300 text-teal-600 cursor-pointer hover:bg-teal-100 transition duration-200 ease-in-out">
+                            Piece
+                        </div>
+                        <div
+                            class="unit-chip flex items-center justify-center px-4 py-2 rounded-full border border-teal-300 text-teal-600 cursor-pointer hover:bg-teal-100 transition duration-200 ease-in-out">
+                            Slice
+                        </div>
+                    </div>
+
+
+
+                    <!-- Add Button -->
+                    <div>
+                        <div id="add-ingredient-button"
+                            class="inline-block px-8 py-3 bg-teal-500 text-white rounded-full font-semibold cursor-pointer hover:bg-teal-600 transition">
+                            Add
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- List of Selected Ingredients -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg">
+            <div class="text-2xl font-bold text-teal-600 mb-6">🛒 Your Ingredients</div>
+            <div class="flex flex-col gap-4">
+                <div class="flex justify-between items-center p-4 rounded-lg bg-yellow-100">
+                    <div class="font-medium text-teal-700">🍅 Tomato x2</div>
+                    <div class="text-red-500 font-semibold cursor-pointer hover:text-red-600">Remove</div>
+                </div>
+                <div class="flex justify-between items-center p-4 rounded-lg bg-yellow-100">
+                    <div class="font-medium text-teal-700">🥛 Milk x1</div>
+                    <div class="text-red-500 font-semibold cursor-pointer hover:text-red-600">Remove</div>
+                </div>
+                <div class="flex justify-between items-center p-4 rounded-lg bg-yellow-100">
+                    <div class="font-medium text-teal-700">🧀 Cheese x3</div>
+                    <div class="text-red-500 font-semibold cursor-pointer hover:text-red-600">Remove</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column (Recipe Info) -->
+    <div class="col-span-1 px-16 flex flex-col gap-6">
+        <!-- Cover Image Upload on top -->
+        <div class="flex flex-col gap-2 items-center">
+            <label class="text-teal-500 font-semibold">Cover Image</label>
+            <div
+                class="w-full h-48 bg-yellow-100 rounded-2xl border-2 border-dashed border-teal-300 flex items-center justify-center cursor-pointer hover:bg-yellow-200 transition">
+                <input type="file" class="hidden" id="cover-image" />
+                <label for="cover-image" class="text-teal-400 font-semibold cursor-pointer select-none">
+                    Click to upload or drag image here
+                </label>
+            </div>
+        </div>
+
+        <!-- Recipe Name -->
+        <div class="flex flex-col gap-2">
+            <label for="recipe-name" class="text-teal-500 font-semibold">Recipe Name</label>
+            <input id="recipe-name" type="text" placeholder="Enter recipe name..."
+                class="w-full p-4 rounded-full border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 bg-yellow-50 placeholder:text-teal-400" />
+        </div>
+
+        <!-- Description -->
+        <div class="flex flex-col gap-2">
+            <label for="recipe-desc" class="text-teal-500 font-semibold">Description</label>
+            <textarea id="recipe-desc" rows="4" placeholder="Brief description of the recipe..."
+                class="w-full p-4 rounded-2xl border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 bg-yellow-50 placeholder:text-teal-400 resize-none"></textarea>
+        </div>
+
+        <!-- Servings with emoji + buttons + input -->
+        <div class="flex flex-col gap-2">
+            <label class="text-teal-500 font-semibold">Servings</label>
+            <div class="flex items-center gap-3">
+                <span class="text-2xl select-none">👥</span>
+                <button
+                    class="px-3 py-1 rounded-full bg-teal-500 text-white font-semibold hover:bg-teal-600 transition select-none">-</button>
+                <input type="number" min="1" value="4"
+                    class="w-20 p-3 text-center rounded-full border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 bg-yellow-50" />
+                <button
+                    class="px-3 py-1 rounded-full bg-teal-500 text-white font-semibold hover:bg-teal-600 transition select-none">+</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+            <!-- Prepare Time -->
+            <div class="flex flex-col gap-2">
+                <label for="prepare-time" class="text-teal-500 font-semibold">Prepare Time (min)</label>
+                <input id="prepare-time" type="number" min="0" placeholder="15"
+                    class="p-3 rounded-full border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-center bg-yellow-50" />
+            </div>
+
+            <!-- Cook Time -->
+            <div class="flex flex-col gap-2">
+                <label for="cook-time" class="text-teal-500 font-semibold">Cook Time (min)</label>
+                <input id="cook-time" type="number" min="0" placeholder="30"
+                    class="p-3 rounded-full border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-center bg-yellow-50" />
+            </div>
+        </div>
+
+        <!-- Difficulty Level Chips -->
+        <div class="flex flex-col gap-2">
+            <label class="text-teal-500 font-semibold">Difficulty Level</label>
+            <div class="flex flex-wrap gap-3">
+                <div class="px-5 py-2 rounded-full bg-teal-500 text-white font-semibold cursor-pointer select-none">
+                    Easy</div>
+                <div
+                    class="px-5 py-2 rounded-full bg-yellow-100 text-amber-600 font-semibold cursor-pointer select-none hover:bg-yellow-200">
+                    Medium</div>
+                <div
+                    class="px-5 py-2 rounded-full bg-rose-100 text-rose-600 font-semibold cursor-pointer select-none hover:bg-rose-200">
+                    Hard</div>
+            </div>
+        </div>
+
+        <!-- Meal Category Chips -->
+        <div class="flex flex-col gap-2">
+            <label class="text-teal-500 font-semibold">Meal Category</label>
+            <div class="flex flex-wrap gap-3">
+                <div class="px-5 py-2 rounded-full bg-teal-500 text-white font-semibold cursor-pointer select-none">
+                    Lunch</div>
+                <div
+                    class="px-5 py-2 rounded-full bg-yellow-100 text-amber-600 font-semibold cursor-pointer select-none hover:bg-yellow-200">
+                    Breakfast</div>
+                <div
+                    class="px-5 py-2 rounded-full bg-rose-100 text-rose-600 font-semibold cursor-pointer select-none hover:bg-rose-200">
+                    Dinner</div>
+                <div
+                    class="px-5 py-2 rounded-full bg-lime-100 text-lime-600 font-semibold cursor-pointer select-none hover:bg-lime-200">
+                    Snack</div>
+                <div
+                    class="px-5 py-2 rounded-full bg-amber-100 text-amber-600 font-semibold cursor-pointer select-none hover:bg-amber-200">
+                    Dessert</div>
+            </div>
+        </div>
+
+        <!-- Steps Adding Section -->
+        <div class="mt-8">
+            <h2 class="text-teal-600 font-bold text-2xl mb-4">Steps</h2>
+
+            <!-- Example Step -->
+            <div class="mb-6 p-4 rounded-2xl bg-yellow-50 border-2 border-teal-200">
+                <label class="block text-teal-500 font-semibold mb-2" for="step1-title">Step Title</label>
+                <input id="step1-title" type="text" placeholder="Enter step title..."
+                    class="w-full p-3 rounded-full border-2 border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 mb-4 bg-white" />
+
+                <label class="block text-teal-500 font-semibold mb-2" for="step1-desc">Description</label>
+                <textarea id="step1-desc" rows="3" placeholder="Describe this step..."
+                    class="w-full p-3 rounded-2xl border-2 border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 mb-4 bg-white resize-none"></textarea>
+
+                <label class="block text-teal-500 font-semibold mb-2">Media URLs</label>
+                <div class="flex gap-3">
+                    <input type="url" placeholder="https://media-url-1.com"
+                        class="w-20 h-20 rounded-lg border-2 border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 p-2 bg-white text-sm text-teal-700 placeholder-teal-300" />
+                    <input type="url" placeholder="https://media-url-2.com"
+                        class="w-20 h-20 rounded-lg border-2 border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 p-2 bg-white text-sm text-teal-700 placeholder-teal-300" />
+                    <input type="url" placeholder="https://media-url-3.com"
+                        class="w-20 h-20 rounded-lg border-2 border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 p-2 bg-white text-sm text-teal-700 placeholder-teal-300" />
+                </div>
+            </div>
+
+            <!-- Add New Step Button -->
+            <button
+                class="px-6 py-3 rounded-full bg-teal-600 text-white font-bold hover:bg-teal-700 transition shadow select-none">
+                + Add Step
+            </button>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="mt-10 flex justify-center">
+            <button
+                class="px-12 py-4 rounded-full bg-teal-600 text-white font-bold hover:bg-teal-700 transition shadow-lg select-none">
+                Save Recipe
+            </button>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="~/js/recipe-editor.js"></script>
+}
