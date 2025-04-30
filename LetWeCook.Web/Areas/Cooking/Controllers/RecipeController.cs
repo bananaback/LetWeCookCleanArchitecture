@@ -146,4 +146,10 @@ public class RecipeController : Controller
             return Forbid(); // 403 Forbidden
         }
     }
+
+    public IActionResult Details(Guid id)
+    {
+        ViewData["RecipeId"] = id;
+        return View();
+    }
 }

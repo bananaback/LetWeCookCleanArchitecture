@@ -1,0 +1,141 @@
+@{
+    ViewData["Title"] = "Recipe Preview";
+    var recipeId = ViewData["RecipeId"];
+}
+
+<!-- Hidden field to store recipe ID -->
+<input type="hidden" id="recipeId" value="@recipeId" />
+
+<div
+    class="flex flex-row items-start justify-center min-h-screen bg-gradient-to-br from-yellow-100 to-lime-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto flex-1 bg-amber-50 bg-opacity-95 rounded-3xl shadow-xl p-8">
+
+        <!-- Loading -->
+        <div id="loading" class="text-center text-orange-600 text-3xl font-extrabold py-8 animate-bounce">Blending your
+            recipe... 🍹</div>
+
+        <!-- Recipe -->
+        <div id="recipeContainer" class="hidden space-y-10 opacity-0">
+            <!-- Cover Image -->
+            <div class="relative w-full h-80 rounded-2xl overflow-hidden shadow-lg border-4 border-yellow-500">
+                <img id="coverImage" src="" alt="Cover"
+                    class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500">
+                <div class="absolute top-4 right-4">
+                    <button id="saveRecipe"
+                        class="bg-red-600 text-white px-6 py-3 rounded-full flex items-center gap-2 hover:bg-red-700 transition text-lg font-bold">
+                        <span>Save Recipe</span>
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-3-5 3V4z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Name & Description -->
+            <div class="text-center space-y-4">
+                <h1 id="recipeName" class="text-5xl font-extrabold text-orange-600"></h1>
+                <p id="recipeDescription" class="text-gray-700 max-w-2xl mx-auto text-lg italic"></p>
+            </div>
+
+            <!-- Author Profile -->
+            <div
+                class="flex items-center space-x-6 p-6 bg-teal-100 bg-opacity-80 rounded-xl border-4 border-dotted border-teal-400 shadow-md hover:-rotate-2 transition-transform duration-300">
+                <!-- Profile Picture -->
+                <div class="relative flex-shrink-0">
+                    <img id="authorProfilePic" src="" alt="Author Profile"
+                        class="w-24 h-24 rounded-full object-cover border-4 border-lime-400 shadow-lg hover:scale-110 transition-transform duration-300"
+                        style="display: none;">
+                    <div class="absolute top-0 -right-1 w-6 h-6 bg-yellow-400 rounded-full animate-spin-slow"></div>
+                </div>
+                <!-- Author Details -->
+                <div class="flex-1 space-y-3">
+                    <!-- Name with Starburst Badge -->
+                    <div class="relative">
+                        <h3 id="authorName"
+                            class="text-2xl font-extrabold text-orange-600 drop-shadow-md animate-bounce inline-block">
+                        </h3>
+                        <div class="absolute -top-2 -right-4 w-5 h-5 bg-red-500 rotate-45 transform animate-pulse">
+                        </div>
+                    </div>
+                    <!-- Bio in Speech Bubble -->
+                    <p id="authorBio"
+                        class="text-gray-700 text-base bg-white px-4 py-2 rounded-lg shadow-sm relative before:content-[''] before:absolute before:-bottom-2 before:left-4 before:w-0 before:h-0 before:border-l-8 before:border-r-8 before:border-t-8 before:border-transparent before:border-t-white">
+                    </p>
+                    <!-- Social Links -->
+                    <div id="authorSocials" class="flex items-center gap-4"></div>
+                </div>
+            </div>
+
+            <!-- Tags -->
+            <div id="tagsContainer" class="flex flex-wrap justify-center gap-3"></div>
+
+            <!-- Stats -->
+            <div class="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center max-w-3xl mx-auto">
+                <div class="bg-lime-100 rounded-lg p-4 shadow-md hover:scale-105 transition rotate-2 translate-y-2">
+                    <div class="text-orange-700 text-xl font-bold" id="prepareTime"><span
+                            class="mr-2">🥄</span><span></span></div>
+                    <div class="mt-2 text-gray-700">Prep Time</div>
+                </div>
+                <div class="bg-lime-100 rounded-lg p-4 shadow-md hover:scale-105 transition -rotate-3 translate-x-2">
+                    <div class="text-orange-700 text-xl font-bold" id="cookTime"><span
+                            class="mr-2">🔥</span><span></span></div>
+                    <div class="mt-2 text-gray-700">Cook Time</div>
+                </div>
+                <div class="bg-lime-100 rounded-lg p-4 shadow-md hover:scale-105 transition rotate-2 -translate-y-2">
+                    <div class="text-orange-700 text-xl font-bold" id="totalTime"><span
+                            class="mr-2">⏰</span><span></span></div>
+                    <div class="mt-2 text-gray-700">Total Time</div>
+                </div>
+                <div class="bg-lime-100 rounded-lg p-4 shadow-md hover:scale-105 transition -rotate-2 translate-x-2">
+                    <div class="text-orange-700 text-xl font-bold" id="servings"><span
+                            class="mr-2">🍽️</span><span></span></div>
+                    <div class="mt-2 text-gray-700">Servings</div>
+                </div>
+                <div class="bg-lime-100 rounded-lg p-4 shadow-md hover:scale-105 transition rotate-3 translate-y-2">
+                    <div class="text-orange-700 text-xl font-bold" id="difficulty"><span
+                            class="mr-2">🎯</span><span></span></div>
+                    <div class="mt-2 text-gray-700">Difficulty</div>
+                </div>
+                <div class="bg-lime-100 rounded-lg p-4 shadow-md hover:scale-105 transition -rotate-2 -translate-x-2">
+                    <div class="text-orange-700 text-xl font-bold" id="mealCategory"><span
+                            class="mr-2">🥗</span><span></span></div>
+                    <div class="mt-2 text-gray-700">Category</div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t-4 border-dotted border-teal-400 my-8"></div>
+
+            <!-- Ingredients -->
+            <div>
+                <h2 class="text-4xl font-extrabold text-orange-600 mb-6 flex items-center gap-3">
+                    🥄 Ingredients
+                </h2>
+                <ul id="ingredientsList" class="space-y-4 text-lg text-gray-800"></ul>
+            </div>
+
+            <!-- Steps -->
+            <div>
+                <h2 class="text-4xl font-extrabold text-orange-600 mb-6 flex items-center gap-3">
+                    🍴 Steps
+                </h2>
+                <ol id="stepsList" class="space-y-6"></ol>
+            </div>
+
+            <!-- Ratings & Views -->
+            <div class="text-center space-y-3">
+                <div id="ratingStars" class="text-3xl text-yellow-500"></div>
+                <div id="viewsCount" class="text-gray-600 text-lg"></div>
+                <div id="createdDate" class="text-gray-600 text-lg"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/recipe-detail.js"></script>
+}
