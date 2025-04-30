@@ -9,7 +9,27 @@ let selectedIngredientId = null; // default selected ingredient
 let selectedUnit = null; // default selected unit
 let selectedIngredients = []; // default selected ingredients
 
+let isUploading = false;
+let isImageSelected = false;
+
+let isUploadingMedia = false;
+let isMediaSelected = false;
+
+// Initialize serving count
+let servingsCount = 1;
+const minServings = 1;
+const maxServings = 10;
+
 let pageSize = 8; // FIXED
+
+// Cloudinary Configuration
+const cloudinaryConfig = {
+    cloud_name: 'dxclyqubm',
+    upload_preset: 'letwecook_preset',
+    sources: ['local', 'url', 'camera'],
+    max_file_size: 10000000,
+    client_allowed_formats: ["jpg", "jpeg", "png"]
+};
 
 // Data processing function
 function filteringIngredients() {
@@ -91,7 +111,138 @@ function fetchIngredientOverviews() {
     });
 }
 
+function fetchUnitEnums() {
+    $.ajax({
+        url: '/api/unit-enums',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            // slice the Unknown unit
+            data = data.filter(unit => unit !== 'Unknown');
+            // Populate unit chips
+            populateUnitChips(data);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching unit enums:', error);
+        }
+    });
+}
+
+// Fetch and render meal categories
+function fetchMealCategoryEnums() {
+    $.ajax({
+        url: '/api/meal-category-enums',
+        method: 'GET',
+        success: function (data) {
+            $('#meal-categories').empty(); // Clear previous chips if any
+
+            data.forEach(function (category, index) {
+                // Get color class by index or default gray if we run out
+                var chipColor = colorPalette[index % colorPalette.length] || 'bg-gray-300 text-gray-700';
+
+                var chipHtml = `
+                    <div data-category="${category}" 
+                         class="meal-category-chip px-5 py-2 rounded-full ${chipColor} font-semibold cursor-pointer select-none border-2 border-transparent hover:bg-opacity-80">
+                        ${category}
+                    </div>
+                `;
+                $('#meal-categories').append(chipHtml);
+            });
+        },
+        error: function (err) {
+            console.error('Failed to load meal categories:', err);
+        }
+    });
+}
+
+function fetchRecipeTags() {
+    $.ajax({
+        url: '/api/recipe-tags',
+        method: 'GET',
+        success: function (tags) {
+            // Clear existing tags
+            $('#recipe-tags-container').empty();
+
+            // Loop and render each tag
+            tags.forEach(tag => {
+                let tagElement = `
+                    <button class="tag-item px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm hover:bg-teal-200 transition">
+                        ${tag.name}
+                    </button>
+                `;
+                $('#recipe-tags-container').append(tagElement);
+            });
+        },
+        error: function (err) {
+            console.error('Failed to fetch recipe tags:', err);
+            $('#recipe-tags-container').html('<p class="text-red-500">Failed to load tags</p>');
+        }
+    });
+}
+
 // UI interactions
+// Function to render emojis + number
+function renderServings() {
+    // Update number display
+    $('#servings-count').text(servingsCount);
+
+    // Render emojis
+    let emojis = '';
+    for (let i = 0; i < servingsCount; i++) {
+        emojis += '👥';
+    }
+    $('#emoji-container').text(emojis);
+}
+
+
+function renderSelectedIngredients() {
+    const container = $('#ingredient-items-container');
+    container.empty(); // Clear existing items
+
+    selectedIngredients.forEach(ingredient => {
+        const overview = ingredientOverviews.find(i => i.id === ingredient.id);
+        if (!overview) return; // Skip if no matching ingredient found
+
+        const item = $(`
+            <div class="flex justify-between items-center p-4 rounded-lg bg-yellow-100 gap-4">
+                <div class="flex items-center gap-3">
+                    <img src="${overview.coverImageUrl}" alt="${overview.name}" class="w-12 h-12 object-contain rounded shadow" />
+                    <div class="font-medium text-teal-700">${overview.name} x${ingredient.quantity} (${ingredient.unit})</div>
+                </div>
+                <div class="text-red-500 font-semibold cursor-pointer hover:text-red-600 remove-ingredient" data-id="${ingredient.id}">
+                    Remove
+                </div>
+            </div>
+        `);
+
+        container.append(item);
+    });
+
+
+    // Optional: Add remove click handler
+    $('.remove-ingredient').on('click', function () {
+        const idToRemove = $(this).data('id');
+        selectedIngredients = selectedIngredients.filter(ing => ing.id !== idToRemove);
+        console.log('selectedIngredients after removal:', selectedIngredients);
+        renderSelectedIngredients();
+    });
+}
+
+
+function populateUnitChips(units) {
+    const container = $('#unit-selector');
+    container.empty(); // Clear existing content if any
+    units.forEach(unit => {
+        const chip = $(`
+            <div class="unit-chip select-none flex items-center justify-center px-4 py-2 rounded-full border border-teal-300 text-teal-600 cursor-pointer hover:bg-teal-100 transition duration-200 ease-in-out">
+                ${unit}
+            </div>
+        `);
+        container.append(chip);
+    });
+}
+
+
 function populateIngredientCategories() {
     container.empty(); // clear old buttons if any
 
@@ -274,6 +425,22 @@ function bindCategoryButtonEvents() {
     });
 }
 
+const colorPalette = [
+    'bg-teal-500 text-gray-600',
+    'bg-yellow-100 text-amber-600',
+    'bg-rose-100 text-rose-600',
+    'bg-lime-100 text-lime-600',
+    'bg-amber-100 text-amber-600',
+    'bg-indigo-100 text-indigo-600',
+    'bg-purple-100 text-purple-600',
+    'bg-pink-100 text-pink-600',
+    'bg-green-100 text-green-600',
+    'bg-blue-100 text-blue-600',
+    'bg-red-100 text-red-600',
+    'bg-cyan-100 text-cyan-600',
+    'bg-emerald-100 text-emerald-600'
+];
+
 // Data
 const colorThemes = [
     { bg: 'bg-teal-500', border: 'border-teal-300', text: 'text-teal-600', hover: 'hover:bg-teal-100' },
@@ -328,12 +495,89 @@ function addSelectedIngredient() {
 
     // You can log the selectedIngredients array for debugging purposes
     console.log(selectedIngredients);
+    renderSelectedIngredients();
 }
+
+
+
+function openCoverImageUploadWidget() {
+    if (isUploading || isImageSelected) return; // Prevent if loading or image already selected
+    isUploading = true;
+
+    // Show loading spinner
+    $('#cover-upload-box').html(`
+        <div class="flex flex-col items-center justify-center gap-2 text-teal-500">
+            <svg class="animate-spin h-8 w-8 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+            </svg>
+            <span class="font-semibold">Loading uploader...</span>
+        </div>
+    `);
+
+    cloudinary.openUploadWidget(
+        {
+            cloudName: cloudinaryConfig.cloud_name,
+            uploadPreset: cloudinaryConfig.upload_preset,
+            sources: cloudinaryConfig.sources,
+            maxFileSize: cloudinaryConfig.max_file_size,
+            clientAllowedFormats: cloudinaryConfig.client_allowed_formats
+        },
+        function (error, result) {
+            // ✅ Widget error, ignore
+            if (error) {
+                console.error('Widget error:', error);
+                isUploading = false;
+                return;
+            }
+
+            // ✅ User uploaded successfully
+            if (result && result.event === "success") {
+                console.log('Uploaded image URL:', result.info.secure_url);
+
+                // Show uploaded image + remove button
+                $('#cover-upload-box').html(`
+                    <div class="relative w-full h-full">
+                        <img src="${result.info.secure_url}" class="h-full w-full object-cover rounded-2xl" />
+                        <button id="remove-cover-btn" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
+                            ✖️
+                        </button>
+                    </div>
+                `);
+
+                isImageSelected = true;
+                isUploading = false;
+                window.coverImageUrl = result.info.secure_url;
+            }
+
+            // ✅ User just closed (but no upload) ➡️ only act if we are uploading and no image selected yet
+            else if (result && result.event === "close" && !isImageSelected) {
+                console.log('Widget closed without selecting image');
+                // Restore original upload box
+                $('#cover-upload-box').html(`
+                    <span class="text-teal-400 font-semibold cursor-pointer select-none">
+                        Click to upload or drag image here
+                    </span>
+                `);
+                isUploading = false;
+            }
+
+            // ❌ Other events like "queues-end" → ignore
+        }
+    );
+
+}
+
+
 
 
 $(document).ready(function () {
     fetchIngredientCategories();
     fetchIngredientOverviews();
+    fetchUnitEnums();
+    fetchMealCategoryEnums();
+    fetchRecipeTags();
+    renderServings();
 
     $('#search-bar').on('input', function () {
         const inputValue = $(this).val();
@@ -435,5 +679,362 @@ $(document).ready(function () {
         }
     });
 
+    // Bind click
+    $('#cover-upload-box').on('click', function () {
+        openCoverImageUploadWidget();
+    });
 
+    // ✅ Delegate remove button click (since it’s dynamically added)
+    $(document).on('click', '#remove-cover-btn', function (e) {
+        e.stopPropagation(); // Prevent triggering upload on box click
+
+        // Reset to original upload box
+        $('#cover-upload-box').html(`
+        <span class="text-teal-400 font-semibold cursor-pointer select-none">
+            Click to upload or drag image here
+        </span>
+    `);
+
+        isImageSelected = false;
+        window.coverImageUrl = null;
+    });
+
+    // On click +
+    $('#increase-btn').on('click', function () {
+        if (servingsCount < maxServings) {
+            servingsCount++;
+            renderServings();
+        }
+    });
+
+    // On click -
+    $('#decrease-btn').on('click', function () {
+        if (servingsCount > minServings) {
+            servingsCount--;
+            renderServings();
+        }
+    });
+
+    // Listen for clicks on any difficulty chip
+    $('.difficulty-chip').on('click', function () {
+        // Remove selected state and styles from all chips
+        $('.difficulty-chip').removeClass('selected').css({
+            'border': '2px solid transparent', // Remove any border
+            'background-color': '', // Remove any background-color styling
+            'color': '', // Reset the text color
+        });
+
+        // Apply selected state to the clicked chip
+        $(this).addClass('selected').css({
+            'border': '2px solid #2b6cb0', // Blue border for selected chip
+            'background-color': '#e0f2f7', // Light blue background for selected chip
+            'color': '#2b6cb0', // Blue text color for selected chip
+        });
+    });
+
+
+    // Event delegation for click handling
+    $('#meal-categories').on('click', '.meal-category-chip', function () {
+        // Remove selected state from all chips
+        $('.meal-category-chip').removeClass('border-teal-500 bg-teal-50 text-teal-600 selected') // Remove 'selected' and styles
+            .addClass('border-transparent');
+
+        // Apply selected state to the clicked chip
+        $(this).removeClass('border-transparent')
+            .addClass('border-teal-500 bg-teal-50 text-teal-600 selected');
+    });
+
+    // Handle Add Step
+    $('#add-step-btn').on('click', function () {
+        let newStep = `
+            <div class="step-item mb-2 p-4 rounded-2xl bg-yellow-50 border-2 border-teal-200 relative">
+                <!-- Remove Step Button -->
+                <button class="remove-step-btn absolute top-2 right-2 bg-red-500 rounded-full p-1 hover:bg-red-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#FFFFFF">
+                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                    </svg>
+                </button>
+
+                <label class="block text-teal-500 font-semibold mb-2">Step Title</label>
+                <input type="text" placeholder="Enter step title..."
+                    class="w-full p-3 rounded-full border-2 border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 mb-4 bg-white" />
+
+                <label class="block text-teal-500 font-semibold mb-2">Description</label>
+                <textarea rows="3" placeholder="Describe this step..."
+                    class="w-full p-3 rounded-2xl border-2 border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 mb-4 bg-white resize-none"></textarea>
+
+                <label class="block text-teal-500 font-semibold mb-2">Media</label>
+                <!-- Media Squares Container -->
+                <div class="media-container flex gap-3 flex-wrap">
+                    <!-- Initial Square -->
+                    <div class="media-square w-20 h-20 rounded-lg border-2 border-teal-300 bg-white flex items-center justify-center cursor-pointer relative hover:bg-teal-50">
+                        <span class="text-teal-300 text-2xl">+</span>
+                    </div>
+                </div>
+            </div>`;
+        $('#steps-container').append(newStep);
+    });
+
+    // Handle Remove Step (delegated)
+    $('#steps-container').on('click', '.remove-step-btn', function () {
+        $(this).closest('.step-item').remove();
+    });
+
+    // ✅ Handle Media Add (delegated)
+    $('#steps-container').on('click', '.media-square', function () {
+        let isPlusSquare = $(this).find('span').length > 0;
+
+        if (isPlusSquare) {
+            let $plusSquare = $(this);
+            let $mediaContainer = $plusSquare.closest('.media-container');
+
+            // Show loading spinner
+            $plusSquare.html(`
+            <svg class="animate-spin h-6 w-6 text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+            </svg>
+        `).addClass('pointer-events-none');
+
+            // Open Cloudinary widget
+            cloudinary.openUploadWidget(
+                {
+                    cloudName: cloudinaryConfig.cloud_name,
+                    uploadPreset: cloudinaryConfig.upload_preset,
+                    sources: cloudinaryConfig.sources,
+                    maxFileSize: cloudinaryConfig.max_file_size,
+                    clientAllowedFormats: cloudinaryConfig.client_allowed_formats
+                },
+                function (error, result) {
+                    if (error) {
+                        console.error('Widget error:', error);
+                        restorePlusSquare($plusSquare);
+                        return;
+                    }
+
+                    if (result && result.event === "success") {
+                        let imageUrl = result.info.secure_url;
+                        console.log('Uploaded image URL:', imageUrl);
+
+                        // Create media square (with hidden input for URL)
+                        let newMediaSquare = `
+                        <div class="media-square w-20 h-20 rounded-lg border-2 border-teal-300 bg-cover bg-center relative cursor-pointer"
+                            style="background-image: url('${imageUrl}');">
+                            <input type="hidden" name="stepMedia[]" value="${imageUrl}" />
+                            <button class="remove-media-btn absolute -top-2 -right-2 bg-red-500 rounded-full p-1 hover:bg-red-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960-960" width="16px" fill="#FFFFFF">
+                                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                                </svg>
+                            </button>
+                        </div>`;
+
+                        // Insert before plus square
+                        $plusSquare.before(newMediaSquare);
+
+                        // Restore plus square
+                        restorePlusSquare($plusSquare);
+                    }
+                    else if (result && result.event === "close") {
+                        console.log('Widget closed without selecting image');
+                        restorePlusSquare($plusSquare);
+                    }
+                }
+            );
+        }
+    });
+
+    // ✅ Restore plus square
+    function restorePlusSquare($square) {
+        $square.html('<span class="text-teal-300 text-2xl">+</span>').removeClass('pointer-events-none');
+    }
+
+    // Handle Remove Media Square (delegated)
+    $('#steps-container').on('click', '.remove-media-btn', function (e) {
+        e.stopPropagation(); // Prevent triggering parent click
+        $(this).parent('.media-square').remove();
+    });
+
+    $('#recipe-tags-container').on('click', '.tag-item', function () {
+        let isSelected = $(this).hasClass('selected');
+
+        if (isSelected) {
+            // Unselect: remove selected style
+            $(this)
+                .removeClass('selected')
+                .removeClass('bg-teal-500 text-white')
+                .addClass('bg-teal-100 text-teal-700');
+        } else {
+            // Select: add selected style
+            $(this)
+                .addClass('selected')
+                .removeClass('bg-teal-100 text-teal-700')
+                .addClass('bg-teal-500 text-white');
+        }
+    });
+
+
+    // listen to submit recipe button clicks
+    $('#submit-recipe-btn').on('click', function () {
+        let recipe = gatherRecipeInformation(); // Gather all recipe information
+        console.log('Recipe data:', recipe); // Log the gathered recipe data
+        validateRecipe(recipe); // Validate the gathered recipe data
+    });
 });
+
+
+function gatherRecipeInformation() {
+    // Gather all the recipe data
+    let recipe = {};
+
+    // Recipe Name and Description
+    recipe.name = $('#recipe-name').val().trim();
+    recipe.description = $('#recipe-desc').val().trim();
+
+    // Servings based on Emoji
+    let emojiText = $('#emoji-container').text().trim();
+    recipe.servings = Math.floor(emojiText.length / 2);  // Divide by 2 to get correct number of servings
+
+    // Time details
+    recipe.prepareTime = $('#prepare-time').val().trim();
+    recipe.cookTime = $('#cook-time').val().trim();
+
+    // Difficulty Level
+    recipe.difficulty = $('#difficulty-levels .difficulty-chip.selected').text().trim();
+
+    // Meal Category
+    recipe.mealCategory = $('#meal-categories .meal-category-chip.selected').text().trim();
+
+    // Selected Tags
+    recipe.tags = $('#recipe-tags-container .tag-item.selected').map(function () {
+        return $(this).text().trim();  // Clean up each tag's text
+    }).get();
+
+    // Selected Ingredients (from global list)
+    recipe.ingredients = selectedIngredients || [];
+
+    // Steps (Title, Description, Media)
+    recipe.steps = [];
+    $('#steps-container .step-item').each(function () {
+        let step = {};
+
+        step.title = $(this).find('input[type="text"]').val().trim();
+        step.description = $(this).find('textarea').val().trim();
+
+        // Media URLs
+        step.mediaUrls = [];
+        $(this).find('.media-square input[type="hidden"]').each(function () {
+            step.mediaUrls.push($(this).val());
+        });
+
+        // Add step to the recipe's steps array
+        recipe.steps.push(step);
+    });
+
+    // Retrieve the cover image URL if it exists or leave empty string
+    let coverImageUrl = $('#cover-upload-box img').attr('src') || "";
+    recipe.coverImage = coverImageUrl.trim(); // Ensure it's always present (even if empty)
+
+    // Return the complete recipe object
+    return recipe;
+}
+
+
+function validateRecipe(recipe) {
+    // Validate recipe name
+    if (!recipe.name.trim()) {
+        Swal.fire({ icon: 'error', title: 'Missing Recipe Name', text: 'Please enter a name for the recipe.' });
+        return false;
+    }
+
+    // Validate recipe description
+    if (!recipe.description.trim()) {
+        Swal.fire({ icon: 'error', title: 'Missing Recipe Description', text: 'Please enter a description for the recipe.' });
+        return false;
+    }
+
+    // Validate servings
+    if (isNaN(recipe.servings) || recipe.servings <= 0) {
+        Swal.fire({ icon: 'error', title: 'Invalid Servings', text: 'Please enter a valid number for servings.' });
+        return false;
+    }
+
+    // Validate prepare time
+    if (isNaN(recipe.prepareTime) || recipe.prepareTime <= 0) {
+        Swal.fire({ icon: 'error', title: 'Invalid Prepare Time', text: 'Please enter a valid prepare time.' });
+        return false;
+    }
+
+    // Validate cook time
+    if (isNaN(recipe.cookTime) || recipe.cookTime <= 0) {
+        Swal.fire({ icon: 'error', title: 'Invalid Cook Time', text: 'Please enter a valid cook time.' });
+        return false;
+    }
+
+    // Validate difficulty
+    if (!recipe.difficulty.trim()) {
+        Swal.fire({ icon: 'error', title: 'Missing Difficulty Level', text: 'Please select a difficulty level.' });
+        return false;
+    }
+
+    // Validate meal category
+    if (!recipe.mealCategory.trim()) {
+        Swal.fire({ icon: 'error', title: 'Missing Meal Category', text: 'Please select a meal category.' });
+        return false;
+    }
+
+    // Validate tags
+    if (!Array.isArray(recipe.tags) || recipe.tags.length === 0) {
+        Swal.fire({ icon: 'error', title: 'No Tags Selected', text: 'Please select at least one tag.' });
+        return false;
+    }
+
+    // ✅ Validate ingredients
+    if (!Array.isArray(recipe.ingredients) || recipe.ingredients.length === 0) {
+        Swal.fire({ icon: 'error', title: 'No Ingredients Added', text: 'Please add at least one ingredient.' });
+        return false;
+    }
+
+    for (let i = 0; i < recipe.ingredients.length; i++) {
+        let ing = recipe.ingredients[i];
+        if (!ing.id || !ing.id.trim()) {
+            Swal.fire({ icon: 'error', title: 'Invalid Ingredient', text: `Ingredient ${i + 1} is missing its ID.` });
+            return false;
+        }
+        if (isNaN(ing.quantity) || ing.quantity <= 0) {
+            Swal.fire({ icon: 'error', title: 'Invalid Quantity', text: `Ingredient ${i + 1} must have a valid quantity.` });
+            return false;
+        }
+        if (!ing.unit || !ing.unit.trim()) {
+            Swal.fire({ icon: 'error', title: 'Missing Unit', text: `Ingredient ${i + 1} is missing its unit.` });
+            return false;
+        }
+    }
+
+    // ✅ Validate steps
+    if (!Array.isArray(recipe.steps) || recipe.steps.length === 0) {
+        Swal.fire({ icon: 'error', title: 'Missing Recipe Steps', text: 'Please add at least one step.' });
+        return false;
+    }
+
+    for (let i = 0; i < recipe.steps.length; i++) {
+        let step = recipe.steps[i];
+        if (!step.title || !step.title.trim()) {
+            Swal.fire({ icon: 'error', title: 'Missing Step Title', text: `Step ${i + 1} is missing its title.` });
+            return false;
+        }
+        // Optional: Uncomment below if you want description required too
+        // if (!step.description || !step.description.trim()) {
+        //     Swal.fire({ icon: 'error', title: 'Missing Step Description', text: `Step ${i + 1} is missing its description.` });
+        //     return false;
+        // }
+    }
+
+    // ✅ Validate cover image
+    if (!recipe.coverImage || !recipe.coverImage.trim()) {
+        Swal.fire({ icon: 'error', title: 'Missing Cover Image', text: 'Please upload a cover image.' });
+        return false;
+    }
+
+    // ✅ Passed all checks
+    return true;
+}
