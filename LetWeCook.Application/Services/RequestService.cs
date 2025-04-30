@@ -12,17 +12,20 @@ public class RequestService : IRequestService
     private readonly IUserRequestRepository _userRequestRepository;
     private readonly IDetailRepository _detailRepository;
     private readonly IIngredientRepository _ingredientRepository;
+    private readonly IRecipeRepository _recipeRepository;
     private readonly IMediaUrlRepository _mediaUrlRepository;
     public RequestService(
         IUnitOfWork unitOfWork,
         IUserRequestRepository userRequestRepository,
         IIngredientRepository ingredientRepository,
+        IRecipeRepository recipeRepository,
         IDetailRepository detailRepository,
         IMediaUrlRepository mediaUrlRepository)
     {
         _unitOfWork = unitOfWork;
         _userRequestRepository = userRequestRepository;
         _ingredientRepository = ingredientRepository;
+        _recipeRepository = recipeRepository;
         _detailRepository = detailRepository;
         _mediaUrlRepository = mediaUrlRepository;
     }
@@ -94,6 +97,28 @@ public class RequestService : IRequestService
 
             await _userRequestRepository.UpdateAsync(request, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
+        }
+        else if (request.Type == UserRequestType.CREATE_RECIPE)
+        {
+            var recipeId = request.NewReferenceId;
+            var recipe = await _recipeRepository.GetByIdAsync(recipeId, cancellationToken);
+            if (recipe == null)
+            {
+                throw new IngredientRetrievalException($"Recipe with ID {recipeId} not found.");
+            }
+
+            recipe.SetVisible(true);
+            recipe.SetPreview(false);
+
+            await _recipeRepository.UpdateAsync(recipe, cancellationToken);
+            request.UpdateStatus(UserRequestStatus.APPROVED, responseMessage);
+
+            await _userRequestRepository.UpdateAsync(request, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+        }
+        else
+        {
+            throw new InvalidOperationException("Unsupported request type.");
         }
     }
 

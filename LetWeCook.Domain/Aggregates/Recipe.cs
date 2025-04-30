@@ -85,4 +85,13 @@ public class Recipe : AggregateRoot
     {
         Tags.AddRange(recipeTags);
     }
+
+    public void SetVisible(bool isVisible)
+    {
+        IsVisible = isVisible;
+    }
+    public void SetPreview(bool isPreview)
+    {
+        IsPreview = isPreview;
+    }
 }

@@ -1,3 +1,10 @@
+import { GoogleGenerativeAI } from "https://esm.sh/@google/generative-ai";
+
+// Initialize the Google Generative AI client with the API key from .env
+const genAI = new GoogleGenerativeAI("AIzaSyCdBbtTfxOgYKBq7frKFmwOlOKSLDjxY94");
+
+let fetchedRecipe = {};
+
 $(document).ready(function () {
     const recipeId = $('#recipeId').val();
 
@@ -5,6 +12,8 @@ $(document).ready(function () {
         url: `/api/recipe-preview/${recipeId}`,
         method: 'GET',
         success: function (recipe) {
+
+            fetchedRecipe = recipe; // Store the fetched recipe for later use
             // Cover & Basic
             $('#coverImage').attr('src', recipe.coverImage || 'https://via.placeholder.com/800x320?text=Recipe+Image');
             $('#recipeName').text(recipe.name || 'Untitled Recipe');
@@ -133,4 +142,262 @@ $(document).ready(function () {
             $('#loading').text('Oops! Failed to load recipe. 😔').addClass('text-orange-700');
         }
     });
+
+    $('.review-ai-btn').on('click', async function () {
+        const message = $('#admin-response').val().trim();
+        console.log("🤖 Reviewing message with AI:", message);
+
+        // Show loading message
+        const swalLoading = Swal.fire({
+            title: 'Reviewing...',
+            text: 'Please wait while we review the ingredient.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading(); // Show the loading spinner
+            }
+        });
+
+        try {
+            // Perform the AI review
+            const review = await reviewRecipe();
+
+            // Close the loading alert and show success
+            swalLoading.close();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Review Completed',
+                text: `Review status: ${review.status}`,
+                confirmButtonText: 'OK',
+                customClass: {
+                    confirmButton: 'bg-rose-500 hover:bg-rose-600 text-white font-semibold rounded-xl px-6 py-2 focus:outline-none focus:ring-2 focus:ring-rose-300'
+                },
+                buttonsStyling: false // Disable default styling to apply Tailwind
+            }).then(() => {
+                // Populate the Problems and Suggestions textareas with formatted data
+                $('#problems').val(formatListWithDashes(review.problems));
+                $('#suggestions').val(formatListWithDashes(review.suggestions));
+            });
+
+
+        } catch (error) {
+            // Close loading alert on error and show error message
+            swalLoading.close();
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: `An error occurred while reviewing the recipe: ${error.message}`,
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+
+    // Accept button
+    $('.accept-btn').on('click', function () {
+        const formattedMessage = collectEvaluationInputs();
+        const newRefId = fetchedRecipe.id;
+
+        $.ajax({
+            url: `/api/evaluation/accept/${newRefId}`,
+            method: 'POST',
+            data: { responseMessage: formattedMessage },
+            success: function () {
+                Swal.fire({
+                    title: '✅ Accepted!',
+                    text: 'The request has been successfully accepted.',
+                    icon: 'success',
+                    confirmButtonText: 'Got it!',
+                    confirmButtonColor: '#28a745',
+                    background: 'rgba(255, 255, 255, 0.8)',  // Transparent background
+                    color: '#333',  // Text color to make it readable
+                    backdrop: 'rgba(0, 0, 0, 0.3)',  // Slight dimming for the backdrop
+                });
+            },
+            error: function (xhr) {
+                const error = xhr.responseJSON?.error || 'Something went wrong';
+                Swal.fire({
+                    title: '❌ Oops!',
+                    text: error,
+                    icon: 'error',
+                    confirmButtonText: 'Close',
+                    confirmButtonColor: '#d33',
+                    background: 'rgba(255, 255, 255, 0.9)',  // Transparent background
+                    color: '#333',  // Text color for clarity
+                    backdrop: 'rgba(0, 0, 0, 0.3)',  // Slight dimming for the backdrop
+                });
+            }
+        });
+    });
+
+    // Reject button
+    $('.reject-btn').on('click', function () {
+        const formattedMessage = collectEvaluationInputs();
+        const newRefId = fetchedRecipe.id;
+
+        $.ajax({
+            url: `/api/evaluation/reject/${newRefId}`,
+            method: 'POST',
+            data: { responseMessage: formattedMessage },
+            success: function () {
+                Swal.fire({
+                    title: '🚫 Rejected!',
+                    text: 'The request has been rejected as per your response.',
+                    icon: 'warning',
+                    confirmButtonText: 'Understood',
+                    confirmButtonColor: '#dc3545',
+                    background: 'rgba(255, 255, 255, 0.8)',  // Transparent background
+                    color: '#333',  // Text color to make it readable
+                    backdrop: 'rgba(0, 0, 0, 0.3)',  // Slight dimming for the backdrop
+                });
+            },
+            error: function (xhr) {
+                const error = xhr.responseJSON?.error || 'Something went wrong';
+                Swal.fire({
+                    title: '❌ Oops!',
+                    text: error,
+                    icon: 'error',
+                    confirmButtonText: 'Close',
+                    confirmButtonColor: '#d33',
+                    background: 'rgba(255, 255, 255, 0.9)',  // Transparent background
+                    color: '#333',  // Text color for clarity
+                    backdrop: 'rgba(0, 0, 0, 0.3)',  // Slight dimming for the backdrop
+                });
+            }
+        });
+    });
+
 });
+
+async function reviewRecipe() {
+    try {
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+        const prompt = `
+            You are an assistant reviewing a recipe submission for an online cooking app.
+
+            Evaluate the recipe based on:
+            1. ✅ Name: Clear, real, and relevant recipe name (not spam or gibberish).
+            2. ✅ Description: Meaningful, complete, not vague or AI-generated fluff.
+            3. ✅ Recipe Details: Cooking times, servings, difficulty, and meal category are reasonable.
+            4. ✅ Tags: Cuisine types and other tags are appropriate and consistent.
+            5. ✅ Ingredients: Contains realistic ingredients with proper quantities and units.
+            6. ✅ Steps: Instructions are clear, complete, and in logical order with appropriate titles and descriptions.
+            7. ✅ Overall Recipe Quality: Recipe is complete, executable, and makes culinary sense.
+            8. ✅ No spam, offensive language, or irrelevant/unrelated info.
+
+            Do **not** evaluate image URLs or their validity.
+
+            IMPORTANT: Your response MUST be ONLY a valid JSON object with exactly this format:
+            {
+              "status": "Valid" or "Needs Fixes",
+              "problems": ["problem 1", "problem 2", ...],
+              "suggestions": ["suggestion 1", "suggestion 2", ...]
+            }
+
+            If there are no problems, return an empty array for "problems".
+            If there are no suggestions, return an empty array for "suggestions".
+            Do not include any text before or after the JSON.
+            Do not include any markdown formatting or code blocks.
+            Return ONLY the raw JSON object.
+
+            Recipe JSON:
+            \`\`\`json
+            ${JSON.stringify(fetchedRecipe, null, 2)}
+            \`\`\`
+        `;
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        let text = response.text();
+
+        try {
+            // Try parsing the response directly first
+            const review = JSON.parse(text);
+
+            // Validate that the response has the required fields
+            if (typeof review !== 'object' || review === null) {
+                throw new Error("Response is not an object");
+            }
+
+            if (!review.hasOwnProperty('status') ||
+                !review.hasOwnProperty('problems') ||
+                !review.hasOwnProperty('suggestions')) {
+                throw new Error("Response missing required fields");
+            }
+
+            // Ensure status is valid
+            if (review.status !== "Valid" && review.status !== "Needs Fixes") {
+                review.status = "Needs Fixes"; // Default to needs fixes if invalid
+            }
+
+            // Ensure arrays are arrays
+            if (!Array.isArray(review.problems)) {
+                review.problems = [];
+            }
+
+            if (!Array.isArray(review.suggestions)) {
+                review.suggestions = [];
+            }
+
+            return review;
+        } catch (parseError) {
+            // If direct parsing fails, try to extract JSON
+            const jsonMatch = text.match(/{[\s\S]*}/);
+            if (!jsonMatch) {
+                // If no JSON found, return a default response
+                console.error("No valid JSON found in response:", text);
+                return {
+                    status: "Needs Fixes",
+                    problems: ["AI response format error"],
+                    suggestions: ["Please try again"]
+                };
+            }
+
+            try {
+                const extractedJson = JSON.parse(jsonMatch[0]);
+
+                // Validate and fix the extracted JSON
+                if (!extractedJson.hasOwnProperty('status')) {
+                    extractedJson.status = "Needs Fixes";
+                } else if (extractedJson.status !== "Valid" && extractedJson.status !== "Needs Fixes") {
+                    extractedJson.status = "Needs Fixes";
+                }
+
+                if (!extractedJson.hasOwnProperty('problems') || !Array.isArray(extractedJson.problems)) {
+                    extractedJson.problems = [];
+                }
+
+                if (!extractedJson.hasOwnProperty('suggestions') || !Array.isArray(extractedJson.suggestions)) {
+                    extractedJson.suggestions = [];
+                }
+
+                return extractedJson;
+            } catch (extractError) {
+                console.error("Error parsing extracted JSON:", extractError.message);
+                return {
+                    status: "Needs Fixes",
+                    problems: ["AI response format error"],
+                    suggestions: ["Please try again"]
+                };
+            }
+        }
+
+    } catch (error) {
+        console.error("Error during recipe review:", error.message);
+        return null;
+    }
+}
+
+// Helper function to format list with a dash before each item
+function formatListWithDashes(list) {
+    return list.map(item => `- ${item}`).join('\n');
+}
+
+function collectEvaluationInputs() {
+    const adminResponse = $('#admin-response').val().trim();
+    const problems = $('#problems').val().trim();
+    const suggestions = $('#suggestions').val().trim();
+
+    return `|${adminResponse}|${problems}|${suggestions}|`;
+}

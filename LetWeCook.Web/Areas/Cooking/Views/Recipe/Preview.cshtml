@@ -6,8 +6,10 @@
 <!-- Hidden field to store recipe ID -->
 <input type="hidden" id="recipeId" value="@recipeId" />
 
-<div class="min-h-screen bg-gradient-to-br from-yellow-100 to-lime-100 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto bg-amber-50 bg-opacity-95 rounded-3xl shadow-xl p-8">
+<div
+    class="flex flex-row items-start justify-center min-h-screen bg-gradient-to-br from-yellow-100 to-lime-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto flex-1 bg-amber-50 bg-opacity-95 rounded-3xl shadow-xl p-8">
+
         <!-- Loading -->
         <div id="loading" class="text-center text-orange-600 text-3xl font-extrabold py-8 animate-bounce">Blending your
             recipe... 🍹</div>
@@ -128,7 +130,63 @@
             </div>
         </div>
     </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <!-- Admin Response Panel -->
+        <div class="w-full md:w-1/3 flex flex-col justify-start items-center gap-6 mt-12">
+            <div
+                class="bg-gradient-to-r from-amber-100 to-lime-100 p-8 rounded-3xl border-4 border-dotted border-teal-400 shadow-xl max-w-md w-full transform hover:scale-105 transition-all duration-500">
+                <h3
+                    class="text-3xl font-extrabold text-orange-600 mb-6 text-center flex items-center justify-center gap-3 animate-bounce">
+                    <span>📝</span> Admin Review Panel
+                </h3>
+
+                <!-- Response Message -->
+                <label for="admin-response" class="block mb-2 text-sm font-semibold text-orange-700">
+                    Response Message
+                </label>
+                <textarea id="admin-response" rows="6" placeholder="Type your general message here..."
+                class="w-full rounded-xl border-2 border-orange-400 bg-amber-50 px-4 py-3 text-sm text-gray-800 shadow-sm focus:outline-none focus:ring-4 focus:ring-orange-300 hover:bg-amber-100 transition resize-both"></textarea>
+
+                <!-- Problems -->
+                <label for="problems" class="block mt-6 mb-2 text-sm font-semibold text-orange-700">
+                    Problems
+                </label>
+                <textarea id="problems" rows="6" placeholder="List the problems or issues found..."
+                class="w-full rounded-xl border-2 border-red-400 bg-amber-50 px-4 py-3 text-sm text-gray-800 shadow-sm focus:outline-none focus:ring-4 focus:ring-red-300 hover:bg-amber-100 transition resize-both"></textarea>
+
+                <!-- Suggestions -->
+                <label for="suggestions" class="block mt-6 mb-2 text-sm font-semibold text-orange-700">
+                    Suggestions
+                </label>
+                <textarea id="suggestions" rows="6" placeholder="List your suggestions or improvements..."
+                class="w-full rounded-xl border-2 border-yellow-400 bg-amber-50 px-4 py-3 text-sm text-gray-800 shadow-sm focus:outline-none focus:ring-4 focus:ring-yellow-300 hover:bg-amber-100 transition resize-both"></textarea>
+
+                <!-- Accept & Reject Side-by-Side -->
+                <div class="mt-8 flex gap-4">
+                    <button
+                        class="accept-btn w-1/2 bg-green-600 text-white font-extrabold py-3 px-4 rounded-xl shadow-lg hover:bg-green-700 hover:scale-105 transition focus:outline-none focus:ring-4 focus:ring-green-400 flex items-center justify-center gap-2">
+                        <span>✅</span> Accept
+                    </button>
+                    <button
+                        class="reject-btn w-1/2 bg-red-600 text-white font-extrabold py-3 px-4 rounded-xl shadow-lg hover:bg-red-700 hover:scale-105 transition focus:outline-none focus:ring-4 focus:ring-red-400 flex items-center justify-center gap-2">
+                        <span>❌</span> Reject
+                    </button>
+                </div>
+
+                <!-- Review by AI -->
+                <div class="mt-4">
+                    <button
+                        class="review-ai-btn w-full bg-blue-600 text-white font-extrabold py-3 px-4 rounded-xl shadow-lg hover:bg-blue-700 hover:scale-105 transition focus:outline-none focus:ring-4 focus:ring-blue-400 flex items-center justify-center gap-2">
+                        <span>🤖</span> Review by AI
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
 </div>
+
+
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
