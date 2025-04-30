@@ -12,4 +12,14 @@ public class RecipeIngredient : Entity
     public Guid IngredientId { get; set; }
     public float Quantity { get; set; } = 0.0F;
     public UnitEnum Unit { get; set; } = UnitEnum.Unknown;
+
+    private RecipeIngredient() { } // for EF Core
+
+    public RecipeIngredient(Guid recipeId, Guid ingredientId, float quantity, UnitEnum unit)
+    {
+        RecipeId = recipeId;
+        IngredientId = ingredientId;
+        Quantity = quantity;
+        Unit = unit;
+    }
 }

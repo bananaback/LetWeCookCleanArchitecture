@@ -1,0 +1,165 @@
+/* recipe-preview.css */
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Caveat:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+.recipe-page-wrapper {
+    background-image: url('/images/kitchen-texture.jpg');
+    /* Add a subtle kitchen-themed texture (e.g., wood or cloth) */
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.recipe-container {
+    background: rgba(255, 245, 230, 0.95);
+    /* Parchment-like semi-transparent background */
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.recipe-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(to right, #f59e0b, #d97706);
+}
+
+.font-cursive {
+    font-family: 'Amatic SC', cursive;
+}
+
+.font-handwritten {
+    font-family: 'Caveat', cursive;
+}
+
+.font-sans {
+    font-family: 'Roboto', sans-serif;
+}
+
+.text-amber-800 {
+    color: #92400e;
+}
+
+.text-amber-600 {
+    color: #d97706;
+}
+
+.text-amber-700 {
+    color: #b45309;
+}
+
+.text-yellow-500 {
+    color: #f59e0b;
+}
+
+/* Loading */
+#loading {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Cover Image */
+#coverImage {
+    transition: transform 0.3s ease;
+}
+
+/* Tags */
+#tagsContainer span {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+#tagsContainer span:hover {
+    background: #f59e0b;
+    color: white;
+}
+
+/* Stats */
+.stat-card {
+    background: #fff7ed;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Ingredients */
+#ingredientsList li {
+    background: #fef3c7;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: background 0.3s;
+}
+
+#ingredientsList li:hover {
+    background: #f59e0b;
+    color: white;
+}
+
+/* Steps */
+#stepsList li {
+    background: #fff7ed;
+    border-left: 4px solid #f59e0b;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+}
+
+#stepsList li:hover {
+    background: #fef3c7;
+}
+
+/* Ratings & Views */
+#ratingStars {
+    letter-spacing: 0.1em;
+    animation: starGlow 2s infinite;
+}
+
+@keyframes starGlow {
+    0% {
+        text-shadow: 0 0 5px #f59e0b;
+    }
+
+    50% {
+        text-shadow: 0 0 10px #f59e0b;
+    }
+
+    100% {
+        text-shadow: 0 0 5px #f59e0b;
+    }
+}
+
+/* Save Recipe Button */
+#saveRecipe {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+}

@@ -105,6 +105,7 @@ public class RequestService : IRequestService
     public async Task<IEnumerable<RequestDTO>> GetAllRequestsAsync(CancellationToken cancellationToken = default)
     {
         var requests = await _userRequestRepository.GetAllAsync(cancellationToken);
+        requests = requests.OrderByDescending(r => r.CreatedAt).ToList();
         return requests.Select(r => new RequestDTO
         {
             RequestId = r.Id,

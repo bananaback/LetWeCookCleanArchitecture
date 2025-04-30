@@ -14,7 +14,6 @@ public class Recipe : AggregateRoot
     public int TotalTime => PrepareTime + CookTime; // in minutes
     public DifficultyLevel DifficultyLevel { get; private set; } = DifficultyLevel.UNKNOWN;
     public MealCategory MealCategory { get; private set; } = MealCategory.Unknown;
-    public List<RecipeTag> Tags { get; private set; } = new List<RecipeTag>();
     public MediaUrl CoverMediaUrl { get; private set; } = null!;
     public SiteUser CreatedBy { get; private set; } = null!;
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
@@ -25,7 +24,65 @@ public class Recipe : AggregateRoot
 
     public bool IsVisible { get; private set; }
     public bool IsPreview { get; private set; }
+    public List<RecipeTag> Tags { get; private set; } = new List<RecipeTag>();
 
     public List<RecipeIngredient> RecipeIngredients { get; private set; } = new List<RecipeIngredient>();
     public List<RecipeDetail> RecipeDetails { get; private set; } = new List<RecipeDetail>();
+
+    private Recipe() { } // for EF Core
+
+    public Recipe(
+        string name,
+        string description,
+        int servings,
+        int prepareTime,
+        int cookTime,
+        DifficultyLevel difficultyLevel,
+        MealCategory mealCategory,
+        MediaUrl coverMediaUrl,
+        SiteUser createdBy,
+        bool isVisible,
+        bool isPreview)
+    {
+        Name = name;
+        Description = description;
+        Servings = servings;
+        PrepareTime = prepareTime;
+        CookTime = cookTime;
+        DifficultyLevel = difficultyLevel;
+        MealCategory = mealCategory;
+        CoverMediaUrl = coverMediaUrl;
+        CreatedBy = createdBy;
+        IsVisible = isVisible;
+        IsPreview = isPreview;
+
+        CreatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
+
+    }
+
+    public void AddIngredient(RecipeIngredient recipeIngredient)
+    {
+        RecipeIngredients.Add(recipeIngredient);
+    }
+
+    public void AddIngredients(IEnumerable<RecipeIngredient> recipeIngredients)
+    {
+        RecipeIngredients.AddRange(recipeIngredients);
+    }
+
+    public void AddStep(RecipeDetail recipeDetail)
+    {
+        RecipeDetails.Add(recipeDetail);
+    }
+
+    public void AddSteps(IEnumerable<RecipeDetail> recipeDetails)
+    {
+        RecipeDetails.AddRange(recipeDetails);
+    }
+
+    public void AddRecipeTags(IEnumerable<RecipeTag> recipeTags)
+    {
+        Tags.AddRange(recipeTags);
+    }
 }

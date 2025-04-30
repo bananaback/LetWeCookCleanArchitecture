@@ -6,6 +6,7 @@ namespace LetWeCook.Domain.ValueObjects
     {
         public string FirstName { get; } = string.Empty;
         public string LastName { get; } = string.Empty;
+        public string FullName => $"{FirstName} {LastName}";
 
         private Name() { } // For EF Core
 

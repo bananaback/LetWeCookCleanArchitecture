@@ -254,11 +254,11 @@ function getStatusColor(status) {
 }
 
 
-function updateRequestList(requestsToUpdate) {
+function updateRequestList(filteredRequests) {
     const $requestsList = $('#requestsList');
     $requestsList.empty();
 
-    if (requestsToUpdate.length === 0) {
+    if (filteredRequests.length === 0) {
         $requestsList.append(`
             <div class="text-center text-gray-500 py-8">
                 No requests found.
@@ -269,9 +269,11 @@ function updateRequestList(requestsToUpdate) {
 
     // Sequential fetch + render
     (async () => {
-        for (const request of requestsToUpdate) {
+        for (const request of filteredRequests) {
             let ingredientData = null;
+            let recipeData = null;
 
+            // ✅ Handle INGREDIENT data
             if (request.type === "CREATE_INGREDIENT" || request.type === "UPDATE_INGREDIENT") {
                 try {
                     ingredientData = await $.ajax({
@@ -280,10 +282,24 @@ function updateRequestList(requestsToUpdate) {
                         dataType: 'json'
                     });
                 } catch (err) {
-                    // optional: console.warn('Failed to fetch ingredient data:', err);
+                    console.warn('Failed to fetch ingredient data:', err);
                 }
             }
 
+            // ✅ Handle RECIPE data
+            if (request.type === "CREATE_RECIPE" || request.type === "UPDATE_RECIPE") {
+                try {
+                    recipeData = await $.ajax({
+                        url: `https://localhost:7212/api/recipe-overview/${request.newReferenceId}`,
+                        method: 'GET',
+                        dataType: 'json'
+                    });
+                } catch (err) {
+                    console.warn('Failed to fetch recipe data:', err);
+                }
+            }
+
+            // ✅ Ingredient Section
             const ingredientSection = ingredientData ? `
                 <div class="bg-emerald-50 px-6 py-4 grid grid-cols-3 gap-4 items-center">
                     <dt class="text-sm font-medium text-gray-700 col-span-1">Ingredient</dt>
@@ -296,18 +312,27 @@ function updateRequestList(requestsToUpdate) {
                 </div>
             ` : '';
 
-            console.log(request.responseMessage);
-            // Split the response message into parts and ensure it has exactly 3 parts, filling empty parts if necessary
+            // ✅ Recipe Section
+            const recipeSection = recipeData ? `
+                <div class="bg-cyan-50 px-6 py-4 grid grid-cols-3 gap-4 items-center">
+                    <dt class="text-sm font-medium text-gray-700 col-span-1">Recipe</dt>
+                    <dd class="col-span-2 flex items-center gap-4">
+                        <span class="text-sm text-gray-900 font-sans">${recipeData.name}</span>
+                        <div class="w-20 h-20 bg-gray-100 flex items-center justify-center rounded-md shadow overflow-hidden">
+                            <img src="${recipeData.coverImage}" alt="Cover Image" class="object-contain w-full h-full">
+                        </div>
+                    </dd>
+                </div>
+            ` : '';
+
+            // ✅ Response Message Handling (existing)
             let formattedResponseMessage = '';
             if (request.responseMessage) {
                 const responseParts = request.responseMessage.split('|');
-
-                // Ensure there are exactly 3 parts, filling missing parts with an empty string
                 const adminResponse = responseParts[1] || '';
                 const problemsRaw = responseParts[2] || '';
                 const suggestionsRaw = responseParts[3] || '';
 
-                // Helper function to turn "- item" into list with icons
                 const parseList = (text, icon) =>
                     text
                         .split('-')
@@ -337,6 +362,7 @@ function updateRequestList(requestsToUpdate) {
                 `;
             }
 
+            // ✅ Card Render
             const card = `
                 <div class="pt-4">
                     <div class="bg-white shadow-lg overflow-hidden rounded-xl border border-emerald-100 transform hover:shadow-xl transition duration-300">
@@ -368,13 +394,20 @@ function updateRequestList(requestsToUpdate) {
                                         <dd class="mt-1 text-sm text-gray-900">${formattedResponseMessage}</dd>
                                     </div>` : ""}
                                 ${ingredientSection}
+                                ${recipeSection}
                             </dl>
                         </div>
                         <div class="px-6 py-3 bg-white text-right">
-                            <button onclick="window.location.href='https://localhost:7212/Cooking/Ingredient/Preview/${request.newReferenceId}'"
-                                class="bg-cyan-600 hover:bg-cyan-700 text-white font-sans font-medium text-sm py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition duration-300">
-                                Preview
-                            </button>
+                            ${ingredientData ? `
+                                <button onclick="window.location.href='https://localhost:7212/Cooking/Ingredient/Preview/${request.newReferenceId}'"
+                                    class="bg-cyan-600 hover:bg-cyan-700 text-white font-sans font-medium text-sm py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition duration-300">
+                                    Preview Ingredient
+                                </button>` : ''}
+                            ${recipeData ? `
+                                <button onclick="window.location.href='https://localhost:7212/Cooking/Recipe/Preview/${request.newReferenceId}'"
+                                    class="bg-emerald-600 hover:bg-emerald-700 text-white font-sans font-medium text-sm py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition duration-300">
+                                    Preview Recipe
+                                </button>` : ''}
                         </div>
                     </div>
                 </div>
@@ -384,7 +417,6 @@ function updateRequestList(requestsToUpdate) {
         }
     })();
 }
-
 
 
 

@@ -873,13 +873,43 @@ $(document).ready(function () {
     });
 
 
-    // listen to submit recipe button clicks
+    // Listen to submit recipe button clicks
     $('#submit-recipe-btn').on('click', function () {
         let recipe = gatherRecipeInformation(); // Gather all recipe information
         console.log('Recipe data:', recipe); // Log the gathered recipe data
-        validateRecipe(recipe); // Validate the gathered recipe data
+
+        if (validateRecipe(recipe)) {  // Only submit if validation passes
+            submitRecipeToServer(recipe);
+        }
     });
+
 });
+
+function submitRecipeToServer(recipe) {
+    $.ajax({
+        url: '/api/recipes',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(recipe),
+        success: function (response) {
+            console.log('Recipe created! Response:', response);
+            Swal.fire({
+                icon: 'success',
+                title: 'Recipe Submitted!',
+                text: 'Your recipe was sent successfully! Request ID: ' + response,
+            });
+        },
+        error: function (xhr) {
+            console.error('Error submitting recipe:', xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: 'Submission Failed',
+                text: 'There was an error submitting your recipe. Please try again.',
+            });
+        }
+    });
+}
+
 
 
 function gatherRecipeInformation() {
@@ -914,9 +944,10 @@ function gatherRecipeInformation() {
 
     // Steps (Title, Description, Media)
     recipe.steps = [];
-    $('#steps-container .step-item').each(function () {
+    $('#steps-container .step-item').each(function (index) { // index will auto count 0,1,2...
         let step = {};
 
+        step.order = index + 1; // 1-based order
         step.title = $(this).find('input[type="text"]').val().trim();
         step.description = $(this).find('textarea').val().trim();
 
@@ -929,6 +960,7 @@ function gatherRecipeInformation() {
         // Add step to the recipe's steps array
         recipe.steps.push(step);
     });
+
 
     // Retrieve the cover image URL if it exists or leave empty string
     let coverImageUrl = $('#cover-upload-box img').attr('src') || "";

@@ -72,6 +72,7 @@ public static class DependencyInjection
         services.AddScoped<IUserRequestRepository, UserRequestRepository>();
         services.AddScoped<IUserRequestRepository, UserRequestRepository>();
         services.AddScoped<IRecipeTagRepository, RecipeTagRepository>();
+        services.AddScoped<IRecipeRepository, RecipeRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<IHttpContextService, HttpContextService>();
 

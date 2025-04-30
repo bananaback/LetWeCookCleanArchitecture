@@ -23,6 +23,7 @@ public class UserRequestRepository : Repository<UserRequest>, IUserRequestReposi
     {
         return await _dbSet
             .Where(r => r.CreatedByUser.Id == userId)
+            .OrderBy(r => r.CreatedAt)
             .ToListAsync(cancellationToken);
     }
 
