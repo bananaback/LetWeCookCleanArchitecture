@@ -58,6 +58,8 @@ public static class DependencyInjection
         services.AddScoped<IIngredientService, IngredientService>();
         services.AddScoped<IRequestService, RequestService>();
         services.AddScoped<IRecipeService, RecipeService>();
+        services.AddScoped<IPaymentService, PayPalPaymentService>();
+        services.AddScoped<IDonationService, DonationService>();
 
         // Register Infrastructure Services
         services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -73,6 +75,7 @@ public static class DependencyInjection
         services.AddScoped<IUserRequestRepository, UserRequestRepository>();
         services.AddScoped<IRecipeTagRepository, RecipeTagRepository>();
         services.AddScoped<IRecipeRepository, RecipeRepository>();
+        services.AddScoped<IDonationRepository, DonationRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<IHttpContextService, HttpContextService>();
 

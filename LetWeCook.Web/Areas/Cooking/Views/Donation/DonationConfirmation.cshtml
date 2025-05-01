@@ -1,0 +1,76 @@
+@{
+    ViewData["Title"] = "Donation Confirmation";
+}
+
+<!-- Pass donation id to JS via hidden div -->
+<div id="donation-id" class="hidden">@ViewData["DonationId"]</div>
+
+<div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-100 to-red-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-lg w-full bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div class="bg-orange-500 text-white text-center py-6">
+            <h2 class="text-3xl font-bold font-serif">Review Your Donation</h2>
+            <p class="mt-2 text-lg font-light">Please confirm the details before proceeding to PayPal.</p>
+        </div>
+        <div class="p-8 bg-[url('https://www.transparenttextures.com/patterns/food.png')] bg-opacity-10">
+            <div class="border-l-4 border-orange-400 pl-4 mb-6">
+                <p class="text-gray-700 text-lg italic">Your generosity supports LetWeCook's recipe creators!</p>
+            </div>
+            <h3 class="text-2xl font-semibold text-gray-800 font-serif mb-4">Donation Details</h3>
+            <dl class="space-y-4">
+                <div class="flex items-center">
+                    <dt class="w-1/3 text-gray-600 font-medium">Amount:</dt>
+                    <dd class="w-2/3 text-gray-900" id="amount">$12.00 (USD)</dd>
+                </div>
+                <div>
+                    <div class="flex items-center">
+                        <dt class="w-1/3 text-gray-600 font-medium">Recipe:</dt>
+                        <dd class="w-2/3 text-gray-900" id="recipe-name">Smoothy 2</dd>
+                    </div>
+                    <!-- Recipe Cover Image -->
+                    <div class="mt-2 flex justify-center">
+                        <img id="recipe-cover" src="https://via.placeholder.com/150" alt="Recipe Cover" class="rounded-lg shadow-md max-h-40 my-4 object-cover" />
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <dt class="w-1/3 text-gray-600 font-medium">Donator:</dt>
+                    <dd class="w-2/3 text-gray-900" id="donator-name">Anonymous</dd>
+                </div>
+                <h3 class="text-2xl font-semibold text-gray-800 font-serif mb-4 mt-10">Author Info</h3>
+                <div class="flex items-center space-x-4">
+                    <img id="author-pic" src="https://via.placeholder.com/80" alt="Author Picture" class="w-20 h-20 rounded-full object-cover shadow-md" />
+                    <div>
+                        <p id="author-name" class="text-lg font-semibold text-gray-900">Chef John Doe</p>
+                        <p id="author-bio" class="text-sm text-gray-600">Passionate about sharing healthy recipes.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <dt class="w-1/3 text-gray-600 font-medium">Message:</dt>
+                    <dd class="w-2/3 text-gray-900" id="donation-message">Thank you for the great recipe!</dd>
+                </div>
+                <div class="flex items-center">
+                    <dt class="w-1/3 text-gray-600 font-medium">Date:</dt>
+                    <dd class="w-2/3 text-gray-900" id="created-at">May 01, 2025 07:45</dd>
+                </div>
+            </dl>
+            <div class="mt-8 flex justify-center space-x-4">
+                <a id="paypal-link" href="#" target="_blank"
+                   class="inline-block bg-orange-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-orange-700 transition duration-300">
+                    Continue to PayPal
+                </a>
+                <a href="@Url.Action("Index", "Home", new { area = "" })"
+                   class="inline-block bg-gray-400 text-white font-semibold py-3 px-6 rounded-full hover:bg-gray-500 transition duration-300">
+                    Cancel
+                </a>
+            </div>
+        </div>
+        <div class="bg-orange-100 py-4 text-center">
+            <p class="text-gray-600 text-sm">LetWeCook &copy; 2025 | Keep Cooking, Keep Sharing!</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/donation-confirmation.js"></script>
+}

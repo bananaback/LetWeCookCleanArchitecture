@@ -4,6 +4,7 @@ using LetWeCook.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LetWeCook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(LetWeCookDbContext))]
-    partial class LetWeCookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250501055625_FixDonationNameMigration")]
+    partial class FixDonationNameMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -394,10 +397,6 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18, 2)")
                         .HasColumnName("amount");
-
-                    b.Property<string>("ApprovalUrl")
-                        .HasColumnType("nvarchar(500)")
-                        .HasColumnName("approval_url");
 
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier")

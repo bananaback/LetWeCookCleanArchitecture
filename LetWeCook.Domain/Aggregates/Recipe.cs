@@ -29,6 +29,8 @@ public class Recipe : AggregateRoot
     public List<RecipeIngredient> RecipeIngredients { get; private set; } = new List<RecipeIngredient>();
     public List<RecipeDetail> RecipeDetails { get; private set; } = new List<RecipeDetail>();
 
+    public List<Donation> Donations { get; private set; } = new List<Donation>();
+
     private Recipe() { } // for EF Core
 
     public Recipe(

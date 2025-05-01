@@ -13,6 +13,8 @@ public class SiteUser : AggregateRoot
     public DateTime DateJoined { get; private set; } = DateTime.UtcNow;
     public UserProfile? Profile { get; private set; }
 
+    public List<Donation> DonationsMade { get; private set; } = new List<Donation>();
+    public List<Donation> DonationsReceived { get; private set; } = new List<Donation>();
     private SiteUser() : base() { } // For EF Core
 
     public SiteUser(string email, bool verify)

@@ -4,6 +4,7 @@ using LetWeCook.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LetWeCook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(LetWeCookDbContext))]
-    partial class LetWeCookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250501055207_AddDonationMigration")]
+    partial class AddDonationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -395,13 +398,8 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         .HasColumnType("decimal(18, 2)")
                         .HasColumnName("amount");
 
-                    b.Property<string>("ApprovalUrl")
-                        .HasColumnType("nvarchar(500)")
-                        .HasColumnName("approval_url");
-
                     b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("author_id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -419,12 +417,10 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         .HasColumnName("donate_message");
 
                     b.Property<Guid>("DonatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("donator_id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("RecipeId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("recipe_id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -444,7 +440,7 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("donations", (string)null);
+                    b.ToTable("Donation");
                 });
 
             modelBuilder.Entity("LetWeCook.Domain.Entities.IngredientCategory", b =>

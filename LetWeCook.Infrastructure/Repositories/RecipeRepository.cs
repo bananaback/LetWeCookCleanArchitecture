@@ -42,4 +42,13 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
             .AsSplitQuery()
             .FirstOrDefaultAsync(r => r.Id == id, cancellationToken);
     }
+
+    public Task<Recipe?> GetRecipeWithAuthorByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return _dbSet
+            .Include(r => r.CreatedBy)
+                .ThenInclude(cb => cb.Profile)
+            .AsSplitQuery()
+            .FirstOrDefaultAsync(r => r.Id == id, cancellationToken);
+    }
 }

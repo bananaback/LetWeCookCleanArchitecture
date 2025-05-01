@@ -140,5 +140,79 @@ $(document).ready(function () {
         }
     });
 
+    // Show modal on donate button click
+    $('#donateButton').on('click', function () {
+        $('#donationModal').removeClass('hidden').addClass('flex');
+    });
+
+    // Hide modal on cancel button click
+    $('#cancelDonate').on('click', function () {
+        $('#donationModal').addClass('hidden').removeClass('flex');
+        $('#donationForm')[0].reset(); // Reset form fields
+    });
+
+    // Handle form submission
+    $('#donationForm').on('submit', function (e) {
+        e.preventDefault();
+
+        const recipeId = $('#formRecipeId').val();
+        const amount = parseFloat($('#amount').val());
+        const message = $('#message').val().trim();
+        const $submitButton = $('#submitDonate');
+
+        // Validate amount
+        if (isNaN(amount) || amount < 1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Amount',
+                text: 'Please enter a valid amount (minimum $1.00).',
+                confirmButtonColor: '#f97316' // Tailwind orange-500
+            });
+            return;
+        }
+
+        // Disable submit button
+        $submitButton.prop('disabled', true).text('Processing...');
+
+        // Assuming recipeId is a valid GUID string
+        $.ajax({
+            url: '/api/donation/' + encodeURIComponent(fetchedRecipe.id), // Pass recipeId as route parameter
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                amount: amount,
+                currency: 'USD',
+                donationMessage: message || null
+            }),
+            success: function (response) {
+                if (response) {
+
+                    window.location.href = "https://localhost:7212/Cooking/Donation/DonationConfirmation/" + response; // Redirect to PayPal approval URL
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Donation Error',
+                        text: 'Failed to initiate donation.',
+                        confirmButtonColor: '#f97316'
+                    });
+                }
+            },
+            error: function (xhr) {
+                const errorMessage = xhr.responseJSON?.message || 'An error occurred while processing your donation.';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Donation Error',
+                    text: errorMessage,
+                    confirmButtonColor: '#f97316'
+                });
+            },
+            complete: function () {
+                // Re-enable submit button
+                $submitButton.prop('disabled', false).text('Submit');
+            }
+        });
+
+    });
+
 });
 
