@@ -59,6 +59,7 @@ public class UserProfileService : IUserProfileService
             Facebook = user.Profile.Facebook,
             Instagram = user.Profile.Instagram,
             PhoneNumber = user.Profile.PhoneNumber,
+            PayPalEmail = user.Profile.PayPalEmail,
             ProfilePic = user.Profile.ProfilePic,
             DietaryPreferences = user.Profile.DietaryPreferences.Select(dp => dp.Name).ToList()
         };
@@ -97,6 +98,7 @@ public class UserProfileService : IUserProfileService
                     request.Facebook,
                     request.Instagram,
                     request.PhoneNumber,
+                    request.PayPalEmail,
                     request.ProfilePicture
                 )
                 {
@@ -119,6 +121,7 @@ public class UserProfileService : IUserProfileService
                 request.Facebook,
                 request.Instagram,
                 request.PhoneNumber,
+                request.PayPalEmail,
                 request.ProfilePicture
             );
 
@@ -143,6 +146,7 @@ public class UserProfileService : IUserProfileService
                 Facebook = user.Profile.Facebook,
                 Instagram = user.Profile.Instagram,
                 PhoneNumber = user.Profile.PhoneNumber,
+                PayPalEmail = user.Profile.PayPalEmail,
                 ProfilePic = user.Profile.ProfilePic,
                 DietaryPreferences = user.Profile.DietaryPreferences.Select(dp => dp.Name).ToList()
             };

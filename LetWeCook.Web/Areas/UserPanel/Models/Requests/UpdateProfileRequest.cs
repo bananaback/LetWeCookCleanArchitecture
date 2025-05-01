@@ -28,6 +28,8 @@ namespace LetWeCook.Web.Areas.UserPanel.Models.Requests
         [Phone]
         public string PhoneNumber { get; set; } = string.Empty; // Optional (not everyone wants to provide a phone)
 
+        [EmailAddress]
+        public string PayPalEmail { get; set; } = string.Empty; // Optional (not everyone uses PayPal)
         [Url]
         public string Instagram { get; set; } = string.Empty; // Optional (not everyone has social media)
 

@@ -20,6 +20,7 @@ public class UserProfile : Entity
     public string? Facebook { get; private set; }
     public string? Instagram { get; private set; }
     public string? PhoneNumber { get; private set; }
+    public string? PayPalEmail { get; private set; }
     public string? ProfilePic { get; private set; }
 
     private readonly List<DietaryPreference> _dietaryPreferences = new();
@@ -37,6 +38,7 @@ public class UserProfile : Entity
         string? facebook = null,
         string? instagram = null,
         string? phoneNumber = null,
+        string? payPalEmail = null,
         string? profilePicture = null
     ) : base(Guid.NewGuid())
     {
@@ -49,6 +51,7 @@ public class UserProfile : Entity
         Facebook = facebook;
         Instagram = instagram;
         PhoneNumber = phoneNumber;
+        PayPalEmail = payPalEmail;
         ProfilePic = profilePicture;
     }
 
@@ -62,6 +65,7 @@ public class UserProfile : Entity
         string? facebook = null,
         string? instagram = null,
         string? phoneNumber = null,
+        string? payPalEmail = null,
         string? profilePicture = null
     )
     {
@@ -74,6 +78,7 @@ public class UserProfile : Entity
         Facebook = facebook;
         Instagram = instagram;
         PhoneNumber = phoneNumber;
+        PayPalEmail = payPalEmail;
         ProfilePic = profilePicture;
     }
 

@@ -93,6 +93,11 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
             .HasColumnName("phone_number")
             .IsRequired(false);
 
+        builder.Property(up => up.PayPalEmail)
+            .HasColumnName("paypal_email")
+            .HasColumnType("nvarchar(255)")
+            .IsRequired(false);
+
         builder.Property(up => up.ProfilePic)
             .HasColumnName("profile_picture_url")
             .HasColumnType("nvarchar(255)")

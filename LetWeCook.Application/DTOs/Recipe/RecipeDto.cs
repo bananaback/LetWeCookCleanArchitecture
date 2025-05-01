@@ -33,6 +33,7 @@ public class AuthorProfileDto
     // Optional: public social links
     public string? Facebook { get; set; }
     public string? Instagram { get; set; }
+    public string? PayPalEmail { get; set; }
 }
 
 public class RecipeIngredientDto

@@ -35,6 +35,7 @@ public class SiteUser : AggregateRoot
         string? facebook = null,
         string? instagram = null,
         string? phoneNumber = null,
+        string? payPalEmail = null,
         string? profilePicture = null
     )
     {
@@ -56,6 +57,7 @@ public class SiteUser : AggregateRoot
                 facebook,
                 instagram,
                 phoneNumber,
+                payPalEmail,
                 profilePicture
             );
         }
@@ -72,6 +74,7 @@ public class SiteUser : AggregateRoot
                 facebook,
                 instagram,
                 phoneNumber,
+                payPalEmail,
                 profilePicture
             );
         }

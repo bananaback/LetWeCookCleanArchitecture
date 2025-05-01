@@ -23,6 +23,7 @@ public class UserProfileDTO
     public string? Facebook { get; set; }
     public string? Instagram { get; set; }
     public string? PhoneNumber { get; set; }
+    public string? PayPalEmail { get; set; }
     public string? ProfilePic { get; set; }
 
     // Only store dietary preference names

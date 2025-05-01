@@ -79,6 +79,7 @@ $(document).ready(function () {
             gender: $(".gender-btn.bg-green-500 input").val() || "",
             email: $(".email").val().trim(),
             phoneNumber: $(".phone-number").val().trim() || null,
+            paypalEmail: $(".paypal-email").val().trim() || null, // NEW PayPal email field
             instagram: $(".instagram").val().trim() || null,
             facebook: $(".facebook").val().trim() || null,
             address: {
@@ -113,6 +114,9 @@ $(document).ready(function () {
         }
         if (profileData.phoneNumber && !/^\+?[0-9\s-]{7,20}$/.test(profileData.phoneNumber)) {
             errors.push("Please enter a valid phone number.");
+        }
+        if (profileData.paypalEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profileData.paypalEmail)) {
+            errors.push("Please enter a valid PayPal email.");
         }
         if (!profileData.address.houseNumber || profileData.address.houseNumber.length > 10) {
             errors.push("House number must not be empty and max 10 characters.");
@@ -193,6 +197,8 @@ $(document).ready(function () {
                 $(".birth-date").val(data.birthDate ? new Date(data.birthDate).toISOString().split('T')[0] : ""); // Ensure valid date format
                 $(".email").val(data.email || "");
                 $(".phone-number").val(data.phoneNumber || "");
+                $(".paypal-email").val(data.payPalEmail || ""); // Load PayPal email
+
                 $(".instagram").val(data.instagram || "");
                 $(".facebook").val(data.facebook || "");
 

@@ -193,7 +193,8 @@ public class RecipeService : IRecipeService
                 ProfilePicUrl = recipe.CreatedBy.Profile.ProfilePic,
                 Bio = recipe.CreatedBy.Profile.Bio,
                 Facebook = recipe.CreatedBy.Profile.Facebook,
-                Instagram = recipe.CreatedBy.Profile.Instagram
+                Instagram = recipe.CreatedBy.Profile.Instagram,
+                PayPalEmail = recipe.CreatedBy.Profile.PayPalEmail
             };
         }
 

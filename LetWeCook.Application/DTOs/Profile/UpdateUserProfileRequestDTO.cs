@@ -12,6 +12,7 @@ public class UpdateUserProfileRequestDTO
     public string Gender { get; set; } = string.Empty; // Mandatory
     public string Email { get; set; } = string.Empty; // Mandatory
     public string? PhoneNumber { get; set; } // Optional
+    public string? PayPalEmail { get; set; } // Optional
     public string? Instagram { get; set; } // Optional
     public string? Facebook { get; set; } // Optional
 

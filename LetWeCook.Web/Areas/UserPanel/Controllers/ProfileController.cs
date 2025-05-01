@@ -102,6 +102,7 @@ public class ProfileController : Controller
             Facebook = string.Empty,
             Instagram = string.Empty,
             PhoneNumber = string.Empty,
+            PayPalEmail = string.Empty,
             ProfilePic = string.Empty,
             DietaryPreferences = new List<string>()
         };
@@ -126,6 +127,7 @@ public class ProfileController : Controller
             Gender = request.Gender,
             Email = request.Email,
             PhoneNumber = request.PhoneNumber,
+            PayPalEmail = request.PayPalEmail,
             Instagram = request.Instagram,
             Facebook = request.Facebook,
             Address = new AddressDTO
