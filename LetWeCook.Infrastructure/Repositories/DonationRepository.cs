@@ -11,6 +11,19 @@ public class DonationRepository : Repository<Donation>, IDonationRepository
     {
     }
 
+    public Task<List<Donation>> GetCompletedDonationsByRecipeId(Guid recipeId, CancellationToken cancellationToken)
+    {
+        return _dbSet
+            .Include(d => d.Donator)
+                .ThenInclude(d => d.Profile)
+            .Include(d => d.Author)
+                .ThenInclude(a => a.Profile)
+            .Include(d => d.Recipe)
+                .ThenInclude(r => r.CoverMediaUrl)
+            .Where(d => d.RecipeId == recipeId && d.Status == "Completed")
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<Donation?> GetDonationDetailsById(Guid id, CancellationToken cancellationToken)
     {
         return await _dbSet

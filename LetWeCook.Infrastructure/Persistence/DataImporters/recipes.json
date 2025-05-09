@@ -1,0 +1,29 @@
+{
+    "recipes": [
+        {
+            "name": "",
+            "description": "",
+            "servings": 0,
+            "prepTime": 0,
+            "cookTime": 0,
+            "difficulty": "",
+            "mealCategory": "",
+            "coverImageUrl": "",
+            "tags": [],
+            "ingredients": [
+                {
+                    "name": "",
+                    "quantity": 0,
+                    "unit": ""
+                }
+            ],
+            "instructions": [
+                {
+                    "step": 0,
+                    "instruction": ""
+                }
+            ]
+        },
+        {}
+    ]
+}

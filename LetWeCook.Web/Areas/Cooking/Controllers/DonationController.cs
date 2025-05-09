@@ -1,9 +1,9 @@
-using System.Security.Claims;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Infrastructure.Persistence;
 using LetWeCook.Web.Areas.Cooking.Models.Requests;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LetWeCook.Web.Areas.Cooking.Controllers;
 
@@ -11,12 +11,16 @@ namespace LetWeCook.Web.Areas.Cooking.Controllers;
 public class DonationController : Controller
 {
     private readonly IDonationService _donationService;
+    private readonly ILogger<DonationController> _logger;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public DonationController(IDonationService donationService, UserManager<ApplicationUser> userManager)
+    public DonationController(IDonationService donationService,
+    UserManager<ApplicationUser> userManager,
+    ILogger<DonationController> logger)
     {
         _donationService = donationService;
         _userManager = userManager;
+        _logger = logger;
     }
 
     [HttpPost("/api/donation/{id:guid}")]
@@ -68,16 +72,16 @@ public class DonationController : Controller
 
         try
         {
-            // Capture payment
             var (success, transactionId, customId, error) = await _donationService.CaptureDonationAsync(token);
-            if (success)
-            {
-                return Ok(new { message = "Donation processed successfully!" });
-            }
-            else
-            {
-                return BadRequest(new { message = error ?? "Failed to capture donation." });
-            }
+
+            _logger.LogInformation($"Success: {success}, TransactionId: {transactionId}, CustomId: {customId}, Error: {error}");
+
+            // Build absolute URL
+            string redirectUrl = success
+                ? $"https://localhost:7212/Cooking/Donation/ThankYou?id={customId}"
+                : $"https://localhost:7212/Cooking/Donation/Sorry?id={customId}";
+
+            return Redirect(redirectUrl);
         }
         catch (Exception ex)
         {
@@ -85,7 +89,20 @@ public class DonationController : Controller
         }
     }
 
+
     public IActionResult DonationConfirmation(Guid id)
+    {
+        ViewData["DonationId"] = id;
+        return View();
+    }
+
+    public IActionResult ThankYou(Guid id)
+    {
+        ViewData["DonationId"] = id;
+        return View();
+    }
+
+    public IActionResult Sorry(Guid id)
     {
         ViewData["DonationId"] = id;
         return View();
@@ -114,5 +131,14 @@ public class DonationController : Controller
         var donation = await _donationService.GetDonationDetailsAsync(id, cancellationToken);
 
         return Ok(donation);
+    }
+
+    // get completed donations by recipe id
+    [HttpGet("/api/donations/recipe/{recipeId}")]
+    public async Task<IActionResult> GetCompletedDonationsByRecipeId(Guid recipeId, CancellationToken cancellationToken = default)
+    {
+        var donations = await _donationService.GetCompletedDonationsByRecipeIdAsync(recipeId, cancellationToken);
+
+        return Ok(donations);
     }
 }

@@ -12,8 +12,8 @@ public class DonationService : IDonationService
     private readonly IUserRepository _userRepository;
     private readonly IDonationRepository _donationRepository;
     private readonly IPaymentService _paymentService;
-    private string _successUrl = "https://bb57-113-185-82-230.ngrok-free.app/api/donation/success";
-    private string _cancelUrl = "https://bb57-113-185-82-230.ngrok-free.app/api/donation/cancel";
+    private string _successUrl = "https://b0e0-118-70-53-54.ngrok-free.app/api/donation/success";
+    private string _cancelUrl = "https://b0e0-118-70-53-54.ngrok-free.app/api/donation/cancel";
 
     public DonationService(
         IUnitOfWork unitOfWork,
@@ -29,9 +29,9 @@ public class DonationService : IDonationService
         _paymentService = paymentService;
     }
 
-    public async Task<(bool Success, string TransactionId, string CustomId, string Error)> CaptureDonationAsync(string orderId)
+    public async Task<(bool Success, string TransactionId, string CustomId, string Error)> CaptureDonationAsync(string orderId, CancellationToken cancellationToken = default)
     {
-        var captureResult = await CaptureDonationAsync(orderId);
+        var captureResult = await _paymentService.CaptureDonationAsync(orderId);
 
         if (captureResult.Success)
         {
@@ -42,19 +42,24 @@ public class DonationService : IDonationService
             // conver customId to Guid
             if (!Guid.TryParse(customId, out Guid donationId))
             {
-                _logger.LogWarning("Invalid custom ID format: {CustomId}", customId);
                 return (false, null, null, "Invalid custom ID format.");
             }
 
+            Console.WriteLine($"Donation ID: {donationId}");
+
             var donation = await _donationRepository.GetByIdAsync(donationId, cancellationToken);
+
+            if (donation == null)
+            {
+                return (false, null, null, "Donation not found.");
+            }
+
             donation.Status = "Completed";
             donation.TransactionId = transactionId;
 
             await _donationRepository.UpdateAsync(donation, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            // Do your success logic here
-            _logger.LogInformation("Donation captured successfully. Transaction ID: {TransactionId}, Custom ID: {CustomId}", transactionId, customId);
         }
         else
         {
@@ -62,7 +67,6 @@ public class DonationService : IDonationService
             string error = captureResult.Error;
 
             // Handle failure
-            _logger.LogWarning("Failed to capture donation: {Error}", error);
         }
 
         return captureResult;
@@ -102,18 +106,6 @@ public class DonationService : IDonationService
             throw new DonationException("Author PayPal email not found.");
         }
 
-
-
-        // Call IPaymentService to create PayPal order
-        var approvalUrl = await _paymentService.CreateDonationOrderAsync(
-            recipeId,
-            amount,
-            currency,
-            $"Donation for Recipe: {recipe.Name}",
-            authorProfile.PayPalEmail,
-            _successUrl,
-            _cancelUrl);
-
         // Create donation with pending status
         var donation = new Donation(
             recipeId,
@@ -123,14 +115,73 @@ public class DonationService : IDonationService
             currency,
             donateMessage,
             "Pending",
-            approvalUrl
+            ""
         );
+
+        // Call IPaymentService to create PayPal order
+        var approvalUrl = await _paymentService.CreateDonationOrderAsync(
+            donation.Id,
+            amount,
+            currency,
+            $"Donation for Recipe: {recipe.Name}",
+            authorProfile.PayPalEmail,
+            _successUrl,
+            _cancelUrl);
+
+        donation.SetApprovalUrl(approvalUrl);
 
         await _donationRepository.AddAsync(donation, cancellationToken);
 
         await _unitOfWork.CommitAsync(cancellationToken);
 
         return donation.Id;
+    }
+
+    public async Task<List<DonationDetailDto>> GetCompletedDonationsByRecipeIdAsync(Guid recipeId, CancellationToken cancellationToken = default)
+    {
+        var donations = await _donationRepository.GetCompletedDonationsByRecipeId(recipeId, cancellationToken);
+        return donations.Select(donation => new DonationDetailDto
+        {
+            DonationId = donation.Id,
+            AuthorId = donation.AuthorId,
+            RecipeId = donation.RecipeId,
+
+            AuthorProfileDto = new ProfileDto
+            {
+                Id = donation.Author.Id,
+                Name = donation.Author.Profile?.Name.FullName ?? string.Empty,
+                ProfilePicUrl = donation.Author.Profile?.ProfilePic,
+                Bio = donation.Author.Profile?.Bio,
+                Facebook = donation.Author.Profile?.Facebook,
+                Instagram = donation.Author.Profile?.Instagram,
+                PayPalEmail = donation.Author.Profile?.PayPalEmail
+            },
+
+            DonatorProfileDto = new ProfileDto
+            {
+                Id = donation.Donator.Id,
+                Name = donation.Donator.Profile?.Name.FullName ?? string.Empty,
+                ProfilePicUrl = donation.Donator.Profile?.ProfilePic,
+                Bio = donation.Donator.Profile?.Bio,
+                Facebook = donation.Donator.Profile?.Facebook,
+                Instagram = donation.Donator.Profile?.Instagram,
+                PayPalEmail = donation.Donator.Profile?.PayPalEmail
+            },
+
+            TransactionId = donation.TransactionId,
+            Amount = donation.Amount,
+            DonateMessage = donation.DonateMessage,
+            Status = donation.Status,
+            ApprovalUrl = donation.ApprovalUrl,
+            CreatedAt = donation.CreatedAt,
+
+            RecipeOverview = new RecipeOverviewDto
+            {
+                RecipeId = donation.Recipe.Id,
+                Name = donation.Recipe.Name,
+                CoverImageUrl = donation.Recipe.CoverMediaUrl?.Url ?? string.Empty
+            }
+        }).ToList();
     }
 
     public async Task<DonationDetailDto> GetDonationDetailsAsync(Guid donationId, CancellationToken cancellationToken)

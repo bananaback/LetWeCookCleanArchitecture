@@ -1,6 +1,4 @@
-using System.Text.Json;
 using LetWeCook.Application.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using PaypalServerSdk.Standard;
 using PaypalServerSdk.Standard.Authentication;
@@ -8,6 +6,7 @@ using PaypalServerSdk.Standard.Controllers;
 using PaypalServerSdk.Standard.Exceptions;
 using PaypalServerSdk.Standard.Http.Response;
 using PaypalServerSdk.Standard.Models;
+using System.Text.Json;
 
 namespace LetWeCook.Infrastructure.Services;
 
@@ -95,11 +94,11 @@ public class PayPalPaymentService : IPaymentService
 
 
 
-    public async Task<string> CreateDonationOrderAsync(Guid recipeId, decimal amount, string currency, string description, string payeeEmail, string returnUrl, string cancelUrl)
+    public async Task<string> CreateDonationOrderAsync(Guid donationId, decimal amount, string currency, string description, string payeeEmail, string returnUrl, string cancelUrl)
     {
         // log all the parameters to check if it passed correctly
-        _logger.LogInformation("Creating PayPal order with parameters: RecipeId: {RecipeId}, Amount: {Amount}, Currency: {Currency}, Description: {Description}, PayeeEmail: {PayeeEmail}, ReturnUrl: {ReturnUrl}, CancelUrl: {CancelUrl}",
-            recipeId, amount, currency, description, payeeEmail, returnUrl, cancelUrl);
+        _logger.LogInformation("Creating PayPal order with parameters: DonationId: {DonationId}, Amount: {Amount}, Currency: {Currency}, Description: {Description}, PayeeEmail: {PayeeEmail}, ReturnUrl: {ReturnUrl}, CancelUrl: {CancelUrl}",
+            donationId, amount, currency, description, payeeEmail, returnUrl, cancelUrl);
         // Validate inputs
         if (string.IsNullOrWhiteSpace(currency) || currency.Length != 3)
         {
@@ -134,7 +133,7 @@ public class PayPalPaymentService : IPaymentService
                         },
                         Description = description,
                         Payee = new PayeeBase { EmailAddress = payeeEmail },
-                        CustomId = recipeId.ToString()
+                        CustomId = donationId.ToString()
                     }
                 },
                 PaymentSource = new PaymentSource

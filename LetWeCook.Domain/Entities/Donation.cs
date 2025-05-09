@@ -22,7 +22,7 @@ public class Donation : Entity
 
     private Donation() { } // For EF Core
 
-    public Donation(Guid recipeId, Guid donatorId, Guid authorId, decimal amount, string currency, string donateMessage, string status, string approvalUrl)
+    public Donation(Guid recipeId, Guid donatorId, Guid authorId, decimal amount, string currency, string donateMessage, string status, string approvalUrl) : base(Guid.NewGuid())
     {
         RecipeId = recipeId;
         DonatorId = donatorId;
@@ -31,6 +31,11 @@ public class Donation : Entity
         Currency = currency;
         DonateMessage = donateMessage;
         Status = status;
+        ApprovalUrl = approvalUrl;
+    }
+
+    public void SetApprovalUrl(string approvalUrl)
+    {
         ApprovalUrl = approvalUrl;
     }
 }

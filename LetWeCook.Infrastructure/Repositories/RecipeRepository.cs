@@ -11,6 +11,11 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
     {
     }
 
+    public Task<int> CountAsync(IQueryable<Recipe> query, CancellationToken cancellationToken = default)
+    {
+        return query.CountAsync(cancellationToken);
+    }
+
     public Task<string?> GetNameByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return _dbSet
@@ -25,6 +30,14 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
             .Include(r => r.CoverMediaUrl)
             .Include(r => r.CreatedBy)
             .FirstOrDefaultAsync(r => r.Id == id, cancellationToken);
+    }
+
+    public IQueryable<Recipe> GetQueryable(CancellationToken cancellationToken = default)
+    {
+        return _dbSet
+            .Include(r => r.CoverMediaUrl)
+            .AsSplitQuery()
+            .AsQueryable();
     }
 
     public Task<Recipe?> GetRecipeDetailsByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -50,5 +63,10 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
                 .ThenInclude(cb => cb.Profile)
             .AsSplitQuery()
             .FirstOrDefaultAsync(r => r.Id == id, cancellationToken);
+    }
+
+    public Task<List<Recipe>> QueryableToListAsync(IQueryable<Recipe> query, CancellationToken cancellationToken = default)
+    {
+        return query.ToListAsync(cancellationToken);
     }
 }

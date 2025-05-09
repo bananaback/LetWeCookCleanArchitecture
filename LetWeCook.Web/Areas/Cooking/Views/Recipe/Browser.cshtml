@@ -1,0 +1,397 @@
+<div class="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 p-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">Recipe Browser</h1>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            <!-- Filters Sidebar -->
+            <div class="lg:col-span-1 bg-white rounded-lg shadow-md p-4">
+                <h2 class="text-lg font-semibold text-gray-700 mb-3">Filters</h2>
+                <div class="space-y-4">
+                    <!-- Text Filters -->
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Name</label>
+                        <select id='text-match-option' class="w-full p-1 text-sm border rounded-md bg-gray-50">
+                            <option value="contains">Contains</option>
+                            <option value="startsWith">Starts with</option>
+                            <option value="endsWith">Ends with</option>
+                            <option value="equals">Equals</option>
+                        </select>
+                        <input id="name-search" type="text" class="mt-1 w-full p-1 text-sm border rounded-md bg-gray-50"
+                            placeholder="Name...">
+                    </div>
+
+                    <!-- Exact Value Filters -->
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Difficulty</label>
+                        <div class="flex flex-wrap gap-2 mt-1 chip-container" id="difficulty-container">
+                            <div
+                                class="difficulty-chip cursor-pointer px-2 py-1 text-xs bg-amber-100 border border-amber-300 rounded-full hover:bg-amber-200">
+                                Easy</div>
+                            <div
+                                class="difficulty-chip cursor-pointer px-2 py-1 text-xs bg-amber-100 border border-amber-300 rounded-full hover:bg-amber-200">
+                                Medium</div>
+                            <div
+                                class="difficulty-chip cursor-pointer px-2 py-1 text-xs bg-amber-100 border border-amber-300 rounded-full hover:bg-amber-200">
+                                Hard</div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Category</label>
+                        <div class="flex flex-wrap gap-2 mt-1 chip-container" id="category-container">
+
+                        </div>
+                    </div>
+
+                    <p>
+                        <label for="servings-amount">Servings:</label>
+                        <input type="text" id="servings-amount" readonly=""
+                            class="w-full text-center border-0 text-orange-500 font-bold">
+                    </p>
+
+                    <div id="servings-slider-range"></div>
+
+                    <p>
+                        <label for="prepare-amount">Prepare Time:</label>
+                        <input type="text" id="prepare-amount" readonly=""
+                            class="w-full text-center border-0 text-orange-500 font-bold">
+                    </p>
+                    <div id="prepare-slider-range"></div>
+
+                    <p>
+                        <label for="cook-amount">Cook Time:</label>
+                        <input type="text" id="cook-amount" readonly=""
+                            class="w-full text-center border-0 text-orange-500 font-bold">
+                    </p>
+                    <div id="cook-slider-range"></div>
+
+                    <p>
+                        <label for="rating-amount">Rating:</label>
+                        <input type="text" id="rating-amount" readonly=""
+                            class="w-full text-center border-0 text-orange-500 font-bold">
+                    </p>
+                    <div id="rating-slider-range"></div>
+
+                    <p>
+                        <label for="views-amount">Views:</label>
+                        <input type="text" id="views-amount" readonly=""
+                            class="w-full text-center border-0 text-orange-500 font-bold">
+                    </p>
+                    <div id="views-slider-range"></div>
+
+
+
+
+
+                    <!-- Date Range Filters -->
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Created At</label>
+                        <div class="flex space-x-1">
+                            <input id="created-at-min" type="date"
+                                class="w-full p-1 text-sm border rounded-md bg-gray-50">
+                            <input id="created-at-max" type="date"
+                                class="w-full p-1 text-sm border rounded-md bg-gray-50">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Updated At</label>
+                        <div class="flex space-x-1">
+                            <input id="updated-at-min" type="date"
+                                class="w-full p-1 text-sm border rounded-md bg-gray-50">
+                            <input id="updated-at-max" type="date"
+                                class="w-full p-1 text-sm border rounded-md bg-gray-50">
+                        </div>
+                    </div>
+
+                    <!-- Tag Filter -->
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Tags</label>
+                        <div class="flex flex-wrap gap-2 mt-1" id="tag-container">
+                            <div
+                                class="tag-chip cursor-pointer px-2 py-1 text-xs bg-amber-100 border border-amber-300 rounded-full hover:bg-amber-200">
+                                Vegan</div>
+                            <div
+                                class="tag-chip cursor-pointer px-2 py-1 text-xs bg-amber-100 border border-amber-300 rounded-full hover:bg-amber-200">
+                                Quick</div>
+                            <div
+                                class="tag-chip cursor-pointer px-2 py-1 text-xs bg-amber-100 border border-amber-300 rounded-full hover:bg-amber-200">
+                                Gluten-Free</div>
+                            <div
+                                class="tag-chip cursor-pointer px-2 py-1 text-xs bg-amber-100 border border-amber-300 rounded-full hover:bg-amber-200">
+                                Low Carb</div>
+                        </div>
+                    </div>
+
+                    <!-- Creator Filter -->
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600">Created By</label>
+                        <input id="created-by-username" type="text"
+                            class="w-full p-1 text-sm border rounded-md bg-gray-50" placeholder="Username">
+                    </div>
+
+                    <!-- Apply Filters -->
+                    <button id="apply-filter-btn"
+                        class="w-full p-2 text-sm bg-amber-600 text-white rounded-md hover:bg-amber-700">Apply
+                        Filters</button>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3 space-y-4">
+                <!-- Sorting -->
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">Sort By</h2>
+                    <div class="grid grid-cols-4 grid-rows-2 gap-4 justify-items-center">
+                        <!-- Sort Criteria: Name -->
+                        <div class="sort-criteria flex flex-row w-full bg-gray-200 items-center justify-start gap-x-2"
+                            data-criteria="name">
+                            <div class="w-24 h-16 px-4 flex items-center justify-center text-center bg-blue-200">
+                                Name
+                            </div>
+
+                            <!-- Toggle Switch -->
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sort-toggle sr-only peer">
+                                <div class="w-12 h-6 bg-gray-300 rounded-full shadow-inner peer-checked:bg-blue-600">
+                                </div>
+                                <div
+                                    class="absolute w-6 h-6 bg-white rounded-full shadow transform peer-checked:translate-x-6 transition-transform duration-200">
+                                </div>
+                            </label>
+
+                            <div data-direction="descending"
+                                class="sort-direction transition-all duration-500 hidden items-center justify-center w-10 h-16 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                                    class="fill-black w-6 h-6">
+                                    <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Sort Criteria: Servings -->
+                        <div class="sort-criteria grid-cols-2 flex flex-row w-full bg-gray-200 items-center justify-start gap-x-2"
+                            data-criteria="servings">
+                            <div class="w-24 h-16 px-4 flex items-center justify-center text-center bg-blue-200">
+                                Servings
+                            </div>
+
+                            <!-- Toggle Switch -->
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sort-toggle sr-only peer">
+                                <div class="w-12 h-6 bg-gray-300 rounded-full shadow-inner peer-checked:bg-blue-600">
+                                </div>
+                                <div
+                                    class="absolute w-6 h-6 bg-white rounded-full shadow transform peer-checked:translate-x-6 transition-transform duration-200">
+                                </div>
+                            </label>
+
+                            <div data-direction="descending"
+                                class="sort-direction transition-all duration-500 hidden items-center justify-center w-10 h-16 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                                    class="fill-black w-6 h-6">
+                                    <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Sort Criteria: Prepare Time -->
+                        <div class="sort-criteria grid-cols-3 flex flex-row w-full bg-gray-200 items-center justify-start gap-x-2"
+                            data-criteria="prepare-time">
+                            <div class="w-24 h-16 px-4 flex items-center justify-center text-center bg-blue-200">
+                                Prepare Time
+                            </div>
+
+                            <!-- Toggle Switch -->
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sort-toggle sr-only peer">
+                                <div class="w-12 h-6 bg-gray-300 rounded-full shadow-inner peer-checked:bg-blue-600">
+                                </div>
+                                <div
+                                    class="absolute w-6 h-6 bg-white rounded-full shadow transform peer-checked:translate-x-6 transition-transform duration-200">
+                                </div>
+                            </label>
+
+                            <div data-direction="descending"
+                                class="sort-direction transition-all duration-500 hidden items-center justify-center w-10 h-16 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                                    class="fill-black w-6 h-6">
+                                    <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Sort Criteria: Cook Time -->
+                        <div class="sort-criteria grid-cols-4 flex flex-row w-full bg-gray-200 items-center justify-start gap-x-2"
+                            data-criteria="cook-time">
+                            <div class="w-24 h-16 px-4 flex items-center justify-center text-center bg-blue-200">
+                                Cook Time
+                            </div>
+
+                            <!-- Toggle Switch -->
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sort-toggle sr-only peer">
+                                <div class="w-12 h-6 bg-gray-300 rounded-full shadow-inner peer-checked:bg-blue-600">
+                                </div>
+                                <div
+                                    class="absolute w-6 h-6 bg-white rounded-full shadow transform peer-checked:translate-x-6 transition-transform duration-200">
+                                </div>
+                            </label>
+
+                            <div data-direction="descending"
+                                class="sort-direction transition-all duration-500 hidden items-center justify-center w-10 h-16 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                                    class="fill-black w-6 h-6">
+                                    <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <!-- Sort Criteria: Difficulty Level -->
+                        <div class="sort-criteria grid-cols-1 grid-rows-2 flex flex-row w-full bg-gray-200 items-center justify-start gap-x-2"
+                            data-criteria="difficulty-level">
+                            <div class="w-24 h-16 px-4 flex items-center justify-center text-center bg-blue-200">
+                                Difficulty Level
+                            </div>
+
+                            <!-- Toggle Switch -->
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sort-toggle sr-only peer">
+                                <div class="w-12 h-6 bg-gray-300 rounded-full shadow-inner peer-checked:bg-blue-600">
+                                </div>
+                                <div
+                                    class="absolute w-6 h-6 bg-white rounded-full shadow transform peer-checked:translate-x-6 transition-transform duration-200">
+                                </div>
+                            </label>
+
+                            <div data-direction="descending"
+                                class="sort-direction transition-all duration-500 hidden items-center justify-center w-10 h-16 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                                    class="fill-black w-6 h-6">
+                                    <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Sort Criteria: Rating -->
+                        <div class="sort-criteria grid-cols-2 grid-rows-2 flex flex-row w-full bg-gray-200 items-center justify-start gap-x-2"
+                            data-criteria="rating">
+                            <div class="w-24 h-16 px-4 flex items-center justify-center text-center bg-blue-200">
+                                Rating
+                            </div>
+
+                            <!-- Toggle Switch -->
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sort-toggle sr-only peer">
+                                <div class="w-12 h-6 bg-gray-300 rounded-full shadow-inner peer-checked:bg-blue-600">
+                                </div>
+                                <div
+                                    class="absolute w-6 h-6 bg-white rounded-full shadow transform peer-checked:translate-x-6 transition-transform duration-200">
+                                </div>
+                            </label>
+
+                            <div data-direction="descending"
+                                class="sort-direction transition-all duration-500 hidden items-center justify-center w-10 h-16 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                                    class="fill-black w-6 h-6">
+                                    <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Sort Criteria: Views -->
+                        <div class="sort-criteria grid-rows-2 grid-cols-3 flex flex-row w-full bg-gray-200 items-center justify-start gap-x-2"
+                            data-criteria="views">
+                            <div class="w-24 h-16 px-4 flex items-center justify-center text-center bg-blue-200">
+                                Views
+                            </div>
+
+                            <!-- Toggle Switch -->
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sort-toggle sr-only peer">
+                                <div class="w-12 h-6 bg-gray-300 rounded-full shadow-inner peer-checked:bg-blue-600">
+                                </div>
+                                <div
+                                    class="absolute w-6 h-6 bg-white rounded-full shadow transform peer-checked:translate-x-6 transition-transform duration-200">
+                                </div>
+                            </label>
+
+                            <div data-direction="descending"
+                                class="sort-direction transition-all duration-500 hidden items-center justify-center w-10 h-16 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                                    class="fill-black w-6 h-6">
+                                    <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Sort Criteria: Created At -->
+                        <div class="sort-criteria grid-cols-2 flex flex-row w-full bg-gray-200 items-center justify-start gap-x-2"
+                            data-criteria="created-at">
+                            <div class="w-24 h-16 px-4 flex items-center justify-center text-center bg-blue-200">
+                                Created At
+                            </div>
+
+                            <!-- Toggle Switch -->
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sort-toggle sr-only peer">
+                                <div class="w-12 h-6 bg-gray-300 rounded-full shadow-inner peer-checked:bg-blue-600">
+                                </div>
+                                <div
+                                    class="absolute w-6 h-6 bg-white rounded-full shadow transform peer-checked:translate-x-6 transition-transform duration-200">
+                                </div>
+                            </label>
+
+                            <div data-direction="descending"
+                                class="sort-direction transition-all duration-500 hidden items-center justify-center w-10 h-16 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                                    class="fill-black w-6 h-6">
+                                    <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Recipe Results -->
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">Recipes</h2>
+                    <div id="browsing-options"></div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <div class="flex justify-between items-center flex-wrap gap-2">
+                        <select id="items-per-page-select" class="p-1 text-sm border rounded-md bg-gray-50">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <div class="flex space-x-1">
+                            <button class="p-1 text-sm border rounded-md bg-gray-50 hover:bg-gray-100">Previous</button>
+                            <span class="p-1 text-sm text-gray-700">Page 1</span>
+                            <button class="p-1 text-sm border rounded-md bg-gray-50 hover:bg-gray-100">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+
+    <script src="~/js/recipe-browser.js"></script>
+}

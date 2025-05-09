@@ -1,7 +1,10 @@
 using System.Security.Claims;
 using LetWeCook.Application.DTOs.Recipe;
+using LetWeCook.Application.Enums;
 using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
+using LetWeCook.Application.Recipes;
+using LetWeCook.Domain.Entities;
 using LetWeCook.Domain.Enums;
 using LetWeCook.Infrastructure.Persistence;
 using LetWeCook.Web.Areas.Cooking.Models.Requests;
@@ -39,6 +42,13 @@ public class RecipeController : Controller
     {
         var mealCategoryNames = Enum.GetNames(typeof(MealCategory)).ToList();
         return Json(mealCategoryNames);
+    }
+
+    [HttpGet("/api/difficulty-enums")]
+    public IActionResult GetAllDifficultyEnums()
+    {
+        var difficultyNames = Enum.GetNames(typeof(DifficultyLevel)).ToList();
+        return Json(difficultyNames);
     }
 
     [HttpGet("/api/recipe-tags")]
@@ -151,5 +161,47 @@ public class RecipeController : Controller
     {
         ViewData["RecipeId"] = id;
         return View();
+    }
+
+    public IActionResult Browser()
+    {
+        return View();
+    }
+
+    [HttpPost("/api/recipes-browser")]
+    public async Task<IActionResult> GetRecipes([FromBody] RecipeQueryRequest request, CancellationToken cancellationToken = default)
+    {
+        var recipeQueryOptions = new RecipeQueryOptions
+        {
+            Name = request.NameSearch.Name,
+            NameMatchMode = request.NameSearch.TextMatch,
+            Difficulties = request.Difficulties,
+            MealCategories = request.Categories,
+            MinServings = request.Servings.Min,
+            MaxServings = request.Servings.Max,
+            MinPrepareTime = request.PrepareTime.Min,
+            MaxPrepareTime = request.PrepareTime.Max,
+            MinCookTime = request.CookTime.Min,
+            MaxCookTime = request.CookTime.Max,
+            MinAverageRating = request.Rating.Min,
+            MaxAverageRating = request.Rating.Max,
+            MinTotalViews = request.Views.Min,
+            MaxTotalViews = request.Views.Max,
+            CreatedFrom = request.CreatedAt.Min,
+            CreatedTo = request.CreatedAt.Max,
+            UpdatedFrom = request.UpdatedAt.Min,
+            UpdatedTo = request.UpdatedAt.Max,
+            CreatedByUsername = request.CreatedByUsername ?? string.Empty,
+            Tags = request.Tags,
+            SortOptions = request.SortOptions.Select(sortOption => new Application.Recipes.SortOption
+            {
+                Criteria = sortOption.Criteria,
+                Direction = sortOption.Direction
+            }).ToList(),
+            PageNumber = request.Page,
+            PageSize = request.ItemsPerPage
+        };
+        var recipes = await _recipeService.GetRecipes(recipeQueryOptions, cancellationToken);
+        return Ok(recipes);
     }
 }

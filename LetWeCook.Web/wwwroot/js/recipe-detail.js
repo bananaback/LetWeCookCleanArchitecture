@@ -214,5 +214,67 @@ $(document).ready(function () {
 
     });
 
+    // Fetch donations from API
+    $.ajax({
+        url: 'https://localhost:7212/api/donations/recipe/' + recipeId,
+        method: 'GET',
+        success: function (data) {
+
+            donations = data;
+            if (donations.length > 0) {
+                animateTicker();
+            } else {
+                $tickerText.text('No recent donations for this recipe.');
+            }
+        },
+        error: function (xhr) {
+            const errorMessage = xhr.responseJSON?.message || 'Failed to load donations.';
+            $tickerText.text(errorMessage);
+        }
+    });
+
+
+
+
 });
 
+let donations = [];
+// Donation ticker element
+const $tickerText = $('#donation-text');
+let currentIndex = 0;
+
+// Function to create ticker sentence
+function getTickerSentence(donation) {
+    const donatorName = donation.donatorProfileDto?.name || 'Anonymous';
+    const authorName = donation.authorProfileDto?.name || 'an author';
+    const amount = donation.amount.toFixed(2);
+    const message = donation.donateMessage || 'no message';
+    return `${donatorName} donated $${amount} to support author ${authorName} with the message: "${message}"`;
+}
+
+// Function to animate ticker
+function animateTicker() {
+    // Get current donation
+    const donation = donations[currentIndex];
+    const sentence = getTickerSentence(donation);
+
+    // Set initial text and position
+    $tickerText.text(sentence);
+    $tickerText.css({
+        'position': 'relative',
+        'left': '100%' // Start off-screen to the right
+    });
+
+    // Calculate animation duration based on text length (longer text = slower scroll)
+    const duration = sentence.length * 300 + 1500;
+
+    // Animate from right to left
+    $tickerText.animate({
+        left: '-100%' // Move off-screen to the left
+    }, duration, 'linear', function () {
+        // Move to next donation
+        currentIndex = (currentIndex + 1) % donations.length;
+        // Pause briefly before next animation
+        setTimeout(animateTicker, 1000); // 1s pause between messages
+    });
+}

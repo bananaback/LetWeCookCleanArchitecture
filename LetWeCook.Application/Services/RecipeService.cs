@@ -1,7 +1,13 @@
 using LetWeCook.Application.Dtos.Recipe;
+using LetWeCook.Application.DTOs;
 using LetWeCook.Application.DTOs.Recipe;
+using LetWeCook.Application.Enums;
 using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
+using LetWeCook.Application.Recipes;
+using LetWeCook.Application.Recipes.Filters;
+using LetWeCook.Application.Recipes.Sorts;
+using LetWeCook.Application.Recipes.Specifications;
 using LetWeCook.Domain.Aggregates;
 using LetWeCook.Domain.Entities;
 using LetWeCook.Domain.Enums;
@@ -231,5 +237,128 @@ public class RecipeService : IRecipeService
             }).ToList(),
             Tags = recipe.Tags.Select(tag => tag.Name).ToList(),
         };
+    }
+
+    public async Task<PaginatedResult<RecipeDto>> GetRecipes(RecipeQueryOptions recipeQueryOptions, CancellationToken cancellationToken = default)
+    {
+        // create new specification for recipe query options
+        var recipeSpecification = new RecipeSpecification();
+
+        // check name search option
+        if (!string.IsNullOrEmpty(recipeQueryOptions.Name) && !string.IsNullOrEmpty(recipeQueryOptions.NameMatchMode))
+        {
+            // switch case the string to enum
+            if (!Enum.TryParse<TextMatchMode>(recipeQueryOptions.NameMatchMode, true, out var nameMatchMode))
+            {
+                throw new ArgumentException($"Invalid name match mode: {recipeQueryOptions.NameMatchMode}");
+            }
+            // add name filter to specification
+            recipeSpecification.AddFilter(new RecipeNameFilter(recipeQueryOptions.Name, nameMatchMode));
+        }
+
+        // check difficulties
+        if (recipeQueryOptions.Difficulties.Count > 0)
+        {
+            // convert difficulties to enum
+            var difficulties = recipeQueryOptions.Difficulties.Select(difficulty => Enum.TryParse<DifficultyLevel>(difficulty, true, out var difficultyLevel) ? difficultyLevel : throw new ArgumentException($"Invalid difficulty level: {difficulty}")).ToList();
+            recipeSpecification.AddFilter(new RecipeDifficultyFilter(difficulties));
+        }
+
+        // check meal categories
+        if (recipeQueryOptions.MealCategories.Count > 0)
+        {
+            // convert meal categories to enum
+            var mealCategories = recipeQueryOptions.MealCategories.Select(mealCategory => Enum.TryParse<MealCategory>(mealCategory, true, out var mealCategoryEnum) ? mealCategoryEnum : throw new ArgumentException($"Invalid meal category: {mealCategory}")).ToList();
+            recipeSpecification.AddFilter(new RecipeMealCategoryFilter(mealCategories));
+        }
+
+        recipeSpecification
+            .AddFilter(new RecipeServingsFilter(recipeQueryOptions.MinServings, recipeQueryOptions.MaxServings))
+            .AddFilter(new RecipePrepareTimeFilter(recipeQueryOptions.MinPrepareTime, recipeQueryOptions.MaxPrepareTime))
+            .AddFilter(new RecipeCookTimeFilter(recipeQueryOptions.MinCookTime, recipeQueryOptions.MaxCookTime))
+            .AddFilter(new RecipeRatingFilter(recipeQueryOptions.MinAverageRating, recipeQueryOptions.MaxAverageRating))
+            .AddFilter(new RecipeViewsFilter(recipeQueryOptions.MinTotalViews, recipeQueryOptions.MaxTotalViews))
+            .AddFilter(new RecipeCreatedAtFilter(recipeQueryOptions.CreatedFrom, recipeQueryOptions.CreatedTo))
+            .AddFilter(new RecipeUpdatedAtFilter(recipeQueryOptions.UpdatedFrom, recipeQueryOptions.UpdatedTo));
+
+        // fetch recipe tags by names
+        var recipeTags = await _recipeTagRepository.GetByNamesAsync(recipeQueryOptions.Tags, cancellationToken);
+        if (recipeTags.Count != recipeQueryOptions.Tags.Count)
+        {
+            var missingTags = recipeQueryOptions.Tags.Except(recipeTags.Select(tag => tag.Name)).ToList();
+            throw new RecipeRetrievalException($"Missing recipe tags: {string.Join(", ", missingTags)}");
+        }
+
+        recipeSpecification.AddFilter(new RecipeTagsFilter(recipeTags));
+
+        var query = _recipeRepository.GetQueryable(cancellationToken);
+
+        // add sorting to specification
+        foreach (var sortOption in recipeQueryOptions.SortOptions)
+        {
+            var criteria = sortOption.Criteria.ToLower();
+            var direction = sortOption.Direction.ToLower() == "descending" ? SortDirection.Desc : SortDirection.Asc;
+            // switch case the string to enum
+            switch (criteria)
+            {
+                case "name":
+                    recipeSpecification.AddSort(new RecipeNameSortFilter(direction));
+                    break;
+                case "servings":
+                    recipeSpecification.AddSort(new RecipeServingsSortFilter(direction));
+                    break;
+                case "prepare-time":
+                    recipeSpecification.AddSort(new RecipePrepareTimeSortFilter(direction));
+                    break;
+                case "cook-time":
+                    recipeSpecification.AddSort(new RecipeCookTimeSortFilter(direction));
+                    break;
+                case "difficulty-level":
+                    recipeSpecification.AddSort(new RecipeDifficultySortFilter(direction));
+                    break;
+                case "rating":
+                    recipeSpecification.AddSort(new RecipeRatingSortFilter(direction));
+                    break;
+                case "views":
+                    recipeSpecification.AddSort(new RecipeViewsSortFilter(direction));
+                    break;
+                case "created-at":
+                    break;
+                default:
+                    throw new ArgumentException($"Invalid sort option: {sortOption}");
+            }
+        }
+
+
+        // apply filters and sorts to query
+        query = recipeSpecification.Apply(query);
+
+        // apply pagination to query
+        var paginatedQuery = recipeSpecification.ApplyPagination(query, recipeQueryOptions.PageNumber, recipeQueryOptions.PageSize);
+
+        var totalCount = await _recipeRepository.CountAsync(paginatedQuery, cancellationToken);
+        var recipes = await _recipeRepository.QueryableToListAsync(paginatedQuery, cancellationToken);
+
+        return new PaginatedResult<RecipeDto>(
+            recipes.Select(recipe => new RecipeDto
+            {
+                Id = recipe.Id,
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Servings = recipe.Servings,
+                PrepareTime = recipe.PrepareTime,
+                CookTime = recipe.CookTime,
+                Difficulty = recipe.DifficultyLevel.ToString(),
+                MealCategory = recipe.MealCategory.ToString(),
+                CoverImage = recipe.CoverMediaUrl.Url,
+                CreatedAt = recipe.CreatedAt,
+                AverageRating = recipe.AverageRating,
+                TotalRatings = recipe.TotalRatings,
+                TotalViews = recipe.TotalViews,
+            }),
+            totalCount,
+            recipeQueryOptions.PageNumber,
+            recipeQueryOptions.PageSize
+        );
     }
 }

@@ -1,0 +1,98 @@
+@{
+    ViewData["Title"] = "Thank You for Your Donation";
+}
+
+<!-- Pass donation id and transaction id to JS via hidden divs -->
+<div id="donation-id" class="hidden">@ViewData["DonationId"]</div>
+
+<div
+    class="min-h-screen bg-gradient-to-br from-teal-100 via-blue-200 to-purple-200 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <!-- Background Decorative Elements -->
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/confetti.png')] bg-opacity-20">
+    </div>
+    <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-teal-300/30 to-transparent"></div>
+    <div class="absolute bottom-0 right-0 w-full h-32 bg-gradient-to-t from-purple-300/30 to-transparent"></div>
+
+    <div class="w-full max-w-5xl z-10">
+        <!-- Header Section -->
+        <div class="text-center py-16">
+            <h2 class="text-6xl font-extrabold font-serif text-teal-800 drop-shadow-lg">Heartfelt Thanks!</h2>
+            <p class="mt-6 text-2xl font-light text-gray-800 max-w-3xl mx-auto leading-relaxed">
+                Your generous donation to LetWeCook is sparking joy and creativity! You've empowered our recipe creators
+                to keep sharing delicious ideas.
+            </p>
+        </div>
+
+        <!-- Donation Summary Section -->
+        <div class="px-8 py-12 bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl mx-4">
+            <div class="border-l-4 border-teal-500 pl-4 mb-8 max-w-2xl mx-auto">
+                <p class="text-gray-700 text-xl italic font-medium">Your support is the secret sauce that fuels our
+                    community's passion for cooking!</p>
+            </div>
+            <h3 class="text-4xl font-semibold text-gray-800 font-serif mb-8 text-center">Donation Summary</h3>
+            <dl class="space-y-8 max-w-2xl mx-auto">
+                <div class="flex items-center">
+                    <dt class="w-1/3 text-gray-600 font-medium text-lg">Amount:</dt>
+                    <dd class="w-2/3 text-gray-900 font-semibold" id="amount">$0.00 (USD)</dd>
+                </div>
+                <div class="flex items-center">
+                    <dt class="w-1/3 text-gray-600 font-medium text-lg">Transaction ID:</dt>
+                    <dd class="w-2/3 text-gray-900 font-mono" id="transaction-id-display">N/A</dd>
+                </div>
+                <div>
+                    <div class="flex items-center">
+                        <dt class="w-1/3 text-gray-600 font-medium text-lg">Recipe:</dt>
+                        <dd class="w-2/3 text-gray-900 font-semibold" id="recipe-name">Unknown</dd>
+                    </div>
+                    <!-- Recipe Cover Image -->
+                    <div class="mt-4 flex justify-center">
+                        <img id="recipe-cover" src="https://via.placeholder.com/150" alt="Recipe Cover"
+                            class="rounded-xl shadow-lg max-h-56 object-cover hover:scale-105 transition-transform duration-300" />
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <dt class="w-1/3 text-gray-600 font-medium text-lg">Donator:</dt>
+                    <dd class="w-2/3 text-gray-900" id="donator-name">Anonymous</dd>
+                </div>
+                <h3 class="text-4xl font-semibold text-gray-800 font-serif mb-8 mt-12 text-center">Creator Spotlight
+                </h3>
+                <div class="flex items-center space-x-6 max-w-2xl mx-auto">
+                    <img id="author-pic" src="https://via.placeholder.com/80" alt="Author Picture"
+                        class="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-teal-200" />
+                    <div>
+                        <p id="author-name" class="text-2xl font-semibold text-gray-900">Unknown Author</p>
+                        <p id="author-bio" class="text-base text-gray-600 mt-1">Recipe creator at LetWeCook.</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <dt class="w-1/3 text-gray-600 font-medium text-lg">Message:</dt>
+                    <dd class="w-2/3 text-gray-900" id="donation-message">No message provided.</dd>
+                </div>
+                <div class="flex items-center">
+                    <dt class="w-1/3 text-gray-600 font-medium text-lg">Date:</dt>
+                    <dd class="w-2/3 text-gray-900" id="created-at">Unknown</dd>
+                </div>
+            </dl>
+            <div class="mt-12 flex justify-center space-x-4">
+                <a href="@Url.Action("Index", "Home", new { area = "" })"
+                    class="inline-block bg-teal-600 text-white font-semibold py-3 px-10 rounded-full hover:bg-teal-700 transition duration-300 hover:scale-105">
+                    Back to Home
+                </a>
+                <a href="@Url.Action("Recipes", "Home", new { area = "" })"
+                    class="inline-block bg-purple-600 text-white font-semibold py-3 px-10 rounded-full hover:bg-purple-700 transition duration-300 hover:scale-105">
+                    Explore More Recipes
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="py-8 text-center mt-8">
+            <p class="text-gray-600 text-sm font-light">LetWeCook © 2025 | Keep Cooking, Keep Sharing!</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/donation-thankyou.js"></script>
+}

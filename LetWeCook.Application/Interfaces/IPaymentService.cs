@@ -3,7 +3,7 @@ namespace LetWeCook.Application.Interfaces;
 public interface IPaymentService
 {
     Task<string> CreateDonationOrderAsync(
-            Guid recipeId,
+            Guid donationId,
             decimal amount,
             string currency,
             string description,
