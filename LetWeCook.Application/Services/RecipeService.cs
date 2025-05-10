@@ -300,7 +300,7 @@ public class RecipeService : IRecipeService
             TotalViews = recipe.TotalViews,
             Ingredients = recipe.RecipeIngredients.Select(ingredient => new RecipeIngredientDto
             {
-                IngredientId = ingredient.Id,
+                IngredientId = ingredient.Ingredient.Id,
                 IngredientName = ingredient.Ingredient.Name,
                 CoverImageUrl = ingredient.Ingredient.CoverImageUrl.Url,
                 Quantity = ingredient.Quantity,

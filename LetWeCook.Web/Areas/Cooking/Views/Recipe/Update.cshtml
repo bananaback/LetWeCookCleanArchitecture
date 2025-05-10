@@ -1,0 +1,249 @@
+<div class="bg-yellow-50 min-h-screen p-6 font-sans grid grid-cols-2">
+    <h1 class="col-span-2 text-4xl font-bold text-indigo-600 mb-8 text-center select-none">
+        Update Your Recipe
+    </h1>
+    <div class="hidden" id="recipe-id">@ViewData["RecipeId"]</div>
+
+
+    <div class="col-span-1 mb-10">
+
+
+        <!-- Category Buttons -->
+        <div id="ingredient-category-container" class="flex flex-wrap gap-3 mb-8">
+
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mb-6">
+            <input id="search-bar" type="text" placeholder="🔍 Search for an ingredient..."
+                class="w-full p-4 rounded-full border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 placeholder:text-teal-400 bg-white shadow-sm" />
+        </div>
+
+        <!-- Updated Pagination -->
+        <div id="pagination-button-container" class="flex justify-center gap-3 mb-10">
+
+        </div>
+
+        <!-- Ingredient Grid -->
+        <div id="ingredient-list" class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+
+        </div>
+
+        <!-- Selected Ingredient Panel -->
+        <div id="selected-ingredient-panel" class="bg-white p-6 rounded-2xl shadow-lg mb-10">
+            <div class="flex flex-col lg:flex-row gap-6 items-center">
+
+                <!-- Left: Ingredient Info -->
+                <div class="flex flex-col items-center gap-4 w-full lg:w-1/3 text-center">
+                    <div class="text-xl font-semibold text-teal-600">
+                        Selected: <span id="selected-ingredient-name" class="text-teal-500">Ingredient</span>
+                    </div>
+                    <div
+                        class="w-32 h-32 bg-gray-100 rounded-xl overflow-hidden shadow flex items-center justify-center">
+                        <img id="selected-ingredient-img" src="" alt="Ingredient Image"
+                            class="max-w-full max-h-full object-contain">
+                    </div>
+                </div>
+
+                <!-- Right: Input Fields -->
+                <div class="flex-1 flex flex-col gap-4 w-full">
+
+                    <!-- Quantity Input -->
+                    <input type="number" placeholder="Quantity" id="quantity-input"
+                        class="w-32 p-3 rounded-full border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-center bg-yellow-50" />
+
+                    <!-- Unit Selector -->
+                    <div id="unit-selector" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+
+                    </div>
+
+
+
+                    <!-- Add Button -->
+                    <div>
+                        <div id="add-ingredient-button"
+                            class="inline-block px-8 py-3 bg-teal-500 text-white rounded-full font-semibold cursor-pointer hover:bg-teal-600 transition">
+                            Add
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- List of Selected Ingredients -->
+        <div id="selected-ingredient-list" class="bg-white p-6 rounded-2xl shadow-lg">
+            <div class="text-2xl font-bold text-teal-600 mb-6">🛒 Your Ingredients</div>
+            <div id="ingredient-items-container" class="flex flex-col gap-4">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column (Recipe Info) -->
+    <div class="col-span-1 px-16 flex flex-col gap-6">
+        <!-- Cover Image Upload on top -->
+        <div class="flex flex-col gap-2 items-center">
+            <label class="text-teal-500 font-semibold">Cover Image</label>
+            <div id="cover-upload-box"
+                class="w-full h-48 bg-yellow-100 rounded-2xl border-2 border-dashed border-teal-300 flex items-center justify-center cursor-pointer hover:bg-yellow-200 transition">
+                <span class="text-teal-400 font-semibold cursor-pointer select-none">
+                    Click to upload or drag image here
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Recipe Name -->
+        <div class="flex flex-col gap-2">
+            <label for="recipe-name" class="text-teal-500 font-semibold">Recipe Name</label>
+            <input id="recipe-name" type="text" placeholder="Enter recipe name..."
+                class="w-full p-4 rounded-full border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 bg-yellow-50 placeholder:text-teal-400" />
+        </div>
+
+        <!-- Description -->
+        <div class="flex flex-col gap-2">
+            <label for="recipe-desc" class="text-teal-500 font-semibold">Description</label>
+            <textarea id="recipe-desc" rows="4" placeholder="Brief description of the recipe..."
+                class="w-full p-4 rounded-2xl border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 bg-yellow-50 placeholder:text-teal-400 resize-none"></textarea>
+        </div>
+
+        <!-- Servings Selector -->
+        <div id="servings-section" class="flex flex-col gap-2">
+            <label class="text-teal-500 font-semibold">Servings</label>
+            <div class="flex items-center gap-3">
+                <!-- Buttons and Number -->
+                <button id="decrease-btn"
+                    class="px-3 py-1 rounded-full bg-teal-500 text-white font-semibold hover:bg-teal-600 transition select-none">
+                    -
+                </button>
+
+                <!-- Number display -->
+                <div id="servings-count" class="min-w-[24px] text-center font-bold text-teal-700 select-none">1</div>
+
+                <button id="increase-btn"
+                    class="px-3 py-1 rounded-full bg-teal-500 text-white font-semibold hover:bg-teal-600 transition select-none">
+                    +
+                </button>
+
+                <!-- Emoji container -->
+                <div id="emoji-container" class="flex gap-1 select-none text-2xl">👥</div>
+            </div>
+        </div>
+
+
+
+
+        <div class="grid grid-cols-2 gap-6">
+            <!-- Prepare Time -->
+            <div class="flex flex-col gap-2">
+                <label for="prepare-time" class="text-teal-500 font-semibold">Prepare Time (min)</label>
+                <input id="prepare-time" type="number" min="0" placeholder="15"
+                    class="p-3 rounded-full border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-center bg-yellow-50" />
+            </div>
+
+            <!-- Cook Time -->
+            <div class="flex flex-col gap-2">
+                <label for="cook-time" class="text-teal-500 font-semibold">Cook Time (min)</label>
+                <input id="cook-time" type="number" min="0" placeholder="30"
+                    class="p-3 rounded-full border-2 border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-center bg-yellow-50" />
+            </div>
+        </div>
+
+        <!-- Difficulty Level Chips -->
+        <div class="flex flex-col gap-2">
+            <label class="text-teal-500 font-semibold">Difficulty Level</label>
+            <div id="difficulty-levels" class="flex flex-wrap gap-3">
+                <div id="easy"
+                    class="difficulty-chip px-5 py-2 rounded-full bg-green-300 text-green-700 font-semibold cursor-pointer select-none border-2 border-transparent hover:bg-green-200">
+                    Easy
+                </div>
+                <div id="medium"
+                    class="difficulty-chip px-5 py-2 rounded-full bg-blue-300 text-blue-700 font-semibold cursor-pointer select-none border-2 border-transparent hover:bg-blue-200">
+                    Medium
+                </div>
+                <div id="hard"
+                    class="difficulty-chip px-5 py-2 rounded-full bg-orange-300 text-orange-700 font-semibold cursor-pointer select-none border-2 border-transparent hover:bg-orange-200">
+                    Hard
+                </div>
+            </div>
+        </div>
+
+        <!-- Meal Category Chips -->
+        <div class="flex flex-col gap-2">
+            <label class="text-teal-500 font-semibold">Meal Category</label>
+            <div id="meal-categories" class="flex flex-wrap gap-3">
+                <!-- Chips will be dynamically populated here -->
+            </div>
+        </div>
+
+        <div class="mb-2">
+            <h3 class="text-teal-600 font-semibold text-lg">Select Recipe Tags</h3>
+        </div>
+        <div id="recipe-tags-container" class="flex flex-wrap gap-2"></div>
+
+
+
+        <!-- Steps Adding Section -->
+        <div id="steps-section" class="mt-8">
+            <h2 class="text-teal-600 font-bold text-2xl mb-4">Steps</h2>
+
+            <!-- Steps Container -->
+            <div id="steps-container" class="flex flex-col gap-6">
+                <div class="step-item mb-2 p-4 rounded-2xl bg-yellow-50 border-2 border-teal-200 relative">
+                    <!-- Remove Step Button -->
+                    <button class="remove-step-btn absolute top-2 right-2 bg-red-500 rounded-full p-1 hover:bg-red-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px"
+                            fill="#FFFFFF">
+                            <path
+                                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                        </svg>
+                    </button>
+
+                    <label class="block text-teal-500 font-semibold mb-2">Step Title</label>
+                    <input type="text" placeholder="Enter step title..."
+                        class="w-full p-3 rounded-full border-2 border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 mb-4 bg-white" />
+
+                    <label class="block text-teal-500 font-semibold mb-2">Description</label>
+                    <textarea rows="3" placeholder="Describe this step..."
+                        class="w-full p-3 rounded-2xl border-2 border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 mb-4 bg-white resize-none"></textarea>
+
+                    <label class="block text-teal-500 font-semibold mb-2">Media</label>
+                    <!-- Media Squares Container -->
+                    <div class="media-container flex gap-3 flex-wrap">
+                        <!-- Initial Square -->
+                        <div
+                            class="media-square w-20 h-20 rounded-lg border-2 border-teal-300 bg-white flex items-center justify-center cursor-pointer relative hover:bg-teal-50">
+                            <span class="text-teal-300 text-2xl">+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add New Step Button -->
+            <button id="add-step-btn"
+                class="mt-4 px-6 py-3 rounded-full bg-teal-600 text-white font-bold hover:bg-teal-700 transition shadow select-none">
+                + Add Step
+            </button>
+        </div>
+
+
+        <!-- Submit Button -->
+        <div class="mt-10 flex justify-center">
+            <button id="submit-recipe-btn"
+                class="px-12 py-4 rounded-full bg-teal-600 text-white font-bold hover:bg-teal-700 transition shadow-lg select-none">
+                Save Recipe
+            </button>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+
+    <script src="~/js/recipe-update.js"></script>
+}

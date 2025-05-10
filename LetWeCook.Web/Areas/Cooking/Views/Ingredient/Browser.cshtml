@@ -1,6 +1,19 @@
 <!-- Background Accent -->
 <div class="w-full h-auto z-0 inset-0 bg-gradient-to-tr from-amber-100 to-transparent">
 
+    <!-- Navigation Bar -->
+    <nav class="bg-emerald-800 text-white p-4 shadow-lg">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold hover:text-amber-200 transition duration-300">LetWeCook</a>
+            <ul class="flex space-x-6">
+                <li><a href="/" class="hover:text-amber-200 transition duration-300">Home</a></li>
+                <li><a href="/Home/About" class="hover:text-amber-200 transition duration-300">About</a></li>
+                <li><a href="/Cooking/Recipe/Browser" class="hover:text-amber-200 transition duration-300">Recipes</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Main Content -->
     <div class="flex justify-center items-start min-h-screen p-6 pt-12">
         <div class="w-full max-w-6xl p-6 rounded-3xl shadow-lg bg-white relative z-10">
@@ -10,9 +23,7 @@
                     <input type="text" id="searchInput" placeholder="Stir up some ingredients..."
                         class="w-full p-4 pr-12 rounded-full border-2 border-rose-400 bg-amber-50 text-rose-800 placeholder-rose-400 focus:outline-none focus:ring-2 focus:ring-lime-400 shadow-md"
                         autocomplete="off" autocorrect="off" spellcheck="false" />
-
                 </div>
-
 
                 <!-- Search Suggestions (Dynamic) -->
                 <div id="suggestions" class="mt-2 max-w-3xl mx-auto">
@@ -21,7 +32,6 @@
                         <!-- Dynamic content will be added here -->
                     </div>
                 </div>
-
             </div>
 
             <!-- Categories -->
@@ -120,11 +130,9 @@
                 </div>
             </div>
 
-
         </div>
     </div>
 </div>
-
 
 @section Scripts {
     <script src="~/js/fuzzy-match.js"></script>

@@ -356,7 +356,7 @@ function loadRecipes(browsingOptions) {
                                    class="block text-center bg-orange-500 hover:bg-orange-600 text-white py-1 rounded-md text-xs font-medium transition">
                                    🍽️ View
                                 </a>
-                                <button data-id="${recipe.id}" class="edit-recipe-btn bg-blue-500 hover:bg-blue-600 text-white py-1 rounded-md text-xs font-medium transition">✏️ Edit</button>
+                                <a href="https://localhost:7212/Cooking/Recipe/Update/${recipe.id}"  class="edit-recipe-btn text-center bg-blue-500 hover:bg-blue-600 text-white py-1 rounded-md text-xs font-medium transition">✏️ Edit</a>
                                 <button data-id="${recipe.id}" class="delete-recipe-btn bg-red-500 hover:bg-red-600 text-white py-1 rounded-md text-xs font-medium transition">🗑️ Delete</button>
                             </div>
                         </div>

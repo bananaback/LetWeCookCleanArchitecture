@@ -262,4 +262,10 @@ public class RecipeController : Controller
         var recipes = await _recipeService.GetPersonalRecipes(siteUserId, recipeQueryOptions, cancellationToken);
         return Ok(recipes);
     }
+
+    public IActionResult Update(Guid id)
+    {
+        ViewData["RecipeId"] = id;
+        return View();
+    }
 }
