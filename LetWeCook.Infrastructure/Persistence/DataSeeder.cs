@@ -1,6 +1,7 @@
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Aggregates;
 using LetWeCook.Domain.Enums;
+using LetWeCook.Infrastructure.Persistence.DataImporters;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -27,6 +28,31 @@ public class DataSeeder
         catch (Exception ex)
         {
             logger.LogError(ex, "An error occurred while importing ingredients.");
+        }
+    }
+
+    public static async Task SeedRecipesAsync(IServiceProvider services, string jsonFilePath, CancellationToken cancellationToken)
+    {
+        var recipeService = services.GetRequiredService<IRecipeService>();
+        var recipeRepository = services.GetRequiredService<IRecipeRepository>();
+        var ingredientRepository = services.GetRequiredService<IIngredientRepository>();
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        var logger = services.GetRequiredService<ILogger<DataSeeder>>();
+
+        var importer = new RecipeImporter(
+            ingredientRepository,
+            recipeRepository,
+            userManager,
+            recipeService);
+
+        try
+        {
+            await importer.ImportRecipesAsync(jsonFilePath, cancellationToken);
+            logger.LogInformation("Successfully imported recipes from JSON.");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "An error occurred while importing recipes.");
         }
     }
 

@@ -6,7 +6,7 @@ $(document).ready(function () {
     const recipeId = $('#recipeId').val();
 
     $.ajax({
-        url: `/api/recipe-preview/${recipeId}`,
+        url: `/api/recipe-details/${recipeId}`,
         method: 'GET',
         success: function (recipe) {
 
@@ -67,18 +67,33 @@ $(document).ready(function () {
             // Ingredients
             const $ingredients = $('#ingredientsList').empty();
             (recipe.ingredients || []).forEach((ing, index) => {
+                const id = ing.ingredientId || ''; // correct ID field
                 const name = ing.ingredientName || 'Unnamed Ingredient';
                 const quantity = ing.quantity || '';
                 const unit = ing.unit || '';
+
                 const $li = $('<li></li>')
-                    .addClass('bg-amber-100 p-4 rounded-lg shadow-sm hover:bg-amber-400 hover:text-white hover:animate-pulse transition flex items-center gap-4 opacity-0');
+                    .addClass('bg-amber-100 p-4 rounded-lg shadow-sm hover:bg-amber-400 hover:text-white hover:animate-pulse transition flex items-center gap-4 opacity-0 cursor-pointer');
+
+                // Click only if valid id
+                if (id) {
+                    $li.on('click', () => {
+                        window.location.href = `https://localhost:7212/Cooking/Ingredient/Details/${id}`;
+                    });
+                } else {
+                    // If no valid id, remove pointer cursor and disable click
+                    $li.css('cursor', 'default');
+                }
+
                 const $content = $('<span></span>').html(`${quantity} ${unit} <strong>${name}</strong>`);
+
                 if (ing.coverImageUrl) {
                     $('<img>')
                         .attr('src', ing.coverImageUrl)
                         .addClass('w-12 h-12 object-cover rounded-lg')
                         .prependTo($li);
                 }
+
                 $li.append($content).appendTo($ingredients).delay(150 * index).animate({ opacity: 1 }, 400);
             });
 

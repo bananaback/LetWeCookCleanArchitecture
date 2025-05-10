@@ -78,19 +78,26 @@ $(document).ready(function () {
     );
 
     $('#difficulty-container').on('click', '.difficulty-chip', function () {
-        $(this).toggleClass('selected').toggleClass('bg-amber-100').toggleClass('bg-amber-300');
+        $(this).toggleClass('selected')
+            .toggleClass('bg-blue-100')
+            .toggleClass('bg-blue-300');
         showSelectedDifficulty();
     });
 
     $('#category-container').on('click', '.category-chip', function () {
-        $(this).toggleClass('selected').toggleClass('bg-amber-100').toggleClass('bg-amber-300');
+        $(this).toggleClass('selected')
+            .toggleClass('bg-blue-100')
+            .toggleClass('bg-blue-300');
         showSelectedCategory();
     });
 
     $('#tag-container').on('click', '.tag-chip', function () {
-        $(this).toggleClass('selected').toggleClass('bg-amber-100').toggleClass('bg-amber-300');
+        $(this).toggleClass('selected')
+            .toggleClass('bg-blue-100')
+            .toggleClass('bg-blue-300');
         showSelectedTag();
     });
+
 
     $('#created-at-min').on('change', function () {
         let minDate = $(this).val();
@@ -203,10 +210,11 @@ $(document).ready(function () {
 
             data.forEach(function (category) {
                 let chip = $(`
-                    <div class="category-chip cursor-pointer px-2 py-1 text-xs bg-amber-100 border border-amber-300 rounded-full hover:bg-amber-200">
+                    <div class="category-chip cursor-pointer px-2 py-1 text-xs bg-blue-100 border border-blue-300 rounded-full hover:bg-blue-200 transition ease-in-out duration-200">
                         ${category}
                     </div>
                 `);
+
                 container.append(chip);
             });
 
@@ -230,7 +238,7 @@ $(document).ready(function () {
 
             data.forEach(function (difficulty) {
                 let chip = $(`
-                    <div class="difficulty-chip cursor-pointer px-2 py-1 text-xs bg-amber-100 border border-amber-300 rounded-full hover:bg-amber-200">
+                    <div class="difficulty-chip cursor-pointer px-2 py-1 text-xs bg-blue-100 border border-blue-300 rounded-full hover:bg-blue-200">
                         ${difficulty}
                     </div>
                 `);
@@ -251,10 +259,11 @@ $(document).ready(function () {
 
             data.forEach(function (tag) {
                 let chip = $(`
-                    <div class="tag-chip cursor-pointer px-2 py-1 text-xs bg-amber-100 border border-amber-300 rounded-full hover:bg-amber-200" data-id="${tag.id}">
+                    <div class="tag-chip cursor-pointer px-2 py-1 text-xs bg-blue-100 border border-blue-300 rounded-full hover:bg-blue-200 transition ease-in-out duration-200" data-id="${tag.id}">
                         ${tag.name}
                     </div>
                 `);
+
                 container.append(chip);
             });
         },
@@ -284,82 +293,76 @@ function loadRecipes(browsingOptions) {
     console.log('Browsing Options:', browsingOptions);
 
     $.ajax({
-        url: '/api/recipes-browser',
+        url: '/api/personal-recipes-browser',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(browsingOptions),
         success: function (response) {
             console.log('Filtered recipes:', response);
 
-            // Create a container for recipe cards
             let recipesHtml = $('#recipe-card-container');
             recipesHtml.empty(); // Clear existing cards
+
+            // Handle zero recipes case
+            if (response.items.length === 0) {
+                recipesHtml.append(`
+                    <div class="text-center text-gray-500 py-10 w-full col-span-3">
+                        <p class="text-lg font-medium">😞 No recipes found matching your filters.</p>
+                        <p class="text-sm mt-2">Try adjusting your search criteria or browse other categories!</p>
+                    </div>
+                `);
+            }
+
             response.items.forEach(function (recipe) {
                 recipesHtml.append(
-                    `<div class="recipe-card bg-white rounded-xl shadow-md overflow-hidden border-2 border-gray-200 w-72 transition-all duration-300 hover:border-orange-500 hover:shadow-lg">
-            <!-- Image -->
-            <div class="relative h-40 w-full">
-                <img src="${recipe.coverImage || '/img/default-recipe.jpg'}" alt="${recipe.name}" 
-                    class="w-full h-full object-cover">
-                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-3 py-2">
-                    <h3 class="text-white font-semibold text-base truncate">${recipe.name}</h3>
-                </div>
-            </div>
+                    `<div class="recipe-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 w-64 transition-all duration-300 hover:border-orange-500 hover:shadow-lg">
+                        <!-- Image -->
+                        <div class="relative h-32 w-full">
+                            <img src="${recipe.coverImage || '/img/default-recipe.jpg'}" alt="${recipe.name}" 
+                                class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-2 py-1">
+                                <h3 class="text-white font-semibold text-sm truncate">${recipe.name}</h3>
+                            </div>
+                        </div>
 
-            <!-- Info -->
-            <div class="p-4 space-y-3">
-                <!-- Description -->
-                <p class="text-gray-700 text-sm h-10 overflow-hidden truncate">${recipe.description}</p>
+                        <!-- Info -->
+                        <div class="p-3 space-y-2">
+                            <p class="text-gray-700 text-xs h-8 overflow-hidden truncate">${recipe.description}</p>
 
-                <!-- Category & Difficulty -->
-                <div class="flex justify-between text-xs">
-                    <span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full truncate">${recipe.mealCategory || 'Uncategorized'}</span>
-                    <span class="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full truncate">${recipe.difficulty || 'Not specified'}</span>
-                </div>
+                            <div class="flex justify-between text-xs">
+                                <span class="bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full truncate">${recipe.mealCategory || 'Uncategorized'}</span>
+                                <span class="bg-yellow-100 text-yellow-700 px-1.5 py-0.5 rounded-full truncate">${recipe.difficulty || 'Not specified'}</span>
+                            </div>
 
-                <!-- Times -->
-                <div class="space-y-1 text-xs text-gray-600">
-                    <div class="flex justify-between">
-                        <span>🥣 Prep</span>
-                        <span>${recipe.prepareTime} mins</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span>🔥 Cook</span>
-                        <span>${recipe.cookTime} mins</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span>⏱️ Total</span>
-                        <span>${recipe.totalTime} mins</span>
-                    </div>
-                </div>
+                            <div class="space-y-0.5 text-xs text-gray-600">
+                                <div class="flex justify-between"><span>🥣 Prep</span><span>${recipe.prepareTime}m</span></div>
+                                <div class="flex justify-between"><span>🔥 Cook</span><span>${recipe.cookTime}m</span></div>
+                                <div class="flex justify-between"><span>⏱️ Total</span><span>${recipe.totalTime}m</span></div>
+                            </div>
 
-                <!-- Servings & Views -->
-                <div class="flex justify-between text-xs text-gray-600">
-                    <span>👥 Serves ${recipe.servings}</span>
-                    <span>👁️ ${recipe.totalViews} views</span>
-                </div>
+                            <div class="flex justify-between text-xs text-gray-600">
+                                <span>👥 ${recipe.servings}</span>
+                                <span>👁️ ${recipe.totalViews}</span>
+                            </div>
 
-                <!-- Ratings -->
-                <div class="flex justify-between text-xs text-gray-600">
-                    <span>⭐ ${recipe.averageRating.toFixed(1)} / 5</span>
-                    <span>(${recipe.totalRatings} ratings)</span>
-                </div>
+                            <div class="flex justify-between text-xs text-gray-600">
+                                <span>⭐ ${recipe.averageRating.toFixed(1)}/5</span>
+                                <span>(${recipe.totalRatings})</span>
+                            </div>
 
-                <!-- Button -->
-                <a href="https://localhost:7212/Cooking/Recipe/Details/${recipe.id}" 
-                   class="block mt-2 text-center bg-orange-500 hover:bg-orange-600 text-white py-1.5 rounded-md text-sm font-medium transition">
-                   🍽️ View Recipe
-                </a>
-            </div>
-        </div>`
+                            <!-- Actions -->
+                            <div class="flex flex-col space-y-1">
+                                <a href="https://localhost:7212/Cooking/Recipe/Details/${recipe.id}" 
+                                   class="block text-center bg-orange-500 hover:bg-orange-600 text-white py-1 rounded-md text-xs font-medium transition">
+                                   🍽️ View
+                                </a>
+                                <button data-id="${recipe.id}" class="edit-recipe-btn bg-blue-500 hover:bg-blue-600 text-white py-1 rounded-md text-xs font-medium transition">✏️ Edit</button>
+                                <button data-id="${recipe.id}" class="delete-recipe-btn bg-red-500 hover:bg-red-600 text-white py-1 rounded-md text-xs font-medium transition">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    </div>`
                 );
             });
-
-
-
-
-            // Update the UI with the recipes
-            $("#browsing-options").after(recipesHtml);
 
             // Pagination buttons
             let paginationButtonContainer = $("#pagination-button-container");
@@ -380,6 +383,7 @@ function loadRecipes(browsingOptions) {
         }
     });
 }
+
 
 function showSelectedDifficulty() {
     let selectedDifficulties = $('.difficulty-chip.selected').map(function () {
@@ -479,14 +483,13 @@ function collectBrowsingOptions() {
         return;
     }
 
-    browsingOptions.createdByUsername = $('#created-by-username').val().trim();
 
     // check different of prev and current items per page, if different, reset page to 1
     if (browsingOptions.itemsPerPage !== parseInt($('#items-per-page-select').val(), 10) || browsingOptions.page !== 1) {
         browsingOptions.page = 1;
     }
 
-    browsingOptions.itemsPerPage = parseInt($('#items-per-page-select').val(), 10) || 10;
+    browsingOptions.itemsPerPage = parseInt($('#items-per-page-select').val(), 10) || 3;
 
     browsingOptions.sortOptions = [];
     $('.sort-criteria').each(function () {
@@ -546,6 +549,6 @@ let browsingOptions = {
     sortOptions: [
 
     ],
-    itemsPerPage: 10,
+    itemsPerPage: 3,
     page: 1
 };

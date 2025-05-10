@@ -157,6 +157,25 @@ public class RecipeController : Controller
         }
     }
 
+    [HttpGet("api/recipe-details/{id}")]
+    public async Task<IActionResult> GetRecipeDetailsAsync(Guid id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            // Fetching the recipe details (no ownership check, just full public details)
+            var recipe = await _recipeService.GetRecipeDetailsAsync(id, cancellationToken);
+
+            // Return the recipe details
+            return Ok(recipe);
+        }
+        catch (RecipeRetrievalException)
+        {
+            // Handle case where the recipe wasn't found or retrieval failed
+            return NotFound(); // 404 Not Found
+        }
+    }
+
+
     public IActionResult Details(Guid id)
     {
         ViewData["RecipeId"] = id;
@@ -202,6 +221,45 @@ public class RecipeController : Controller
             PageSize = request.ItemsPerPage
         };
         var recipes = await _recipeService.GetRecipes(recipeQueryOptions, cancellationToken);
+        return Ok(recipes);
+    }
+
+    [HttpPost("/api/personal-recipes-browser")]
+    public async Task<IActionResult> GetPersonalRecipes([FromBody] RecipeQueryRequest request, CancellationToken cancellationToken = default)
+    {
+        var siteUserId = await GetSiteUserId(cancellationToken);
+
+        var recipeQueryOptions = new RecipeQueryOptions
+        {
+            Name = request.NameSearch.Name,
+            NameMatchMode = request.NameSearch.TextMatch,
+            Difficulties = request.Difficulties,
+            MealCategories = request.Categories,
+            MinServings = request.Servings.Min,
+            MaxServings = request.Servings.Max,
+            MinPrepareTime = request.PrepareTime.Min,
+            MaxPrepareTime = request.PrepareTime.Max,
+            MinCookTime = request.CookTime.Min,
+            MaxCookTime = request.CookTime.Max,
+            MinAverageRating = request.Rating.Min,
+            MaxAverageRating = request.Rating.Max,
+            MinTotalViews = request.Views.Min,
+            MaxTotalViews = request.Views.Max,
+            CreatedFrom = request.CreatedAt.Min,
+            CreatedTo = request.CreatedAt.Max,
+            UpdatedFrom = request.UpdatedAt.Min,
+            UpdatedTo = request.UpdatedAt.Max,
+            CreatedByUsername = request.CreatedByUsername ?? string.Empty,
+            Tags = request.Tags,
+            SortOptions = request.SortOptions.Select(sortOption => new Application.Recipes.SortOption
+            {
+                Criteria = sortOption.Criteria,
+                Direction = sortOption.Direction
+            }).ToList(),
+            PageNumber = request.Page,
+            PageSize = request.ItemsPerPage
+        };
+        var recipes = await _recipeService.GetPersonalRecipes(siteUserId, recipeQueryOptions, cancellationToken);
         return Ok(recipes);
     }
 }

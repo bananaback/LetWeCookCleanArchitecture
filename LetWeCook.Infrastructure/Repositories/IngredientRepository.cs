@@ -32,6 +32,12 @@ public class IngredientRepository : Repository<Ingredient>, IIngredientRepositor
             .ToListAsync(cancellationToken);
     }
 
+    public Task<Ingredient?> GetByNameAsync(string name, CancellationToken cancellationToken)
+    {
+        return _dbSet
+            .FirstOrDefaultAsync(i => i.Name == name, cancellationToken);
+    }
+
     public Task<Ingredient?> GetIngredientByIdWithCategoryAndDetailsAsync(Guid id, CancellationToken cancellationToken)
     {
         return _dbSet

@@ -11,6 +11,13 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
     {
     }
 
+    public Task<bool> CheckExistByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        return _dbSet
+            .AsNoTracking()
+            .AnyAsync(r => r.Name == name, cancellationToken);
+    }
+
     public Task<int> CountAsync(IQueryable<Recipe> query, CancellationToken cancellationToken = default)
     {
         return query.CountAsync(cancellationToken);

@@ -10,7 +10,7 @@ public class RecipeNameFilter : IQueryFilter<Recipe>
     public string Name { get; }
     public TextMatchMode MatchMode { get; }
 
-    public RecipeNameFilter(string name, TextMatchMode matchMode = TextMatchMode.Contains)
+    public RecipeNameFilter(string name, TextMatchMode matchMode = TextMatchMode.Exact)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Name cannot be null or whitespace.", nameof(name));
@@ -29,10 +29,9 @@ public class RecipeNameFilter : IQueryFilter<Recipe>
         return MatchMode switch
         {
             TextMatchMode.Exact => r => r.Name == Name,
-            TextMatchMode.Contains => r => r.Name != null && r.Name.Contains(Name),
             TextMatchMode.StartsWith => r => r.Name != null && r.Name.StartsWith(Name),
             TextMatchMode.EndsWith => r => r.Name != null && r.Name.EndsWith(Name),
-            _ => r => r.Name != null && r.Name.Contains(Name) // default fallback
+            _ => r => r.Name != null && r.Name == Name // default fallback
         };
     }
 }
