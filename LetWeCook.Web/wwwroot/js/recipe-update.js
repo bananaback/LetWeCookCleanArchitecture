@@ -976,24 +976,99 @@ function loadEditingRecipe() {
             });
             renderSelectedIngredients();
 
-            // Populate the steps container
-            // response.steps.forEach(function (step) {
-            //     let stepItem = `
-            //     <div class="step-item">
-            //         <input type="text" placeholder="Step title" value="${step.title}" />
-            //         <textarea placeholder="Step description">${step.description}</textarea>
-            //         <div class="media-square">
-            //             <input type="hidden" name="stepMedia[]" value="${step.mediaUrls.join(',')}" />
-            //         </div>
-            //     </div>`;
-            //     $('#steps-container').append(stepItem);
-            // });
+            // clear steps container
+            $('#steps-container').empty();
+            // sort steps by order
+            response.steps.sort((a, b) => a.order - b.order);
+            // Populate steps
+            response.steps.forEach(function (step) {
+
+                let newStep = `
+                <div class="step-item mb-2 p-4 rounded-2xl bg-yellow-50 border-2 border-teal-200 relative">
+                    <!-- Remove Step Button -->
+                    <button class="remove-step-btn absolute top-2 right-2 bg-red-500 rounded-full p-1 hover:bg-red-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#FFFFFF">
+                            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                        </svg>
+                    </button>
+
+                    <label class="block text-teal-500 font-semibold mb-2">Step Title</label>
+                    <input value="${step.title}" type="text" placeholder="Enter step title..."
+                        class="w-full p-3 rounded-full border-2 border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 mb-4 bg-white" />
+
+                    <label class="block text-teal-500 font-semibold mb-2">Description</label>
+                    <textarea rows="3" placeholder="Describe this step..."
+                        class="w-full p-3 rounded-2xl border-2 border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 mb-4 bg-white resize-none">${step.description}</textarea>
+
+                    <label class="block text-teal-500 font-semibold mb-2">Media</label>
+                    <!-- Media Squares Container -->
+                    <div class="media-container flex gap-3 flex-wrap">
+                        ${step.mediaUrls.map(function (mediaUrl) {
+                    return `
+                            <div class="media-square w-20 h-20 rounded-lg border-2 border-teal-300 bg-cover bg-center relative cursor-pointer hover:bg-teal-50"
+                                style="background-image: url('${mediaUrl}');">
+                                <input type="hidden" name="stepMedia[]" value="${mediaUrl}" />
+                                <button class="remove-media-btn absolute -top-2 -right-2 bg-red-500 rounded-full p-1 hover:bg-red-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960-960" width="16px" fill="#FFFFFF">
+                                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                                    </svg>
+                                </button>
+                            </div>`;
+                }).join('')}
+                        <!-- Initial Square -->
+                        <div class="media-square w-20 h-20 rounded-lg border-2 border-teal-300 bg-white flex items-center justify-center cursor-pointer relative hover:bg-teal-50">
+                            <span class="text-teal-300 text-2xl">+</span>
+                        </div>
+                    </div>
+                </div>`;
+                $('#steps-container').append(newStep);
+            });
         }
     });
 }
 
 function submitRecipeToServer(recipe) {
     console.log('Submitting recipe to server:', recipe);
+    $.ajax({
+        url: `/api/recipes/${recipeId}`, // Replace with actual recipe ID
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(recipe), // Your CreateRecipeRequest payload
+        success: function (response) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Update Request Submitted',
+                html: `Your request to update the recipe "<strong>${recipe.name}</strong>" has been submitted and is awaiting admin review.<br><br>
+                           <a href="/UserPanel/Profile/Requests" style="color: #007BFF; text-decoration: underline;">View Your Request</a>`,
+                customClass: {
+                    confirmButton: 'swal-custom-btn'
+                },
+                didOpen: () => {
+                    $('.swal-custom-btn').css({
+                        'background-color': '#007BFF', // Blue
+                        'color': '#FFFFFF'
+                    });
+                }
+            });
+        },
+        error: function (xhr) {
+            console.log("Error Response:", xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: xhr.responseJSON?.message || 'Something went wrong while submitting your update request.',
+                customClass: {
+                    confirmButton: 'swal-custom-btn'
+                },
+                didOpen: () => {
+                    $('.swal-custom-btn').css({
+                        'background-color': '#dc3545', // Red
+                        'color': '#FFFFFF'
+                    });
+                }
+            });
+        }
+    });
 }
 
 

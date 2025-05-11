@@ -268,4 +268,46 @@ public class RecipeController : Controller
         ViewData["RecipeId"] = id;
         return View();
     }
+
+    [HttpPut("/api/recipes/{id}")]
+    public async Task<IActionResult> UpdateRecipe(Guid id, [FromBody] CreateRecipeRequest request, CancellationToken cancellationToken = default)
+    {
+        if (request == null)
+        {
+            return BadRequest("Request body is required.");
+        }
+
+        var siteUserId = await GetSiteUserId(cancellationToken);
+
+        // Map incoming CreateRecipeRequest to CreateRecipeRequestDto
+        var recipeDto = new CreateRecipeRequestDto
+        {
+            Name = request.Name,
+            Description = request.Description,
+            Servings = request.Servings,
+            PrepareTime = request.PrepareTime,
+            CookTime = request.CookTime,
+            Difficulty = request.Difficulty,
+            MealCategory = request.MealCategory,
+            Tags = request.Tags,
+            Ingredients = request.Ingredients.Select(ingredient => new CreateIngredientDto
+            {
+                Id = ingredient.Id,
+                Quantity = ingredient.Quantity,
+                Unit = ingredient.Unit
+            }).ToList(),
+            Steps = request.Steps.Select(step => new CreateStepDto
+            {
+                Title = step.Title,
+                Description = step.Description,
+                MediaUrls = step.MediaUrls
+            }).ToList(),
+            CoverImage = request.CoverImage
+        };
+
+        var updateRecipeRequestId = await _recipeService.UpdateRecipeAsync(id, siteUserId, recipeDto, cancellationToken);
+
+        // Return a success response
+        return Ok(updateRecipeRequestId);
+    }
 }

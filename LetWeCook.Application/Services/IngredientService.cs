@@ -507,7 +507,6 @@ public class IngredientService : IIngredientService
                     cancellationToken
                 );
 
-
             if (existingIngredientPendingVersion != null)
             {
                 await _ingredientRepository.RemoveAsync(existingIngredientPendingVersion, cancellationToken);

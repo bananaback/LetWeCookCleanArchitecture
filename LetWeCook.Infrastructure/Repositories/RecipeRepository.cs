@@ -43,6 +43,7 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
     {
         return _dbSet
             .Include(r => r.CoverMediaUrl)
+            .Where(r => r.IsVisible)
             .AsSplitQuery()
             .AsQueryable();
     }
@@ -55,6 +56,7 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
                 .ThenInclude(i => i.CoverImageUrl)
             .Include(r => r.RecipeDetails)
                 .ThenInclude(rd => rd.Detail)
+                .ThenInclude(rd => rd.MediaUrls)
             .Include(r => r.Tags)
             .Include(r => r.CoverMediaUrl)
             .Include(r => r.CreatedBy)

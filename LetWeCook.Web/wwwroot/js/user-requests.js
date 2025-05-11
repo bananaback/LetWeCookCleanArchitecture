@@ -23,6 +23,7 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (response) {
             userRequests = response;
+            console.log("User Requests:", userRequests);
             applyFilter();
             initializePagination();
 
@@ -294,6 +295,7 @@ function updateRequestList(filteredRequests) {
                         method: 'GET',
                         dataType: 'json'
                     });
+                    console.log(request);
                 } catch (err) {
                     console.warn('Failed to fetch recipe data:', err);
                 }

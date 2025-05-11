@@ -44,7 +44,7 @@ public class Recipe : AggregateRoot
         MediaUrl coverMediaUrl,
         SiteUser createdBy,
         bool isVisible,
-        bool isPreview)
+        bool isPreview) : base(Guid.NewGuid())
     {
         Name = name;
         Description = description;
@@ -95,5 +95,21 @@ public class Recipe : AggregateRoot
     public void SetPreview(bool isPreview)
     {
         IsPreview = isPreview;
+    }
+
+    public void CopyFlatProperty(Recipe recipe)
+    {
+        Name = recipe.Name;
+        Description = recipe.Description;
+        Servings = recipe.Servings;
+        PrepareTime = recipe.PrepareTime;
+        CookTime = recipe.CookTime;
+        DifficultyLevel = recipe.DifficultyLevel;
+        MealCategory = recipe.MealCategory;
+        CoverMediaUrl.SetUrl(recipe.CoverMediaUrl.Url);
+        IsVisible = recipe.IsVisible;
+        IsPreview = recipe.IsPreview;
+
+        UpdatedAt = DateTime.UtcNow;
     }
 }

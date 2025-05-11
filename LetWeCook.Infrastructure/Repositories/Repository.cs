@@ -30,16 +30,16 @@ public class Repository<T> : IRepository<T> where T : class
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
+    public Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
     {
         _dbSet.Update(entity);
-        await _context.SaveChangesAsync(cancellationToken);
+        return Task.CompletedTask;
     }
 
-    public async Task RemoveAsync(T entity, CancellationToken cancellationToken = default)
+    public Task RemoveAsync(T entity, CancellationToken cancellationToken = default)
     {
         _dbSet.Remove(entity);
-        await _context.SaveChangesAsync(cancellationToken);
+        return Task.CompletedTask;
     }
 
     public async Task RemoveRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)

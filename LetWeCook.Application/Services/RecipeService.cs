@@ -631,4 +631,126 @@ public class RecipeService : IRecipeService
             recipeQueryOptions.PageSize
         );
     }
+
+    public async Task<Guid?> UpdateRecipeAsync(Guid recipeId, Guid siteUserId, CreateRecipeRequestDto request, CancellationToken cancellationToken = default)
+    {
+        // check for existing recipe
+        var existingRecipe = await _recipeRepository.GetRecipeDetailsByIdAsync(recipeId, cancellationToken);
+        if (existingRecipe == null)
+        {
+            throw new RecipeUpdateException($"Recipe with ID {recipeId} not found.");
+        }
+
+        // check for ownership
+        if (existingRecipe.CreatedBy.Id != siteUserId)
+        {
+            throw new RecipeUpdateException($"Recipe with ID {recipeId} not owned by user {siteUserId}.");
+        }
+
+        // cast request.Difficulty to DifficultyLevel enum
+        if (!Enum.TryParse<DifficultyLevel>(request.Difficulty, true, out var difficultyLevel))
+        {
+            throw new RecipeCreationException($"Invalid difficulty level: {request.Difficulty}");
+        }
+
+        // cast request.MealCategory to MealCategory enum
+        if (!Enum.TryParse<MealCategory>(request.MealCategory, true, out var mealCategory))
+        {
+            throw new RecipeCreationException($"Invalid meal category: {request.MealCategory}");
+        }
+
+        var coverImage = new MediaUrl(MediaType.Image, request.CoverImage);
+
+        var siteUser = await _userRepository.GetByIdAsync(siteUserId, cancellationToken);
+
+        if (siteUser == null)
+        {
+            throw new RecipeCreationException("Site user not found.");
+        }
+
+        var newRecipe = new Recipe(
+            request.Name,
+            request.Description,
+            request.Servings,
+            request.PrepareTime,
+            request.CookTime,
+            difficultyLevel,
+            mealCategory,
+            coverImage,
+            siteUser,
+            false,
+            true);
+
+        var recipeTags = await _recipeTagRepository.GetByNamesAsync(request.Tags, cancellationToken);
+        if (recipeTags.Count != request.Tags.Count)
+        {
+            var missingTags = request.Tags.Except(recipeTags.Select(tag => tag.Name)).ToList();
+            throw new RecipeCreationException($"Missing recipe tags: {string.Join(", ", missingTags)}");
+        }
+
+        newRecipe.AddRecipeTags(recipeTags);
+
+        var recipeIngredients = request.Ingredients.Select(ingredient => new RecipeIngredient(
+            newRecipe.Id,
+            ingredient.Id,
+            ingredient.Quantity,
+            Enum.TryParse<UnitEnum>(ingredient.Unit, true, out var unit) ? unit : UnitEnum.Unknown)).ToList();
+
+        newRecipe.AddIngredients(recipeIngredients);
+
+        var recipeSteps = request.Steps.Select(step => new RecipeDetail(
+            new Detail(
+                step.Title,
+                step.Description,
+                step.MediaUrls.Select(url => new MediaUrl(MediaType.Image, url)).ToList()
+            ),
+            step.Order)
+        ).ToList();
+
+        newRecipe.AddSteps(recipeSteps);
+
+        var existingUpdateRequest = await _userRequestRepository.GetPendingByOldReferenceIdAsync(recipeId, cancellationToken);
+
+        // if exist, delete recipe record with NewReferenceId == recipeId and create new recipe, alter the new reference id of user request to the newly created recipe
+        if (existingUpdateRequest != null)
+        {
+            var existingRecipePendingVersion =
+                await _recipeRepository.GetRecipeDetailsByIdAsync(
+                    existingUpdateRequest.NewReferenceId,
+                    cancellationToken
+                );
+
+            if (existingRecipePendingVersion != null)
+            {
+                await _recipeRepository.RemoveAsync(existingRecipePendingVersion, cancellationToken);
+            }
+            existingUpdateRequest.AlterNewRefId(newRecipe.Id);
+
+            await _recipeRepository.AddAsync(newRecipe, cancellationToken);
+            await _userRequestRepository.UpdateAsync(existingUpdateRequest, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+            return existingUpdateRequest.Id;
+        }
+        else
+        {
+            var username = await _identityService.GetUserNameFromSiteUserIdAsync(siteUserId, cancellationToken);
+
+            var updateRecipeRequest = new UserRequest(
+                UserRequestType.UPDATE_RECIPE,
+                existingRecipe.Id,
+                newRecipe.Id,
+                string.Empty,
+                UserRequestStatus.PENDING,
+                siteUserId,
+                username == ""
+                    ? "Unknown User"
+                    : username
+            );
+
+            await _recipeRepository.AddAsync(newRecipe, cancellationToken);
+            await _userRequestRepository.AddAsync(updateRecipeRequest, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+            return updateRecipeRequest.Id;
+        }
+    }
 }
