@@ -287,7 +287,53 @@ $(document).ready(function () {
         browsingOptions.page = 1; // Reset to page 1 when items per page changes
         loadRecipes(browsingOptions);
     });
+
+    // add event listener to delete recipe button
+    $('#recipe-card-container').on('click', '.delete-recipe-btn', function () {
+        let recipeId = $(this).data('id');
+        let confirmation = false;
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to delete this recipe? This action cannot be undone.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                confirmation = true;
+                deleteRecipe(recipeId);
+            }
+        });
+        if (confirmation) {
+            deleteRecipe(recipeId);
+        }
+    });
 });
+
+function deleteRecipe(recipeId) {
+    // call the API to delete the recipe and reload the recipes
+    $.ajax({
+        url: `/api/recipes/${recipeId}`,
+        type: 'DELETE',
+        success: function (response) {
+            console.log('Recipe deleted successfully:', response);
+            // Reload the recipes after deletion
+            loadRecipes(browsingOptions);
+        },
+        error: function (error) {
+            console.error('Error deleting recipe:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Failed to delete the recipe. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+}
 
 function loadRecipes(browsingOptions) {
     console.log('Browsing Options:', browsingOptions);

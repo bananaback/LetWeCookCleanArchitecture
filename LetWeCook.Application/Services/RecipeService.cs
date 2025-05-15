@@ -176,6 +176,12 @@ public class RecipeService : IRecipeService
             true,
             false);
 
+        // random the view and set for recipe
+        var random = new Random();
+        var randomView = random.Next(100, 1000);
+        recipe.SetViewForSeeding(randomView);
+
+
         var recipeTags = await _recipeTagRepository.GetByNamesAsync(request.Tags, cancellationToken);
         if (recipeTags.Count != request.Tags.Count)
         {
@@ -325,6 +331,10 @@ public class RecipeService : IRecipeService
             throw new RecipeRetrievalException($"Recipe with ID {recipeId} not found.");
         }
 
+        recipe.IncreaseView();
+        await _recipeRepository.UpdateAsync(recipe, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
+
         var authorProfile = new AuthorProfileDto();
 
         // Populate author profile if exists
@@ -340,6 +350,12 @@ public class RecipeService : IRecipeService
                 Instagram = recipe.CreatedBy.Profile.Instagram,
                 PayPalEmail = recipe.CreatedBy.Profile.PayPalEmail
             };
+        }
+
+        // check if recipe is visible
+        if (!recipe.IsVisible)
+        {
+            throw new RecipeRetrievalException($"Recipe with ID {recipeId} is not visible.");
         }
 
         return new RecipeDto
@@ -752,5 +768,33 @@ public class RecipeService : IRecipeService
             await _unitOfWork.CommitAsync(cancellationToken);
             return updateRecipeRequest.Id;
         }
+    }
+
+    public async Task DeleteRecipeAsync(Guid recipeId, Guid siteUserId, bool bypassOwnershipCheck, CancellationToken cancellationToken = default)
+    {
+        // check for existing recipe
+        var existingRecipe = await _recipeRepository.GetRecipeDetailsByIdAsync(recipeId, cancellationToken);
+        if (existingRecipe == null)
+        {
+            throw new RecipeDeletionException($"Recipe with ID {recipeId} not found.");
+        }
+
+        // check for ownership
+        if (!bypassOwnershipCheck && existingRecipe.CreatedBy.Id != siteUserId)
+        {
+            throw new RecipeDeletionException($"Recipe with ID {recipeId} not owned by user {siteUserId}.");
+        }
+
+        var recipe = await _recipeRepository.GetRecipeDetailsByIdAsync(recipeId, cancellationToken);
+        if (recipe == null)
+        {
+            throw new RecipeDeletionException($"Recipe with ID {recipeId} not found.");
+        }
+
+        recipe.SetVisible(false);
+
+        await _recipeRepository.UpdateAsync(recipe, cancellationToken);
+
+        await _unitOfWork.CommitAsync(cancellationToken);
     }
 }

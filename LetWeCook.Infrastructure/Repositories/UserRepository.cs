@@ -12,6 +12,12 @@ public class UserRepository : Repository<SiteUser>, IUserRepository
     {
     }
 
+    public Task<List<SiteUser>> GetAllWithProfileAsync(CancellationToken cancellationToken = default)
+    {
+        return _dbSet.Include(u => u.Profile)
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<SiteUser?> GetWithProfileByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _dbSet.Include(u => u.Profile).ThenInclude(p => p.DietaryPreferences).FirstOrDefaultAsync(u => u.Id == id, cancellationToken);

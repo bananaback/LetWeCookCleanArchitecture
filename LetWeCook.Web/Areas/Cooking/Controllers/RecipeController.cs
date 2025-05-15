@@ -310,4 +310,21 @@ public class RecipeController : Controller
         // Return a success response
         return Ok(updateRecipeRequestId);
     }
+
+    [HttpDelete("/api/recipes/{id}")]
+    public async Task<IActionResult> DeleteRecipe(Guid id, CancellationToken cancellationToken = default)
+    {
+        var siteUserId = await GetSiteUserId(cancellationToken);
+        var isAdmin = User.IsInRole("Admin");
+
+        try
+        {
+            await _recipeService.DeleteRecipeAsync(id, siteUserId, bypassOwnershipCheck: isAdmin, cancellationToken);
+            return Ok();
+        }
+        catch (RecipeRetrievalException)
+        {
+            return Forbid(); // 403 Forbidden
+        }
+    }
 }

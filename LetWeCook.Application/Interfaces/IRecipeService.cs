@@ -18,5 +18,5 @@ public interface IRecipeService
     Task<PaginatedResult<RecipeDto>> GetRecipes(RecipeQueryOptions recipeQueryOptions, CancellationToken cancellationToken = default);
     Task<PaginatedResult<RecipeDto>> GetPersonalRecipes(Guid siteUserId, RecipeQueryOptions recipeQueryOptions, CancellationToken cancellationToken = default);
     Task<Guid?> UpdateRecipeAsync(Guid recipeId, Guid siteUserId, CreateRecipeRequestDto request, CancellationToken cancellationToken = default);
-
+    Task DeleteRecipeAsync(Guid recipeId, Guid siteUserId, bool bypassOwnershipCheck, CancellationToken cancellationToken = default);
 }

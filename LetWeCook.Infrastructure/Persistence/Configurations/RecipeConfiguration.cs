@@ -92,7 +92,6 @@ public class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
                 }
             );
 
-
         builder.HasOne(r => r.CoverMediaUrl)
             .WithOne()
             .HasForeignKey<Recipe>("CoverMediaUrlId")

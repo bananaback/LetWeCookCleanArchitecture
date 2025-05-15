@@ -55,7 +55,7 @@ public class AuthenticationService : IAuthenticationService
             await _userRepository.AddAsync(siteUser, cancellationToken);
             //await _unitOfWork.CommitAsync(cancellationToken);
 
-            var identityCreated = await _identityService.CreateAppUserWithPasswordAsync(request.Email, request.Username, request.Password, siteUser.Id, cancellationToken);
+            var identityCreated = await _identityService.CreateAppUserWithPasswordAsync(request.Email, request.Username, request.Password, siteUser.Id, true, cancellationToken);
             if (!identityCreated)
                 throw new UserRegistrationException("Failed to register user in identity system.");
 

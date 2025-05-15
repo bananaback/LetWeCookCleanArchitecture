@@ -22,6 +22,7 @@ public class IdentityService : IIdentityService
     string username,
     string password,
     Guid siteUserId,
+    bool isEmailConfirmed = false,
     CancellationToken cancellationToken = default)
     {
         var appUser = new ApplicationUser
@@ -29,7 +30,7 @@ public class IdentityService : IIdentityService
             UserName = username,
             Email = email,
             SiteUserId = siteUserId,
-            EmailConfirmed = false // Require confirmation
+            EmailConfirmed = isEmailConfirmed
         };
 
         // Create the user

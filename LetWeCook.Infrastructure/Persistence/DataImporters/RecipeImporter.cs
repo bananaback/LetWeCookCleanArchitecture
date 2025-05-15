@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using LetWeCook.Application.DTOs.Recipe;
 using LetWeCook.Application.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace LetWeCook.Infrastructure.Persistence.DataImporters;
 
@@ -50,6 +51,11 @@ public class RecipeImporter
 
             Console.WriteLine($"📊 Found {recipeList.Recipes.Count} recipes to process.");
 
+            // Get all users to assign recipes
+            var users = await _userManager.Users.ToListAsync(cancellationToken);
+
+            var random = new Random();
+
             foreach (var recipe in recipeList.Recipes)
             {
                 Console.WriteLine($"🔹 Recipe: {recipe.Name}");
@@ -60,20 +66,17 @@ public class RecipeImporter
                 Console.WriteLine($"   📂 Meal Category: {recipe.MealCategory}");
                 Console.WriteLine($"   🖼️ Cover Image: {recipe.CoverImageUrl}");
 
-                // Print tags
                 if (recipe.Tags != null && recipe.Tags.Any())
                 {
                     Console.WriteLine($"   🏷️ Tags: {string.Join(", ", recipe.Tags)}");
                 }
 
-                // Print ingredients
                 Console.WriteLine($"   📝 Ingredients:");
                 foreach (var ingredient in recipe.Ingredients)
                 {
                     Console.WriteLine($"      - {ingredient.Quantity} {ingredient.Unit} {ingredient.Name}");
                 }
 
-                // Print instructions
                 Console.WriteLine($"   📋 Instructions:");
                 int step = 1;
                 foreach (var instruction in recipe.Instructions)
@@ -81,9 +84,8 @@ public class RecipeImporter
                     Console.WriteLine($"      Step {step++}: {instruction}");
                 }
 
-                Console.WriteLine(); // Add empty line between recipes
+                Console.WriteLine(); // Empty line between recipes
 
-                // ✅ Check if recipe already exists using _recipeRepository
                 bool recipeExists = await _recipeRepository.CheckExistByNameAsync(recipe.Name, cancellationToken);
                 if (recipeExists)
                 {
@@ -91,7 +93,7 @@ public class RecipeImporter
                     continue;
                 }
 
-                // create hash map with ingredient names and their IDs
+                // Build ingredient dictionary
                 var ingredientDict = new Dictionary<string, Guid>();
                 foreach (var ingredient in recipe.Ingredients)
                 {
@@ -106,6 +108,7 @@ public class RecipeImporter
                         continue;
                     }
                 }
+
                 var ingredientDtos = recipe.Ingredients
                     .Where(ingredient => ingredientDict.ContainsKey(ingredient.Name))
                     .Select(ingredient => new CreateIngredientDto
@@ -115,7 +118,6 @@ public class RecipeImporter
                         Unit = ingredient.Unit
                     }).ToList();
 
-                // Map incoming CreateRecipeRequest to CreateRecipeRequestDto
                 var recipeDto = new CreateRecipeRequestDto
                 {
                     Name = recipe.Name,
@@ -136,19 +138,14 @@ public class RecipeImporter
                     CoverImage = recipe.CoverImageUrl
                 };
 
-                // Check if user exists
-                var user = await _userManager.FindByNameAsync("votrongtin882003@gmail.com");
-                if (user == null)
-                {
-                    // If user is not found, just log and terminate
-                    Console.WriteLine("❌ User not found. Import process terminated.");
-                    return; // Terminates the method without throwing exception
-                }
+                // Pick random user
+                var randomUser = users[random.Next(users.Count)];
+                Console.WriteLine($"👤 Assigning recipe to user: {randomUser.Id}");
 
                 try
                 {
                     Console.WriteLine($"⚡ Adding recipe '{recipe.Name}'...");
-                    await _recipeService.CreateRecipeForSeedAsync(user.Id, recipeDto, cancellationToken);
+                    await _recipeService.CreateRecipeForSeedAsync(randomUser.Id, recipeDto, cancellationToken);
                     Console.WriteLine($"✅ Successfully added recipe: {recipe.Name}");
                 }
                 catch (Exception ex)
@@ -165,6 +162,7 @@ public class RecipeImporter
             Console.WriteLine($"📝 Exception message: {ex.Message}");
         }
     }
+
 }
 
 public class RecipeJsonRoot

@@ -1,3 +1,4 @@
+using LetWeCook.Application.Dtos;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Aggregates;
 using LetWeCook.Domain.Enums;
@@ -150,5 +151,43 @@ public class DataSeeder
         {
             logger.LogInformation("Admin user already exists: {Username}", adminUsername);
         }
+    }
+
+    public static async Task SeedUsersAsync(IServiceProvider services)
+    {
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        var logger = services.GetRequiredService<ILogger<DataSeeder>>();
+
+        var userService = services.GetRequiredService<IUserService>();
+
+        var seedUserDTOs = new List<SeedUserDTO>();
+        for (int i = 1; i <= 50; i++)
+        {
+            seedUserDTOs.Add(new SeedUserDTO
+            {
+                Email = $"user{i}@example.com",
+                Password = $"User@{i}00%",
+                Username = $"user{i}",
+                IsAdmin = false
+            });
+        }
+
+        await userService.SeedUsersAsync(seedUserDTOs);
+
+        Console.WriteLine($"[SEED] {seedUserDTOs.Count} users seeded.");
+    }
+
+    public static async Task SeedUserProfiles(IServiceProvider services, CancellationToken cancellationToken = default)
+    {
+        var userService = services.GetRequiredService<IUserService>();
+
+        await userService.SeedUserProfiles(cancellationToken);
+
+    }
+
+    public static async Task SeedRecipeRatingsAsync(IServiceProvider services, int amount, CancellationToken cancellationToken = default)
+    {
+        var recipeRatingService = services.GetRequiredService<IRecipeRatingService>();
+        await recipeRatingService.SeedRecipeRatingsAsync(amount, cancellationToken);
     }
 }

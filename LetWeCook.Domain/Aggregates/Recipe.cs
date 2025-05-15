@@ -30,6 +30,7 @@ public class Recipe : AggregateRoot
     public List<RecipeDetail> RecipeDetails { get; private set; } = new List<RecipeDetail>();
 
     public List<Donation> Donations { get; private set; } = new List<Donation>();
+    public List<RecipeRating> Ratings { get; private set; } = new List<RecipeRating>();
 
     private Recipe() { } // for EF Core
 
@@ -111,5 +112,26 @@ public class Recipe : AggregateRoot
         IsPreview = recipe.IsPreview;
 
         UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void UpdateAverageRatingOnNewRatingAdded(float newRating)
+    {
+        AverageRating = (AverageRating * TotalRatings + newRating) / (TotalRatings + 1);
+        TotalRatings++;
+    }
+
+    public void UpdateAverageRatingOnRatingUpdated(float newRating, float oldRating)
+    {
+        AverageRating = (AverageRating * TotalRatings - oldRating + newRating) / TotalRatings;
+    }
+
+    public void IncreaseView()
+    {
+        TotalViews++;
+    }
+
+    public void SetViewForSeeding(int totalViews)
+    {
+        TotalViews = totalViews;
     }
 }

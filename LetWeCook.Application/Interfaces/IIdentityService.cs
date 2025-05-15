@@ -5,7 +5,7 @@ namespace LetWeCook.Application.Interfaces;
 // wrapper for asp net core identity related operations
 public interface IIdentityService
 {
-    Task<bool> CreateAppUserWithPasswordAsync(string email, string username, string password, Guid siteUserId, CancellationToken cancellationToken = default);
+    Task<bool> CreateAppUserWithPasswordAsync(string email, string username, string password, Guid siteUserId, bool isEmailConfirmed, CancellationToken cancellationToken = default);
     Task<Guid> CreateAppUserAsync(string email, Guid siteUserId, CancellationToken cancellationToken = default); // Added for external logins
     Task<bool> SignInAsync(string email, string password, CancellationToken cancellationToken = default);
     Task SignInAsync(Guid userId, bool isPersistent, CancellationToken cancellationToken = default); // Added for external logins

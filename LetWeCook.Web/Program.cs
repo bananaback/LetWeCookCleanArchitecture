@@ -121,12 +121,19 @@ using (var scope = app.Services.CreateScope())
     {
         await DataSeeder.SeedRolesAndAdminAsync(services);
 
+        await DataSeeder.SeedUsersAsync(services);
+
+        await DataSeeder.SeedUserProfiles(services);
+
         string jsonFilePath = "../LetWeCook.Infrastructure/Persistence/DataImporters/ingredients.json";
 
         await DataSeeder.SeedIngredientsAsync(services, jsonFilePath, CancellationToken.None);
 
         string jsonFilePath2 = "../LetWeCook.Infrastructure/Persistence/DataImporters/recipes.json";
         await DataSeeder.SeedRecipesAsync(services, jsonFilePath2, CancellationToken.None);
+
+        await DataSeeder.SeedRecipeRatingsAsync(services, 1000, CancellationToken.None);
+
     }
     catch (Exception ex)
     {
