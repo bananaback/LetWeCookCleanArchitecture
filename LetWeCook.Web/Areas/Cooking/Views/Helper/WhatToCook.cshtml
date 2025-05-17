@@ -1,0 +1,64 @@
+<div class="p-6 min-h-screen space-y-10 font-sans bg-amber-50 rounded-xl shadow-inner">
+
+    <!-- Title & Intro -->
+    <div>
+        <h2 class="text-3xl font-extrabold text-red-700 flex items-center gap-2">
+            🍽️ What to Cook Today?
+        </h2>
+        <p class="text-red-600 text-lg mt-2">
+            Upload your ingredients, and we’ll cook up some tasty recipe ideas for you.
+        </p>
+    </div>
+
+    <!-- Image Upload + Button -->
+    <div class="space-y-4">
+        <div class="flex items-center justify-between">
+            <h3 class="text-xl font-semibold text-yellow-700">
+                🧺 Your Ingredients
+            </h3>
+            <button id="check-images-btn"
+                class="px-4 py-2 bg-red-600 text-yellow-50 font-semibold rounded-lg shadow hover:bg-red-700 transition">
+                📸 Find Recipes
+            </button>
+        </div>
+
+        <!-- Image preview grid -->
+        <div id="image-preview-container" class="flex flex-wrap gap-4">
+            <div id="add-image"
+                class="w-32 h-32 rounded-xl border-2 border-dashed border-yellow-600 flex items-center justify-center text-yellow-600 bg-yellow-100 hover:bg-yellow-200 cursor-pointer shadow-md">
+                + Add
+            </div>
+        </div>
+
+        <p class="text-sm text-green-700 italic">
+            Tip: Upload clear pictures of vegetables, meat, or pantry items.
+        </p>
+    </div>
+
+    <!-- Recipe Suggestions -->
+    <div class="space-y-2">
+        <h3 class="text-xl font-semibold text-green-800">
+            🍲 Suggested Recipes
+        </h3>
+        <p class="text-sm text-green-700">
+            Here's what we think you can whip up from what you’ve got.
+        </p>
+
+        <div id="recipe-results"
+            class="relative w-full h-[600px] overflow-hidden bg-yellow-100 rounded-lg p-4 shadow-lg border border-yellow-300">
+        </div>
+    </div>
+
+</div>
+
+<!-- Spinner overlay -->
+<div id="spinner-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[9999]">
+    <div class="w-16 h-16 border-8 border-t-red-600 border-gray-300 rounded-full animate-spin"></div>
+</div>
+
+<!-- File input -->
+<input type="file" accept="image/*" id="image-input" class="hidden" multiple />
+
+@section Scripts {
+    <script type="module" src="~/js/whattocook.js"></script>
+}

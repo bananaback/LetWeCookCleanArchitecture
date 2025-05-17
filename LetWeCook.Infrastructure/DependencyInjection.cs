@@ -4,6 +4,7 @@ using LetWeCook.Domain.Events;
 using LetWeCook.Infrastructure.Persistence;
 using LetWeCook.Infrastructure.Repositories;
 using LetWeCook.Infrastructure.Services;
+using LetWeCook.Infrastructure.Services.Background;
 using LetWeCook.Infrastructure.Services.EventHandlers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -81,6 +82,9 @@ public static class DependencyInjection
         services.AddScoped<IRecipeRatingRepository, RecipeRatingRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<IHttpContextService, HttpContextService>();
+
+        services.AddHostedService<RecipeExportService>();
+
 
         return services;
     }

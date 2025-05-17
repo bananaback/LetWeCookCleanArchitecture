@@ -24,6 +24,9 @@
                 class="text-gray-600 hover:text-green-600">Ingredients</a>
             <a href="https://localhost:7212/Cooking/Recipe/Browser"
                 class="text-gray-600 hover:text-green-600">Recipes</a>
+            <a href="/Cooking/Helper/WhatToCook" class="text-green-700 font-semibold hover:text-green-900">
+                🍳 What to Cook?
+            </a>
             @if (User.Identity!.IsAuthenticated)
             {
                 <div class="relative inline-block text-left">
@@ -83,7 +86,32 @@
                 </a>
             </div>
         }
+
+        <!-- Intro Card: What to Cook -->
+        <div
+            class="mt-8 w-full max-w-5xl bg-white border border-green-200 rounded-xl shadow hover:shadow-lg transition-all duration-300 overflow-hidden">
+            <div class="flex flex-col md:flex-row">
+                <!-- Left: Bigger Image -->
+                <div class="md:w-2/5 w-full h-60 md:h-auto">
+                    <img src="https://th.bing.com/th/id/OIP.eEwx8TQWwAg2qva0plvEkwHaEJ?cb=iwc2&rs=1&pid=ImgDetMain"
+                        alt="What to Cook?" class="w-full h-full object-cover" />
+                </div>
+
+                <!-- Right: Content -->
+                <div class="md:w-3/5 w-full p-6 flex flex-col justify-center text-left">
+                    <h3 class="text-2xl font-semibold text-green-700">Not sure what to cook?</h3>
+                    <p class="text-gray-600 mt-2">Let us suggest recipes based on ingredients you already have!</p>
+                    <a href="/Cooking/Helper/WhatToCook"
+                        class="inline-block mt-4 text-sm font-medium text-white bg-green-600 hover:bg-green-700 px-5 py-2 rounded">
+                        🍳 Find Recipes Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+
 </div>
 
 @section Scripts {
