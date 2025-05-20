@@ -136,6 +136,10 @@ using (var scope = app.Services.CreateScope())
         string jsonFilePath2 = "../LetWeCook.Infrastructure/Persistence/DataImporters/recipes.json";
         await DataSeeder.SeedRecipesAsync(services, jsonFilePath2, CancellationToken.None);
 
+        string jsonFilePath3 = "../LetWeCook.Infrastructure/Persistence/DataImporters/recipes-with-images.json";
+
+        await DataSeeder.SeedRecipesWithImagesAsync(services, jsonFilePath3, CancellationToken.None);
+
         await DataSeeder.SeedRecipeRatingsAsync(services, 1000, CancellationToken.None);
 
     }

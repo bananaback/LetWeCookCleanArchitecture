@@ -57,6 +57,32 @@ public class DataSeeder
         }
     }
 
+    public static async Task SeedRecipesWithImagesAsync(IServiceProvider services, string jsonFilePath, CancellationToken cancellationToken)
+    {
+        var recipeService = services.GetRequiredService<IRecipeService>();
+        var recipeRepository = services.GetRequiredService<IRecipeRepository>();
+        var ingredientRepository = services.GetRequiredService<IIngredientRepository>();
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        var logger = services.GetRequiredService<ILogger<DataSeeder>>();
+
+        var importer = new RecipeWithImagesImporter(
+            ingredientRepository,
+            recipeRepository,
+            userManager,
+            recipeService);
+
+        try
+        {
+            await importer.ImportRecipesAsync(jsonFilePath, cancellationToken);
+            logger.LogInformation("Successfully imported recipes from JSON.");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "An error occurred while importing recipes.");
+        }
+    }
+
+
     public static async Task SeedRolesAndAdminAsync(IServiceProvider services)
     {
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
