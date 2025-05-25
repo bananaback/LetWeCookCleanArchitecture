@@ -63,6 +63,7 @@ public static class DependencyInjection
         services.AddScoped<IDonationService, DonationService>();
         services.AddScoped<IRecipeRatingService, RecipeRatingService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IRecipeSuggestionService, RecipeSuggestionService>();
 
         // Register Infrastructure Services
         services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -80,10 +81,12 @@ public static class DependencyInjection
         services.AddScoped<IRecipeRepository, RecipeRepository>();
         services.AddScoped<IDonationRepository, DonationRepository>();
         services.AddScoped<IRecipeRatingRepository, RecipeRatingRepository>();
+        services.AddScoped<ISuggestionFeedbackRepository, SuggestionFeedbackRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<IHttpContextService, HttpContextService>();
 
         services.AddHostedService<RecipeExportService>();
+        services.AddHostedService<HomepageService>();
 
 
         return services;

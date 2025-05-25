@@ -12,8 +12,8 @@ public class DonationService : IDonationService
     private readonly IUserRepository _userRepository;
     private readonly IDonationRepository _donationRepository;
     private readonly IPaymentService _paymentService;
-    private string _successUrl = "https://7b39-118-70-53-54.ngrok-free.app/api/donation/success";
-    private string _cancelUrl = "https://7b39-118-70-53-54.ngrok-free.app/api/donation/cancel";
+    private string _successUrl = "https://a3b1-42-115-188-41.ngrok-free.app/api/donation/success";
+    private string _cancelUrl = "https://a3b1-42-115-188-41.ngrok-free.app/api/donation/cancel";
 
     public DonationService(
         IUnitOfWork unitOfWork,

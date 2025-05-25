@@ -1,0 +1,114 @@
+<div id="feedback-survey" class="w-full max-w-6xl mt-8 p-6 bg-white rounded-2xl shadow-md border border-gray-100">
+  <!-- Section title -->
+  <h2 class="text-2xl font-bold text-gray-800 mb-1">🍽️ Recipe Feedback</h2>
+
+  <!-- Short description -->
+  <p class="text-gray-600 mb-6">
+    Let us know what you think of these recipes. Click 👍 or 👎 to give feedback.
+    <span class="font-medium text-blue-600">You need to be signed in to submit feedback.</span>
+  </p>
+
+  <!-- Cards will be injected by JS -->
+  <div id="recipe-cards" class="flex flex-row items-center justify-center gap-16">
+    <!-- Cards will be rendered here -->
+  </div>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(function () {
+    const $cards = $('#recipe-cards');
+    $cards.empty();
+
+    // Function to generate card HTML
+    function generateCardHtml(recipe) {
+      return `
+<div class="recipe-card flex flex-col border border-gray-200 rounded-xl shadow hover:shadow-md transition p-4"
+     style="width: 280px;" data-id="${recipe.id}">
+  <h3 class="text-base font-semibold text-gray-800 mb-3 truncate" title="${recipe.name}">
+    ${recipe.name}
+  </h3>
+  <div class="w-36 h-36 mb-4 overflow-hidden rounded-md flex-shrink-0 mx-auto cursor-pointer">
+    <a href="/Cooking/Recipe/Details/${recipe.id}" aria-label="View details of ${recipe.name}">
+      <img src="${recipe.coverImage}" alt="${recipe.name}" class="w-full h-full object-cover" />
+    </a>
+  </div>
+  <div class="feedback-buttons flex gap-4 justify-center mt-auto">
+    <button class="like-btn px-4 py-2 text-base bg-green-100 text-green-700 rounded hover:bg-green-200 transition" type="button">
+      👍 Like
+    </button>
+    <button class="dislike-btn px-4 py-2 text-base bg-red-100 text-red-700 rounded hover:bg-red-200 transition" type="button">
+      👎 Dislike
+    </button>
+  </div>
+  <div class="feedback-result text-center mt-3 font-semibold"></div>
+</div>`;
+    }
+
+    // Initial load of 3 recipes (real API)
+    $.get('/api/suggestions?count=3')
+      .done(function (recipes) {
+        recipes.forEach(recipe => {
+          $cards.append(generateCardHtml(recipe));
+        });
+      })
+      .fail(function () {
+        $cards.append('<p class="text-red-600">Failed to load recipes. Please try again.</p>');
+      });
+
+    // Like/Dislike click handling
+    $cards.on('click', '.like-btn, .dislike-btn', function () {
+      const $card = $(this).closest('.recipe-card');
+      const recipeId = $card.data('id');
+      const isLike = $(this).hasClass('like-btn');
+
+      // Prevent multiple clicks
+      $(this).prop('disabled', true).attr('aria-disabled', 'true')
+        .siblings().prop('disabled', true).attr('aria-disabled', 'true');
+
+      // Show feedback result text and hide buttons
+      const $result = $card.find('.feedback-result');
+      $card.find('.feedback-buttons').fadeOut();
+      if (isLike) {
+        $result.text('You liked this recipe').removeClass('text-red-600').addClass('text-green-600');
+      } else {
+        $result.text('You disliked this recipe').removeClass('text-green-600').addClass('text-red-600');
+      }
+
+      // Submit feedback to real API (but proceed regardless of outcome)
+      $.post('/api/suggestions', { recipeId, isLike })
+        .done(function () {
+          // No action needed on success
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+          // Silently log the error
+          console.log(`Feedback submission failed: ${textStatus} - ${errorThrown}`);
+        });
+
+      // Wait 3 seconds, then fetch and replace with a new recipe
+      setTimeout(function () {
+        $.get('/api/suggestions?count=1')
+          .done(function (response) {
+            // Handle response (array or single object)
+            const newRecipe = Array.isArray(response) ? response[0] : response;
+            // Create new card HTML
+            const newCardHtml = generateCardHtml(newRecipe);
+            // Replace the old card with a fade effect
+            $card.fadeOut(300, function () {
+              $card.replaceWith(newCardHtml);
+              $cards.find(`[data-id="${newRecipe.id}"]`).hide().fadeIn(300);
+            });
+          })
+          .fail(function () {
+            // Show error but keep the card functional
+            $result.text('Failed to load new recipe').removeClass('text-green-600').addClass('text-red-600');
+            $card.find('.feedback-buttons').fadeIn(); // Restore buttons if fetch fails
+          });
+      }, 3000); // 3-second delay
+    });
+  });
+</script>

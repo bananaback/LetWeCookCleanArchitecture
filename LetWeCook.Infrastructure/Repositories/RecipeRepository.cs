@@ -48,6 +48,17 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
             .AsQueryable();
     }
 
+    public Task<List<Recipe>> GetRandomRecipesAsync(int count = 5, CancellationToken cancellationToken = default)
+    {
+        return _dbSet
+            .Include(r => r.CoverMediaUrl)
+            .Where(r => r.IsVisible)
+            .OrderBy(r => Guid.NewGuid()) // Random order
+            .Take(count)
+            .AsSplitQuery()
+            .ToListAsync(cancellationToken);
+    }
+
     public Task<Recipe?> GetRecipeDetailsByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return _dbSet

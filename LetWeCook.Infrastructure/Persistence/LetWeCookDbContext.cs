@@ -13,6 +13,8 @@ public class LetWeCookDbContext : IdentityDbContext<ApplicationUser, IdentityRol
     public DbSet<UserProfile> UserProfiles { get; set; } = null!;
     public DbSet<DietaryPreference> DietaryPreferences { get; set; } = null!;
     public DbSet<Recipe> Recipes { get; set; } = null!;
+    public DbSet<RecipeRating> RecipeRatings { get; set; } = null!;
+    public DbSet<Donation> Donations { get; set; } = null!;
 
     public LetWeCookDbContext(DbContextOptions<LetWeCookDbContext> options) : base(options)
     {

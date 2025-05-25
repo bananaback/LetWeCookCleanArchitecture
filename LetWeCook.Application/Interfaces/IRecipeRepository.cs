@@ -13,4 +13,5 @@ public interface IRecipeRepository : IRepository<Recipe>
     IQueryable<Recipe> GetQueryable(CancellationToken cancellationToken = default);
     Task<int> CountAsync(IQueryable<Recipe> query, CancellationToken cancellationToken = default);
     Task<List<Recipe>> QueryableToListAsync(IQueryable<Recipe> query, CancellationToken cancellationToken = default);
+    Task<List<Recipe>> GetRandomRecipesAsync(int count = 5, CancellationToken cancellationToken = default);
 }
