@@ -35,4 +35,10 @@ public class DonationRepository : Repository<Donation>, IDonationRepository
                 .ThenInclude(r => r.CoverMediaUrl)
             .FirstOrDefaultAsync(d => d.Id == id);
     }
+
+    public Task<int> GetTotalCountAsync(CancellationToken cancellationToken)
+    {
+        return _dbSet
+            .CountAsync(cancellationToken);
+    }
 }

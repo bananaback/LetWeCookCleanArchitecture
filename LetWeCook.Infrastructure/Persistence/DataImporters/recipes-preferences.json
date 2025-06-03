@@ -1,0 +1,941 @@
+{
+    "Chả Huế (Hue-style Meatloaf)": [
+        "HighProtein"
+    ],
+    "Chè Chuối Nếp Nướng (Grilled Banana with Sticky Rice Sweet Soup)": [
+        "HighCarb",
+        "LowFat",
+        "None",
+        "Vegetarian",
+        "LowCalorie"
+    ],
+    "Bánh Phu Thê (Husband and Wife Cake)": [
+        "LowFat",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Cá Hấp Hành Gừng (Steamed Fish with Ginger and Scallions)": [
+        "Pescatarian"
+    ],
+    "Lẩu Bò (Beef Hot Pot)": [
+        "HighProtein"
+    ],
+    "Mực Chiên Giòn (Crispy Fried Squid)": [
+        "Pescatarian"
+    ],
+    "Bánh Khọt (Mini Savory Pancakes)": [
+        "LowFat",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Canh Rau Cải (Mustard Greens Soup)": [
+        "LowCalorie"
+    ],
+    "Cá Lóc Nướng Trui (Grilled Snakehead Fish on Stick)": [
+        "LowFat",
+        "Pescatarian"
+    ],
+    "Nem Nướng (Grilled Pork Sausage)": [
+        "HighProtein",
+        "LowFat"
+    ],
+    "Cơm Gà Hội An (Hoi An Chicken Rice)": [
+        "HighProtein",
+        "HighCarb"
+    ],
+    "Bún Thịt Nướng Chả Giò (Grilled Pork Vermicelli with Fried Rolls)": [
+        "HighProtein",
+        "LowFat",
+        "HighCarb"
+    ],
+    "Spicy Squid Stir Fry": [
+        "Pescatarian"
+    ],
+    "Bún Ngan (Duck Vermicelli Soup)": [
+        "HighProtein",
+        "HighCarb",
+        "LowCalorie"
+    ],
+    "Sweet Potato Black Bean Tacos": [
+        "LowFat",
+        "None",
+        "Vegetarian"
+    ],
+    "Cá Lóc Nướng Mắm Nêm (Grilled Snakehead with Fermented Fish Sauce)": [
+        "LowFat",
+        "Pescatarian"
+    ],
+    "Pineapple Mango Smoothie": [
+        "LowFat",
+        "Vegan",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Peach and Blueberry Salad": [
+        "LowFat",
+        "LowCarb",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Cá Sấu Nướng (Grilled Crocodile)": [
+        "HighProtein",
+        "LowFat",
+        "Pescatarian"
+    ],
+    "Chè Bắp (Corn Sweet Soup)": [
+        "LowFat",
+        "None",
+        "Vegetarian",
+        "LowCalorie"
+    ],
+    "Roasted Eggplant with Tahini Sauce": [
+        "LowFat",
+        "Vegan",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Chè Khoai Môn (Taro Sweet Soup)": [
+        "LowFat",
+        "None",
+        "Vegetarian",
+        "LowCalorie"
+    ],
+    "Cá Lóc Hấp Bầu (Steamed Snakehead Fish with Gourd)": [
+        "Pescatarian"
+    ],
+    "Beet and Feta Salad": [
+        "LowFat",
+        "LowCarb",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Bò Nướng Lá Lốt (Grilled Beef in Betel Leaves)": [
+        "HighProtein",
+        "LowFat"
+    ],
+    "Pineapple Shrimp Stir Fry": [
+        "Pescatarian"
+    ],
+    "Bún Mọc (Pork Meatball Noodles)": [
+        "HighProtein",
+        "HighCarb"
+    ],
+    "Mực Xào Hành Tây (Squid Stir-fried with Onions)": [
+        "Pescatarian"
+    ],
+    "Bún Cá Chua (Sour Fish Noodle Soup)": [
+        "HighCarb",
+        "LowCalorie",
+        "Pescatarian"
+    ],
+    "Bánh Căn (Mini Rice Pancakes)": [
+        "LowFat",
+        "HighCarb",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Gà Nướng Sả (Lemongrass Grilled Chicken)": [
+        "HighProtein",
+        "LowFat"
+    ],
+    "Honeydew Melon Smoothie": [
+        "LowFat",
+        "Vegan",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Roasted Cauliflower with Paprika": [
+        "LowFat",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Roasted Garlic Mashed Potatoes": [
+        "None"
+    ],
+    "Honey Roasted Carrots with Sage": [
+        "LowFat",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Cucumber Radish Salad": [
+        "LowFat",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Bánh Tráng Nướng Mỡ Hành (Rice Paper with Scallion Oil)": [
+        "HighCarb"
+    ],
+    "Lẩu Gà Lá Giang (Chicken Hot Pot with La Giang Leaves)": [
+        "HighProtein",
+        "LowFat"
+    ],
+    "Bún Măng Vịt (Duck and Bamboo Shoot Noodles)": [
+        "HighCarb"
+    ],
+    "Bánh Gối (Vietnamese Empanadas)": [
+        "HighCarb"
+    ],
+    "Canh Khổ Qua Nhồi Thịt (Stuffed Bitter Melon Soup)": [
+        "HighProtein"
+    ],
+    "Lẩu Nướng (Grill and Hot Pot Combo)": [
+        "None"
+    ],
+    "Bánh Đúc (Savory Rice Cake)": [
+        "HighCarb"
+    ],
+    "Gà Hấp Muối (Salt-Steamed Chicken)": [
+        "HighProtein",
+        "LowFat"
+    ],
+    "Bánh Bao (Steamed Pork Buns)": [
+        "HighProtein",
+        "HighCarb"
+    ],
+    "Xôi Xéo (Sticky Rice with Mung Bean)": [
+        "Vegetarian",
+        "HighFiber",
+        "HighCarb"
+    ],
+    "Scallops with Lemon Butter": [
+        "Pescatarian"
+    ],
+    "Gà Xào Hạt Điều (Cashew Nut Chicken Stir-fry)": [
+        "HighProtein",
+        "LowFat"
+    ],
+    "Xôi Gấc (Gac Fruit Sticky Rice)": [
+        "HighCarb"
+    ],
+    "Canh Chua Cá Lóc (Sour Snakehead Fish Soup)": [
+        "Pescatarian"
+    ],
+    "Canh Chua Tôm (Sour Shrimp Soup)": [
+        "Pescatarian"
+    ],
+    "Chè Ba Màu (Three-Color Dessert)": [
+        "LowFat",
+        "Vegetarian",
+        "LowSugar",
+        "LowCalorie"
+    ],
+    "Coconut Milk Rice Pudding": [
+        "HighCarb",
+        "LowFat",
+        "LowSugar",
+        "HighProtein",
+        "Vegetarian",
+        "LowCalorie"
+    ],
+    "Bánh Mì Chả Cá (Fish Cake Sandwich)": [
+        "HighCarb",
+        "Pescatarian"
+    ],
+    "Mashed Sweet Potatoes": [
+        "LowFat",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Gà Nướng Mọi (Grilled Chicken on Stick)": [
+        "HighProtein",
+        "LowFat"
+    ],
+    "Chè Thái (Thai-Style Sweet Soup)": [
+        "LowFat",
+        "Vegetarian",
+        "LowSugar",
+        "LowCalorie"
+    ],
+    "Gỏi Gà (Vietnamese Chicken Salad)": [
+        "LowFat",
+        "HighProtein",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Sweet Potato and Black Bean Chili": [
+        "LowFat",
+        "Vegetarian",
+        "HighFiber",
+        "LowSugar"
+    ],
+    "Turkey Breast with Sage and Garlic": [
+        "HighProtein",
+        "LowFat"
+    ],
+    "Bánh Ít (Sticky Rice Dumpling)": [
+        "HighCarb"
+    ],
+    "Nem Rán (Fried Spring Rolls)": [
+        "LowFat"
+    ],
+    "Gỏi Cuốn (Fresh Spring Rolls)": [
+        "LowFat"
+    ],
+    "Spicy Mussels": [
+        "Pescatarian"
+    ],
+    "Phở Bò (Beef Pho)": [
+        "HighProtein",
+        "HighCarb"
+    ],
+    "Zucchini Feta Fritters": [
+        "LowFat",
+        "Vegetarian",
+        "LowSugar"
+    ],
+    "Canh Rau Đay (Jute Leaf Soup)": [
+        "None"
+    ],
+    "Bánh Xèo Tôm Nhảy (Vietnamese Pancakes with Prawns)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Chè Hạt Sen Đậu Xanh (Lotus Seed and Mung Bean Sweet Soup)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Bún Mắm Nêm (Vermicelli with Fermented Fish Sauce)": [
+        "Pescatarian",
+        "HighProtein"
+    ],
+    "Basil Pesto Pasta": [
+        "Vegetarian",
+        "HighFiber"
+    ],
+    "Bánh Giò (Steamed Rice Cake with Pork)": [
+        "HighProtein"
+    ],
+    "Orange Glazed Duck Breast": [
+        "HighProtein",
+        "LowCarb"
+    ],
+    "Roasted Carrots with Honey and Thyme": [
+        "Vegetarian",
+        "Vegan",
+        "GlutenFree",
+        "HighFiber",
+        "LowFat"
+    ],
+    "Chè Đậu Đen (Black Bean Sweet Soup)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Bún Bò Xào (Stir-fried Beef Noodles)": [
+        "HighProtein"
+    ],
+    "Mắm Tôm Chua (Fermented Shrimp Paste)": [
+        "Pescatarian",
+        "LowCarb"
+    ],
+    "Lẩu Dê (Goat Hot Pot)": [
+        "HighProtein",
+        "LowCarb"
+    ],
+    "Chè Hạt Sen (Lotus Seed Sweet Soup)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Roasted Beets with Goat Cheese": [
+        "Vegetarian",
+        "GlutenFree",
+        "HighFiber",
+        "LowCarb"
+    ],
+    "Chè Khoai Mì (Cassava Sweet Soup)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Baked Chicken Drumsticks": [
+        "HighProtein",
+        "LowCarb"
+    ],
+    "Bánh Xèo (Vietnamese Pancakes)": [
+        "Vegetarian",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Spicy Tofu and Edamame Stir Fry": [
+        "Vegan",
+        "HighProtein",
+        "HighFiber",
+        "GlutenFree"
+    ],
+    "Cá Nướng Muối Ớt (Grilled Fish with Salt and Chili)": [
+        "Pescatarian",
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Miso Glazed Salmon": [
+        "Pescatarian",
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Cá Chiên Giòn (Crispy Fried Fish)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Bún Cá (Fish Noodle Soup)": [
+        "Pescatarian",
+        "HighProtein"
+    ],
+    "Canh Rau Muống (Water Spinach Soup)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber",
+        "LowFat",
+        "LowCalorie"
+    ],
+    "Xôi Mặn (Savory Sticky Rice)": [
+        "HighProtein"
+    ],
+    "Chè Trôi Nước (Glutinous Rice Dumplings in Ginger Syrup)": [
+        "Vegan",
+        "GlutenFree"
+    ],
+    "Beef Bell Pepper Stir Fry": [
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Grilled Salmon with Dill": [
+        "Pescatarian",
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Gỏi Đu Đủ (Papaya Salad)": [
+        "Pescatarian",
+        "HighFiber",
+        "LowCalorie",
+        "GlutenFree"
+    ],
+    "Mực Nướng Sa Tế (Grilled Squid with Satay Sauce)": [
+        "Pescatarian",
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Gỏi Cuốn Tôm Thịt (Shrimp & Pork Fresh Spring Rolls)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Bún Mắm (Fermented Fish Noodle Soup)": [
+        "Pescatarian",
+        "HighProtein"
+    ],
+    "Chè Chuối (Banana Sweet Soup)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Canh Bí Đao (Winter Melon Soup)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber",
+        "LowFat",
+        "LowCalorie"
+    ],
+    "Chả Giò Rế (Fried Egg Roll Nets)": [
+        "HighProtein"
+    ],
+    "Roasted Asparagus with Parmesan": [
+        "Vegetarian",
+        "GlutenFree",
+        "HighFiber",
+        "LowCarb",
+        "LowCalorie"
+    ],
+    "Chocolate Chip Oat Cookies": [
+        "Vegetarian",
+        "HighFiber"
+    ],
+    "Broccoli Almond Stir Fry": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber",
+        "LowFat"
+    ],
+    "Cá Kho Tộ Dừa (Caramel Fish in Coconut Pot)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb"
+    ],
+    "Bánh Mì Thịt Nướng (Grilled Meat Baguette)": [
+        "HighProtein"
+    ],
+    "Gà Tiềm Ớt Hiểm (Chicken Stewed with Chili)": [
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Cá Chiên Sả Ớt (Fried Fish with Lemongrass and Chili)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb"
+    ],
+    "Cơm Nắm (Sticky Rice Ball)": [
+        "Vegan",
+        "GlutenFree"
+    ],
+    "Bò Kho (Vietnamese Beef Stew)": [
+        "HighProtein"
+    ],
+    "Mushroom Wild Rice Soup": [
+        "Vegetarian",
+        "HighFiber",
+        "GlutenFree"
+    ],
+    "Chè Đậu Đỏ (Red Bean Sweet Soup)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Quinoa Chickpea Bowl": [
+        "Vegan",
+        "GlutenFree",
+        "HighProtein",
+        "HighFiber"
+    ],
+    "Bún Thịt Nướng (Grilled Pork Vermicelli)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Canh Cua Rau Đay (Crab Soup with Jute Leaf)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Bún Xào Giòn (Crispy Fried Vermicelli)": [
+        "Vegetarian",
+        "GlutenFree"
+    ],
+    "Bún Chả Cá (Fish Cake Vermicelli)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Canh Mướp Đắng (Bitter Melon Soup)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber",
+        "LowFat",
+        "LowCalorie"
+    ],
+    "Gỏi Tép (Tiny Shrimp Salad)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Cá Trê Nướng (Grilled Catfish)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb"
+    ],
+    "Gà Nướng Mật Ong (Honey Grilled Chicken)": [
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Lentil and Collard Greens Stew": [
+        "Vegan",
+        "GlutenFree",
+        "HighProtein",
+        "HighFiber",
+        "LowFat"
+    ],
+    "Gỏi Cá Mai (Vietnamese Fish Salad)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Bánh Khoái (Hue-Style Crispy Pancakes)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Chè Bà Ba (Mixed Sweet Soup)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Cơm Hến (Baby Clam Rice)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Chả Ram Tôm Đất (Earth Shrimp Spring Rolls)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Bánh Canh Cua (Crab Tapioca Noodle Soup)": [
+        "Pescatarian",
+        "HighProtein"
+    ],
+    "Mực Nướng Mật Ong (Honey Grilled Squid)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb"
+    ],
+    "Hủ Tiếu (Southern Vietnamese Noodle Soup)": [
+        "HighProtein"
+    ],
+    "Bún Thịt Nướng Cà Phê (Coffee-Flavored Grilled Pork Vermicelli)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Roasted Brussels Sprouts with Bacon": [
+        "HighProtein",
+        "HighFiber",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Bún Bò Cay (Spicy Beef Noodle Soup)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Lẩu Thái (Thai Hot Pot Vietnamese Style)": [
+        "Pescatarian",
+        "HighProtein"
+    ],
+    "Bánh Tét (Cylindrical Sticky Rice Cake)": [
+        "Vegan",
+        "GlutenFree"
+    ],
+    "Bánh Rán (Vietnamese Fried Doughnut)": [
+        "Vegetarian",
+        "GlutenFree"
+    ],
+    "Cơm Chiên Dương Châu (Yangzhou Fried Rice)": [
+        "HighProtein"
+    ],
+    "Bánh Tráng Nướng (Vietnamese Pizza)": [
+        "Vegetarian",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Gỏi Măng Khô (Dried Bamboo Shoot Salad)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Cơm Cháy Chà Bông (Crispy Rice with Pork Floss)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Gỏi Tôm Thịt (Shrimp and Pork Salad)": [
+        "HighProtein",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Bún Chả (Grilled Pork with Vermicelli)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Bánh Cốm (Young Rice Cake)": [
+        "Vegan",
+        "GlutenFree"
+    ],
+    "Grilled Lamb Chops with Rosemary": [
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Bánh Pía (Durian Mooncake)": [
+        "Vegetarian"
+    ],
+    "Gỏi Cá Trích (Herring Fish Salad)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Bún Ốc (Snail Noodle Soup)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Cá Kho Tộ (Caramelized Braised Fish)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb"
+    ],
+    "Cơm Tấm Sườn Nướng (Broken Rice with Grilled Pork)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Bánh Tét Lá Cẩm (Sticky Rice Cake with Magenta Plant)": [
+        "Vegan",
+        "GlutenFree"
+    ],
+    "Gà Xào Sả Ớt (Spicy Lemongrass Chicken Stir-fry)": [
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Bánh Tráng Trộn (Mixed Rice Paper Salad)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Baked Haddock with Lemon and Parsley": [
+        "Pescatarian",
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Crab and Avocado Salad": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Gà Hấp Lá Chanh (Chicken Steamed with Lime Leaves)": [
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Buttermilk Fried Chicken Wings": [
+        "HighProtein"
+    ],
+    "Bún Chả Hà Nội (Hanoi Style Grilled Pork with Vermicelli)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Bánh Mì Xíu Mại (Vietnamese Meatball Sandwich)": [
+        "HighProtein"
+    ],
+    "Chickpea and Spinach Curry": [
+        "Vegan",
+        "GlutenFree",
+        "HighProtein",
+        "HighFiber",
+        "LowFat"
+    ],
+    "Bánh Mì Chảo (Pan Bread with Meat)": [
+        "HighProtein"
+    ],
+    "Apple Walnut Salad": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Bún Thang (Hanoi Chicken Noodle Soup)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Gà Quay (Vietnamese Roast Chicken)": [
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Cá Kho Dừa (Fish Braised in Coconut Juice)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb"
+    ],
+    "Bánh Hỏi (Fine Rice Vermicelli Mat)": [
+        "Vegan",
+        "GlutenFree"
+    ],
+    "Cá Hồi Nướng Mọi (Grilled Salmon)": [
+        "Pescatarian",
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Bánh Cuốn (Steamed Rice Rolls)": [
+        "GlutenFree",
+        "HighProtein"
+    ],
+    "Spicy Grilled Chicken Thighs": [
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Lẩu Cá Kèo (Gobies Fish Hot Pot)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Shrimp Avocado Salad": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Mực Hấp Sả (Steamed Squid with Lemongrass)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb",
+        "LowCalorie"
+    ],
+    "Cá Lóc Nướng Trui (Grilled Snakehead Fish)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb"
+    ],
+    "Tomato Basil Salad": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie",
+        "LowFat"
+    ],
+    "Lẩu Cá Lăng (Catfish Hot Pot)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Cá Kho Tộ Nước Dừa (Fish Braised in Coconut Juice)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb"
+    ],
+    "Bánh Rế (Sweet Potato Fritters)": [
+        "Vegetarian",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Bánh Tằm Bì (Pulled Pork Rice Cake)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Chè Sương Sáo (Grass Jelly Sweet Soup)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Turkey Thighs with Mustard Sauce": [
+        "HighProtein",
+        "LowCarb",
+        "GlutenFree"
+    ],
+    "Spicy Grilled Catfish": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb"
+    ],
+    "Lẩu Gà Lá Giang (Chicken Hotpot with La Giang Leaves)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Bún Mọc (Pork Meatball Noodle Soup)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Canh Chua Cá (Vietnamese Sour Fish Soup)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCalorie"
+    ],
+    "Chả Cá Lã Vọng (Turmeric Fish with Dill)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb"
+    ],
+    "Bún Riêu Cua Đồng (Crab Vermicelli Soup)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Bún Riêu (Crab Noodle Soup)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Bánh Da Lợn (Layered Steamed Cake)": [
+        "Vegan",
+        "GlutenFree"
+    ],
+    "Bún Bò Huế (Spicy Beef Noodle Soup)": [
+        "HighProtein",
+        "GlutenFree"
+    ],
+    "Bún Bò Nam Bộ (Southern Vietnamese Beef Noodle Salad)": [
+        "HighProtein",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Gỏi Ngó Sen (Lotus Stem Salad)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Cod with Lemon and Herbs": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb",
+        "LowCalorie"
+    ],
+    "Bánh Tét Chuối (Banana Sticky Rice Cake)": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber"
+    ],
+    "Spicy Prawn Skewers": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "LowCarb"
+    ],
+    "Blueberry Banana Smoothie": [
+        "Vegetarian",
+        "GlutenFree",
+        "HighFiber",
+        "LowFat"
+    ],
+    "Gỏi Cá Mai Nha Trang (Nha Trang Fish Salad)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie"
+    ],
+    "Fennel and Orange Salad": [
+        "Vegan",
+        "GlutenFree",
+        "HighFiber",
+        "LowCalorie",
+        "LowFat"
+    ],
+    "Bánh Bột Lọc (Clear Shrimp Dumplings)": [
+        "Pescatarian",
+        "HighProtein",
+        "GlutenFree"
+    ]
+}

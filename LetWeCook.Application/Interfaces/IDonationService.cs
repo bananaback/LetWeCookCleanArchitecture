@@ -1,6 +1,7 @@
 using LetWeCook.Application.DTOs.Donation;
 
 namespace LetWeCook.Application.Interfaces;
+
 public interface IDonationService
 {
     Task<Guid> CreateDonationAsync(
@@ -10,6 +11,7 @@ public interface IDonationService
         string currency,
         string donateMessage,
         CancellationToken cancellationToken = default);
+    Task SeedRecipeDonationsAsync(int amount, CancellationToken cancellationToken = default);
 
     Task<(bool Success, string TransactionId, string CustomId, string Error)> CaptureDonationAsync(string orderId, CancellationToken cancellationToken = default);
 

@@ -142,6 +142,11 @@ using (var scope = app.Services.CreateScope())
 
         await DataSeeder.SeedRecipeRatingsAsync(services, 1000, CancellationToken.None);
 
+        await DataSeeder.SeedRecipeDonationsAsync(services, 1000, CancellationToken.None);
+
+        await DataSeeder.SeedSuggestionFeedbacksAsync(services, 5000, CancellationToken.None);
+
+
     }
     catch (Exception ex)
     {

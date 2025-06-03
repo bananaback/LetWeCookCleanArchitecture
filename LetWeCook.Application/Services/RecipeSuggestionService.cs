@@ -65,4 +65,5 @@ public class RecipeSuggestionService : IRecipeSuggestionService
         await _suggestionFeedbackRepository.AddAsync(feedback, cancellationToken);
         await _unitOfWork.CommitAsync(cancellationToken);
     }
+
 }

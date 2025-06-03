@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace LetWeCook.Infrastructure.Persistence.Migrations
+namespace LetWeCook.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -231,6 +231,27 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "recipe_collections",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    recipe_count = table.Column<int>(type: "int", nullable: false),
+                    created_at = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    created_by_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_recipe_collections", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_recipe_collections_site_users_created_by_id",
+                        column: x => x.created_by_id,
+                        principalTable: "site_users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "recipes",
                 columns: table => new
                 {
@@ -289,6 +310,7 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     facebook_url = table.Column<string>(type: "nvarchar(255)", nullable: true),
                     instagram_url = table.Column<string>(type: "nvarchar(255)", nullable: true),
                     phone_number = table.Column<string>(type: "nvarchar(15)", nullable: true),
+                    paypal_email = table.Column<string>(type: "nvarchar(255)", nullable: true),
                     profile_picture_url = table.Column<string>(type: "nvarchar(255)", nullable: true)
                 },
                 constraints: table =>
@@ -440,6 +462,70 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "donations",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    recipe_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    donator_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    author_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    transaction_id = table.Column<string>(type: "nvarchar(255)", nullable: false),
+                    amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    currency = table.Column<string>(type: "nvarchar(3)", nullable: false),
+                    donate_message = table.Column<string>(type: "nvarchar(500)", nullable: true),
+                    status = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    approval_url = table.Column<string>(type: "nvarchar(500)", nullable: true),
+                    created_at = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETUTCDATE()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_donations", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_donations_recipes_recipe_id",
+                        column: x => x.recipe_id,
+                        principalTable: "recipes",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_donations_site_users_author_id",
+                        column: x => x.author_id,
+                        principalTable: "site_users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_donations_site_users_donator_id",
+                        column: x => x.donator_id,
+                        principalTable: "site_users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "recipe_collection_items",
+                columns: table => new
+                {
+                    recipe_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    collection_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    added_at = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_recipe_collection_items", x => new { x.recipe_id, x.collection_id });
+                    table.ForeignKey(
+                        name: "FK_recipe_collection_items_recipe_collections_collection_id",
+                        column: x => x.collection_id,
+                        principalTable: "recipe_collections",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_recipe_collection_items_recipes_recipe_id",
+                        column: x => x.recipe_id,
+                        principalTable: "recipes",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "recipe_details",
                 columns: table => new
                 {
@@ -492,6 +578,34 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "recipe_ratings",
+                columns: table => new
+                {
+                    recipe_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    rating = table.Column<int>(type: "int", nullable: false),
+                    comment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    created_at = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_recipe_ratings", x => new { x.recipe_id, x.user_id });
+                    table.ForeignKey(
+                        name: "FK_recipe_ratings_recipes_recipe_id",
+                        column: x => x.recipe_id,
+                        principalTable: "recipes",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_recipe_ratings_site_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "site_users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "recipe_tags_recipes",
                 columns: table => new
                 {
@@ -511,6 +625,33 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                         name: "FK_recipe_tags_recipes_recipes_recipe_id",
                         column: x => x.recipe_id,
                         principalTable: "recipes",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "suggestion_feedbacks",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    recipe_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    like_or_dislike = table.Column<bool>(type: "bit", nullable: false),
+                    created_at = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_suggestion_feedbacks", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_suggestion_feedbacks_recipes_recipe_id",
+                        column: x => x.recipe_id,
+                        principalTable: "recipes",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_suggestion_feedbacks_site_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "site_users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -587,6 +728,32 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                     { new Guid("00000000-0000-0000-0000-000000000016"), "Fallback category for unspecified ingredients", "Uncategorized" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "recipe_tags",
+                columns: new[] { "id", "name" },
+                values: new object[,]
+                {
+                    { new Guid("11111111-1111-1111-1111-111111111111"), "Vietnamese" },
+                    { new Guid("12345678-1234-1234-1234-123456789012"), "Brazilian" },
+                    { new Guid("22222222-2222-2222-2222-222222222222"), "Chinese" },
+                    { new Guid("23456789-2345-2345-2345-234567890123"), "Caribbean" },
+                    { new Guid("33333333-3333-3333-3333-333333333333"), "Mexican" },
+                    { new Guid("34567890-3456-3456-3456-345678901234"), "African" },
+                    { new Guid("44444444-4444-4444-4444-444444444444"), "Italian" },
+                    { new Guid("45678901-4567-4567-4567-456789012345"), "German" },
+                    { new Guid("55555555-5555-5555-5555-555555555555"), "Indian" },
+                    { new Guid("66666666-6666-6666-6666-666666666666"), "Thai" },
+                    { new Guid("77777777-7777-7777-7777-777777777777"), "Japanese" },
+                    { new Guid("88888888-8888-8888-8888-888888888888"), "Korean" },
+                    { new Guid("99999999-9999-9999-9999-999999999999"), "American" },
+                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"), "French" },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"), "Mediterranean" },
+                    { new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"), "Middle Eastern" },
+                    { new Guid("dddddddd-dddd-dddd-dddd-dddddddddddd"), "Spanish" },
+                    { new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"), "Greek" },
+                    { new Guid("ffffffff-ffff-ffff-ffff-ffffffffffff"), "Turkish" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -639,6 +806,21 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_donations_author_id",
+                table: "donations",
+                column: "author_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_donations_donator_id",
+                table: "donations",
+                column: "donator_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_donations_recipe_id",
+                table: "donations",
+                column: "recipe_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ingredient_details_detail_id",
                 table: "ingredient_details",
                 column: "detail_id",
@@ -666,6 +848,16 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 column: "created_by_user_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_recipe_collection_items_collection_id",
+                table: "recipe_collection_items",
+                column: "collection_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_recipe_collections_created_by_id",
+                table: "recipe_collections",
+                column: "created_by_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_recipe_details_detail_id",
                 table: "recipe_details",
                 column: "detail_id",
@@ -682,6 +874,11 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 column: "ingredient_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_recipe_ratings_user_id",
+                table: "recipe_ratings",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_recipe_tags_recipes_recipe_tag_id",
                 table: "recipe_tags_recipes",
                 column: "recipe_tag_id");
@@ -696,6 +893,16 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 name: "IX_recipes_created_by_id",
                 table: "recipes",
                 column: "created_by_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_suggestion_feedbacks_recipe_id",
+                table: "suggestion_feedbacks",
+                column: "recipe_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_suggestion_feedbacks_user_id",
+                table: "suggestion_feedbacks",
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_user_dietary_preferences_dietary_preference_id",
@@ -736,7 +943,13 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 name: "detail_media_urls");
 
             migrationBuilder.DropTable(
+                name: "donations");
+
+            migrationBuilder.DropTable(
                 name: "ingredient_details");
+
+            migrationBuilder.DropTable(
+                name: "recipe_collection_items");
 
             migrationBuilder.DropTable(
                 name: "recipe_details");
@@ -745,7 +958,13 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
                 name: "recipe_ingredients");
 
             migrationBuilder.DropTable(
+                name: "recipe_ratings");
+
+            migrationBuilder.DropTable(
                 name: "recipe_tags_recipes");
+
+            migrationBuilder.DropTable(
+                name: "suggestion_feedbacks");
 
             migrationBuilder.DropTable(
                 name: "user_dietary_preferences");
@@ -758,6 +977,9 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "recipe_collections");
 
             migrationBuilder.DropTable(
                 name: "details");

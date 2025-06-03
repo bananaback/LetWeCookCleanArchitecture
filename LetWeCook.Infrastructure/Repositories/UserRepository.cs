@@ -15,6 +15,7 @@ public class UserRepository : Repository<SiteUser>, IUserRepository
     public Task<List<SiteUser>> GetAllWithProfileAsync(CancellationToken cancellationToken = default)
     {
         return _dbSet.Include(u => u.Profile)
+            .ThenInclude(p => p.DietaryPreferences)
             .ToListAsync(cancellationToken);
     }
 

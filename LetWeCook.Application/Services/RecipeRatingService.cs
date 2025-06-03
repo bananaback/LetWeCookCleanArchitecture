@@ -406,7 +406,7 @@ public class RecipeRatingService : IRecipeRatingService
         // pick random recipe and user
         var random = new Random();
 
-        for (int i = 0; i < amount; i++)
+        for (int i = 0; i < amount - existingRatings.Count; i++)
         {
             var recipe = recipes[random.Next(recipes.Count)];
             var user = users[random.Next(users.Count)];

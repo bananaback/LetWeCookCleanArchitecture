@@ -1,12 +1,10 @@
 using LetWeCook.Application.Dtos;
-using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Aggregates;
 using LetWeCook.Domain.Common;
 using LetWeCook.Domain.Entities;
 using LetWeCook.Domain.Enums;
 using LetWeCook.Domain.Events;
-using LetWeCook.Domain.Exceptions;
 using LetWeCook.Domain.ValueObjects;
 
 namespace LetWeCook.Application.Services;
@@ -16,14 +14,16 @@ public class UserService : IUserService
     private readonly IIdentityService _identityService;
     private readonly IUserRepository _userRepository;
     private readonly IUserProfileRepository _userProfileRepository;
+    private readonly IDietaryPreferenceRepository _dietaryPreferenceRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IDomainEventDispatcher _domainEventDispatcher;
 
-    public UserService(IIdentityService identityService, IUserRepository userRepository, IUserProfileRepository userProfileRepository, IUnitOfWork unitOfWork, IDomainEventDispatcher domainEventDispatcher)
+    public UserService(IIdentityService identityService, IUserRepository userRepository, IUserProfileRepository userProfileRepository, IDietaryPreferenceRepository dietaryPreferenceRepository, IUnitOfWork unitOfWork, IDomainEventDispatcher domainEventDispatcher)
     {
         _identityService = identityService;
         _userRepository = userRepository;
         _userProfileRepository = userProfileRepository;
+        _dietaryPreferenceRepository = dietaryPreferenceRepository;
         _unitOfWork = unitOfWork;
         _domainEventDispatcher = domainEventDispatcher;
     }
@@ -166,6 +166,9 @@ public class UserService : IUserService
         string[] districts = { "District 1", "District 3", "District 5", "Binh Thanh", "Phu Nhuan", "Tan Binh", "Go Vap" };
         string[] provincesOrCities = { "Ho Chi Minh City", "Hanoi", "Da Nang", "Can Tho", "Hai Phong" };
 
+        var allPreferences = await _dietaryPreferenceRepository.GetAllAsync(cancellationToken);
+        // exclude preferences with name "None"
+        allPreferences = allPreferences.Where(dp => dp.Name != "None").ToList();
         foreach (var user in users)
         {
             if (user.Profile != null) continue;
@@ -218,6 +221,16 @@ public class UserService : IUserService
             {
                 UserId = user.Id
             };
+
+            var maxRandomPreferences = 3;
+            var shuffledPreferences = allPreferences.OrderBy(_ => random.Next()).ToList();
+            var selectedCount = random.Next(1, maxRandomPreferences + 1); // Random number of preferences (1 to 3)
+            var selectedPreferenceNames = shuffledPreferences
+                .Take(selectedCount)
+                .Select(dp => dp.Name)
+                .ToList();
+
+            newProfile.UpdateDietaryPreferences(selectedPreferenceNames, allPreferences);
 
             await _userProfileRepository.AddAsync(newProfile, cancellationToken);
         }

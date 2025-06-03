@@ -38,15 +38,18 @@
             <div class="relative w-full h-80 rounded-2xl overflow-hidden shadow-lg border-4 border-yellow-500">
                 <img id="coverImage" src="" alt="Cover"
                     class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500">
-                <div class="absolute top-4 right-4">
-                    <button id="saveRecipe"
-                        class="bg-red-600 text-white px-6 py-3 rounded-full flex items-center gap-2 hover:bg-red-700 transition text-lg font-bold">
-                        <span>Save Recipe</span>
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-3-5 3V4z" />
-                        </svg>
-                    </button>
-                </div>
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <div class="absolute top-4 right-4">
+                        <button id="openModalBtn"
+                            class="bg-red-600 text-white px-6 py-3 rounded-full flex items-center gap-2 hover:bg-red-700 transition text-lg font-bold">
+                            <span>Save Recipe</span>
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-3-5 3V4z" />
+                            </svg>
+                        </button>
+                    </div>
+                }
             </div>
 
             <!-- Name & Description -->
@@ -324,10 +327,67 @@
 
 </div>
 
+<!-- Modal Overlay -->
+<div id="recipeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+    <div class="bg-amber-50 w-full max-w-md rounded-2xl shadow-2xl p-6 relative">
+
+        <!-- Close Button -->
+        <button id="closeModalBtn" class="absolute top-3 right-3 text-amber-500 hover:text-red-500 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <!-- Modal Content -->
+        <div class="space-y-5">
+            <h2 class="text-3xl font-bold text-amber-700 text-center">Save to Collection</h2>
+            <p class="text-sm text-stone-600 text-center">Choose a collection or create a new one to save your recipe
+            </p>
+
+            <!-- Radio Options -->
+            <div class="flex flex-col gap-3">
+                <label class="flex items-center gap-2 text-stone-700 font-medium">
+                    <input type="radio" name="collectionMode" value="existing" id="selectExisting"
+                        class="accent-emerald-600" checked>
+                    <span>Select from existing</span>
+                </label>
+
+                <label class="flex items-center gap-2 text-stone-700 font-medium">
+                    <input type="radio" name="collectionMode" value="new" id="createNew" class="accent-emerald-600">
+                    <span>Create new collection</span>
+                </label>
+            </div>
+
+            <!-- Existing Dropdown -->
+            <div id="existingCollectionSection">
+                <select id="collections"
+                    class="w-full mt-1 px-4 py-2 bg-white border-2 border-amber-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 text-stone-700 font-medium">
+                    <option selected disabled>Loading...</option>
+                </select>
+            </div>
+
+            <!-- New Collection Input -->
+            <div id="newCollectionSection" class="hidden">
+                <input type="text" id="newCollection" placeholder="e.g. Grandma's Favorites"
+                    class="w-full mt-1 px-4 py-2 bg-white border-2 border-lime-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 text-stone-700 font-medium" />
+            </div>
+
+            <!-- Confirm Button -->
+            <div class="text-right pt-2">
+                <button id="addToCollectionBtn"
+                    class="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition font-semibold shadow-md">
+                    Add to Collection
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/recipe-detail.js"></script>
     <script src="~/js/recipe-detail-rating.js"></script>
+    <script src="~/js/recipe-detail-collection.js"></script>
 }

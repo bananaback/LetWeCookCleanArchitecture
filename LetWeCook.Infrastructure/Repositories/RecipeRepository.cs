@@ -23,6 +23,14 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
         return query.CountAsync(cancellationToken);
     }
 
+    public Task<Recipe?> GetByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        return _dbSet
+            .Include(r => r.CoverMediaUrl)
+            .Include(r => r.CreatedBy)
+            .FirstOrDefaultAsync(r => r.Name == name, cancellationToken);
+    }
+
     public Task<string?> GetNameByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return _dbSet
