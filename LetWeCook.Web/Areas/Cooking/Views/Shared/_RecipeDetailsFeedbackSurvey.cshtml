@@ -1,0 +1,45 @@
+<div class="recipe-feedback-partial">
+    <p class="text-white mb-3 font-medium">Did you like this recipe?</p>
+    <div class="feedback-buttons flex gap-4">
+        <button class="like-btn px-4 py-2 text-sm bg-green-100 text-green-700 rounded hover:bg-green-200 transition"
+            type="button">
+            👍 Like
+        </button>
+        <button class="dislike-btn px-4 py-2 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200 transition"
+            type="button">
+            👎 Dislike
+        </button>
+    </div>
+    <div class="feedback-result mt-3 text-white font-semibold text-sm"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(function () {
+        const $container = $('.recipe-feedback-partial');
+        const $buttons = $container.find('.feedback-buttons button');
+        const $result = $container.find('.feedback-result');
+        const recipeId = $('#recipeId').val();
+
+        $buttons.on('click', function () {
+            const isLike = $(this).hasClass('like-btn');
+
+            // Disable buttons
+            $buttons.prop('disabled', true).attr('aria-disabled', 'true');
+            $container.find('.feedback-buttons').fadeOut();
+
+            // Show response text
+            $result
+                .text(isLike ? 'You liked this recipe.' : 'You disliked this recipe.')
+                .removeClass('text-green-600 text-red-600')
+                .addClass(isLike ? 'text-green-600' : 'text-red-600');
+
+            // Submit feedback
+            $.post('/api/suggestions', { recipeId, isLike })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    console.log(`Feedback submission failed: ${textStatus} - ${errorThrown}`);
+                });
+        });
+    });
+</script>

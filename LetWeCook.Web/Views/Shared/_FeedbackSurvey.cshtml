@@ -12,23 +12,21 @@
   <div id="recipe-cards" class="flex flex-row items-center justify-center gap-16">
     <!-- Cards will be rendered here -->
   </div>
+
+
 </div>
-
-
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
   $(function () {
     const $cards = $('#recipe-cards');
-    $cards.empty();
+    let recipeQueue = [];
 
-    // Function to generate card HTML
-    function generateCardHtml(recipe) {
+    function generateCardHtml(recipe, queueIndex) {
       return `
 <div class="recipe-card flex flex-col border border-gray-200 rounded-xl shadow hover:shadow-md transition p-4"
-     style="width: 280px;" data-id="${recipe.id}">
+     style="width: 280px;" data-id="${recipe.id}" data-queue-index="${queueIndex}">
   <h3 class="text-base font-semibold text-gray-800 mb-3 truncate" title="${recipe.name}">
     ${recipe.name}
   </h3>
@@ -37,78 +35,86 @@
       <img src="${recipe.coverImage}" alt="${recipe.name}" class="w-full h-full object-cover" />
     </a>
   </div>
-  <div class="feedback-buttons flex gap-4 justify-center mt-auto">
-    <button class="like-btn px-4 py-2 text-base bg-green-100 text-green-700 rounded hover:bg-green-200 transition" type="button">
-      👍 Like
-    </button>
-    <button class="dislike-btn px-4 py-2 text-base bg-red-100 text-red-700 rounded hover:bg-red-200 transition" type="button">
-      👎 Dislike
-    </button>
+  <div class="feedback-buttons flex gap-2 justify-center mt-auto">
+    <button class="like-btn px-3 py-1 text-sm bg-green-100 text-green-700 rounded hover:bg-green-200 transition" type="button">👍 Like</button>
+    <button class="dislike-btn px-3 py-1 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200 transition" type="button">👎 Dislike</button>
+    <button class="replace-btn px-3 py-1 text-sm bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition" type="button">❌ Replace</button>
   </div>
-  <div class="feedback-result text-center mt-3 font-semibold"></div>
+  <div class="feedback-result text-center mt-2 font-semibold"></div>
 </div>`;
     }
 
-    // Initial load of 3 recipes (real API)
-    $.get('/api/suggestions?count=3')
-      .done(function (recipes) {
-        recipes.forEach(recipe => {
-          $cards.append(generateCardHtml(recipe));
-        });
-      })
-      .fail(function () {
-        $cards.append('<p class="text-red-600">Failed to load recipes. Please try again.</p>');
-      });
+    function renderCardAt(index) {
+      const $oldCard = $cards.find(`.recipe-card[data-queue-index="${index}"]`);
+      const recipe = recipeQueue[index];
+      const newCardHtml = generateCardHtml(recipe, index);
 
-    // Like/Dislike click handling
+      $oldCard.fadeOut(300, function () {
+        $(this).replaceWith(newCardHtml);
+        $cards.find(`.recipe-card[data-queue-index="${index}"]`).hide().fadeIn(300);
+      });
+    }
+
+    function loadMoreRecipes(count = 5) {
+      return $.get(`/api/suggestions?count=${count}`)
+        .done(function (recipes) {
+          recipeQueue.push(...recipes);
+        })
+        .fail(function () {
+          console.error("Failed to load more recipes.");
+        });
+    }
+
+    function replaceRecipeAt(index) {
+      $.get('/api/suggestions?count=1')
+        .done(function (recipes) {
+          const newRecipe = recipes[0];
+          recipeQueue[index] = newRecipe;
+          renderCardAt(index);
+        })
+        .fail(function () {
+          console.error("Failed to replace recipe.");
+        });
+    }
+
+    // Like/Dislike
     $cards.on('click', '.like-btn, .dislike-btn', function () {
       const $card = $(this).closest('.recipe-card');
       const recipeId = $card.data('id');
+      const queueIndex = parseInt($card.attr('data-queue-index'), 10);
       const isLike = $(this).hasClass('like-btn');
-
-      // Prevent multiple clicks
-      $(this).prop('disabled', true).attr('aria-disabled', 'true')
-        .siblings().prop('disabled', true).attr('aria-disabled', 'true');
-
-      // Show feedback result text and hide buttons
       const $result = $card.find('.feedback-result');
-      $card.find('.feedback-buttons').fadeOut();
-      if (isLike) {
-        $result.text('You liked this recipe').removeClass('text-red-600').addClass('text-green-600');
-      } else {
-        $result.text('You disliked this recipe').removeClass('text-green-600').addClass('text-red-600');
-      }
 
-      // Submit feedback to real API (but proceed regardless of outcome)
+      $card.find('.feedback-buttons button')
+        .prop('disabled', true)
+        .attr('aria-disabled', 'true');
+
+      $card.find('.feedback-buttons').fadeOut();
+      $result
+        .text(isLike ? 'You liked this recipe' : 'You disliked this recipe')
+        .removeClass('text-green-600 text-red-600')
+        .addClass(isLike ? 'text-green-600' : 'text-red-600');
+
       $.post('/api/suggestions', { recipeId, isLike })
-        .done(function () {
-          // No action needed on success
-        })
         .fail(function (jqXHR, textStatus, errorThrown) {
-          // Silently log the error
           console.log(`Feedback submission failed: ${textStatus} - ${errorThrown}`);
         });
 
-      // Wait 3 seconds, then fetch and replace with a new recipe
-      setTimeout(function () {
-        $.get('/api/suggestions?count=1')
-          .done(function (response) {
-            // Handle response (array or single object)
-            const newRecipe = Array.isArray(response) ? response[0] : response;
-            // Create new card HTML
-            const newCardHtml = generateCardHtml(newRecipe);
-            // Replace the old card with a fade effect
-            $card.fadeOut(300, function () {
-              $card.replaceWith(newCardHtml);
-              $cards.find(`[data-id="${newRecipe.id}"]`).hide().fadeIn(300);
-            });
-          })
-          .fail(function () {
-            // Show error but keep the card functional
-            $result.text('Failed to load new recipe').removeClass('text-green-600').addClass('text-red-600');
-            $card.find('.feedback-buttons').fadeIn(); // Restore buttons if fetch fails
-          });
-      }, 3000); // 3-second delay
+      setTimeout(() => replaceRecipeAt(queueIndex), 3000);
+    });
+
+    // ❌ Replace
+    $cards.on('click', '.replace-btn', function () {
+      const $card = $(this).closest('.recipe-card');
+      const queueIndex = parseInt($card.attr('data-queue-index'), 10);
+      replaceRecipeAt(queueIndex);
+    });
+
+    // Initial load
+    loadMoreRecipes(6).then(() => {
+      recipeQueue.slice(0, 3).forEach((recipe, i) => {
+        $cards.append(generateCardHtml(recipe, i));
+      });
     });
   });
 </script>

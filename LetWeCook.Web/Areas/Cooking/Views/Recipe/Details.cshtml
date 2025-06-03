@@ -13,6 +13,7 @@
         class="px-6 py-3 bg-lime-500 text-teal-800 font-semibold rounded-full shadow-lg transform hover:bg-lime-400 transition duration-300">
         Return to Home
     </a>
+    @await Html.PartialAsync("_RecipeDetailsFeedbackSurvey")
 
     <!-- Return to Recipes Browser Button -->
     <a href="/Cooking/Recipe/Browser"
@@ -382,7 +383,9 @@
             </div>
         </div>
     </div>
+
 </div>
+
 
 
 @section Scripts {
