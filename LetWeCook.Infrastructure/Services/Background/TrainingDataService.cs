@@ -4,8 +4,11 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Aggregates;
+using LetWeCook.Domain.Common;
 using LetWeCook.Domain.Enums;
+using LetWeCook.Domain.Events;
 using LetWeCook.Domain.Utilities;
+using LetWeCook.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -17,13 +20,36 @@ public class TrainingDataService : BackgroundService
     private readonly ILogger<TrainingDataService> _logger;
     private readonly IServiceProvider _serviceProvider;
     private const string CsvPath = "training_data.csv";
-    private readonly TimeSpan _interval = TimeSpan.FromHours(6); // Adjust the interval as needed
+    private readonly TimeSpan _interval = TimeSpan.FromHours(1);
 
     public TrainingDataService(ILogger<TrainingDataService> logger, IServiceProvider serviceProvider)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
     }
+
+    private async Task SendFileToPythonServer(string filePath, CancellationToken cancellationToken)
+    {
+        using var client = new HttpClient();
+
+        using var form = new MultipartFormDataContent();
+        using var fileStream = File.OpenRead(filePath);
+        var content = new StreamContent(fileStream);
+        content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("text/csv");
+
+        form.Add(content, "file", "training_data.csv");
+
+        var response = await client.PostAsync("http://localhost:8000/upload", form, cancellationToken);
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync();
+            throw new Exception($"Upload failed: {response.StatusCode} - {error}");
+        }
+
+        var success = await response.Content.ReadAsStringAsync();
+        Console.WriteLine($"Upload successful: {success}");
+    }
+
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -32,116 +58,119 @@ public class TrainingDataService : BackgroundService
             try
             {
                 _logger.LogInformation("Training data service is running at: {time}", DateTimeOffset.Now);
-                using (var scope = _serviceProvider.CreateScope())
+
+                var config = TrainingDataConfigHelper.LoadConfig();
+                _logger.LogInformation("Last CSV upload: {CsvTime}, Last Snapshot: {SnapTime}",
+                    config.TrainingDataCsvLastSent, config.RecipesSnapshotLastSent);
+
+                // === Handle CSV Upload ===
+                if (TrainingDataConfigHelper.ShouldUploadCsv())
                 {
-                    // get recipe repository
-                    var recipeRepository = scope.ServiceProvider.GetRequiredService<IRecipeRepository>();
-                    // get user repository
-                    var userRepository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
-                    // get donation repository
-                    var donationRepository = scope.ServiceProvider.GetRequiredService<IDonationRepository>();
-                    // get rating repository
-                    var ratingRepository = scope.ServiceProvider.GetRequiredService<IRecipeRatingRepository>();
-                    // get suggestion feedback repository
-                    var suggestionFeedbackRepository = scope.ServiceProvider.GetRequiredService<ISuggestionFeedbackRepository>();
-                    // get all donations
-                    var donations = await donationRepository.GetAllAsync(stoppingToken);
-                    // get all recipe ratings
-                    var ratings = await ratingRepository.GetAllAsync(stoppingToken);
-                    // get all suggestion feedbacks
-                    var suggestionFeedbacks = await suggestionFeedbackRepository.GetAllAsync(stoppingToken);
-
-                    var records = new List<TrainingLogRow>();
-
-                    foreach (var rating in ratings)
+                    using (var scope = _serviceProvider.CreateScope())
                     {
-                        var user = await userRepository.GetWithProfileByIdAsync(rating.UserId, stoppingToken);
-                        if (user == null)
+                        var recipeRepository = scope.ServiceProvider.GetRequiredService<IRecipeRepository>();
+                        var userRepository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
+                        var donationRepository = scope.ServiceProvider.GetRequiredService<IDonationRepository>();
+                        var ratingRepository = scope.ServiceProvider.GetRequiredService<IRecipeRatingRepository>();
+                        var suggestionFeedbackRepository = scope.ServiceProvider.GetRequiredService<ISuggestionFeedbackRepository>();
+
+                        var donations = await donationRepository.GetAllAsync(stoppingToken);
+                        var ratings = await ratingRepository.GetAllAsync(stoppingToken);
+                        var suggestionFeedbacks = await suggestionFeedbackRepository.GetAllAsync(stoppingToken);
+
+                        var records = new List<TrainingLogRow>();
+
+                        // Ratings
+                        foreach (var rating in ratings)
                         {
-                            _logger.LogWarning("User with ID {UserId} not found for rating.", rating.UserId);
-                            continue;
+                            var user = await userRepository.GetWithProfileByIdAsync(rating.UserId, stoppingToken);
+                            if (user?.Profile == null || !user.Profile.DietaryPreferences.Any())
+                            {
+                                _logger.LogWarning("Skipping rating: user/profile missing for ID {UserId}.", rating.UserId);
+                                continue;
+                            }
+
+                            var recipe = await recipeRepository.GetRecipeDetailsByIdAsync(rating.RecipeId);
+                            if (recipe == null)
+                            {
+                                _logger.LogWarning("Skipping rating: recipe not found for ID {RecipeId}.", rating.RecipeId);
+                                continue;
+                            }
+
+                            var record = CreateBaseLogRow(user, recipe, rating.CreatedAt);
+                            record.Rating = rating.Rating;
+                            record.CommentLength = rating.Comment?.Length ?? 0;
+                            records.Add(record);
                         }
-                        // check if profile is not null
-                        if (user.Profile == null)
+
+                        // Donations
+                        foreach (var donation in donations)
                         {
-                            _logger.LogWarning("Profile for user with ID {UserId} is null.", rating.UserId);
-                            continue;
+                            var recipe = await recipeRepository.GetByIdAsync(donation.RecipeId);
+                            if (recipe == null) continue;
+
+                            var donator = await userRepository.GetWithProfileByIdAsync(donation.DonatorId, stoppingToken);
+                            if (donator?.Profile == null || !donator.Profile.DietaryPreferences.Any())
+                            {
+                                _logger.LogWarning("Skipping donation: profile missing for ID {DonatorId}.", donation.DonatorId);
+                                continue;
+                            }
+
+                            var record = CreateBaseLogRow(donator, recipe, donation.CreatedAt);
+                            record.DonatedAmount = donation.Amount;
+                            records.Add(record);
                         }
-                        // check if at least one dietary preference exists
-                        if (!user.Profile.DietaryPreferences.Any())
+
+                        // Feedback
+                        foreach (var feedback in suggestionFeedbacks)
                         {
-                            _logger.LogWarning("No dietary preferences found for user with ID {UserId}.", rating.UserId);
-                            continue;
+                            var user = await userRepository.GetWithProfileByIdAsync(feedback.UserId, stoppingToken);
+                            if (user?.Profile == null || !user.Profile.DietaryPreferences.Any())
+                            {
+                                _logger.LogWarning("Skipping feedback: profile missing for ID {UserId}.", feedback.UserId);
+                                continue;
+                            }
+
+                            var record = CreateBaseLogRow(user, feedback.Recipe, feedback.CreatedAt);
+                            record.Liked = feedback.LikeOrDislike;
+                            records.Add(record);
                         }
-                        var recipe = await recipeRepository.GetRecipeDetailsByIdAsync(rating.RecipeId);
-                        if (recipe == null)
-                        {
-                            _logger.LogWarning("Recipe with ID {RecipeId} not found for rating.", rating.RecipeId);
-                            continue;
-                        }
-                        var record = CreateBaseLogRow(user, recipe, rating.CreatedAt);
-                        record.Rating = rating.Rating;
-                        record.CommentLength = rating.Comment?.Length ?? 0;
-                        records.Add(record);
+
+                        // Write to CSV
+                        using var writer = new StreamWriter(CsvPath, false, Encoding.UTF8);
+                        using var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture));
+                        csv.WriteRecords(records);
+
+                        _logger.LogInformation("Training data CSV written to {CsvPath}", CsvPath);
                     }
 
-                    foreach (var donation in donations)
-                    {
-                        var recipe = await recipeRepository.GetByIdAsync(donation.RecipeId);
-                        if (recipe == null) continue;
-
-                        var donator = await userRepository.GetWithProfileByIdAsync(donation.DonatorId, stoppingToken);
-                        if (donator == null)
-                        {
-                            _logger.LogWarning("Donator with ID {DonatorId} not found.", donation.DonatorId);
-                            continue;
-                        }
-                        if (donator.Profile == null)
-                        {
-                            _logger.LogWarning("Profile for donator with ID {DonatorId} is null.", donation.DonatorId);
-                            continue;
-                        }
-                        if (!donator.Profile.DietaryPreferences.Any())
-                        {
-                            _logger.LogWarning("No dietary preferences found for donator with ID {DonatorId}.", donation.DonatorId);
-                            continue;
-                        }
-
-                        var record = CreateBaseLogRow(donator, recipe, donation.CreatedAt);
-                        record.DonatedAmount = donation.Amount;
-                        records.Add(record);
-                    }
-
-                    foreach (var feedback in suggestionFeedbacks)
-                    {
-                        var user = await userRepository.GetWithProfileByIdAsync(feedback.UserId, stoppingToken);
-                        if (user == null)
-                        {
-                            _logger.LogWarning("User with ID {UserId} not found for feedback.", feedback.UserId);
-                            continue;
-                        }
-                        // check if profile is not null
-                        if (user.Profile == null)
-                        {
-                            _logger.LogWarning("Profile for user with ID {UserId} is null.", feedback.UserId);
-                            continue;
-                        }
-                        // check if at least one dietary preference exists
-                        if (!user.Profile.DietaryPreferences.Any())
-                        {
-                            _logger.LogWarning("No dietary preferences found for user with ID {UserId}.", feedback.UserId);
-                            continue;
-                        }
-
-                        var record = CreateBaseLogRow(user, feedback.Recipe, feedback.CreatedAt);
-                        record.Liked = feedback.LikeOrDislike;
-                        records.Add(record);
-                    }
-
-                    using var writer = new StreamWriter(CsvPath, false, Encoding.UTF8);
-                    using var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture));
-                    csv.WriteRecords(records);
+                    await SendFileToPythonServer(CsvPath, stoppingToken);
+                    TrainingDataConfigHelper.UpdateLastUploadTime();
+                    _logger.LogInformation("Training data uploaded and timestamp updated.");
                 }
+                else
+                {
+                    _logger.LogInformation("CSV upload skipped (within 6-hour interval).");
+                }
+
+                // === Handle Snapshot Upload ===
+                if (TrainingDataConfigHelper.ShouldUploadSnapshot())
+                {
+                    _logger.LogInformation("Dispatching RecipeSnapshotRequestedEvent...");
+
+                    using (var scope = _serviceProvider.CreateScope())
+                    {
+                        var domainEventDispatcher = scope.ServiceProvider.GetRequiredService<IDomainEventDispatcher>();
+                        var recipeSnapshotRequestedEvent = new RecipeSnapshotRequestedEvent();
+
+                        await domainEventDispatcher.DispatchEventsAsync(
+                            new List<DomainEvent> { recipeSnapshotRequestedEvent }, stoppingToken);
+                    }
+
+                    TrainingDataConfigHelper.UpdateLastSnapshotUploadTime();
+                    _logger.LogInformation("Snapshot event dispatched and timestamp updated.");
+                }
+
             }
             catch (Exception ex)
             {
@@ -151,6 +180,7 @@ public class TrainingDataService : BackgroundService
             await Task.Delay(_interval, stoppingToken);
         }
     }
+
 
     private TrainingLogRow CreateBaseLogRow(SiteUser user, Recipe recipe, DateTime timestamp)
     {

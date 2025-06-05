@@ -16,6 +16,19 @@ public class RecipeRatingRepository : Repository<RecipeRating>, IRecipeRatingRep
         return query.CountAsync(cancellationToken);
     }
 
+    public async Task<int> CountRecipeAverageCommentLengthAsync(Guid recipeId, CancellationToken cancellationToken = default)
+    {
+        var lengths = await _dbSet
+        .Where(r => r.RecipeId == recipeId && r.Comment != null)
+        .Select(r => r.Comment)
+        .ToListAsync(cancellationToken);
+
+        if (lengths.Count == 0)
+            return 0;
+
+        return (int)lengths.Average(c => c.Length);
+    }
+
     public async Task<RecipeRating?> GetByUserIdAndRecipeIdAsync(Guid userId, Guid recipeId, CancellationToken cancellationToken = default)
     {
         return await _dbSet
@@ -23,6 +36,11 @@ public class RecipeRatingRepository : Repository<RecipeRating>, IRecipeRatingRep
         .ThenInclude(u => u.Profile)
             .Where(r => r.UserId == userId && r.RecipeId == recipeId)
             .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public IQueryable<RecipeRating> GetRecipeAverageCommentLength(Guid recipeId, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
     }
 
     public Task<List<RecipeRating>> GetRecipeRatingsAsync(Guid recipeId, CancellationToken cancellationToken = default)

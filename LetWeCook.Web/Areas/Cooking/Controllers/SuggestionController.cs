@@ -22,9 +22,25 @@ public class SuggestionController : Controller
     [HttpGet("api/suggestions")]
     public async Task<IActionResult> GetRecipeSuggestion(int count = 5, CancellationToken cancellationToken = default)
     {
-        var suggestions = await _recipeSuggestionService.GetRandomSuggestionsAsync(count, cancellationToken);
-        return Ok(suggestions);
+        try
+        {
+            Guid? siteUserIdNullable = await GetSiteUserId();
+
+            if (siteUserIdNullable == null)
+                throw new Exception("User ID not found");
+
+            Guid siteUserId = siteUserIdNullable.Value;
+
+            var suggestions = await _recipeSuggestionService.GetUserSpecificSuggestionsAsync(siteUserId, count, cancellationToken);
+            return Ok(suggestions);
+        }
+        catch (Exception)
+        {
+            var suggestions = await _recipeSuggestionService.GetRandomSuggestionsAsync(count, cancellationToken);
+            return Ok(suggestions);
+        }
     }
+
 
     [Authorize]
     [HttpPost("api/suggestions")]

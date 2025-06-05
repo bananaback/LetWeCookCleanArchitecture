@@ -8,6 +8,7 @@ public interface IRecipeRatingRepository : IRepository<RecipeRating>
     Task<List<RecipeRating>> GetRecipeRatingsAsync(Guid recipeId, CancellationToken cancellationToken = default);
     IQueryable<RecipeRating> GetRecipeRatingsQueryableAsync(Guid recipeId, CancellationToken cancellationToken = default);
     Task<int> CountAsync(IQueryable<RecipeRating> query, CancellationToken cancellationToken = default);
+    Task<int> CountRecipeAverageCommentLengthAsync(Guid recipeId, CancellationToken cancellationToken = default);
     Task<List<RecipeRating>> QueryableToListAsync(IQueryable<RecipeRating> query, CancellationToken cancellationToken = default);
 
 }

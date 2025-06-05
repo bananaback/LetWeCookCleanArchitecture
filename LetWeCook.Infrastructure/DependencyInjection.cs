@@ -51,7 +51,7 @@ public static class DependencyInjection
         services.AddScoped<INonBlockingDomainEventHandler<UserRegisteredEvent>, UserRegisteredEmailHandler>();
         services.AddScoped<INonBlockingDomainEventHandler<UserRequestedEmailEvent>, UserRequestedEmailHandler>();
         services.AddScoped<INonBlockingDomainEventHandler<UserRequestedPasswordResetEvent>, UserRequestedPasswordResetEventHandler>();
-
+        services.AddScoped<INonBlockingDomainEventHandler<RecipeSnapshotRequestedEvent>, RecipeSnapshotRequestedHandler>();
         // Register Application Services
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IUserProfileService, UserProfileService>();
@@ -65,6 +65,8 @@ public static class DependencyInjection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IRecipeSuggestionService, RecipeSuggestionService>();
         services.AddScoped<ICollectionService, RecipeCollectionService>();
+        services.AddScoped<IRecipeSnapshotService, RecipeSnapshotService>();
+        services.AddScoped<IPredictionService, PredictionService>();
 
         // Register Infrastructure Services
         services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -91,7 +93,9 @@ public static class DependencyInjection
         services.AddHostedService<RecipeExportService>();
         services.AddHostedService<HomepageService>();
         // TEMPORARY comment
-        //services.AddHostedService<TrainingDataService>();
+        services.AddHostedService<TrainingDataService>();
+
+        services.AddHttpClient();
 
 
         return services;

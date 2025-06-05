@@ -36,6 +36,14 @@ public class DonationRepository : Repository<Donation>, IDonationRepository
             .FirstOrDefaultAsync(d => d.Id == id);
     }
 
+    public async Task<int> GetRecipeTotalDonationAmount(Guid recipeId, CancellationToken cancellationToken)
+    {
+        return await _dbSet
+            .Where(d => d.RecipeId == recipeId && d.Status == "Completed")
+            .SumAsync(d => d.Amount, cancellationToken)
+            .ContinueWith(t => (int)t.Result, cancellationToken);
+    }
+
     public Task<int> GetTotalCountAsync(CancellationToken cancellationToken)
     {
         return _dbSet

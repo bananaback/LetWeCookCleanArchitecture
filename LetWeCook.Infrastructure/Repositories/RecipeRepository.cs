@@ -23,6 +23,26 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
         return query.CountAsync(cancellationToken);
     }
 
+    public Task<List<Recipe>> GetAllRecipesWithIngredientsAsync(CancellationToken cancellationToken = default)
+    {
+        return _dbSet
+            .Include(r => r.RecipeIngredients)
+                .ThenInclude(ri => ri.Ingredient)
+            .Include(r => r.Tags)
+            .AsSplitQuery()
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<List<Recipe>> GetByIdsAsync(List<Guid> ids, CancellationToken cancellationToken = default)
+    {
+        return await _dbSet
+            .Include(r => r.CoverMediaUrl)
+            .Include(r => r.CreatedBy)
+            .Where(r => ids.Contains(r.Id))
+            .AsSplitQuery()
+            .ToListAsync(cancellationToken);
+    }
+
     public Task<Recipe?> GetByNameAsync(string name, CancellationToken cancellationToken = default)
     {
         return _dbSet
