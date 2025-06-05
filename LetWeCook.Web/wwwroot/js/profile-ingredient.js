@@ -200,14 +200,14 @@ function populateIngredientCards(paginatedIngredients) {
         // Add event listener for Edit button
         $card.find('.edit-btn').on('click', function () {
             const ingredientId = $(this).closest('.ingredient-card').find('.ingredient-id').val();
-            const editUrl = `https://localhost:7212/Cooking/Ingredient/Update/${ingredientId}`;
+            const editUrl = `/Cooking/Ingredient/Update/${ingredientId}`;
             window.location.href = editUrl; // Redirect to the Edit page
         });
 
         // Add event listener for Delete button
         $card.find('.delete-btn').on('click', function () {
             const ingredientId = $(this).closest('.ingredient-card').find('.ingredient-id').val();
-            const deleteUrl = `https://localhost:7212/Cooking/Ingredient/Delete/${ingredientId}`;
+            const deleteUrl = `/Cooking/Ingredient/Delete/${ingredientId}`;
 
             // Confirm delete before redirecting
             if (confirm("Are you sure you want to delete this ingredient?")) {

@@ -28,7 +28,7 @@ public class UserRegisteredEmailHandler : INonBlockingDomainEventHandler<UserReg
             // Always generate the token here
             var token = await _identityService.GenerateEmailConfirmationTokenAsync(domainEvent.Email, cancellationToken);
 
-            var verificationUrl = $"https://localhost:7212/Identity/Account/VerifyEmail?email={Uri.EscapeDataString(domainEvent.Email)}&token={Uri.EscapeDataString(token)}"; await _emailService.SendEmailAsync(
+            var verificationUrl = $"/Identity/Account/VerifyEmail?email={Uri.EscapeDataString(domainEvent.Email)}&token={Uri.EscapeDataString(token)}"; await _emailService.SendEmailAsync(
                             domainEvent.Email,
                             "Verify Your Email",
                             $"Please verify your email by clicking <a href='{verificationUrl}'>here</a>.",

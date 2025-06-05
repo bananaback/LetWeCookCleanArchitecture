@@ -346,7 +346,7 @@ function loadRecipes(browsingOptions) {
                 </div>
 
                 <!-- Button -->
-                <a href="https://localhost:7212/Cooking/Recipe/Details/${recipe.id}" 
+                <a href="/Cooking/Recipe/Details/${recipe.id}" 
                    class="block mt-2 text-center bg-orange-500 hover:bg-orange-600 text-white py-1.5 rounded-md text-sm font-medium transition">
                    🍽️ View Recipe
                 </a>

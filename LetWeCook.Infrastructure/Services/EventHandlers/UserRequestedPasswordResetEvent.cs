@@ -20,7 +20,7 @@ public class UserRequestedPasswordResetEventHandler : INonBlockingDomainEventHan
     {
         try
         {
-            var resetUrl = $"https://localhost:7212/Identity/Account/ResetPassword?email={Uri.EscapeDataString(domainEvent.Email)}&token={Uri.EscapeDataString(domainEvent.Token)}";
+            var resetUrl = $"/Identity/Account/ResetPassword?email={Uri.EscapeDataString(domainEvent.Email)}&token={Uri.EscapeDataString(domainEvent.Token)}";
             await _emailService.SendEmailAsync(
                 domainEvent.Email,
                 "Reset Your Password",

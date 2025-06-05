@@ -4,7 +4,7 @@ $(document).ready(function () {
     console.log(ingredientId);
     // Fetch ingredient data from API
     $.ajax({
-        url: `https://localhost:7212/api/ingredients/${ingredientId}`,
+        url: `/api/ingredients/${ingredientId}`,
         method: "GET",
         success: function (data) {
             ingredientCategoryName = data.categoryName;
@@ -118,7 +118,7 @@ $(document).ready(function () {
                 const tiltClass = index % 2 === 0 ? "-rotate-2" : "rotate-2"; // Alternate tilt
 
                 $("#ingredients-container").append(`
-                    <a href="https://localhost:7212/Cooking/Ingredient/Details/${ingredient.id}" class="block">
+                    <a href="/Cooking/Ingredient/Details/${ingredient.id}" class="block">
                         <div class="bg-white p-4 rounded-lg shadow-md flex items-center gap-3 transform ${tiltClass} hover:rotate-0 transition-all duration-300 cursor-pointer border border-amber-200 hover:border-rose-300 max-w-xs mx-auto">
                             <img src="${ingredient.coverImageUrl || 'https://via.placeholder.com/100'}"
                                 class="w-1/4 h-1/4 rounded-md object-cover border border-lime-200 shadow-sm" alt="${ingredient.name}">
@@ -147,7 +147,7 @@ $(document).ready(function () {
                 const tiltClass = index % 2 === 0 ? "-rotate-2" : "rotate-2"; // Alternate tilt
 
                 $("#category-ingredients-container").append(`
-                    <a href="https://localhost:7212/Cooking/Ingredient/Details/${ingredient.id}" class="block">
+                    <a href="/Cooking/Ingredient/Details/${ingredient.id}" class="block">
                         <div class="bg-white p-4 rounded-lg shadow-md flex items-center gap-3 transform ${tiltClass} hover:rotate-0 transition-all duration-300 cursor-pointer border border-amber-200 hover:border-rose-300 max-w-xs mx-auto">
                             <img src="${ingredient.coverImageUrl || 'https://via.placeholder.com/100'}"
                                 class="w-1/4 h-1/4 rounded-md object-cover border border-lime-200 shadow-sm" alt="${ingredient.name}">

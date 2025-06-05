@@ -4,6 +4,7 @@ using LetWeCook.Infrastructure.Persistence;
 using LetWeCook.Web.Areas.Identity.ViewModelValidators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -122,6 +123,11 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var config = SeedingConfigHelper.LoadConfig();
 
+    if (!app.Environment.IsDevelopment())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<LetWeCookDbContext>();
+        dbContext.Database.Migrate();
+    }
     try
     {
         if (config.SeedRolesAndAdmin)
@@ -144,21 +150,21 @@ using (var scope = app.Services.CreateScope())
 
         if (config.SeedIngredients)
         {
-            string path = "../LetWeCook.Infrastructure/Persistence/DataImporters/ingredients.json";
+            string path = "Persistence/DataImporters/ingredients.json";
             await DataSeeder.SeedIngredientsAsync(services, path, CancellationToken.None);
             config.SeedIngredients = false;
         }
 
         if (config.SeedRecipes)
         {
-            string path = "../LetWeCook.Infrastructure/Persistence/DataImporters/recipes.json";
+            string path = "Persistence/DataImporters/recipes.json";
             await DataSeeder.SeedRecipesAsync(services, path, CancellationToken.None);
             config.SeedRecipes = false;
         }
 
         if (config.SeedRecipesWithImages)
         {
-            string path = "../LetWeCook.Infrastructure/Persistence/DataImporters/recipes-with-images.json";
+            string path = "Persistence/DataImporters/recipes-with-images.json";
             await DataSeeder.SeedRecipesWithImagesAsync(services, path, CancellationToken.None);
             config.SeedRecipesWithImages = false;
         }

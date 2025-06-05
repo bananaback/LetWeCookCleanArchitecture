@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     // Call GET /api/donations/donationId
     $.ajax({
-        url: 'https://localhost:7212/api/donations/' + encodeURIComponent(donationId),
+        url: '/api/donations/' + encodeURIComponent(donationId),
         method: 'GET',
         success: function (data) {
             populateDonationDetails(data);

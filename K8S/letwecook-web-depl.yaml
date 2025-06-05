@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: letwecook-web-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: letwecook-web
+  template:
+    metadata:
+      labels:
+        app: letwecook-web
+    spec:
+      containers:
+        - name: letwecook-web
+          image: letwecook-web:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+          ports:
+            - containerPort: 5015
+      initContainers:
+        - name: wait-for-mssql
+          image: busybox
+          command:
+            [
+              "sh",
+              "-c",
+              "until nc -z mssql-cook-clusterip-srv 1433; do echo waiting for mssql; sleep 2; done;",
+            ]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: letwecook-web-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: letwecook-web
+  ports:
+    - name: letwecook-web
+      protocol: TCP
+      port: 5015
+      targetPort: 5015
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: letwecook-web-srv
+spec:
+  type: LoadBalancer
+  selector:
+    app: letwecook-web
+  ports:
+    - name: letwecook-web
+      protocol: TCP
+      port: 5015
+      targetPort: 5015

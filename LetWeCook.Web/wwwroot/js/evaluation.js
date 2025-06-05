@@ -274,7 +274,7 @@ function updateRequestList(filteredRequests) {
             if (request.type === "CREATE_INGREDIENT" || request.type === "UPDATE_INGREDIENT") {
                 try {
                     ingredientData = await $.ajax({
-                        url: `https://localhost:7212/api/ingredient-overview/${request.newReferenceId}`,
+                        url: `/api/ingredient-overview/${request.newReferenceId}`,
                         method: 'GET',
                         dataType: 'json'
                     });
@@ -287,7 +287,7 @@ function updateRequestList(filteredRequests) {
             if (request.type === "CREATE_RECIPE" || request.type === "UPDATE_RECIPE") {
                 try {
                     recipeData = await $.ajax({
-                        url: `https://localhost:7212/api/recipe-overview/${request.newReferenceId}`,
+                        url: `/api/recipe-overview/${request.newReferenceId}`,
                         method: 'GET',
                         dataType: 'json'
                     });
@@ -396,12 +396,12 @@ function updateRequestList(filteredRequests) {
                         </div>
                         <div class="px-6 py-3 bg-white text-right">
                             ${ingredientData ? `
-                                <button onclick="window.location.href='https://localhost:7212/Cooking/Ingredient/Preview/${request.newReferenceId}'"
+                                <button onclick="window.location.href='/Cooking/Ingredient/Preview/${request.newReferenceId}'"
                                     class="bg-cyan-600 hover:bg-cyan-700 text-white font-sans font-medium text-sm py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition duration-300">
                                     Preview Ingredient
                                 </button>` : ''}
                             ${recipeData ? `
-                                <button onclick="window.location.href='https://localhost:7212/Cooking/Recipe/Preview/${request.newReferenceId}'"
+                                <button onclick="window.location.href='/Cooking/Recipe/Preview/${request.newReferenceId}'"
                                     class="bg-emerald-600 hover:bg-emerald-700 text-white font-sans font-medium text-sm py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition duration-300">
                                     Preview Recipe
                                 </button>` : ''}

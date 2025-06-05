@@ -78,8 +78,8 @@ public class DonationController : Controller
 
             // Build absolute URL
             string redirectUrl = success
-                ? $"https://localhost:7212/Cooking/Donation/ThankYou?id={customId}"
-                : $"https://localhost:7212/Cooking/Donation/Sorry?id={customId}";
+                ? $"/Cooking/Donation/ThankYou?id={customId}"
+                : $"/Cooking/Donation/Sorry?id={customId}";
 
             return Redirect(redirectUrl);
         }

@@ -78,7 +78,7 @@ $(document).ready(function () {
                 // Click only if valid id
                 if (id) {
                     $li.on('click', () => {
-                        window.location.href = `https://localhost:7212/Cooking/Ingredient/Details/${id}`;
+                        window.location.href = `/Cooking/Ingredient/Details/${id}`;
                     });
                 } else {
                     // If no valid id, remove pointer cursor and disable click
@@ -202,7 +202,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response) {
 
-                    window.location.href = "https://localhost:7212/Cooking/Donation/DonationConfirmation/" + response; // Redirect to PayPal approval URL
+                    window.location.href = "/Cooking/Donation/DonationConfirmation/" + response; // Redirect to PayPal approval URL
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -231,7 +231,7 @@ $(document).ready(function () {
 
     // Fetch donations from API
     $.ajax({
-        url: 'https://localhost:7212/api/donations/recipe/' + recipeId,
+        url: '/api/donations/recipe/' + recipeId,
         method: 'GET',
         success: function (data) {
 

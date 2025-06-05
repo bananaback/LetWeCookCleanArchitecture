@@ -65,7 +65,7 @@ $(document).ready(function () {
     console.log(ingredientId);
     // Fetch ingredient data from API
     $.ajax({
-        url: `https://localhost:7212/api/ingredient-preview/${ingredientId}`,
+        url: `/api/ingredient-preview/${ingredientId}`,
         method: "GET",
         success: function (data) {
             console.log(data);

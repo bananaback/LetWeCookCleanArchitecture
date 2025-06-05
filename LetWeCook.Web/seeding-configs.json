@@ -1,11 +1,11 @@
 {
-    "SeedRolesAndAdmin": false,
-    "SeedUsers": false,
-    "SeedUserProfiles": false,
-    "SeedIngredients": false,
-    "SeedRecipes": false,
-    "SeedRecipesWithImages": false,
-    "SeedRecipeRatings": false,
-    "SeedRecipeDonations": false,
-    "SeedSuggestionFeedbacks": false
+    "SeedRolesAndAdmin": true,
+    "SeedUsers": true,
+    "SeedUserProfiles": true,
+    "SeedIngredients": true,
+    "SeedRecipes": true,
+    "SeedRecipesWithImages": true,
+    "SeedRecipeRatings": true,
+    "SeedRecipeDonations": true,
+    "SeedSuggestionFeedbacks": true
 }

@@ -272,7 +272,7 @@ function updateResults() {
             const card = `
                 <div class="bg-violet-100 p-6 rounded-2xl shadow-md border-t-2 border-violet-400 
                     hover:shadow-lg transition duration-300 transform rotate-${rotation} hover:rotate-0 
-                    select-none cursor-pointer" onclick="window.location.href='https://localhost:7212/Cooking/Ingredient/Details/${ingredient.id}'">
+                    select-none cursor-pointer" onclick="window.location.href='/Cooking/Ingredient/Details/${ingredient.id}'">
                     
                     <img src="${ingredient.coverImageUrl}" alt="${ingredient.name}" 
                         class="w-full h-40 object-cover rounded-lg mb-4">
@@ -359,7 +359,7 @@ function populateSuggestions(suggestions) {
 
         // Create the suggestion wrapper (fixed size & clickable link)
         const $suggestion = $("<a>")
-            .attr("href", `https://localhost:7212/Cooking/Ingredient/Details/${suggestion.id}`) // Dynamic route
+            .attr("href", `/Cooking/Ingredient/Details/${suggestion.id}`) // Dynamic route
             .addClass("flex flex-col items-center justify-center w-24 h-24 bg-white shadow-md rounded-lg p-2 transition duration-200 transform")
             .addClass(`rotate-${rotation} hover:rotate-0`) // Apply rotation
             .click(function (e) {

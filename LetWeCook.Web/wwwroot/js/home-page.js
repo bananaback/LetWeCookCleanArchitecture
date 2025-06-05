@@ -14,7 +14,7 @@ $(document).ready(function () {
         idx = (idx + 1) % shadows.length;
     }, 800);
 
-    $.getJSON('https://localhost:7212/data/homepage.json', function (data) {
+    $.getJSON('/data/homepage.json', function (data) {
         const recipes = data.TrendingRecipes;
         const $container = $('#trending-recipe-cards');
         $container.empty(); // Clear existing content
@@ -24,7 +24,7 @@ $(document).ready(function () {
                 '☆'.repeat(5 - Math.round(recipe.AverageRating));
 
             const card = `
-            <a href="https://localhost:7212/Cooking/Recipe/Details/${recipe.Id}" class="block focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 rounded-xl">
+            <a href="/Cooking/Recipe/Details/${recipe.Id}" class="block focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 rounded-xl">
                 <div class="relative bg-gradient-to-r from-white to-amber-100 w-[288px] max-w-full p-6 rounded-xl shadow-lg border border-amber-300 hover:shadow-2xl transition-shadow duration-300 flex flex-col">
                     <!-- Fixed-size image frame -->
                     <div class="w-full h-[160px] rounded-xl overflow-hidden mb-4 bg-gray-100">
@@ -68,7 +68,7 @@ $(document).ready(function () {
                 '☆'.repeat(5 - Math.round(recipe.AverageRating));
 
             const card = `
-            <a href="https://localhost:7212/Cooking/Recipe/Details/${recipe.Id}" class="block focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 rounded-xl">
+            <a href="/Cooking/Recipe/Details/${recipe.Id}" class="block focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 rounded-xl">
                 <div class="relative bg-gradient-to-r from-blue-50 to-white w-[288px] max-w-full p-6 rounded-xl shadow-lg border border-teal-300 hover:shadow-2xl transition-shadow duration-300 flex flex-col">
                     <!-- Fixed-size image frame -->
                     <div class="w-full h-[160px] rounded-xl overflow-hidden mb-4 bg-gray-100">
@@ -112,7 +112,7 @@ $(document).ready(function () {
                 '☆'.repeat(5 - Math.round(topRatedRecipe.AverageRating));
 
             const topRatedCard = `
-            <a href="https://localhost:7212/Cooking/Recipe/Details/${topRatedRecipe.Id}" class="block focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded-xl">
+            <a href="/Cooking/Recipe/Details/${topRatedRecipe.Id}" class="block focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded-xl">
                 <div class="relative bg-gradient-to-r from-pink-50 to-white w-[288px] max-w-full p-6 rounded-xl shadow-lg border border-red-300 hover:shadow-2xl transition-shadow duration-300 flex flex-col">
                     <!-- Fixed-size image frame -->
                     <div class="w-full h-[160px] rounded-xl overflow-hidden mb-4 bg-gray-100">
@@ -156,7 +156,7 @@ $(document).ready(function () {
                 '☆'.repeat(5 - review.Rating);
 
             const reviewCard = `
-            <a href="https://localhost:7212/Cooking/Recipe/Details/${review.RecipeId || '#'}" class="block focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 rounded-xl">
+            <a href="/Cooking/Recipe/Details/${review.RecipeId || '#'}" class="block focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 rounded-xl">
                 <div class="bg-white w-80 max-w-full p-6 rounded-xl shadow-lg border border-teal-100 hover:shadow-2xl transition-all duration-300">
                     <div class="flex items-center mb-4">
                         <img src="${review.UserProfilePic}" alt="Profile picture of ${review.UserName}"
@@ -183,7 +183,7 @@ $(document).ready(function () {
 
         latestDonations.forEach(donation => {
             const donationCard = `
-            <a href="https://localhost:7212/Cooking/Recipe/Details/${donation.RecipeId}" class="block focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-offset-2 rounded-xl">
+            <a href="/Cooking/Recipe/Details/${donation.RecipeId}" class="block focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-offset-2 rounded-xl">
                 <div class="bg-white w-80 max-w-full p-6 rounded-xl shadow-lg border border-green-100 hover:shadow-2xl transition-all duration-300">
                     <div class="flex items-center mb-4">
                         <img src="${donation.DonatorProfilePic || '/images/default-profile.jpg'}" alt="Profile picture of ${donation.DonatorName}"

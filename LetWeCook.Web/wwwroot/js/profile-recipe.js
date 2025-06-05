@@ -398,11 +398,11 @@ function loadRecipes(browsingOptions) {
 
                             <!-- Actions -->
                             <div class="flex flex-col space-y-1">
-                                <a href="https://localhost:7212/Cooking/Recipe/Details/${recipe.id}" 
+                                <a href="/Cooking/Recipe/Details/${recipe.id}" 
                                    class="block text-center bg-orange-500 hover:bg-orange-600 text-white py-1 rounded-md text-xs font-medium transition">
                                    🍽️ View
                                 </a>
-                                <a href="https://localhost:7212/Cooking/Recipe/Update/${recipe.id}"  class="edit-recipe-btn text-center bg-blue-500 hover:bg-blue-600 text-white py-1 rounded-md text-xs font-medium transition">✏️ Edit</a>
+                                <a href="/Cooking/Recipe/Update/${recipe.id}"  class="edit-recipe-btn text-center bg-blue-500 hover:bg-blue-600 text-white py-1 rounded-md text-xs font-medium transition">✏️ Edit</a>
                                 <button data-id="${recipe.id}" class="delete-recipe-btn bg-red-500 hover:bg-red-600 text-white py-1 rounded-md text-xs font-medium transition">🗑️ Delete</button>
                             </div>
                         </div>
