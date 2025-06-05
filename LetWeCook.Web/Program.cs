@@ -117,43 +117,81 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 
-// Call the data seeding methods
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var config = SeedingConfigHelper.LoadConfig();
+
     try
     {
-        await DataSeeder.SeedRolesAndAdminAsync(services);
+        if (config.SeedRolesAndAdmin)
+        {
+            await DataSeeder.SeedRolesAndAdminAsync(services);
+            config.SeedRolesAndAdmin = false;
+        }
 
-        await DataSeeder.SeedUsersAsync(services);
+        if (config.SeedUsers)
+        {
+            await DataSeeder.SeedUsersAsync(services);
+            config.SeedUsers = false;
+        }
 
-        await DataSeeder.SeedUserProfiles(services);
+        if (config.SeedUserProfiles)
+        {
+            await DataSeeder.SeedUserProfiles(services);
+            config.SeedUserProfiles = false;
+        }
 
-        string jsonFilePath = "../LetWeCook.Infrastructure/Persistence/DataImporters/ingredients.json";
+        if (config.SeedIngredients)
+        {
+            string path = "../LetWeCook.Infrastructure/Persistence/DataImporters/ingredients.json";
+            await DataSeeder.SeedIngredientsAsync(services, path, CancellationToken.None);
+            config.SeedIngredients = false;
+        }
 
-        await DataSeeder.SeedIngredientsAsync(services, jsonFilePath, CancellationToken.None);
+        if (config.SeedRecipes)
+        {
+            string path = "../LetWeCook.Infrastructure/Persistence/DataImporters/recipes.json";
+            await DataSeeder.SeedRecipesAsync(services, path, CancellationToken.None);
+            config.SeedRecipes = false;
+        }
 
-        string jsonFilePath2 = "../LetWeCook.Infrastructure/Persistence/DataImporters/recipes.json";
-        await DataSeeder.SeedRecipesAsync(services, jsonFilePath2, CancellationToken.None);
+        if (config.SeedRecipesWithImages)
+        {
+            string path = "../LetWeCook.Infrastructure/Persistence/DataImporters/recipes-with-images.json";
+            await DataSeeder.SeedRecipesWithImagesAsync(services, path, CancellationToken.None);
+            config.SeedRecipesWithImages = false;
+        }
 
-        string jsonFilePath3 = "../LetWeCook.Infrastructure/Persistence/DataImporters/recipes-with-images.json";
+        if (config.SeedRecipeRatings)
+        {
+            await DataSeeder.SeedRecipeRatingsAsync(services, 1000, CancellationToken.None);
+            config.SeedRecipeRatings = false;
+        }
 
-        await DataSeeder.SeedRecipesWithImagesAsync(services, jsonFilePath3, CancellationToken.None);
+        if (config.SeedRecipeDonations)
+        {
+            await DataSeeder.SeedRecipeDonationsAsync(services, 1000, CancellationToken.None);
+            config.SeedRecipeDonations = false;
+        }
 
-        await DataSeeder.SeedRecipeRatingsAsync(services, 1000, CancellationToken.None);
-
-        await DataSeeder.SeedRecipeDonationsAsync(services, 1000, CancellationToken.None);
-
-        await DataSeeder.SeedSuggestionFeedbacksAsync(services, 5000, CancellationToken.None);
-
-
+        if (config.SeedSuggestionFeedbacks)
+        {
+            await DataSeeder.SeedSuggestionFeedbacksAsync(services, 5000, CancellationToken.None);
+            config.SeedSuggestionFeedbacks = false;
+        }
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "An error occurred while seeding the database.");
     }
+    finally
+    {
+        SeedingConfigHelper.SaveConfig(config);
+    }
 }
+
 
 app.Run();
 
