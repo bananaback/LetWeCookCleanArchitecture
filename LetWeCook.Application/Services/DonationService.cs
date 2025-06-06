@@ -12,8 +12,6 @@ public class DonationService : IDonationService
     private readonly IUserRepository _userRepository;
     private readonly IDonationRepository _donationRepository;
     private readonly IPaymentService _paymentService;
-    private string _successUrl = "https://97c8-14-238-107-186.ngrok-free.app/api/donation/success";
-    private string _cancelUrl = "https://97c8-14-238-107-186.ngrok-free.app/api/donation/cancel";
 
     public DonationService(
         IUnitOfWork unitOfWork,
@@ -306,9 +304,7 @@ public class DonationService : IDonationService
             amount,
             currency,
             $"Donation for Recipe: {recipe.Name}",
-            authorProfile.PayPalEmail,
-            _successUrl,
-            _cancelUrl);
+            authorProfile.PayPalEmail);
 
         donation.SetApprovalUrl(approvalUrl);
 

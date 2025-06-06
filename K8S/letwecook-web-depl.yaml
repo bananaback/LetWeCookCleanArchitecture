@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: letwecook-web-depl
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -14,27 +15,28 @@ spec:
     spec:
       containers:
         - name: letwecook-web
-          image: letwecook-web:latest
-          imagePullPolicy: IfNotPresent
+          image: tindocker88/letwecook-web:latest
+          imagePullPolicy: Always
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Production"
+            - name: ASPNETCORE_URLS
+              value: "http://+:5016"
           ports:
-            - containerPort: 5015
+            - containerPort: 5016
       initContainers:
         - name: wait-for-mssql
           image: busybox
           command:
-            [
-              "sh",
-              "-c",
-              "until nc -z mssql-cook-clusterip-srv 1433; do echo waiting for mssql; sleep 2; done;",
-            ]
+            - sh
+            - -c
+            - until nc -z mssql-cook-clusterip-srv 1433; do echo waiting for mssql; sleep 2; done;
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: letwecook-web-clusterip-srv
+  namespace: default
 spec:
   type: ClusterIP
   selector:
@@ -42,13 +44,14 @@ spec:
   ports:
     - name: letwecook-web
       protocol: TCP
-      port: 5015
-      targetPort: 5015
+      port: 80
+      targetPort: 5016
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: letwecook-web-srv
+  namespace: default
 spec:
   type: LoadBalancer
   selector:
@@ -56,5 +59,5 @@ spec:
   ports:
     - name: letwecook-web
       protocol: TCP
-      port: 5015
-      targetPort: 5015
+      port: 80
+      targetPort: 5016

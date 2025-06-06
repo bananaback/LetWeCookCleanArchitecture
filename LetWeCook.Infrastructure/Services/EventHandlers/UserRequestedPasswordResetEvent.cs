@@ -20,7 +20,7 @@ public class UserRequestedPasswordResetEventHandler : INonBlockingDomainEventHan
     {
         try
         {
-            var resetUrl = $"/Identity/Account/ResetPassword?email={Uri.EscapeDataString(domainEvent.Email)}&token={Uri.EscapeDataString(domainEvent.Token)}";
+            var resetUrl = $"https://bananaback.id.vn/Identity/Account/ResetPassword?email={Uri.EscapeDataString(domainEvent.Email)}&token={Uri.EscapeDataString(domainEvent.Token)}";
             await _emailService.SendEmailAsync(
                 domainEvent.Email,
                 "Reset Your Password",

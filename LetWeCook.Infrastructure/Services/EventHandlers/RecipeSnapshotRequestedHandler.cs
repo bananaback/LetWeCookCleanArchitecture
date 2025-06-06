@@ -2,6 +2,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Events;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace LetWeCook.Infrastructure.Services.EventHandlers;
@@ -11,15 +12,19 @@ public class RecipeSnapshotRequestedHandler : INonBlockingDomainEventHandler<Rec
     private readonly IRecipeSnapshotService _recipeSnapshotService;
     private readonly HttpClient _httpClient;
     private readonly ILogger<RecipeSnapshotRequestedHandler> _logger;
+    private string _apiUrl = string.Empty;
 
     public RecipeSnapshotRequestedHandler(
         IRecipeSnapshotService recipeSnapshotService,
         IHttpClientFactory httpClientFactory,
-        ILogger<RecipeSnapshotRequestedHandler> logger)
+        ILogger<RecipeSnapshotRequestedHandler> logger,
+        IConfiguration configuration)
     {
         _recipeSnapshotService = recipeSnapshotService;
         _httpClient = httpClientFactory.CreateClient();
         _logger = logger;
+        _apiUrl = configuration.GetSection("PredictionService:ApiUrl").Value
+            ?? throw new InvalidOperationException("PredictionService:ApiUrl is not configured in appsettings.");
     }
 
     public async Task HandleAsync(RecipeSnapshotRequestedEvent domainEvent, CancellationToken cancellationToken)
@@ -44,7 +49,7 @@ public class RecipeSnapshotRequestedHandler : INonBlockingDomainEventHandler<Rec
             form.Add(fileContent, "file", fileName);
 
             _logger.LogInformation("📡 Uploading {FileName} to Python server...", fileName);
-            var response = await _httpClient.PostAsync("http://localhost:8000/upload", form, cancellationToken);
+            var response = await _httpClient.PostAsync($"{_apiUrl}/upload", form, cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {

@@ -7,9 +7,7 @@ public interface IPaymentService
             decimal amount,
             string currency,
             string description,
-            string payeeEmail,
-            string returnUrl,
-            string cancelUrl);
+            string payeeEmail);
 
     Task<(bool Success, string TransactionId, string CustomId, string Error)> CaptureDonationAsync(string orderId);
 }

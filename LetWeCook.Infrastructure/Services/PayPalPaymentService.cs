@@ -14,6 +14,8 @@ public class PayPalPaymentService : IPaymentService
 {
     private readonly PaypalServerSdkClient _payPalClient;
     private readonly ILogger<PayPalPaymentService> _logger;
+    private string _returnUrl = string.Empty;
+    private string _cancelUrl = string.Empty;
     public PayPalPaymentService(
         Microsoft.Extensions.Configuration.IConfiguration configuration,
         ILogger<PayPalPaymentService> logger)
@@ -37,6 +39,11 @@ public class PayPalPaymentService : IPaymentService
                 .ResponseConfig(respConfig => respConfig.Headers(true))
             )
             .Build();
+
+        _returnUrl = configuration["PayPalPaymentService:SuccessUrl"]
+            ?? throw new ArgumentNullException("PayPalPaymentService:SuccessUrl is missing.");
+        _cancelUrl = configuration["PayPalPaymentService:CancelUrl"]
+            ?? throw new ArgumentNullException("PayPalPaymentService:CancelUrl is missing.");
     }
 
     public async Task<(bool Success, string TransactionId, string CustomId, string Error)> CaptureDonationAsync(string orderId)
@@ -94,11 +101,11 @@ public class PayPalPaymentService : IPaymentService
 
 
 
-    public async Task<string> CreateDonationOrderAsync(Guid donationId, decimal amount, string currency, string description, string payeeEmail, string returnUrl, string cancelUrl)
+    public async Task<string> CreateDonationOrderAsync(Guid donationId, decimal amount, string currency, string description, string payeeEmail)
     {
         // log all the parameters to check if it passed correctly
         _logger.LogInformation("Creating PayPal order with parameters: DonationId: {DonationId}, Amount: {Amount}, Currency: {Currency}, Description: {Description}, PayeeEmail: {PayeeEmail}, ReturnUrl: {ReturnUrl}, CancelUrl: {CancelUrl}",
-            donationId, amount, currency, description, payeeEmail, returnUrl, cancelUrl);
+            donationId, amount, currency, description, payeeEmail, _returnUrl, _cancelUrl);
         // Validate inputs
         if (string.IsNullOrWhiteSpace(currency) || currency.Length != 3)
         {
@@ -145,8 +152,8 @@ public class PayPalPaymentService : IPaymentService
                             BrandName = "LetWeCook",
                             ShippingPreference = PaypalWalletContextShippingPreference.NoShipping,
                             UserAction = PaypalExperienceUserAction.Continue,
-                            ReturnUrl = returnUrl,
-                            CancelUrl = cancelUrl
+                            ReturnUrl = _returnUrl,
+                            CancelUrl = _cancelUrl
                         }
                     }
                 }

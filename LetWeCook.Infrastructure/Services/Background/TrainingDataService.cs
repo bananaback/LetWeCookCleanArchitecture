@@ -9,6 +9,7 @@ using LetWeCook.Domain.Enums;
 using LetWeCook.Domain.Events;
 using LetWeCook.Domain.Utilities;
 using LetWeCook.Infrastructure.Persistence;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -21,11 +22,15 @@ public class TrainingDataService : BackgroundService
     private readonly IServiceProvider _serviceProvider;
     private const string CsvPath = "training_data.csv";
     private readonly TimeSpan _interval = TimeSpan.FromHours(1);
+    private string _pythonServerUrl = string.Empty;
 
-    public TrainingDataService(ILogger<TrainingDataService> logger, IServiceProvider serviceProvider)
+    public TrainingDataService(ILogger<TrainingDataService> logger, IServiceProvider serviceProvider,
+        IConfiguration configuration)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+        _pythonServerUrl = configuration.GetValue<string>("PredictionService:ApiUrl")
+            ?? throw new InvalidOperationException("PredictionService:ApiUrl is not configured in appsettings.");
     }
 
     private async Task SendFileToPythonServer(string filePath, CancellationToken cancellationToken)
@@ -39,7 +44,7 @@ public class TrainingDataService : BackgroundService
 
         form.Add(content, "file", "training_data.csv");
 
-        var response = await client.PostAsync("http://localhost:8000/upload", form, cancellationToken);
+        var response = await client.PostAsync($"{_pythonServerUrl}/upload", form, cancellationToken);
         if (!response.IsSuccessStatusCode)
         {
             var error = await response.Content.ReadAsStringAsync();

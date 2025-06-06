@@ -1,16 +1,19 @@
 using System.Net.Http.Json;
 using LetWeCook.Application.DTOs.Suggestions;
 using LetWeCook.Application.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace LetWeCook.Infrastructure.Services
 {
     public class PredictionService : IPredictionService
     {
         private readonly HttpClient _httpClient;
-
-        public PredictionService(HttpClient httpClient)
+        private string _apiUrl = string.Empty;
+        public PredictionService(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            _apiUrl = configuration.GetSection("PredictionService:ApiUrl").Value
+                ?? throw new InvalidOperationException("PredictionService:ApiUrl is not configured in appsettings.");
         }
 
         public async Task<List<Guid>> GetRecipeSuggestionsAsync(List<string> userPreferences, int count = 5, CancellationToken cancellationToken = default)
@@ -19,7 +22,7 @@ namespace LetWeCook.Infrastructure.Services
 
             var prefRequest = MapUserPreferencesToRequest(userPreferences);
 
-            var requestUri = $"http://localhost:8000/predict?n={count}"; // full URL
+            var requestUri = $"{_apiUrl}/predict?n={count}"; // full URL
 
             try
             {

@@ -2,6 +2,7 @@ using LetWeCook.Infrastructure;
 using LetWeCook.Infrastructure.Configurations;
 using LetWeCook.Infrastructure.Persistence;
 using LetWeCook.Web.Areas.Identity.ViewModelValidators;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +42,7 @@ var authenticationConfiguration = new AuthenticationConfiguration();
 builder.Configuration.GetSection("Authentications").Bind(authenticationConfiguration);
 builder.Services.AddSingleton(authenticationConfiguration);
 
+
 // Configure Authentication
 builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
     .AddGoogle(googleOptions =>
@@ -59,7 +61,22 @@ builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
         };
         googleOptions.Events.OnRedirectToAuthorizationEndpoint = context =>
         {
-            context.Response.Redirect(context.RedirectUri + "&prompt=select_account");
+            var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+
+            var redirectUri = context.RedirectUri;
+            logger.LogInformation("Original RedirectUri: {RedirectUri}", redirectUri);
+
+            if (redirectUri.StartsWith("http://"))
+            {
+                redirectUri = redirectUri.Replace("http://", "https://");
+                logger.LogInformation("RedirectUri modified to HTTPS: {RedirectUri}", redirectUri);
+            }
+            else
+            {
+                logger.LogInformation("RedirectUri already HTTPS.");
+            }
+
+            context.Response.Redirect(redirectUri + "&prompt=select_account");
             return Task.CompletedTask;
         };
     })
@@ -94,6 +111,14 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedProto,
+
+    KnownNetworks = { },
+    KnownProxies = { }
+});
 
 app.UseHttpsRedirection();
 

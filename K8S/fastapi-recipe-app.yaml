@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-recipe-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-recipe-app
+  template:
+    metadata:
+      labels:
+        app: fastapi-recipe-app
+    spec:
+      containers:
+        - name: fastapi-recipe-app
+          image: tindocker88/fastapi-recipe-app:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: uploads-volume
+              mountPath: /app/uploads
+            - name: models-volume
+              mountPath: /app/models
+      volumes:
+        - name: uploads-volume
+          emptyDir: {}
+        - name: models-volume
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-recipe-app-service
+  namespace: default
+spec:
+  selector:
+    app: fastapi-recipe-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP
