@@ -8,6 +8,7 @@ using LetWeCook.Domain.Entities;
 using LetWeCook.Domain.Enums;
 using LetWeCook.Infrastructure.Persistence;
 using LetWeCook.Web.Areas.Cooking.Models.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,8 @@ public class RecipeController : Controller
         _userManager = userManager;
         _recipeService = recipeService;
     }
+
+    [Authorize]
     public IActionResult Editor()
     {
         return View();
@@ -117,6 +120,25 @@ public class RecipeController : Controller
         {
             var ingredient = await _recipeService.GetRecipeOverviewByIdAsync(id, siteUserId, bypassOwnershipCheck: isAdmin, cancellationToken);
             return Ok(ingredient);
+        }
+        catch (RecipeRetrievalException)
+        {
+            return Forbid(); // 403 Forbidden
+        }
+    }
+
+    [HttpGet("api/recipes/random")]
+    public async Task<IActionResult> GetRandomRecipesAsync(int count, CancellationToken cancellationToken)
+    {
+        if (count <= 0)
+        {
+            return BadRequest("Count must be a positive integer.");
+        }
+
+        try
+        {
+            var recipes = await _recipeService.GetRandomRecipesAsync(count, cancellationToken);
+            return Ok(recipes);
         }
         catch (RecipeRetrievalException)
         {

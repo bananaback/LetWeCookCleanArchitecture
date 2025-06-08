@@ -5,6 +5,108 @@ let fetchedRecipe = {};
 $(document).ready(function () {
     const recipeId = $('#recipeId').val();
 
+    // Function to fetch and populate random recipes in the left panel
+    function loadRandomRecipes() {
+        $.ajax({
+            url: '/api/recipes/random',
+            type: 'GET',
+            data: { count: 4 }, // Request 4 random recipes
+            dataType: 'json',
+            success: function (data) {
+                const container = $('#recipesYouMayLike .space-y-4');
+                container.empty(); // Clear any existing content
+
+                if (data && data.length > 0) {
+                    // Iterate through the recipes and create cards
+                    $.each(data, function (index, recipe) {
+                        const recipeCard = `
+                            <a href="/Cooking/Recipe/Details/${recipe.id}" 
+                               class="block bg-white rounded-xl shadow-md p-4 hover:shadow-lg hover:scale-105 transition-transform duration-300 border border-lime-200">
+                                <img src="${recipe.coverImage || '/images/placeholder.jpg'}" 
+                                     alt="${recipe.name}" 
+                                     class="w-full h-40 object-cover rounded-lg mb-3">
+                                <h3 class="text-lg font-semibold text-orange-600 truncate">${recipe.name}</h3>
+                                <p class="text-sm text-gray-600 line-clamp-2">${recipe.description || 'No description available'}</p>
+                                <div class="mt-2 flex items-center gap-2 text-gray-500 text-sm">
+                                    <span>⭐ ${recipe.averageRating ? recipe.averageRating.toFixed(1) : 'N/A'}</span>
+                                    <span>👁️ ${recipe.totalViews || 0} Views</span>
+                                </div>
+                            </a>
+                        `;
+                        container.append(recipeCard);
+                    });
+                } else {
+                    // Display fallback message if no recipes are returned
+                    container.append(`
+                        <p class="text-gray-600 text-center">No recipes found. Try again later!</p>
+                    `);
+                }
+            },
+            error: function (xhr, status, error) {
+                // Handle errors (e.g., 403 Forbidden or other issues)
+                const container = $('#recipesYouMayLike .space-y-4');
+                container.empty();
+                container.append(`
+                    <p class="text-red-600 text-center">Failed to load recipes. Please try again later.</p>
+                `);
+            }
+        });
+    }
+
+    // Call the function to load recipes when the page loads
+    loadRandomRecipes();
+
+    // Function to fetch and populate personalized recipe suggestions in the right panel
+    function loadRecipeSuggestions() {
+        $.ajax({
+            url: '/api/suggestions',
+            type: 'GET',
+            data: { count: 4 }, // Request 4 suggested recipes
+            dataType: 'json',
+            success: function (data) {
+                const container = $('#recipesInCategory .space-y-4');
+                container.empty(); // Clear any existing content
+
+                if (data && data.length > 0) {
+                    // Iterate through the recipes and create cards
+                    $.each(data, function (index, recipe) {
+                        const recipeCard = `
+                            <a href="/Cooking/Recipe/Details/${recipe.id}" 
+                               class="block bg-white rounded-xl shadow-md p-4 hover:shadow-lg hover:scale-105 transition-transform duration-300 border border-lime-200">
+                                <img src="${recipe.coverImage || '/images/placeholder.jpg'}" 
+                                     alt="${recipe.name}" 
+                                     class="w-full h-40 object-cover rounded-lg mb-3">
+                                <h3 class="text-lg font-semibold text-orange-600 truncate">${recipe.name}</h3>
+                                <p class="text-sm text-gray-600 line-clamp-2">${recipe.description || 'No description available'}</p>
+                                <div class="mt-2 flex items-center gap-2 text-gray-500 text-sm">
+                                    <span>⭐ ${recipe.averageRating ? recipe.averageRating.toFixed(1) : 'N/A'}</span>
+                                    <span>👁️ ${recipe.totalViews || 0} Views</span>
+                                </div>
+                            </a>
+                        `;
+                        container.append(recipeCard);
+                    });
+                } else {
+                    // Display fallback message if no recipes are returned
+                    container.append(`
+                        <p class="text-gray-600 text-center">No suggested recipes found. Try again later!</p>
+                    `);
+                }
+            },
+            error: function (xhr, status, error) {
+                // Handle errors (e.g., server issues)
+                const container = $('#recipesInCategory .space-y-4');
+                container.empty();
+                container.append(`
+                    <p class="text-red-600 text-center">Failed to load suggestions. Please try again later.</p>
+                `);
+            }
+        });
+    }
+
+    // Call the function to load suggestions when the page loads
+    loadRecipeSuggestions();
+
     $.ajax({
         url: `/api/recipe-details/${recipeId}`,
         method: 'GET',

@@ -797,4 +797,35 @@ public class RecipeService : IRecipeService
 
         await _unitOfWork.CommitAsync(cancellationToken);
     }
+
+    public async Task<List<RecipeDto>> GetRandomRecipesAsync(int count, CancellationToken cancellationToken = default)
+    {
+        if (count <= 0)
+        {
+            throw new ArgumentException("Count must be greater than zero.", nameof(count));
+        }
+
+        var recipes = await _recipeRepository.GetRandomRecipesAsync(count, cancellationToken);
+        if (recipes == null || recipes.Count == 0)
+        {
+            return new List<RecipeDto>();
+        }
+
+        return recipes.Select(recipe => new RecipeDto
+        {
+            Id = recipe.Id,
+            Name = recipe.Name,
+            Description = recipe.Description,
+            Servings = recipe.Servings,
+            PrepareTime = recipe.PrepareTime,
+            CookTime = recipe.CookTime,
+            Difficulty = recipe.DifficultyLevel.ToString(),
+            MealCategory = recipe.MealCategory.ToString(),
+            CoverImage = recipe.CoverMediaUrl.Url,
+            CreatedAt = recipe.CreatedAt,
+            AverageRating = recipe.AverageRating,
+            TotalRatings = recipe.TotalRatings,
+            TotalViews = recipe.TotalViews
+        }).ToList();
+    }
 }

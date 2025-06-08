@@ -223,7 +223,7 @@ function loadUserRating() {
                 // Handle other errors
                 $container.html(`
                     <div class="text-center text-red-500 py-4">
-                        Failed to load rating
+                        Please login to see your rating.
                     </div>
                 `);
             }

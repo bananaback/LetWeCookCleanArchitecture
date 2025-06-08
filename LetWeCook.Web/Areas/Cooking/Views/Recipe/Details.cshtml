@@ -27,12 +27,18 @@
 
 <div
     class="flex flex-row items-start justify-center min-h-screen bg-gradient-to-br from-yellow-100 to-lime-100 py-12 px-4 sm:px-6 lg:px-8">
+    <!-- Left Container: Recipes You May Like -->
+    <div id="recipesYouMayLike" class="w-72 max-w-md mx-4 bg-amber-50 bg-opacity-95 rounded-3xl shadow-xl p-8">
+        <!-- Placeholder content (can be styled or populated via JavaScript) -->
+        <h2 class="text-3xl font-extrabold text-orange-600 mb-6">Recipes You May Like</h2>
+        <div class="space-y-4">
+            <!-- Content will be populated dynamically -->
+        </div>
+    </div>
     <div class="max-w-4xl mx-auto flex-1 bg-amber-50 bg-opacity-95 rounded-3xl shadow-xl p-8">
-
         <!-- Loading -->
         <div id="loading" class="text-center text-orange-600 text-3xl font-extrabold py-8 animate-bounce">Blending your
             recipe... 🍹</div>
-
         <!-- Recipe -->
         <div id="recipeContainer" class="hidden space-y-10 opacity-0">
             <!-- Cover Image -->
@@ -251,13 +257,8 @@
                         </button>
                     </div>
                 </div>
-
-
-
                 <!-- Ratings List -->
                 <div id="rating-list" class="space-y-4">
-
-
 
                 </div>
 
@@ -280,15 +281,18 @@
                     <div id="pagination-buttons-container" class="flex justify-center space-x-2">
 
                     </div>
-
                 </div>
-
             </div>
-
-
         </div>
     </div>
-
+    <!-- Right Container: Recipes in Category -->
+    <div id="recipesInCategory" class="w-72  mx-4 bg-amber-50 bg-opacity-95 rounded-3xl shadow-xl p-8">
+        <!-- Placeholder content (can be styled or populated via JavaScript) -->
+        <h2 class="text-3xl font-extrabold text-orange-600 mb-6">Recipes For Your Styles</h2>
+        <div class="space-y-4">
+            <!-- Content will be populated dynamically -->
+        </div>
+    </div>
     <!-- Donation Modal -->
     <div id="donationModal" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center hidden z-50">
         <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md border-4 border-orange-500">

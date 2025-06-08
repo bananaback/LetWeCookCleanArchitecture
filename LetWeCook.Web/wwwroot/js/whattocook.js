@@ -362,6 +362,22 @@ function fileToBase64(file) {
 $(document).ready(function () {
     let imageFiles = [];
 
+    $.ajax({
+        url: '/api/ingredients/overview',
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            // Map the response to extract only ingredient names
+            const INGREDIENT_POOL = data.map(ingredient => ingredient.name);
+
+            // Log to verify the result
+            console.log('Updated INGREDIENT_POOL:', INGREDIENT_POOL);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching ingredients:', status, error);
+        }
+    });
+
     $('#add-image').on('click', function () {
         $('#image-input').click();
     });
