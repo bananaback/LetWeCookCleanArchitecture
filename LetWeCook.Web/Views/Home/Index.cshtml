@@ -47,6 +47,12 @@
                         class="absolute right-0 hidden w-40 mt-2 z-50 bg-white rounded-md shadow-lg border border-gray-200">
                         <a asp-area="UserPanel" asp-controller="Profile" asp-action="Index"
                             class="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600">Profile</a>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-area="AdminPanel" asp-controller="Evaluation" asp-action="Index"
+                                class="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600">Admin Panel</a>
+                        }
                         <form asp-area="Identity" asp-controller="Account" asp-action="Logout" method="post"
                             class="block w-full">
                             @Html.AntiForgeryToken()
