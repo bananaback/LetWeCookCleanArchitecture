@@ -144,22 +144,30 @@ $(document).ready(function () {
 
             },
             error: function (xhr) {
-                console.log("Error Response:", xhr.responseText); // Log server response
+                const message = xhr.responseJSON?.message || 'Something went wrong while saving the ingredient request.';
+
+                console.error("Ingredient request error:", {
+                    status: xhr.status,
+                    statusText: xhr.statusText,
+                    response: xhr.responseText
+                });
+
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error',
-                    text: xhr.responseJSON?.message || 'Something went wrong while saving.',
+                    title: 'Request Failed',
+                    text: message,
                     customClass: {
                         confirmButton: 'swal-custom-btn'
                     },
                     didOpen: () => {
                         $('.swal-custom-btn').css({
                             'background-color': '#dc3545', // Red
-                            'color': '#FFFFFF' // White text
+                            'color': '#FFFFFF'             // White text
                         });
                     }
                 });
             }
+
         });
     });
 

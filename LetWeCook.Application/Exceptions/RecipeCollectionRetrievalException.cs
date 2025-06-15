@@ -1,19 +1,17 @@
+using LetWeCook.Domain.Exceptions;
+
 namespace LetWeCook.Application.Exceptions;
 
-public class RecipeCollectionRetrievalException : Exception
+public class RecipeCollectionRetrievalException : DomainException
 {
-    public RecipeCollectionRetrievalException()
-        : base("An error occurred while retrieving recipe collections.")
+
+    public RecipeCollectionRetrievalException(string message, ErrorCode errorCode)
+        : base(message, errorCode)
     {
     }
 
-    public RecipeCollectionRetrievalException(string message)
-        : base(message)
-    {
-    }
-
-    public RecipeCollectionRetrievalException(string message, Exception innerException)
-        : base(message, innerException)
+    public RecipeCollectionRetrievalException(string message, Exception innerException, ErrorCode errorCode)
+        : base(message, innerException, errorCode)
     {
     }
 }

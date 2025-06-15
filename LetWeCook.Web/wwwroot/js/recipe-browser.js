@@ -190,7 +190,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
-        url: '/api/meal-category-enums',
+        url: '/api/meal-categories',
         method: 'GET',
         success: function (data) {
             let container = $("#category-container");
@@ -218,7 +218,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
-        url: '/api/difficulty-enums',
+        url: '/api/difficulty-levels',
         method: 'GET',
         success: function (data) {
             let container = $("#difficulty-container");
@@ -478,8 +478,6 @@ function collectBrowsingOptions() {
         browsingOptions.updatedAt.max = null;
         return;
     }
-
-    browsingOptions.createdByUsername = $('#created-by-username').val().trim();
 
     // check different of prev and current items per page, if different, reset page to 1
     if (browsingOptions.itemsPerPage !== parseInt($('#items-per-page-select').val(), 10) || browsingOptions.page !== 1) {

@@ -3,6 +3,7 @@ using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Entities;
 using LetWeCook.Domain.Enums;
+using LetWeCook.Domain.Exceptions;
 using LetWeCook.Domain.ValueObjects;
 
 namespace LetWeCook.Application.Services;
@@ -72,14 +73,18 @@ public class UserProfileService : IUserProfileService
 
         if (user == null)
         {
-            throw new UpdateProfileException($"Site user with id {siteUserid} not found.");
+            var ex = new UpdateProfileException($"Site user with id {siteUserid} not found.", ErrorCode.UPDATE_PROFILE_USER_NOT_FOUND);
+            ex.AddContext("SiteUserId", siteUserid.ToString());
+            throw ex;
         }
 
         try
         {
             if (!Enum.TryParse<Gender>(request.Gender, true, out var genderEnum))
             {
-                throw new UpdateProfileException($"Invalid gender value: {request.Gender}");
+                var ex = new UpdateProfileException($"Invalid gender value: {request.Gender}", ErrorCode.UPDATE_PROFILE_INVALID_GENDER);
+                ex.AddContext("Gender", request.Gender);
+                throw ex;
             }
             Name name = new Name(request.FirstName, request.LastName);
             Address address = new Address(request.Address.HouseNumber, request.Address.Street, request.Address.Ward, request.Address.District, request.Address.ProvinceOrCity);
@@ -154,7 +159,7 @@ public class UserProfileService : IUserProfileService
         }
         catch (Exception ex)
         {
-            throw new UpdateProfileException(ex.Message);
+            throw new UpdateProfileException(ex.Message, ErrorCode.UNKNOWN_ERROR);
         }
     }
 }

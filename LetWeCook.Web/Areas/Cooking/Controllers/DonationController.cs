@@ -23,8 +23,8 @@ public class DonationController : Controller
         _logger = logger;
     }
 
-    [HttpPost("/api/donation/{id:guid}")]
-    public async Task<IActionResult> CreateDonation([FromBody] DonationRequest request, Guid id)
+    [HttpPost("/api/donation/{recipeId:guid}")]
+    public async Task<IActionResult> CreateDonation([FromBody] DonationRequest request, Guid recipeId)
     {
         if (!ModelState.IsValid || request.Amount < 1.00m)
         {
@@ -39,27 +39,17 @@ public class DonationController : Controller
             return Unauthorized(new { message = "User not authenticated." });
         }
 
-        try
-        {
-            // Call IPaymentService to create PayPal order
-            var donationId = await _donationService.CreateDonationAsync(
-                GetSiteUserId(appUserId),
-                id,
-                request.Amount,
-                request.Currency,
-                request.DonationMessage);
+        // Call IPaymentService to create PayPal order
+        var newDonationId = await _donationService.CreateDonationAsync(
+            GetSiteUserId(appUserId),
+            recipeId,
+            request.Amount,
+            request.Currency,
+            request.DonationMessage);
 
 
-            return Ok(donationId);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { message = $"Error creating donation: {ex.Message}" });
-        }
+        return Ok(newDonationId);
+
     }
 
     [HttpGet("/api/donation/success")]
@@ -134,7 +124,7 @@ public class DonationController : Controller
     }
 
     // get completed donations by recipe id
-    [HttpGet("/api/donations/recipe/{recipeId}")]
+    [HttpGet("/api/donation/recipe/{recipeId}")]
     public async Task<IActionResult> GetCompletedDonationsByRecipeId(Guid recipeId, CancellationToken cancellationToken = default)
     {
         var donations = await _donationService.GetCompletedDonationsByRecipeIdAsync(recipeId, cancellationToken);

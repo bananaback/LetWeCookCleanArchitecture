@@ -107,15 +107,27 @@ function fetchIngredientOverviews() {
             loadEditingRecipe();
 
         },
-        error: function (xhr, status, error) {
-            console.error('Error fetching ingredient overviews:', error);
+        error: function (xhr) {
+            console.error("Error fetching ingredient summary:", {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                responseText: xhr.responseText
+            });
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: xhr.responseJSON?.message || 'Failed to load ingredient summary. Please try again later.',
+                confirmButtonColor: '#dc3545'
+            });
         }
+
     });
 }
 
 function fetchUnitEnums() {
     $.ajax({
-        url: '/api/unit-enums',
+        url: '/api/units',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -133,7 +145,7 @@ function fetchUnitEnums() {
 // Fetch and render meal categories
 function fetchMealCategoryEnums() {
     $.ajax({
-        url: '/api/meal-category-enums',
+        url: '/api/meal-categories',
         method: 'GET',
         success: function (data) {
             $('#meal-categories').empty(); // Clear previous chips if any

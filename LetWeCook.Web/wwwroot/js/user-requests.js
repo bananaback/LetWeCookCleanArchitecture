@@ -278,7 +278,7 @@ function updateRequestList(filteredRequests) {
             if (request.type === "CREATE_INGREDIENT" || request.type === "UPDATE_INGREDIENT") {
                 try {
                     ingredientData = await $.ajax({
-                        url: `/api/ingredient-overview/${request.newReferenceId}`,
+                        url: `/api/ingredient/${request.newReferenceId}/overview`,
                         method: 'GET',
                         dataType: 'json'
                     });

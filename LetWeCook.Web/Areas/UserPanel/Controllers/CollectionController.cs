@@ -26,7 +26,7 @@ public class CollectionController : Controller
         return View();
     }
 
-    [HttpPost("/api/collections-browse")]
+    [HttpPost("/api/collections/query")]
     [Authorize]
     public async Task<IActionResult> BrowseCollections([FromBody] CollectionQueryRequest request, CancellationToken cancellationToken = default)
     {
@@ -55,12 +55,15 @@ public class CollectionController : Controller
         }
     }
 
-    [HttpPost("/api/collection-items-browse")]
+    [HttpPost("/api/collection/{collectionId}/items/query")]
     [Authorize]
-    public async Task<IActionResult> BrowseCollectionItems([FromBody] CollectionItemQueryRequest request, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> BrowseCollectionItems(
+        [FromRoute] Guid collectionId,
+        [FromBody] CollectionItemQueryRequest request,
+        CancellationToken cancellationToken = default)
     {
-        //try
-        //{
+        request.CollectionId = collectionId;
+
         var siteUserId = await GetSiteUserId(cancellationToken);
 
         var result = await _collectionService.BrowseCollectionItems(
@@ -78,12 +81,7 @@ public class CollectionController : Controller
         );
 
         return Ok(result);
-        //}
-        //catch (Exception ex)
-        //{
-        //    Console.WriteLine("Error in BrowseCollectionItems: " + ex.Message);
-        //    return StatusCode(500, "Internal server error" + ex.Message);
-        //}
+
     }
 
     private async Task<Guid> GetSiteUserId(CancellationToken cancellationToken = default)

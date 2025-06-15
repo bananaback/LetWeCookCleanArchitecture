@@ -33,21 +33,21 @@ public class RecipeController : Controller
         return View();
     }
 
-    [HttpGet("/api/unit-enums")]
+    [HttpGet("/api/units")]
     public IActionResult GetAllUnitEnums()
     {
         var unitNames = Enum.GetNames(typeof(UnitEnum)).ToList();
         return Json(unitNames);
     }
 
-    [HttpGet("/api/meal-category-enums")]
+    [HttpGet("/api/meal-categories")]
     public IActionResult GetAllMealCategoryEnums()
     {
         var mealCategoryNames = Enum.GetNames(typeof(MealCategory)).ToList();
         return Json(mealCategoryNames);
     }
 
-    [HttpGet("/api/difficulty-enums")]
+    [HttpGet("/api/difficulty-levels")]
     public IActionResult GetAllDifficultyEnums()
     {
         var difficultyNames = Enum.GetNames(typeof(DifficultyLevel)).ToList();
@@ -184,11 +184,22 @@ public class RecipeController : Controller
     {
         try
         {
-            // Fetching the recipe details (no ownership check, just full public details)
-            var recipe = await _recipeService.GetRecipeDetailsAsync(id, cancellationToken);
+            Guid? siteUserId = null;
+            try
+            {
+                siteUserId = await GetSiteUserId(cancellationToken);
+                var recipe = await _recipeService.GetRecipeDetailsWithTrackingAsync(id, siteUserId, cancellationToken);
+                return Ok(recipe);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // Fetching the recipe details (no ownership check, just full public details)
+                var recipe = await _recipeService.GetRecipeDetailsAsync(id, cancellationToken);
 
-            // Return the recipe details
-            return Ok(recipe);
+                // Return the recipe details
+                return Ok(recipe);
+            }
+
         }
         catch (RecipeRetrievalException)
         {

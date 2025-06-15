@@ -315,14 +315,22 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr) {
-                const errorMessage = xhr.responseJSON?.message || 'An error occurred while processing your donation.';
+                let message = "An error occurred while processing your donation.";
+
+                if (xhr.responseJSON?.message) {
+                    message = xhr.responseJSON.message;
+                }
+
+                console.error("Donation error:", xhr.responseJSON); // Optional for debugging
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Donation Error',
-                    text: errorMessage,
+                    text: message,
                     confirmButtonColor: '#f97316'
                 });
             },
+
             complete: function () {
                 // Re-enable submit button
                 $submitButton.prop('disabled', false).text('Submit');
@@ -333,7 +341,7 @@ $(document).ready(function () {
 
     // Fetch donations from API
     $.ajax({
-        url: '/api/donations/recipe/' + recipeId,
+        url: '/api/donation/recipe/' + recipeId,
         method: 'GET',
         success: function (data) {
 

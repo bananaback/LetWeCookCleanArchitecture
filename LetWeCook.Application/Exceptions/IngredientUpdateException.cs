@@ -1,12 +1,14 @@
+using LetWeCook.Domain.Exceptions;
+
 namespace LetWeCook.Application.Exceptions;
 
-public class IngredientUpdateException : Exception
+public class IngredientUpdateException : DomainException
 {
-    public IngredientUpdateException(string message) : base(message)
+    public IngredientUpdateException(string message, ErrorCode errorCode) : base(message, errorCode)
     {
     }
 
-    public IngredientUpdateException(string message, Exception innerException) : base(message, innerException)
+    public IngredientUpdateException(string message, Exception innerException, ErrorCode errorCode) : base(message, innerException, errorCode)
     {
     }
 }

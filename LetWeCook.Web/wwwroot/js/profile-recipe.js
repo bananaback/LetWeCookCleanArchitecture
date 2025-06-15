@@ -197,7 +197,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
-        url: '/api/meal-category-enums',
+        url: '/api/meal-categories',
         method: 'GET',
         success: function (data) {
             let container = $("#category-container");
@@ -226,7 +226,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
-        url: '/api/difficulty-enums',
+        url: '/api/difficulty-levels',
         method: 'GET',
         success: function (data) {
             let container = $("#difficulty-container");

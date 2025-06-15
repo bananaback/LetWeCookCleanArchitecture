@@ -7,17 +7,25 @@ namespace LetWeCook.Application.Services;
 public class RecipeSuggestionService : IRecipeSuggestionService
 {
     private readonly IRecipeRepository _recipeRepository;
+    private readonly IUserInteractionRepository _userInteractionRepository;
     private readonly IPredictionService _predictionService;
     private readonly ISuggestionFeedbackRepository _suggestionFeedbackRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserRepository _userRepository;
 
-    public RecipeSuggestionService(IRecipeRepository recipeRepository, ISuggestionFeedbackRepository suggestionFeedbackRepository, IUnitOfWork unitOfWork, IUserRepository userRepository, IPredictionService predictionService)
+    public RecipeSuggestionService(
+        IRecipeRepository recipeRepository,
+        ISuggestionFeedbackRepository suggestionFeedbackRepository,
+        IUnitOfWork unitOfWork,
+        IUserRepository userRepository,
+        IUserInteractionRepository userInteractionRepository,
+        IPredictionService predictionService)
     {
         _recipeRepository = recipeRepository;
         _suggestionFeedbackRepository = suggestionFeedbackRepository;
         _unitOfWork = unitOfWork;
         _userRepository = userRepository;
+        _userInteractionRepository = userInteractionRepository;
         _predictionService = predictionService;
     }
 
@@ -119,7 +127,15 @@ public class RecipeSuggestionService : IRecipeSuggestionService
             isLike
         );
 
+        var interaction = new UserInteraction(
+            siteUserId,
+            recipeId,
+            isLike ? "like" : "dislike",
+            1
+        );
+
         await _suggestionFeedbackRepository.AddAsync(feedback, cancellationToken);
+        await _userInteractionRepository.AddAsync(interaction, cancellationToken);
         await _unitOfWork.CommitAsync(cancellationToken);
     }
 

@@ -32,7 +32,7 @@ function fetchIngredientCategories() {
 
 function fetchIngredientsOverview() {
     $.ajax({
-        url: '/api/ingredients/overview',
+        url: '/api/ingredients/summary',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -42,9 +42,21 @@ function fetchIngredientsOverview() {
             updatePagination();
 
         },
-        error: function (xhr, status, error) {
-            console.error("Error fetching ingredients:", status, error);
+        error: function (xhr) {
+            console.error("Error fetching ingredient summary:", {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                responseText: xhr.responseText
+            });
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: xhr.responseJSON?.message || 'Failed to load ingredient summary. Please try again later.',
+                confirmButtonColor: '#dc3545'
+            });
         }
+
     });
 }
 

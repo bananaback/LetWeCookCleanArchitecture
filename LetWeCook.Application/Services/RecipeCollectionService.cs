@@ -5,6 +5,7 @@ using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Application.Utilities;
 using LetWeCook.Domain.Aggregates;
+using LetWeCook.Domain.Exceptions;
 
 namespace LetWeCook.Application.Services;
 
@@ -31,25 +32,33 @@ public class RecipeCollectionService : ICollectionService
         var user = await _userRepository.GetByIdAsync(siteUserId, cancellationToken);
         if (user == null)
         {
-            throw new RecipeCollectionUpdateException("User not found: " + siteUserId);
+            var ex = new RecipeCollectionUpdateException("User not found: " + siteUserId, ErrorCode.RECIPE_COLLECTION_USER_NOT_FOUND);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            throw ex;
         }
         // check if recipe exists
         var recipe = await _recipeRepository.GetByIdAsync(recipeId, cancellationToken);
         if (recipe == null)
         {
-            throw new RecipeCollectionUpdateException("Recipe not found: " + recipeId);
+            var ex = new RecipeCollectionUpdateException("Recipe not found: " + recipeId, ErrorCode.RECIPE_COLLECTION_RECIPE_NOT_FOUND);
+            ex.AddContext("RecipeId", recipeId.ToString());
+            throw ex;
         }
         // check if collection exists
         var collection = await _recipeCollectionRepository.GetWithOwnerByIdAsync(collectionId, cancellationToken);
         if (collection == null)
         {
-            throw new RecipeCollectionUpdateException("Collection not found: " + collectionId);
+            var ex = new RecipeCollectionUpdateException("Collection not found: " + collectionId, ErrorCode.RECIPE_COLLECTION_NOT_FOUND);
+            ex.AddContext("CollectionId", collectionId.ToString());
+            throw ex;
         }
 
         // check if collection belongs to user
         if (collection.CreatedBy.Id != siteUserId)
         {
-            throw new RecipeCollectionUpdateException("Collection does not belong to user: " + siteUserId);
+            var ex = new RecipeCollectionUpdateException("Collection does not belong to user: " + siteUserId, ErrorCode.RECIPE_COLLECTION_NOT_BELONG_TO_USER);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            throw ex;
         }
 
         // check if recipe is already in collection
@@ -72,34 +81,46 @@ public class RecipeCollectionService : ICollectionService
         var user = await _userRepository.GetByIdAsync(siteUserId, cancellationToken);
         if (user == null)
         {
-            throw new RecipeCollectionUpdateException("User not found: " + siteUserId);
+            var ex = new RecipeCollectionUpdateException("User not found: " + siteUserId, ErrorCode.RECIPE_COLLECTION_USER_NOT_FOUND);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            throw ex;
         }
 
         // check if recipe exists
         var recipe = await _recipeRepository.GetByIdAsync(recipeId, cancellationToken);
         if (recipe == null)
         {
-            throw new RecipeCollectionUpdateException("Recipe not found: " + recipeId);
+            var ex = new RecipeCollectionUpdateException("Recipe not found: " + recipeId, ErrorCode.RECIPE_COLLECTION_RECIPE_NOT_FOUND);
+            ex.AddContext("RecipeId", recipeId.ToString());
+            throw ex;
         }
 
         // check if collection name is valid
         if (string.IsNullOrWhiteSpace(collectionName))
         {
-            throw new RecipeCollectionUpdateException("Collection name cannot be empty.");
+            var ex = new RecipeCollectionUpdateException("Collection name cannot be empty.", ErrorCode.RECIPE_COLLECTION_NAME_EMPTY);
+            ex.AddContext("CollectionName", collectionName);
+            throw ex;
         }
         if (collectionName.Length > 100)
         {
-            throw new RecipeCollectionUpdateException("Collection name cannot exceed 100 characters.");
+            var ex = new RecipeCollectionUpdateException("Collection name cannot exceed 100 characters.", ErrorCode.RECIPE_COLLECTION_NAME_TOO_LONG);
+            ex.AddContext("CollectionName", collectionName);
+            throw ex;
         }
         if (collectionName.Length < 3)
         {
-            throw new RecipeCollectionUpdateException("Collection name must be at least 3 characters long.");
+            var ex = new RecipeCollectionUpdateException("Collection name must be at least 3 characters long.", ErrorCode.RECIPE_COLLECTION_NAME_TOO_SHORT);
+            ex.AddContext("CollectionName", collectionName);
+            throw ex;
         }
         // check if collection already exists with the same name
         bool collectionExists = await _recipeCollectionRepository.ExistsByNameAsync(siteUserId, collectionName, cancellationToken);
         if (collectionExists)
         {
-            throw new RecipeCollectionUpdateException("Collection with the same name already exists.");
+            var ex = new RecipeCollectionUpdateException("Collection with the same name already exists.", ErrorCode.RECIPE_COLLECTION_NAME_EXISTS);
+            ex.AddContext("CollectionName", collectionName);
+            throw ex;
         }
 
         // create new collection
@@ -181,18 +202,25 @@ public class RecipeCollectionService : ICollectionService
         var user = await _userRepository.GetByIdAsync(siteUserId, cancellationToken);
         if (user == null)
         {
-            throw new RecipeCollectionRetrievalException("User not found: " + siteUserId);
+            var ex = new RecipeCollectionRetrievalException("User not found: " + siteUserId, ErrorCode.RECIPE_COLLECTION_USER_NOT_FOUND);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            throw ex;
         }
         // check if collection exists
         var collection = await _recipeCollectionRepository.GetWithOwnerByIdAsync(request.CollectionId, cancellationToken);
         if (collection == null)
         {
-            throw new RecipeCollectionRetrievalException("Collection not found: " + request.CollectionId);
+            var ex = new RecipeCollectionRetrievalException("Collection not found: " + request.CollectionId, ErrorCode.RECIPE_COLLECTION_NOT_FOUND);
+            ex.AddContext("CollectionId", request.CollectionId.ToString());
+            throw ex;
         }
         // check if collection belongs to user
         if (collection.CreatedBy != null && collection.CreatedBy.Id != siteUserId)
         {
-            throw new RecipeCollectionRetrievalException("Collection does not belong to user: " + siteUserId);
+            var ex = new RecipeCollectionRetrievalException("Collection does not belong to user: " + siteUserId, ErrorCode.RECIPE_COLLECTION_NOT_BELONG_TO_USER);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            ex.AddContext("CollectionId", request.CollectionId.ToString());
+            throw ex;
         }
 
         // get all recipe names for the user
@@ -260,20 +288,26 @@ public class RecipeCollectionService : ICollectionService
         var user = await _userRepository.GetByIdAsync(siteUserId, cancellationToken);
         if (user == null)
         {
-            throw new RecipeCollectionUpdateException("User not found: " + siteUserId);
+            var ex = new RecipeCollectionUpdateException("User not found: " + siteUserId, ErrorCode.RECIPE_COLLECTION_USER_NOT_FOUND);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            throw ex;
         }
 
         // check if collection exists
         var collection = await _recipeCollectionRepository.GetWithOwnerByIdAsync(collectionId, cancellationToken);
         if (collection == null)
         {
-            throw new RecipeCollectionUpdateException("Collection not found: " + collectionId);
+            var ex = new RecipeCollectionUpdateException("Collection not found: " + collectionId, ErrorCode.RECIPE_COLLECTION_NOT_FOUND);
+            ex.AddContext("CollectionId", collectionId.ToString());
+            throw ex;
         }
 
         // check if collection belongs to user
         if (collection.CreatedBy.Id != siteUserId)
         {
-            throw new RecipeCollectionUpdateException("Collection does not belong to user: " + siteUserId);
+            var ex = new RecipeCollectionUpdateException("Collection does not belong to user: " + siteUserId, ErrorCode.RECIPE_COLLECTION_NOT_BELONG_TO_USER);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            throw ex;
         }
 
         // delete collection
@@ -287,7 +321,9 @@ public class RecipeCollectionService : ICollectionService
         var user = await _userRepository.GetByIdAsync(siteUserId, cancellationToken);
         if (user == null)
         {
-            throw new RecipeCollectionRetrievalException("User not found: " + siteUserId);
+            var ex = new RecipeCollectionRetrievalException("User not found: " + siteUserId, ErrorCode.RECIPE_COLLECTION_USER_NOT_FOUND);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            throw ex;
         }
 
         var collections = await _recipeCollectionRepository.GetAllUserCollectionsAsync(siteUserId, cancellationToken);
@@ -313,30 +349,40 @@ public class RecipeCollectionService : ICollectionService
         var user = await _userRepository.GetByIdAsync(siteUserId, cancellationToken);
         if (user == null)
         {
-            throw new RecipeCollectionUpdateException("User not found: " + siteUserId);
+            var ex = new RecipeCollectionUpdateException("User not found: " + siteUserId, ErrorCode.RECIPE_COLLECTION_USER_NOT_FOUND);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            throw ex;
         }
         // check if recipe exists
         var recipe = await _recipeRepository.GetByIdAsync(recipeId, cancellationToken);
         if (recipe == null)
         {
-            throw new RecipeCollectionUpdateException("Recipe not found: " + recipeId);
+            var ex = new RecipeCollectionUpdateException("Recipe not found: " + recipeId, ErrorCode.RECIPE_COLLECTION_NOT_FOUND);
+            ex.AddContext("RecipeId", recipeId.ToString());
+            throw ex;
         }
         // check if collection exists
         var collection = await _recipeCollectionRepository.GetWithOwnerByIdAsync(collectionId, cancellationToken);
         if (collection == null)
         {
-            throw new RecipeCollectionUpdateException("Collection not found: " + collectionId);
+            var ex = new RecipeCollectionUpdateException("Collection not found: " + collectionId, ErrorCode.RECIPE_COLLECTION_NOT_FOUND);
+            ex.AddContext("CollectionId", collectionId.ToString());
+            throw ex;
         }
         // check if collection belongs to user
         if (collection.CreatedBy.Id != siteUserId)
         {
-            throw new RecipeCollectionUpdateException("Collection does not belong to user: " + siteUserId);
+            var ex = new RecipeCollectionUpdateException("Collection does not belong to user: " + siteUserId, ErrorCode.RECIPE_COLLECTION_NOT_BELONG_TO_USER);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            throw ex;
         }
         // check if recipe is in collection
         var collectionItem = collection.Recipes.FirstOrDefault(i => i.RecipeId == recipeId);
         if (collectionItem == null)
         {
-            throw new RecipeCollectionUpdateException("Recipe is not in collection: " + recipeId);
+            var ex = new RecipeCollectionUpdateException("Recipe is not in collection: " + recipeId, ErrorCode.RECIPE_COLLECTION_RECIPE_NOT_FOUND);
+            ex.AddContext("RecipeId", recipeId.ToString());
+            throw ex;
         }
         // remove recipe from collection
         collection.RemoveRecipe(recipe);
@@ -351,20 +397,26 @@ public class RecipeCollectionService : ICollectionService
         var user = await _userRepository.GetByIdAsync(siteUserId, cancellationToken);
         if (user == null)
         {
-            throw new RecipeCollectionUpdateException("User not found: " + siteUserId);
+            var ex = new RecipeCollectionUpdateException("User not found: " + siteUserId, ErrorCode.RECIPE_COLLECTION_USER_NOT_FOUND);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            throw ex;
         }
 
         // check if collection exists
         var collection = await _recipeCollectionRepository.GetWithOwnerByIdAsync(collectionId, cancellationToken);
         if (collection == null)
         {
-            throw new RecipeCollectionUpdateException("Collection not found: " + collectionId);
+            var ex = new RecipeCollectionUpdateException("Collection not found: " + collectionId, ErrorCode.RECIPE_COLLECTION_NOT_FOUND);
+            ex.AddContext("CollectionId", collectionId.ToString());
+            throw ex;
         }
 
         // check if collection belongs to user
         if (collection.CreatedBy.Id != siteUserId)
         {
-            throw new RecipeCollectionUpdateException("Collection does not belong to user: " + siteUserId);
+            var ex = new RecipeCollectionUpdateException("Collection does not belong to user: " + siteUserId, ErrorCode.RECIPE_COLLECTION_NOT_BELONG_TO_USER);
+            ex.AddContext("SiteUserId", siteUserId.ToString());
+            throw ex;
         }
 
         // update collection name

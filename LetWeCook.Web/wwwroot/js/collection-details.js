@@ -24,7 +24,7 @@ function applyFilters() {
     }
 
     $.ajax({
-        url: '/api/collection-items-browse',
+        url: `/api/collection/${requestData.collectionId}/items/query`,
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(requestData),
@@ -41,8 +41,15 @@ function applyFilters() {
             });
         },
         error: function (xhr, status, error) {
-            console.error('Error fetching collection items:', error);
-            // Optional: show user-friendly error message
+            const err = xhr.responseJSON || {};
+
+            console.error('Backend error:', err);
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: err.message || 'Something went wrong. Please try again later.'
+            });
         }
     });
 }
@@ -153,39 +160,37 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '/api/collections/remove-recipe',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        RecipeId: recipeId,
-                        CollectionId: collectionId
-                    }),
+                    url: `/api/collection/${collectionId}/recipes/${recipeId}`,
+                    method: 'DELETE',
                     success: function () {
                         Swal.fire({
                             icon: 'success',
                             title: 'Removed!',
-                            text: 'Recipe removed successfully.'
+                            text: 'Recipe removed successfully.',
+                            timer: 1500,
+                            showConfirmButton: false
                         });
-                        applyFilters(); // Refresh list
+                        applyFilters(); // Refresh the list
                     },
-                    error: function (xhr, status, error) {
-                        console.error('Error removing recipe:', {
-                            status: xhr.status,
-                            statusText: xhr.statusText,
-                            responseText: xhr.responseText,
-                            error: error,
-                            url: '/api/collections/remove-recipe',
-                            requestBody: JSON.stringify({ RecipeId: recipeId, CollectionId: collectionId })
-                        });
+                    error: function (xhr) {
+                        let message = "Failed to remove the recipe from the collection.";
+
+                        if (xhr.responseJSON?.message) {
+                            message = xhr.responseJSON.message;
+                        }
+
+                        console.error("Remove recipe error:", xhr.responseJSON); // Optional for debugging
 
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'Failed to remove the recipe. Please try again.',
-                            footer: xhr.responseText || 'Unknown error'
+                            text: message,
+                            confirmButtonText: "OK",
+                            confirmButtonColor: "#d32f2f"
                         });
                     }
                 });
+
             }
         });
     });

@@ -166,9 +166,13 @@ $(document).ready(function () {
             },
             error: function (xhr) {
                 let message = "An error occurred while updating your profile.";
-                if (xhr.responseJSON && xhr.responseJSON.message) {
+
+                if (xhr.responseJSON?.message) {
                     message = xhr.responseJSON.message;
                 }
+
+                console.error("Profile update error:", xhr.responseJSON); // Optional: comment out in production
+
                 Swal.fire({
                     title: "Error!",
                     text: message,
@@ -176,7 +180,8 @@ $(document).ready(function () {
                     confirmButtonText: "Try Again",
                     confirmButtonColor: "#d32f2f",
                 });
-            },
+            }
+            ,
             complete: function () {
                 $btn.prop("disabled", false); // Re-enable button after request completes
             }

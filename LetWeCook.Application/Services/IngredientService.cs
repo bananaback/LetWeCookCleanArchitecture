@@ -5,6 +5,7 @@ using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Aggregates;
 using LetWeCook.Domain.Entities;
 using LetWeCook.Domain.Enums;
+using LetWeCook.Domain.Exceptions;
 
 namespace LetWeCook.Application.Services;
 
@@ -36,14 +37,18 @@ public class IngredientService : IIngredientService
         var siteUserId = await _identityService.GetReferenceSiteUserIdAsync(appUserId, cancellationToken);
         if (siteUserId == null)
         {
-            throw new IngredientCreationException("Site user not found.");
+            var ex = new IngredientCreationException("Site user not found.", ErrorCode.INGREDIENT_SITE_USER_ID_IS_NULL);
+            ex.Data.Add("AppUserId", appUserId);
+            throw ex;
         }
 
         // check if ingredient with same name already exists
         var existingIngredientWithSameName = await _ingredientRepository.CheckExistByNameAsync(request.Name, cancellationToken);
         if (existingIngredientWithSameName == true)
         {
-            throw new IngredientCreationException($"Ingredient with name {request.Name} already exists.");
+            var ex = new IngredientCreationException($"Ingredient with name {request.Name} already exists.", ErrorCode.INGREDIENT_NAME_EXISTS);
+            ex.Data.Add("IngredientName", request.Name);
+            throw ex;
         }
 
 
@@ -81,7 +86,7 @@ public class IngredientService : IIngredientService
             coverImage,
             request.ExpirationDays,
             ingredientDetails,
-            siteUserId ?? throw new IngredientCreationException("Site user ID is null.")
+            siteUserId ?? throw new IngredientCreationException("Site user ID is null.", ErrorCode.INGREDIENT_SITE_USER_ID_IS_NULL)
         );
 
         var username = await _identityService.GetUserNameFromAppUserIdAsync(appUserId, cancellationToken);
@@ -112,14 +117,18 @@ public class IngredientService : IIngredientService
         var siteUserId = await _identityService.GetReferenceSiteUserIdAsync(appUserId, cancellationToken);
         if (siteUserId == null)
         {
-            throw new IngredientCreationException("Site user not found.");
+            var ex = new IngredientCreationException("Site user not found.", ErrorCode.INGREDIENT_USER_NOT_FOUND);
+            ex.Data.Add("AppUserId", appUserId);
+            throw ex;
         }
 
         // check if ingredient with same name already exists
         var existingIngredientWithSameName = await _ingredientRepository.CheckExistByNameAsync(request.Name, cancellationToken);
         if (existingIngredientWithSameName == true)
         {
-            throw new IngredientCreationException($"Ingredient with name {request.Name} already exists.");
+            var ex = new IngredientCreationException($"Ingredient with name {request.Name} already exists.", ErrorCode.INGREDIENT_NAME_EXISTS);
+            ex.Data.Add("IngredientName", request.Name);
+            throw ex;
         }
 
         // Create cover image (not yet saved)
@@ -184,11 +193,16 @@ public class IngredientService : IIngredientService
         var ingredient = await _ingredientRepository.GetIngredientByIdWithCategoryAndDetailsAsync(ingredientId, cancellationToken);
         if (ingredient == null)
         {
-            throw new IngredientRetrievalException($"Ingredient with ID {ingredientId} not found.");
+            var ex = new IngredientRetrievalException($"Ingredient with ID {ingredientId} not found.", ErrorCode.INGREDIENT_NOT_FOUND);
+            ex.Data.Add("IngredientId", ingredientId);
+            throw ex;
         }
         if (ingredient.CreatedByUser.Id != siteUserId)
         {
-            throw new IngredientRetrievalException($"Ingredient with ID {ingredientId} not owned by user {siteUserId}.");
+            var ex = new IngredientRetrievalException($"Ingredient with ID {ingredientId} not owned by user {siteUserId}.", ErrorCode.INGREDIENT_NOT_OWNED_BY_USER);
+            ex.Data.Add("IngredientId", ingredientId);
+            ex.Data.Add("UserId", siteUserId);
+            throw ex;
         }
 
         return new IngredientDto
@@ -227,7 +241,9 @@ public class IngredientService : IIngredientService
 
         if (ingredient == null)
         {
-            throw new IngredientRetrievalException($"Ingredient with ID {id} not found.");
+            var ex = new IngredientRetrievalException($"Ingredient with ID {id} not found.", ErrorCode.INGREDIENT_NOT_FOUND);
+            ex.Data.Add("IngredientId", id);
+            throw ex;
         }
 
         return new IngredientDto
@@ -265,12 +281,17 @@ public class IngredientService : IIngredientService
         var ingredient = await _ingredientRepository.GetIngredientOverviewByIdAsync(ingredientId, cancellationToken);
         if (ingredient == null)
         {
-            throw new IngredientRetrievalException($"Ingredient with ID {ingredientId} not found.");
+            var ex = new IngredientRetrievalException($"Ingredient with ID {ingredientId} not found.", ErrorCode.INGREDIENT_NOT_FOUND);
+            ex.Data.Add("IngredientId", ingredientId);
+            throw ex;
         }
 
         if (!bypassOwnershipCheck && ingredient.CreatedByUser.Id != siteUserId)
         {
-            throw new IngredientRetrievalException($"Ingredient with ID {ingredientId} not owned by user {siteUserId}.");
+            var ex = new IngredientRetrievalException($"Ingredient with ID {ingredientId} not owned by user {siteUserId}.", ErrorCode.INGREDIENT_NOT_OWNED_BY_USER);
+            ex.Data.Add("IngredientId", ingredientId);
+            ex.Data.Add("UserId", siteUserId);
+            throw ex;
         }
 
         return new IngredientDto
@@ -301,12 +322,17 @@ public class IngredientService : IIngredientService
         var ingredient = await _ingredientRepository.GetIngredientByIdWithCategoryAndDetailsAsync(ingredientId, cancellationToken);
         if (ingredient == null)
         {
-            throw new IngredientRetrievalException($"Ingredient with ID {ingredientId} not found.");
+            var ex = new IngredientRetrievalException($"Ingredient with ID {ingredientId} not found.", ErrorCode.INGREDIENT_NOT_FOUND);
+            ex.Data.Add("IngredientId", ingredientId);
+            throw ex;
         }
 
         if (!bypassOwnershipCheck && ingredient.CreatedByUser.Id != siteUserId)
         {
-            throw new IngredientRetrievalException($"Ingredient with ID {ingredientId} not owned by user {siteUserId}.");
+            var ex = new IngredientRetrievalException($"Ingredient with ID {ingredientId} not owned by user {siteUserId}.", ErrorCode.INGREDIENT_NOT_OWNED_BY_USER);
+            ex.Data.Add("IngredientId", ingredientId);
+            ex.Data.Add("UserId", siteUserId);
+            throw ex;
         }
 
         return new IngredientDto
@@ -450,13 +476,18 @@ public class IngredientService : IIngredientService
         var ingredient = _ingredientRepository.GetIngredientByIdWithCategoryAndDetailsAsync(ingredientId, cancellationToken).Result;
         if (ingredient == null)
         {
-            throw new IngredientUpdateException($"Ingredient with ID {ingredientId} not found.");
+            var ex = new IngredientUpdateException($"Ingredient with ID {ingredientId} not found.", ErrorCode.INGREDIENT_NOT_FOUND);
+            ex.Data.Add("IngredientId", ingredientId);
+            throw ex;
         }
 
         // check the ownership
         if (ingredient.CreatedByUser.Id != siteUserId)
         {
-            throw new IngredientUpdateException($"Ingredient with ID {ingredientId} not owned by user {siteUserId}.");
+            var ex = new IngredientUpdateException($"Ingredient with ID {ingredientId} not owned by user {siteUserId}.", ErrorCode.INGREDIENT_NOT_OWNED_BY_USER);
+            ex.Data.Add("IngredientId", ingredientId);
+            ex.Data.Add("UserId", siteUserId);
+            throw ex;
         }
 
         // Create cover image (not yet saved)

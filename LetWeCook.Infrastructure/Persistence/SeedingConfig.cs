@@ -11,4 +11,5 @@ public class SeedingConfig
     public bool SeedRecipeRatings { get; set; }
     public bool SeedRecipeDonations { get; set; }
     public bool SeedSuggestionFeedbacks { get; set; }
+    public bool SeedUserInteractions { get; set; }
 }

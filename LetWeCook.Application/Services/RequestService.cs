@@ -3,6 +3,7 @@ using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Entities;
 using LetWeCook.Domain.Enums;
+using LetWeCook.Domain.Exceptions;
 
 namespace LetWeCook.Application.Services;
 
@@ -44,7 +45,9 @@ public class RequestService : IRequestService
             var ingredient = await _ingredientRepository.GetByIdAsync(ingredientId, cancellationToken);
             if (ingredient == null)
             {
-                throw new IngredientRetrievalException($"Ingredient with ID {ingredientId} not found.");
+                var ex = new IngredientRetrievalException($"Ingredient with ID {ingredientId} not found.", ErrorCode.INGREDIENT_NOT_FOUND);
+                ex.AddContext("IngredientId", ingredientId.ToString());
+                throw ex;
             }
 
             ingredient.SetVisible(true);
@@ -69,7 +72,10 @@ public class RequestService : IRequestService
             // check null of old and new ingredient
             if (oldIngredient == null || newIngredient == null)
             {
-                throw new IngredientRetrievalException($"Ingredient with ID {request.OldReferenceId} or {request.NewReferenceId} not found.");
+                var ex = new IngredientRetrievalException($"Ingredient with ID {request.OldReferenceId} or {request.NewReferenceId} not found.", ErrorCode.INGREDIENT_NOT_FOUND);
+                ex.AddContext("OldIngredientId", request.OldReferenceId.ToString() ?? "");
+                ex.AddContext("NewIngredientId", request.NewReferenceId.ToString());
+                throw ex;
             }
 
             // Copy scalar properties
@@ -104,7 +110,9 @@ public class RequestService : IRequestService
             var recipe = await _recipeRepository.GetByIdAsync(recipeId, cancellationToken);
             if (recipe == null)
             {
-                throw new IngredientRetrievalException($"Recipe with ID {recipeId} not found.");
+                var ex = new IngredientRetrievalException($"Recipe with ID {recipeId} not found.", ErrorCode.RECIPE_NOT_FOUND);
+                ex.AddContext("RecipeId", recipeId.ToString() ?? "");
+                throw ex;
             }
 
             recipe.SetVisible(true);
@@ -156,7 +164,9 @@ public class RequestService : IRequestService
                 var ingredient = await _ingredientRepository.GetByIdAsync(sourceIngredient.IngredientId, cancellationToken);
                 if (ingredient == null)
                 {
-                    throw new IngredientRetrievalException($"Ingredient with ID {sourceIngredient.IngredientId} not found.");
+                    var ex = new IngredientRetrievalException($"Ingredient with ID {sourceIngredient.IngredientId} not found.", ErrorCode.INGREDIENT_NOT_FOUND);
+                    ex.AddContext("IngredientId", sourceIngredient.IngredientId.ToString() ?? "");
+                    throw ex;
                 }
                 var recipeIngredient = new RecipeIngredient(oldRecipe.Id, ingredient.Id, sourceIngredient.Quantity, sourceIngredient.Unit);
                 oldRecipe.AddIngredient(recipeIngredient);

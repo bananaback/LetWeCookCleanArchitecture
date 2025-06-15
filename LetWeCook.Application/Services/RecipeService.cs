@@ -21,6 +21,7 @@ public class RecipeService : IRecipeService
     private readonly IIdentityService _identityService;
     private readonly IUserRepository _userRepository;
     private readonly IUserRequestRepository _userRequestRepository;
+    private readonly IUserInteractionRepository _userInteractionRepository;
     private readonly IUnitOfWork _unitOfWork;
 
     public RecipeService(
@@ -29,6 +30,7 @@ public class RecipeService : IRecipeService
         IIdentityService identityService,
         IUserRepository userRepository,
         IUserRequestRepository userRequestRepository,
+        IUserInteractionRepository userInteractionRepository,
         IUnitOfWork unitOfWork)
     {
         _recipeRepository = recipeRepository;
@@ -36,6 +38,7 @@ public class RecipeService : IRecipeService
         _identityService = identityService;
         _userRepository = userRepository;
         _userRequestRepository = userRequestRepository;
+        _userInteractionRepository = userInteractionRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -356,6 +359,89 @@ public class RecipeService : IRecipeService
         if (!recipe.IsVisible)
         {
             throw new RecipeRetrievalException($"Recipe with ID {recipeId} is not visible.");
+        }
+
+        return new RecipeDto
+        {
+            Id = recipe.Id,
+            Name = recipe.Name,
+            Description = recipe.Description,
+            Servings = recipe.Servings,
+            PrepareTime = recipe.PrepareTime,
+            CookTime = recipe.CookTime,
+            Difficulty = recipe.DifficultyLevel.ToString(),
+            MealCategory = recipe.MealCategory.ToString(),
+            CoverImage = recipe.CoverMediaUrl.Url,
+            CreatedAt = recipe.CreatedAt,
+            AuthorProfile = authorProfile,
+            AverageRating = recipe.AverageRating,
+            TotalRatings = recipe.TotalRatings,
+            TotalViews = recipe.TotalViews,
+            Ingredients = recipe.RecipeIngredients.Select(ingredient => new RecipeIngredientDto
+            {
+                IngredientId = ingredient.Ingredient.Id,
+                IngredientName = ingredient.Ingredient.Name,
+                CoverImageUrl = ingredient.Ingredient.CoverImageUrl.Url,
+                Quantity = ingredient.Quantity,
+                Unit = ingredient.Unit.ToString()
+            }).ToList(),
+            Steps = recipe.RecipeDetails.Select(step => new RecipeStepDto
+            {
+                Title = step.Detail.Title,
+                Description = step.Detail.Description,
+                MediaUrls = step.Detail.MediaUrls.Select(mediaUrl => mediaUrl.Url).ToList(),
+                Order = step.Order
+            }).ToList(),
+            Tags = recipe.Tags.Select(tag => tag.Name).ToList(),
+        };
+    }
+
+    public async Task<RecipeDto> GetRecipeDetailsWithTrackingAsync(Guid recipeId, Guid? siteUserId, CancellationToken cancellationToken)
+    {
+        var recipe = await _recipeRepository.GetRecipeDetailsByIdAsync(recipeId, cancellationToken);
+        if (recipe == null)
+        {
+            throw new RecipeRetrievalException($"Recipe with ID {recipeId} not found.");
+        }
+
+        recipe.IncreaseView();
+        await _recipeRepository.UpdateAsync(recipe, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
+
+        var authorProfile = new AuthorProfileDto();
+
+        // Populate author profile if exists
+        if (recipe.CreatedBy.Profile != null)
+        {
+            authorProfile = new AuthorProfileDto
+            {
+                Id = recipe.CreatedBy.Profile.Id,
+                Name = recipe.CreatedBy.Profile.Name.FullName,
+                ProfilePicUrl = recipe.CreatedBy.Profile.ProfilePic,
+                Bio = recipe.CreatedBy.Profile.Bio,
+                Facebook = recipe.CreatedBy.Profile.Facebook,
+                Instagram = recipe.CreatedBy.Profile.Instagram,
+                PayPalEmail = recipe.CreatedBy.Profile.PayPalEmail
+            };
+        }
+
+        // check if recipe is visible
+        if (!recipe.IsVisible)
+        {
+            throw new RecipeRetrievalException($"Recipe with ID {recipeId} is not visible.");
+        }
+
+        if (siteUserId.HasValue)
+        {
+            var interaction = new UserInteraction
+            (
+                recipe.Id,
+                siteUserId.Value,
+                "view",
+                1
+            );
+            await _userInteractionRepository.AddAsync(interaction, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
         }
 
         return new RecipeDto

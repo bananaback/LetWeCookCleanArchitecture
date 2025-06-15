@@ -373,9 +373,21 @@ $(document).ready(function () {
             // Log to verify the result
             console.log('Updated INGREDIENT_POOL:', INGREDIENT_POOL);
         },
-        error: function (xhr, status, error) {
-            console.error('Error fetching ingredients:', status, error);
+        error: function (xhr) {
+            console.error("Error fetching ingredient summary:", {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                responseText: xhr.responseText
+            });
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: xhr.responseJSON?.message || 'Failed to load ingredient summary. Please try again later.',
+                confirmButtonColor: '#dc3545'
+            });
         }
+
     });
 
     $('#add-image').on('click', function () {
@@ -487,9 +499,21 @@ function fetchIngredientOverviews() {
         success: function (data) {
             ingredientOverviews = data;
         },
-        error: function (xhr, status, error) {
-            console.error('❌ Error fetching ingredient overviews:', error);
+        error: function (xhr) {
+            console.error("Error fetching ingredient summary:", {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                responseText: xhr.responseText
+            });
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: xhr.responseJSON?.message || 'Failed to load ingredient summary. Please try again later.',
+                confirmButtonColor: '#dc3545'
+            });
         }
+
     });
 }
 

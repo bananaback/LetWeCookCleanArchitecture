@@ -2,9 +2,11 @@ using System.Globalization;
 using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
+using LetWeCook.Application.Dtos;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Aggregates;
 using LetWeCook.Domain.Common;
+using LetWeCook.Domain.Entities;
 using LetWeCook.Domain.Enums;
 using LetWeCook.Domain.Events;
 using LetWeCook.Domain.Utilities;
@@ -20,7 +22,9 @@ public class TrainingDataService : BackgroundService
 {
     private readonly ILogger<TrainingDataService> _logger;
     private readonly IServiceProvider _serviceProvider;
-    private const string CsvPath = "training_data.csv";
+    private const string TrainingCsvPath = "recipe-features.csv";
+    private const string InteractionsCsvPath = "interactions.csv";
+    private const string UserFeaturesCsvPath = "user_features.csv";
     private readonly TimeSpan _interval = TimeSpan.FromHours(1);
     private string _pythonServerUrl = string.Empty;
 
@@ -36,13 +40,12 @@ public class TrainingDataService : BackgroundService
     private async Task SendFileToPythonServer(string filePath, CancellationToken cancellationToken)
     {
         using var client = new HttpClient();
-
         using var form = new MultipartFormDataContent();
         using var fileStream = File.OpenRead(filePath);
         var content = new StreamContent(fileStream);
         content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("text/csv");
 
-        form.Add(content, "file", "training_data.csv");
+        form.Add(content, "file", Path.GetFileName(filePath));
 
         var response = await client.PostAsync($"{_pythonServerUrl}/upload", form, cancellationToken);
         if (!response.IsSuccessStatusCode)
@@ -52,9 +55,8 @@ public class TrainingDataService : BackgroundService
         }
 
         var success = await response.Content.ReadAsStringAsync();
-        Console.WriteLine($"Upload successful: {success}");
+        _logger.LogInformation("Upload successful for {FileName}: {Response}", Path.GetFileName(filePath), success);
     }
-
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -74,84 +76,78 @@ public class TrainingDataService : BackgroundService
                     using (var scope = _serviceProvider.CreateScope())
                     {
                         var recipeRepository = scope.ServiceProvider.GetRequiredService<IRecipeRepository>();
+                        var userInteractionRepository = scope.ServiceProvider.GetRequiredService<IUserInteractionRepository>();
                         var userRepository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
-                        var donationRepository = scope.ServiceProvider.GetRequiredService<IDonationRepository>();
-                        var ratingRepository = scope.ServiceProvider.GetRequiredService<IRecipeRatingRepository>();
-                        var suggestionFeedbackRepository = scope.ServiceProvider.GetRequiredService<ISuggestionFeedbackRepository>();
 
-                        var donations = await donationRepository.GetAllAsync(stoppingToken);
-                        var ratings = await ratingRepository.GetAllAsync(stoppingToken);
-                        var suggestionFeedbacks = await suggestionFeedbackRepository.GetAllAsync(stoppingToken);
-
-                        var records = new List<TrainingLogRow>();
-
-                        // Ratings
-                        foreach (var rating in ratings)
+                        // Generate recipe-features.csv
+                        var trainingRecords = new List<TrainingLogRow>();
+                        var recipes = await recipeRepository.GetAllAsync(stoppingToken);
+                        foreach (var recipe in recipes)
                         {
-                            var user = await userRepository.GetWithProfileByIdAsync(rating.UserId, stoppingToken);
-                            if (user?.Profile == null || !user.Profile.DietaryPreferences.Any())
-                            {
-                                _logger.LogWarning("Skipping rating: user/profile missing for ID {UserId}.", rating.UserId);
-                                continue;
-                            }
-
-                            var recipe = await recipeRepository.GetRecipeDetailsByIdAsync(rating.RecipeId);
-                            if (recipe == null)
-                            {
-                                _logger.LogWarning("Skipping rating: recipe not found for ID {RecipeId}.", rating.RecipeId);
-                                continue;
-                            }
-
-                            var record = CreateBaseLogRow(user, recipe, rating.CreatedAt);
-                            record.Rating = rating.Rating;
-                            record.CommentLength = rating.Comment?.Length ?? 0;
-                            records.Add(record);
+                            var detailedRecipe = await recipeRepository.GetRecipeDetailsByIdAsync(recipe.Id, stoppingToken);
+                            var logRow = CreateBaseLogRow(recipe);
+                            trainingRecords.Add(logRow);
                         }
-
-                        // Donations
-                        foreach (var donation in donations)
+                        using (var writer = new StreamWriter(TrainingCsvPath, false, Encoding.UTF8))
+                        using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
                         {
-                            var recipe = await recipeRepository.GetByIdAsync(donation.RecipeId);
-                            if (recipe == null) continue;
-
-                            var donator = await userRepository.GetWithProfileByIdAsync(donation.DonatorId, stoppingToken);
-                            if (donator?.Profile == null || !donator.Profile.DietaryPreferences.Any())
-                            {
-                                _logger.LogWarning("Skipping donation: profile missing for ID {DonatorId}.", donation.DonatorId);
-                                continue;
-                            }
-
-                            var record = CreateBaseLogRow(donator, recipe, donation.CreatedAt);
-                            record.DonatedAmount = donation.Amount;
-                            records.Add(record);
+                            csv.WriteRecords(trainingRecords);
                         }
+                        _logger.LogInformation("Training data CSV written to {CsvPath}", TrainingCsvPath);
 
-                        // Feedback
-                        foreach (var feedback in suggestionFeedbacks)
+                        // Generate interactions.csv
+                        var interactionRecords = await userInteractionRepository.GetAggregatedInteractionsAsync();
+                        using (var writer = new StreamWriter(InteractionsCsvPath, false, Encoding.UTF8))
+                        using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
                         {
-                            var user = await userRepository.GetWithProfileByIdAsync(feedback.UserId, stoppingToken);
-                            if (user?.Profile == null || !user.Profile.DietaryPreferences.Any())
-                            {
-                                _logger.LogWarning("Skipping feedback: profile missing for ID {UserId}.", feedback.UserId);
-                                continue;
-                            }
-
-                            var record = CreateBaseLogRow(user, feedback.Recipe, feedback.CreatedAt);
-                            record.Liked = feedback.LikeOrDislike;
-                            records.Add(record);
+                            csv.WriteRecords(interactionRecords);
                         }
+                        _logger.LogInformation("Interactions CSV written to {CsvPath}", InteractionsCsvPath);
 
-                        // Write to CSV
-                        using var writer = new StreamWriter(CsvPath, false, Encoding.UTF8);
-                        using var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture));
-                        csv.WriteRecords(records);
+                        // Generate user_features.csv
+                        var userRecords = new List<UserFeatureRow>();
+                        var users = await userRepository.GetAllWithProfileAsync(stoppingToken);
+                        foreach (var user in users.Where(u => u.Profile != null && !u.IsRemoved))
+                        {
+                            var profile = user.Profile!;
+                            var age = CalculateAge(profile.BirthDate);
+                            var dietaryPrefs = profile.DietaryPreferences.ToDictionary(p => p.Name, p => true);
 
-                        _logger.LogInformation("Training data CSV written to {CsvPath}", CsvPath);
+                            var userRow = new UserFeatureRow
+                            {
+                                UserId = user.Id,
+                                Age = age,
+                                Gender_Male = profile.Gender == Gender.Male,
+                                Gender_Female = profile.Gender == Gender.Female,
+                                Gender_Other = profile.Gender == Gender.Other,
+                                Pref_Vegetarian = dietaryPrefs.ContainsKey("Vegetarian"),
+                                Pref_Vegan = dietaryPrefs.ContainsKey("Vegan"),
+                                Pref_GlutenFree = dietaryPrefs.ContainsKey("GlutenFree"),
+                                Pref_Pescatarian = dietaryPrefs.ContainsKey("Pescatarian"),
+                                Pref_LowCalorie = dietaryPrefs.ContainsKey("LowCalorie"),
+                                Pref_HighProtein = dietaryPrefs.ContainsKey("HighProtein"),
+                                Pref_LowCarb = dietaryPrefs.ContainsKey("LowCarb"),
+                                Pref_LowFat = dietaryPrefs.ContainsKey("LowFat"),
+                                Pref_LowSugar = dietaryPrefs.ContainsKey("LowSugar"),
+                                Pref_HighFiber = dietaryPrefs.ContainsKey("HighFiber"),
+                                Pref_LowSodium = dietaryPrefs.ContainsKey("LowSodium")
+                            };
+                            userRecords.Add(userRow);
+                        }
+                        using (var writer = new StreamWriter(UserFeaturesCsvPath, false, Encoding.UTF8))
+                        using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                        {
+                            csv.WriteRecords(userRecords);
+                        }
+                        _logger.LogInformation("User features CSV written to {CsvPath}", UserFeaturesCsvPath);
+
+                        // Upload all CSVs
+                        await SendFileToPythonServer(TrainingCsvPath, stoppingToken);
+                        await SendFileToPythonServer(InteractionsCsvPath, stoppingToken);
+                        await SendFileToPythonServer(UserFeaturesCsvPath, stoppingToken);
+                        TrainingDataConfigHelper.UpdateLastUploadTime();
+                        _logger.LogInformation("All CSVs uploaded and timestamp updated.");
                     }
-
-                    await SendFileToPythonServer(CsvPath, stoppingToken);
-                    TrainingDataConfigHelper.UpdateLastUploadTime();
-                    _logger.LogInformation("Training data uploaded and timestamp updated.");
                 }
                 else
                 {
@@ -175,7 +171,6 @@ public class TrainingDataService : BackgroundService
                     TrainingDataConfigHelper.UpdateLastSnapshotUploadTime();
                     _logger.LogInformation("Snapshot event dispatched and timestamp updated.");
                 }
-
             }
             catch (Exception ex)
             {
@@ -186,28 +181,13 @@ public class TrainingDataService : BackgroundService
         }
     }
 
-
-    private TrainingLogRow CreateBaseLogRow(SiteUser user, Recipe recipe, DateTime timestamp)
+    private TrainingLogRow CreateBaseLogRow(Recipe recipe)
     {
         var nutrition = RecipeNutritionCalculator.CalculateRecipeNutrition(recipe);
 
         return new TrainingLogRow
         {
-            UserId = user.Id,
             RecipeId = recipe.Id,
-            Timestamp = timestamp,
-            ViewsCount = recipe.TotalViews,
-            Pref_Vegetarian = user.Profile.DietaryPreferences.Select(d => d.Name).Contains("Vegetarian"),
-            Pref_Vegan = user.Profile.DietaryPreferences.Select(d => d.Name).Contains("Vegan"),
-            Pref_GlutenFree = user.Profile.DietaryPreferences.Select(d => d.Name).Contains("GlutenFree"),
-            Pref_Pescatarian = user.Profile.DietaryPreferences.Select(d => d.Name).Contains("Pescatarian"),
-            Pref_LowCalorie = user.Profile.DietaryPreferences.Select(d => d.Name).Contains("LowCalorie"),
-            Pref_HighProtein = user.Profile.DietaryPreferences.Select(d => d.Name).Contains("HighProtein"),
-            Pref_LowCarb = user.Profile.DietaryPreferences.Select(d => d.Name).Contains("LowCarb"),
-            Pref_LowFat = user.Profile.DietaryPreferences.Select(d => d.Name).Contains("LowFat"),
-            Pref_LowSugar = user.Profile.DietaryPreferences.Select(d => d.Name).Contains("LowSugar"),
-            Pref_HighFiber = user.Profile.DietaryPreferences.Select(d => d.Name).Contains("HighFiber"),
-            Pref_LowSodium = user.Profile.DietaryPreferences.Select(d => d.Name).Contains("LowSodium"),
             Calories = nutrition.Calories,
             Protein = nutrition.Protein,
             Carbohydrates = nutrition.Carbohydrates,
@@ -244,30 +224,20 @@ public class TrainingDataService : BackgroundService
             Diff_Hard = recipe.DifficultyLevel == DifficultyLevel.HARD
         };
     }
+    private int CalculateAge(DateTime birthDate)
+    {
+        var today = new DateTime(2025, 6, 16); // Current date as per system
+        int age = today.Year - birthDate.Year;
+        if (birthDate.Date > today.AddYears(-age)) age--;
+        return age;
+    }
 }
+
 
 
 internal class TrainingLogRow
 {
-    public Guid UserId { get; set; }
     public Guid RecipeId { get; set; }
-    public DateTime Timestamp { get; set; }
-    public bool? Liked { get; set; }
-    public int? Rating { get; set; }
-    public int? CommentLength { get; set; }
-    public decimal DonatedAmount { get; set; }
-    public int ViewsCount { get; set; }
-    public bool Pref_Vegetarian { get; set; }
-    public bool Pref_Vegan { get; set; }
-    public bool Pref_GlutenFree { get; set; }
-    public bool Pref_Pescatarian { get; set; }
-    public bool Pref_LowCalorie { get; set; }
-    public bool Pref_HighProtein { get; set; }
-    public bool Pref_LowCarb { get; set; }
-    public bool Pref_LowFat { get; set; }
-    public bool Pref_LowSugar { get; set; }
-    public bool Pref_HighFiber { get; set; }
-    public bool Pref_LowSodium { get; set; }
     public float? Calories { get; set; }
     public float? Protein { get; set; }
     public float? Carbohydrates { get; set; }
@@ -302,4 +272,24 @@ internal class TrainingLogRow
     public bool Diff_Easy { get; set; }
     public bool Diff_Medium { get; set; }
     public bool Diff_Hard { get; set; }
+}
+
+internal class UserFeatureRow
+{
+    public Guid UserId { get; set; }
+    public int Age { get; set; }
+    public bool Gender_Male { get; set; }
+    public bool Gender_Female { get; set; }
+    public bool Gender_Other { get; set; }
+    public bool Pref_Vegetarian { get; set; }
+    public bool Pref_Vegan { get; set; }
+    public bool Pref_GlutenFree { get; set; }
+    public bool Pref_Pescatarian { get; set; }
+    public bool Pref_LowCalorie { get; set; }
+    public bool Pref_HighProtein { get; set; }
+    public bool Pref_LowCarb { get; set; }
+    public bool Pref_LowFat { get; set; }
+    public bool Pref_LowSugar { get; set; }
+    public bool Pref_HighFiber { get; set; }
+    public bool Pref_LowSodium { get; set; }
 }

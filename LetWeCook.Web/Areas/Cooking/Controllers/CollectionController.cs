@@ -24,20 +24,12 @@ public class CollectionController : Controller
     [Authorize]
     public async Task<IActionResult> GetCollections(CancellationToken cancellationToken = default)
     {
-        try
-        {
-            var siteUserId = await GetSiteUserId(cancellationToken);
-            var collections = await _collectionService.GetRecipeCollectionsAsync(siteUserId, cancellationToken);
-            return Ok(collections);
-        }
-        catch (Exception ex)
-        {
-            // Log the exception (not implemented here)
-            return StatusCode(500, "An error occurred while retrieving collections." + ex.Message);
-        }
+        var siteUserId = await GetSiteUserId(cancellationToken);
+        var collections = await _collectionService.GetRecipeCollectionsAsync(siteUserId, cancellationToken);
+        return Ok(collections);
     }
 
-    [HttpPost("/api/collections")]
+    [HttpPost("/api/collection/{collectionId}/items")]
     [Authorize]
     public async Task<IActionResult> AddRecipeToCollection([FromBody] AddRecipeToCollectionRequest request, CancellationToken cancellationToken = default)
     {
@@ -61,56 +53,42 @@ public class CollectionController : Controller
         }
     }
 
-    [HttpPut("/api/collections/{collectionId}")]
+    [HttpPut("/api/collection/{collectionId}")]
     [Authorize]
     public async Task<IActionResult> UpdateCollectionName(Guid collectionId, [FromBody] string newName, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            var siteUserId = await GetSiteUserId(cancellationToken);
-            await _collectionService.UpdateCollectionNameAsync(siteUserId, collectionId, newName, cancellationToken);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            // Log the exception (not implemented here)
-            return StatusCode(500, "An error occurred while updating the collection name." + ex.Message);
-        }
+
+        var siteUserId = await GetSiteUserId(cancellationToken);
+        await _collectionService.UpdateCollectionNameAsync(siteUserId, collectionId, newName, cancellationToken);
+        return Ok();
     }
 
-    [HttpDelete("/api/collections/{collectionId}")]
+    [HttpDelete("/api/collection/{collectionId}")]
     [Authorize]
     public async Task<IActionResult> DeleteCollection(Guid collectionId, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            var siteUserId = await GetSiteUserId(cancellationToken);
-            // Assuming there's a method in ICollectionService to delete a collection
-            await _collectionService.DeleteCollectionAsync(siteUserId, collectionId, cancellationToken);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            // Log the exception (not implemented here)
-            return StatusCode(500, "An error occurred while deleting the collection." + ex.Message);
-        }
+
+        var siteUserId = await GetSiteUserId(cancellationToken);
+        // Assuming there's a method in ICollectionService to delete a collection
+        await _collectionService.DeleteCollectionAsync(siteUserId, collectionId, cancellationToken);
+        return Ok();
+
     }
 
-    [HttpPost("/api/collections/remove-recipe")]
+    [HttpDelete("/api/collection/{collectionId}/recipes/{recipeId}")]
     [Authorize]
-    public async Task<IActionResult> RemoveRecipeFromCollection([FromBody] RemoveRecipeFromCollectionRequest request, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> RemoveRecipeFromCollection(Guid collectionId, Guid recipeId, CancellationToken cancellationToken = default)
     {
-        try
+        var request = new RemoveRecipeFromCollectionRequest
         {
-            var siteUserId = await GetSiteUserId(cancellationToken);
-            await _collectionService.RemoveRecipeFromCollectionAsync(siteUserId, request.RecipeId, request.CollectionId, cancellationToken);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            // Log the exception (not implemented here)
-            return StatusCode(500, "An error occurred while removing the recipe from the collection." + ex.Message);
-        }
+            CollectionId = collectionId,
+            RecipeId = recipeId
+        };
+
+        var siteUserId = await GetSiteUserId(cancellationToken);
+        await _collectionService.RemoveRecipeFromCollectionAsync(siteUserId, request.RecipeId, request.CollectionId, cancellationToken);
+        return Ok();
+
     }
 
     private async Task<Guid> GetSiteUserId(CancellationToken cancellationToken = default)

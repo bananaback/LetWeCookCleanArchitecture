@@ -43,7 +43,7 @@ $(document).ready(function () {
 
 
         $.ajax({
-            url: `/api/collections/${collectionId}`, // no /rename
+            url: `/api/collection/${collectionId}`, // no /rename
             method: 'PUT',                           // use PUT as your API expects
             contentType: 'application/json',
             data: JSON.stringify(newName),          // just a raw string, not { name: newName }
@@ -60,10 +60,21 @@ $(document).ready(function () {
             },
 
             error: function (xhr) {
+                let message = "Failed to rename the collection.";
+
+                // Try to extract backend error message if available
+                if (xhr.responseJSON?.message) {
+                    message = xhr.responseJSON.message;
+                }
+
+                console.error("Rename collection error:", xhr.responseJSON); // Optional for dev/debugging
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Rename Failed',
-                    text: 'Failed to rename: ' + xhr.responseText,
+                    text: message,
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#d32f2f",
                 });
             }
 
@@ -84,7 +95,7 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `/api/collections/${collectionId}`,
+                    url: `/api/collection/${collectionId}`,
                     method: 'DELETE',
                     success: function () {
                         Swal.fire({
@@ -97,12 +108,23 @@ $(document).ready(function () {
                         fetchCollections(); // re-fetch and update UI
                     },
                     error: function (xhr) {
+                        let message = "An error occurred while deleting the collection.";
+
+                        if (xhr.responseJSON?.message) {
+                            message = xhr.responseJSON.message;
+                        }
+
+                        console.error("Delete collection error:", xhr.responseJSON); // Optional for debugging
+
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error!',
-                            text: xhr.responseText || 'An error occurred while deleting the collection.'
+                            title: 'Delete Failed',
+                            text: message,
+                            confirmButtonText: "OK",
+                            confirmButtonColor: "#d32f2f"
                         });
                     }
+
                 });
             }
         });
@@ -201,7 +223,7 @@ function fetchCollections(page = 1, isAscending = true) {
     const pageSize = parseInt($('#pageSizeSelect').val());
 
     $.ajax({
-        url: '/api/collections-browse',
+        url: '/api/collections/query',
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({

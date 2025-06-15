@@ -4,7 +4,7 @@ $(document).ready(function () {
     console.log(ingredientId);
     // Fetch ingredient data from API
     $.ajax({
-        url: `/api/ingredients/${ingredientId}`,
+        url: `/api/ingredient/${ingredientId}`,
         method: "GET",
         success: function (data) {
             ingredientCategoryName = data.categoryName;
@@ -131,9 +131,23 @@ $(document).ready(function () {
                 `);
             });
         },
-        error: function () {
-            $("#loading-message").text("Failed to load ingredients.");
+        error: function (xhr) {
+            console.error("Error fetching random ingredients:", {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                responseText: xhr.responseText
+            });
+
+            $("#loading-message").text("❌ Failed to load ingredients. Please try again later.");
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: xhr.responseJSON?.message || 'Unable to fetch random ingredients.',
+                confirmButtonColor: '#dc3545'
+            });
         }
+
     });
 
     // Fetch category-based ingredients
@@ -160,9 +174,23 @@ $(document).ready(function () {
                 `);
             });
         },
-        error: function () {
-            $("#category-loading-message").text("Failed to load category ingredients.");
+        error: function (xhr) {
+            console.error("Error fetching category ingredients:", {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                responseText: xhr.responseText
+            });
+
+            $("#category-loading-message").text("❌ Failed to load category ingredients. Please try again later.");
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: xhr.responseJSON?.message || 'Unable to fetch ingredients in this category.',
+                confirmButtonColor: '#dc3545'
+            });
         }
+
     });
 
     $(document).on('click', '.zoomable-img', function () {

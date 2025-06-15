@@ -57,24 +57,16 @@ public class IngredientController : Controller
         return View();
     }
 
-    [HttpGet("api/ingredient-overview/{id}")]
+    [HttpGet("api/ingredient/{id}/overview")]
     public async Task<IActionResult> GetIngredientOverviewAsync(Guid id, CancellationToken cancellationToken)
     {
         var siteUserId = await GetSiteUserId(cancellationToken);
         var isAdmin = User.IsInRole("Admin");
-
-        try
-        {
-            var ingredient = await _ingredientService.GetIngredientOverviewByIdAsync(id, siteUserId, bypassOwnershipCheck: isAdmin, cancellationToken);
-            return Ok(ingredient);
-        }
-        catch (IngredientRetrievalException)
-        {
-            return Forbid(); // 403 Forbidden
-        }
+        var ingredient = await _ingredientService.GetIngredientOverviewByIdAsync(id, siteUserId, bypassOwnershipCheck: isAdmin, cancellationToken);
+        return Ok(ingredient);
     }
 
-    [HttpPut("api/ingredients/{id}")]
+    [HttpPut("api/ingredient/{id}")]
     public async Task<IActionResult> UpdateIngredientAsync(Guid id, [FromBody] CreateIngredientRequest request, CancellationToken cancellationToken)
     {
         if (request == null)
@@ -134,7 +126,7 @@ public class IngredientController : Controller
     }
 
     [AllowAnonymous]
-    [HttpGet("api/ingredient-categories")]
+    [HttpGet("/api/ingredient-categories")]
     public async Task<IActionResult> GetAllIngredientCategoriesAsync()
     {
         var ingredientCategories = await _ingredientService.GetAllIngredientCategoriesAsync(CancellationToken.None);
@@ -143,14 +135,14 @@ public class IngredientController : Controller
 
     // Create get ingredient by guid endpoint
     [AllowAnonymous]
-    [HttpGet("api/ingredients/{id}")]
+    [HttpGet("api/ingredient/{id}")]
     public async Task<IActionResult> GetIngredientAsync(Guid id, CancellationToken cancellationToken)
     {
         var ingredient = await _ingredientService.GetIngredientAsync(id, cancellationToken);
         return Ok(ingredient);
     }
 
-    [HttpGet("api/ingredients/editing/{id}")]
+    [HttpGet("api/ingredient/{id}/editing")]
     public async Task<IActionResult> GetEditingIngredientAsync(Guid id, CancellationToken cancellationToken)
     {
         var siteUserId = await GetSiteUserId(cancellationToken);
@@ -168,26 +160,20 @@ public class IngredientController : Controller
         return appUser.SiteUserId;
     }
 
-    [HttpGet("api/ingredient-preview/{id}")]
+    [HttpGet("api/ingredient/{id}/preview")]
     public async Task<IActionResult> GetIngredientPreviewAsync(Guid id, CancellationToken cancellationToken)
     {
         var siteUserId = await GetSiteUserId(cancellationToken);
         var isAdmin = User.IsInRole("Admin");
 
-        try
-        {
-            var ingredient = await _ingredientService.GetIngredientPreviewAsync(id, siteUserId, bypassOwnershipCheck: isAdmin, cancellationToken);
-            return Ok(ingredient);
-        }
-        catch (IngredientRetrievalException)
-        {
-            return Forbid(); // 403 Forbidden
-        }
+        var ingredient = await _ingredientService.GetIngredientPreviewAsync(id, siteUserId, bypassOwnershipCheck: isAdmin, cancellationToken);
+        return Ok(ingredient);
+
     }
 
 
 
-    [HttpPost("api/ingredients")]
+    [HttpPost("/api/ingredients")]
     public async Task<IActionResult> CreateIngredientAsync([FromBody] CreateIngredientRequest request, CancellationToken cancellationToken)
     {
         if (request == null)
@@ -243,7 +229,7 @@ public class IngredientController : Controller
     }
 
     [Authorize]
-    [HttpGet("api/user-ingredients")]
+    [HttpGet("/api/user/ingredients")]
     public async Task<IActionResult> GetUserIngredientsAsync(CancellationToken cancellationToken)
     {
         var siteUserId = await GetSiteUserId(cancellationToken);
@@ -253,7 +239,7 @@ public class IngredientController : Controller
     }
 
     [AllowAnonymous]
-    [HttpGet("api/ingredients")]
+    [HttpGet("/api/ingredients")]
     public async Task<IActionResult> GetIngredientsAsync(
     [FromQuery] string? category,
     [FromQuery] int? count,
@@ -279,7 +265,7 @@ public class IngredientController : Controller
     }
 
     [AllowAnonymous]
-    [HttpGet("api/ingredients/overview")]
+    [HttpGet("api/ingredients/summary")]
     public async Task<IActionResult> GetIngredientsOverviewAsync(CancellationToken cancellationToken)
     {
         var ingredientsOverview = await _ingredientService.GetIngredientsOverviewAsync(cancellationToken);

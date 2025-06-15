@@ -2,6 +2,7 @@ using LetWeCook.Application.DTOs.Donation;
 using LetWeCook.Application.Exceptions;
 using LetWeCook.Application.Interfaces;
 using LetWeCook.Domain.Entities;
+using LetWeCook.Domain.Exceptions;
 
 namespace LetWeCook.Application.Services;
 
@@ -11,6 +12,7 @@ public class DonationService : IDonationService
     private readonly IRecipeRepository _recipeRepository;
     private readonly IUserRepository _userRepository;
     private readonly IDonationRepository _donationRepository;
+    private readonly IUserInteractionRepository _userInteractionRepository;
     private readonly IPaymentService _paymentService;
 
     public DonationService(
@@ -18,13 +20,15 @@ public class DonationService : IDonationService
         IRecipeRepository recipeRepository,
         IUserRepository userRepository,
         IDonationRepository donationRepository,
-        IPaymentService paymentService)
+        IPaymentService paymentService,
+        IUserInteractionRepository userInteractionRepository)
     {
         _unitOfWork = unitOfWork;
         _recipeRepository = recipeRepository;
         _userRepository = userRepository;
         _donationRepository = donationRepository;
         _paymentService = paymentService;
+        _userInteractionRepository = userInteractionRepository;
     }
 
     public async Task SeedRecipeDonationsAsync(int amount, CancellationToken cancellationToken = default)
@@ -159,10 +163,10 @@ public class DonationService : IDonationService
 
         // get all users in a pool
         var users = await _userRepository.GetAllAsync();
-        if (users.Count == 0) throw new DonationException("No users found.");
+        if (users.Count == 0) throw new DonationException("No users found.", ErrorCode.DONATION_DONATOR_NOT_FOUND);
         // get all recipes in a pool
         var recipes = await _recipeRepository.GetAllAsync();
-        if (recipes.Count == 0) throw new DonationException("No recipes found.");
+        if (recipes.Count == 0) throw new DonationException("No recipes found.", ErrorCode.DONATION_RECIPE_NOT_FOUND);
 
 
         // loop until amount is reached, get random user and recipe, create donation with random amount and random messages
@@ -229,6 +233,8 @@ public class DonationService : IDonationService
 
             var donation = await _donationRepository.GetByIdAsync(donationId, cancellationToken);
 
+
+
             if (donation == null)
             {
                 return (false, null, null, "Donation not found.");
@@ -237,6 +243,14 @@ public class DonationService : IDonationService
             donation.Status = "Completed";
             donation.TransactionId = transactionId;
 
+            var interaction = new UserInteraction(
+                donation.Donator.Id,
+                donation.RecipeId,
+                "donate",
+                (float)donation.Amount
+            );
+
+            await _userInteractionRepository.AddAsync(interaction, cancellationToken);
             await _donationRepository.UpdateAsync(donation, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
 
@@ -259,31 +273,41 @@ public class DonationService : IDonationService
 
         if (recipe == null)
         {
-            throw new DonationException("Recipe not found.");
+            var ex = new DonationException("Recipe not found.", ErrorCode.DONATION_RECIPE_NOT_FOUND);
+            ex.AddContext("RecipeId", recipeId.ToString());
+            throw ex;
         }
 
         var donator = await _userRepository.GetByIdAsync(siteUserId);
         if (donator == null)
         {
-            throw new DonationException("Donator not found.");
+            var ex = new DonationException("Donator not found.", ErrorCode.DONATION_DONATOR_NOT_FOUND);
+            ex.AddContext("DonatorId", siteUserId.ToString());
+            throw ex;
         }
 
         var author = await _userRepository.GetByIdAsync(recipe.CreatedBy.Id);
         if (author == null)
         {
-            throw new DonationException("Author not found.");
+            var ex = new DonationException("Author not found.", ErrorCode.DONATION_AUTHOR_NOT_FOUND);
+            ex.AddContext("AuthorId", recipe.CreatedBy.Id.ToString());
+            throw ex;
         }
 
         // check if author profile exists then check PayPal email exists in profile
         var authorProfile = author.Profile;
         if (authorProfile == null)
         {
-            throw new DonationException("Author profile not found.");
+            var ex = new DonationException("Author profile not found.", ErrorCode.DONATION_AUTHOR_PROFILE_NOT_FOUND);
+            ex.AddContext("AuthorId", recipe.CreatedBy.Id.ToString());
+            throw ex;
         }
 
         if (string.IsNullOrEmpty(authorProfile.PayPalEmail))
         {
-            throw new DonationException("Author PayPal email not found.");
+            var ex = new DonationException("Author PayPal email not found.", ErrorCode.DONATION_AUTHOR_PAYPAL_NOT_FOUND);
+            ex.AddContext("AuthorId", recipe.CreatedBy.Id.ToString());
+            throw ex;
         }
 
         // Create donation with pending status
@@ -368,7 +392,9 @@ public class DonationService : IDonationService
 
         if (donation == null)
         {
-            throw new DonationRetrievalException($"Donation with id {donationId} not found");
+            var ex = new DonationRetrievalException($"Donation with id {donationId} not found", ErrorCode.DONATION_NOT_FOUND);
+            ex.AddContext("DonationId", donationId.ToString());
+            throw ex;
         }
 
         return new DonationDetailDto

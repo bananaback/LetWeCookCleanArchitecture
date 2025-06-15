@@ -87,6 +87,7 @@ public static class DependencyInjection
         services.AddScoped<ISuggestionFeedbackRepository, SuggestionFeedbackRepository>();
         services.AddScoped<IRecipeCollectionRepository, RecipeCollectionRepository>();
         services.AddScoped<IRecipeCollectionItemRepository, RecipeCollectionItemRepository>();
+        services.AddScoped<IUserInteractionRepository, UserInteractionRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<IHttpContextService, HttpContextService>();
 

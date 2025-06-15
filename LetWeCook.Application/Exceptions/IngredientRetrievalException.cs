@@ -1,8 +1,10 @@
+using LetWeCook.Domain.Exceptions;
+
 namespace LetWeCook.Application.Exceptions;
 
-public class IngredientRetrievalException : Exception
+public class IngredientRetrievalException : DomainException
 {
-    public IngredientRetrievalException(string message) : base(message)
+    public IngredientRetrievalException(string message, ErrorCode errorCode) : base(message, errorCode)
     {
     }
 }

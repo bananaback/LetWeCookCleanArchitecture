@@ -89,7 +89,7 @@ function populateDetails(details) {
 function fetchEditingIngredient() {
     // call the API to get the ingredient data with ajax
     $.ajax({
-        url: `/api/ingredients/editing/${ingredientId}`,
+        url: `/api/ingredient/${ingredientId}/editing`,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -259,7 +259,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: `/api/ingredients/${ingredientId}`, // Replace with actual ingredient ID
+            url: `/api/ingredient/${ingredientId}`, // Replace with actual ingredient ID
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify(data), // Your CreateIngredientRequest payload

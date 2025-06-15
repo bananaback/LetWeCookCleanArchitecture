@@ -1,8 +1,10 @@
+using LetWeCook.Domain.Exceptions;
+
 namespace LetWeCook.Application.Exceptions;
 
-public class UpdateProfileException : Exception
+public class UpdateProfileException : DomainException
 {
-    public UpdateProfileException(string message) : base(message)
+    public UpdateProfileException(string message, ErrorCode errorCode) : base(message, errorCode)
     {
     }
 }

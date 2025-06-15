@@ -90,7 +90,7 @@ function fetchIngredientCategories() {
 
 function fetchUserIngredients() {
     $.ajax({
-        url: '/api/user-ingredients',
+        url: '/api/user/ingredients',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -98,8 +98,21 @@ function fetchUserIngredients() {
             collectUserRequirements();
         },
         error: function (xhr, status, error) {
-            console.error("Error fetching ingredients:", status, error);
+            console.error("Error fetching user ingredients:", {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                response: xhr.responseText,
+                error: error
+            });
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed to Load Ingredients',
+                text: xhr.responseJSON?.message || 'Unable to fetch your saved ingredients. Please try again later.',
+                confirmButtonColor: '#dc3545'
+            });
         }
+
     });
 }
 
@@ -189,10 +202,7 @@ function populateIngredientCards(paginatedIngredients) {
                         Edit
                     </button>
         
-                    <!-- Delete Button -->
-                    <button class="delete-btn text-red-600 hover:bg-red-100 px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-red-400">
-                        Delete
-                    </button>
+                  
                 </div>
             </div>
         `);
@@ -204,16 +214,7 @@ function populateIngredientCards(paginatedIngredients) {
             window.location.href = editUrl; // Redirect to the Edit page
         });
 
-        // Add event listener for Delete button
-        $card.find('.delete-btn').on('click', function () {
-            const ingredientId = $(this).closest('.ingredient-card').find('.ingredient-id').val();
-            const deleteUrl = `/Cooking/Ingredient/Delete/${ingredientId}`;
 
-            // Confirm delete before redirecting
-            if (confirm("Are you sure you want to delete this ingredient?")) {
-                window.location.href = deleteUrl; // Redirect to the Delete page
-            }
-        });
 
         // Append the card to the container
         $container.append($card);

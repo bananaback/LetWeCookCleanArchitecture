@@ -2,6 +2,7 @@ using LetWeCook.Infrastructure;
 using LetWeCook.Infrastructure.Configurations;
 using LetWeCook.Infrastructure.Persistence;
 using LetWeCook.Web.Areas.Identity.ViewModelValidators;
+using LetWeCook.Web.Middlewares;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
@@ -124,6 +125,9 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
+
 app.UseRouting();
 
 app.UseAuthentication();
@@ -210,6 +214,11 @@ using (var scope = app.Services.CreateScope())
         {
             await DataSeeder.SeedSuggestionFeedbacksAsync(services, 5000, CancellationToken.None);
             config.SeedSuggestionFeedbacks = false;
+        }
+        if (config.SeedUserInteractions)
+        {
+            await DataSeeder.SeedUserInteractionsAsync(services, 3000, CancellationToken.None);
+            config.SeedUserInteractions = false;
         }
     }
     catch (Exception ex)

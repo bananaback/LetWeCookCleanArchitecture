@@ -15,17 +15,20 @@ public class RecipeRatingService : IRecipeRatingService
     private readonly IRecipeRepository _recipeRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserRepository _userRepository;
+    private readonly IUserInteractionRepository _userInteractionRepository;
 
     public RecipeRatingService(
         IRecipeRatingRepository recipeRatingRepository,
         IRecipeRepository recipeRepository,
         IUserRepository userRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IUserInteractionRepository userInteractionRepository)
     {
         _recipeRatingRepository = recipeRatingRepository;
         _recipeRepository = recipeRepository;
         _userRepository = userRepository;
         _unitOfWork = unitOfWork;
+        _userInteractionRepository = userInteractionRepository;
     }
 
     public async Task<RecipeRatingDto> CreateRecipeRatingAsync(CreateRecipeRatingRequestDto request, CancellationToken cancellationToken = default)
@@ -84,7 +87,23 @@ public class RecipeRatingService : IRecipeRatingService
             request.Comment
         );
 
+        var interactionRating = new UserInteraction(
+            request.SiteUserId,
+            request.RecipeId,
+            "rating",
+            request.Rating
+        );
+
+        var interactionComment = new UserInteraction(
+            request.SiteUserId,
+            request.RecipeId,
+            "comment",
+            request.Comment.Length
+        );
+
         await _recipeRatingRepository.AddAsync(recipeRating, cancellationToken);
+        await _userInteractionRepository.AddAsync(interactionRating, cancellationToken);
+        await _userInteractionRepository.AddAsync(interactionComment, cancellationToken);
 
         recipe.UpdateAverageRatingOnNewRatingAdded(request.Rating);
 

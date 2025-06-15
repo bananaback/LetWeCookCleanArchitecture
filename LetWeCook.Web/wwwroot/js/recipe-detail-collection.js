@@ -9,7 +9,7 @@ async function getCollections() {
 
 async function addRecipeToCollection(request) {
     return $.ajax({
-        url: `/api/collections`,
+        url: `/api/collection/${request.isNewCollection ? request.collectionId : '00000000-0000-0000-0000-000000000000'}/items`,
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(request)

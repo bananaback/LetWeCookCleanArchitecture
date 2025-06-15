@@ -17,7 +17,7 @@
       "UpdatedAt": "2025-05-31T07:52:35.1166587",
       "AverageRating": 5,
       "TotalRatings": 2,
-      "TotalViews": 204
+      "TotalViews": 205
     },
     {
       "Id": "1aa78f81-4e9f-4648-923f-f0629f69b59e",
@@ -76,7 +76,7 @@
       "UpdatedAt": "2025-05-31T07:52:31.3818313",
       "AverageRating": 3.6666667461395264,
       "TotalRatings": 3,
-      "TotalViews": 979
+      "TotalViews": 981
     },
     {
       "Id": "09ed4ef1-d102-497c-b995-d413bc9f550b",
@@ -95,7 +95,7 @@
       "UpdatedAt": "2025-05-31T07:52:44.319879",
       "AverageRating": 4.5,
       "TotalRatings": 2,
-      "TotalViews": 979
+      "TotalViews": 980
     },
     {
       "Id": "f9da51ad-42b2-4e5b-8b83-4651c00d6037",
@@ -114,7 +114,7 @@
       "UpdatedAt": "2025-05-31T07:52:26.9484148",
       "AverageRating": 4.599999904632568,
       "TotalRatings": 5,
-      "TotalViews": 973
+      "TotalViews": 975
     }
   ],
   "LatestRecipes": [
@@ -154,7 +154,7 @@
       "UpdatedAt": "2025-05-31T07:53:06.9162616",
       "AverageRating": 1.6666666269302368,
       "TotalRatings": 3,
-      "TotalViews": 206
+      "TotalViews": 207
     },
     {
       "Id": "53f3de9f-03cc-4c5f-94fe-23d794b7da95",
@@ -210,6 +210,28 @@
   ],
   "LatestDonations": [
     {
+      "Id": "c2509974-f0f7-4508-93c9-b296334a7b17",
+      "RecipeId": "a6c04dad-9484-41ef-8c68-9aaad0d8da4c",
+      "RecipeName": "B\u00E1nh Canh Cua (Crab Tapioca Noodle Soup)",
+      "RecipeCoverMediaUrl": "http://www.wokandkin.com/wp-content/uploads/2020/06/Banh-Canh-Cua-saved-for-web.png",
+      "DonatorName": "Noah Hoang",
+      "DonateMessage": "I love this Banh Canh Cua",
+      "DonatorProfilePic": "/images/male/default4.jpg",
+      "Amount": 12.00,
+      "CreatedAt": "2025-06-14T08:53:27.66"
+    },
+    {
+      "Id": "833e0b67-0225-4f01-96e0-53190033b032",
+      "RecipeId": "594dfcdc-3d7c-4f42-b960-112bcbd84cd9",
+      "RecipeName": "Spicy Mussels",
+      "RecipeCoverMediaUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmhAoqYk8AsTZupIPdHfrfEAf1YJ2yOxnqTg\u0026s",
+      "DonatorName": "Noah Hoang",
+      "DonateMessage": "I love this recipe",
+      "DonatorProfilePic": "/images/male/default4.jpg",
+      "Amount": 14.00,
+      "CreatedAt": "2025-06-14T08:50:05.617"
+    },
+    {
       "Id": "b479e0ca-97c1-43a7-bf9e-4e8ef445556b",
       "RecipeId": "3d1a7670-ae5d-4231-8a52-200309144f1d",
       "RecipeName": "B\u00FAn C\u00E1 Chua (Sour Fish Noodle Soup)",
@@ -219,28 +241,6 @@
       "DonatorProfilePic": "/images/male/default5.jpg",
       "Amount": 99.72,
       "CreatedAt": "2025-05-31T07:58:19.63"
-    },
-    {
-      "Id": "65d61a5f-aff9-4100-b567-3db5574a5dac",
-      "RecipeId": "b2ad9e15-6293-4c9a-9793-f70ca7336dfb",
-      "RecipeName": "Roasted Cauliflower with Paprika",
-      "RecipeCoverMediaUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2bt8fhv_7B1cYSxWASX7UqUwGWAcBvBhVbQ\u0026s",
-      "DonatorName": "Minh Tran",
-      "DonateMessage": "Great for beginner cooks.",
-      "DonatorProfilePic": "/images/male/default5.jpg",
-      "Amount": 66.62,
-      "CreatedAt": "2025-05-31T07:58:19.513"
-    },
-    {
-      "Id": "3c7e4377-6f67-4087-86a2-3c9948f34976",
-      "RecipeId": "cad47455-5466-4fb9-8cb3-282e673c1a37",
-      "RecipeName": "B\u00E1nh T\u00E9t L\u00E1 C\u1EA9m (Sticky Rice Cake with Magenta Plant)",
-      "RecipeCoverMediaUrl": "https://vietnam-amazing.com/wp-content/uploads/2023/11/Screenshot-2023-11-16-at-15.19.38-678x381.png",
-      "DonatorName": "Liam Pham",
-      "DonateMessage": "Perfect comfort food after a long day.",
-      "DonatorProfilePic": "/images/male/default1.jpg",
-      "Amount": 43.21,
-      "CreatedAt": "2025-05-31T07:58:19.393"
     }
   ]
 }

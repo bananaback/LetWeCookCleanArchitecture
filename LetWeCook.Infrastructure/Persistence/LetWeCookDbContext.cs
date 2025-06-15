@@ -1,3 +1,4 @@
+using LetWeCook.Application.DTOs.UserInteractions;
 using LetWeCook.Domain.Aggregates;
 using LetWeCook.Domain.Entities;
 using LetWeCook.Infrastructure.Persistence.Configurations;
@@ -15,6 +16,8 @@ public class LetWeCookDbContext : IdentityDbContext<ApplicationUser, IdentityRol
     public DbSet<Recipe> Recipes { get; set; } = null!;
     public DbSet<RecipeRating> RecipeRatings { get; set; } = null!;
     public DbSet<Donation> Donations { get; set; } = null!;
+    public DbSet<AggregatedInteractionDto> AggregatedInteractions { get; set; } = null!;
+
 
     public LetWeCookDbContext(DbContextOptions<LetWeCookDbContext> options) : base(options)
     {
@@ -24,6 +27,8 @@ public class LetWeCookDbContext : IdentityDbContext<ApplicationUser, IdentityRol
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+
+        builder.Entity<AggregatedInteractionDto>().HasNoKey().ToView(null); // ToView(null) indicates it's not mapped to a specific view
 
         builder.ApplyConfigurationsFromAssembly(typeof(LetWeCookDbContext).Assembly);
     }

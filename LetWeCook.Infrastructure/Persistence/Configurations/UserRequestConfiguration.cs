@@ -34,7 +34,7 @@ public class UserRequestConfiguration : IEntityTypeConfiguration<UserRequest>
 
         builder.Property(ur => ur.ResponseMessage)
             .HasColumnName("response_message")
-            .HasColumnType("nvarchar(500)")
+            .HasColumnType("nvarchar(1500)")
             .IsRequired(false);
 
         builder.Property(ur => ur.Status)
