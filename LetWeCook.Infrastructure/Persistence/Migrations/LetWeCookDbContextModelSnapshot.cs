@@ -4,19 +4,16 @@ using LetWeCook.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LetWeCook.Infrastructure.Migrations
+namespace LetWeCook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(LetWeCookDbContext))]
-    [Migration("20250531074923_InitialMigration")]
-    partial class InitialMigration
+    partial class LetWeCookDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,6 +21,37 @@ namespace LetWeCook.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("LetWeCook.Application.DTOs.UserInteractions.AggregatedInteractionDto", b =>
+                {
+                    b.Property<float>("CommentLength")
+                        .HasColumnType("real");
+
+                    b.Property<int>("DislikeCount")
+                        .HasColumnType("int");
+
+                    b.Property<float>("DonatedAmount")
+                        .HasColumnType("real");
+
+                    b.Property<int>("LikeCount")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Rating")
+                        .HasColumnType("real");
+
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ViewsCount")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView(null, (string)null);
+                });
 
             modelBuilder.Entity("LetWeCook.Domain.Aggregates.Ingredient", b =>
                 {
@@ -946,6 +974,41 @@ namespace LetWeCook.Infrastructure.Migrations
                     b.ToTable("suggestion_feedbacks", (string)null);
                 });
 
+            modelBuilder.Entity("LetWeCook.Domain.Entities.UserInteraction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<double>("EventValue")
+                        .HasColumnType("float")
+                        .HasColumnName("event_value");
+
+                    b.Property<DateTime>("InteractionDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("interaction_date")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<string>("InteractionType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("interaction_type");
+
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("recipe_id");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("user_interactions", (string)null);
+                });
+
             modelBuilder.Entity("LetWeCook.Domain.Entities.UserProfile", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1033,7 +1096,7 @@ namespace LetWeCook.Infrastructure.Migrations
                         .HasColumnName("old_reference_id");
 
                     b.Property<string>("ResponseMessage")
-                        .HasColumnType("nvarchar(500)")
+                        .HasColumnType("nvarchar(1500)")
                         .HasColumnName("response_message");
 
                     b.Property<int>("Status")

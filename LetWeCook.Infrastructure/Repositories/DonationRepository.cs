@@ -49,4 +49,14 @@ public class DonationRepository : Repository<Donation>, IDonationRepository
         return _dbSet
             .CountAsync(cancellationToken);
     }
+
+    public Task<Donation?> GetWithRecipeDonatorAndAuthorAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return _dbSet
+            .Include(d => d.Recipe)
+            .Include(d => d.Author)
+            .Include(d => d.Donator)
+                .ThenInclude(d => d.Profile)
+            .FirstOrDefaultAsync(d => d.Id == id, cancellationToken);
+    }
 }

@@ -64,7 +64,7 @@ public class DonationController : Controller
         {
             var (success, transactionId, customId, error) = await _donationService.CaptureDonationAsync(token);
 
-            _logger.LogInformation($"Success: {success}, TransactionId: {transactionId}, CustomId: {customId}, Error: {error}");
+            _logger.LogInformation($"Success: {success}, TransactionId: {transactionId}, , Error: {error}");
 
             // Build absolute URL
             string redirectUrl = success

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace LetWeCook.Infrastructure.Migrations
+namespace LetWeCook.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -104,6 +104,22 @@ namespace LetWeCook.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_site_users", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "user_interactions",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    recipe_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    interaction_type = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    event_value = table.Column<double>(type: "float", nullable: false),
+                    interaction_date = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_user_interactions", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -332,7 +348,7 @@ namespace LetWeCook.Infrastructure.Migrations
                     type = table.Column<int>(type: "int", nullable: false),
                     old_reference_id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     new_reference_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    response_message = table.Column<string>(type: "nvarchar(500)", nullable: true),
+                    response_message = table.Column<string>(type: "nvarchar(1500)", nullable: true),
                     status = table.Column<int>(type: "int", nullable: false),
                     created_by_user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     created_by_user_name = table.Column<string>(type: "nvarchar(100)", nullable: false),
@@ -968,6 +984,9 @@ namespace LetWeCook.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "user_dietary_preferences");
+
+            migrationBuilder.DropTable(
+                name: "user_interactions");
 
             migrationBuilder.DropTable(
                 name: "user_requests");

@@ -179,22 +179,19 @@ using (var scope = app.Services.CreateScope())
 
         if (config.SeedIngredients)
         {
-            string path = "Persistence/DataImporters/ingredients.json";
-            await DataSeeder.SeedIngredientsAsync(services, path, CancellationToken.None);
+            await DataSeeder.SeedIngredientsAsync(services, CancellationToken.None);
             config.SeedIngredients = false;
         }
 
         if (config.SeedRecipes)
         {
-            string path = "Persistence/DataImporters/recipes.json";
-            await DataSeeder.SeedRecipesAsync(services, path, CancellationToken.None);
+            await DataSeeder.SeedRecipesAsync(services, CancellationToken.None);
             config.SeedRecipes = false;
         }
 
         if (config.SeedRecipesWithImages)
         {
-            string path = "Persistence/DataImporters/recipes-with-images.json";
-            await DataSeeder.SeedRecipesWithImagesAsync(services, path, CancellationToken.None);
+            await DataSeeder.SeedRecipesWithImagesAsync(services, CancellationToken.None);
             config.SeedRecipesWithImages = false;
         }
 

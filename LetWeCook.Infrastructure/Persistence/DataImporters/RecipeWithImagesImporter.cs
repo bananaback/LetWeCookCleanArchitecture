@@ -26,8 +26,11 @@ public class RecipeWithImagesImporter
         _recipeService = recipeService;
     }
 
-    public async Task ImportRecipesAsync(string filePath, CancellationToken cancellationToken)
+    public async Task ImportRecipesAsync(CancellationToken cancellationToken)
     {
+        string projectRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", ".."));
+        string filePath = Path.Combine(projectRoot, "LetWeCook.Infrastructure", "Persistence", "DataImporters", "recipes-with-images.json");
+
         Console.WriteLine($"📂 Importing recipes with images from file: {filePath}");
 
         if (!File.Exists(filePath))

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LetWeCook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(LetWeCookDbContext))]
-    [Migration("20250615175546_AggregateUserRecipeInteractionsMigration3")]
-    partial class AggregateUserRecipeInteractionsMigration3
+    [Migration("20250619140937_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,20 +27,20 @@ namespace LetWeCook.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("LetWeCook.Application.DTOs.UserInteractions.AggregatedInteractionDto", b =>
                 {
-                    b.Property<double?>("CommentLength")
-                        .HasColumnType("float");
+                    b.Property<float>("CommentLength")
+                        .HasColumnType("real");
 
                     b.Property<int>("DislikeCount")
                         .HasColumnType("int");
 
-                    b.Property<double?>("DonatedAmount")
-                        .HasColumnType("float");
+                    b.Property<float>("DonatedAmount")
+                        .HasColumnType("real");
 
                     b.Property<int>("LikeCount")
                         .HasColumnType("int");
 
-                    b.Property<double?>("Rating")
-                        .HasColumnType("float");
+                    b.Property<float>("Rating")
+                        .HasColumnType("real");
 
                     b.Property<Guid>("RecipeId")
                         .HasColumnType("uniqueidentifier");

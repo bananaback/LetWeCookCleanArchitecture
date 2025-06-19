@@ -5,7 +5,7 @@
 namespace LetWeCook.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class AggregateUserRecipeInteractionsMigration4 : Migration
+    public partial class AddProcedureMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

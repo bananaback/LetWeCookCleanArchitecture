@@ -1,3268 +1,3234 @@
 [
   {
-    "id": "df3adf26-75a8-44ac-bfaa-0172447dc1e2",
-    "name": "M\u1EF1c Chi\u00EAn Gi\u00F2n (Crispy Fried Squid)",
-    "ingredients": [
-      "squid tubes",
-      "garlic powder",
-      "tapioca starch",
-      "black pepper",
-      "vegetable oil",
-      "baking powder",
-      "fish sauce",
-      "lime wedges",
-      "rice flour",
-      "salt"
-    ]
-  },
-  {
-    "id": "6d564402-1f12-4a7f-b6cb-020d2b4057c0",
-    "name": "Ch\u1EA3 Ram T\u00F4m \u0110\u1EA5t (Earth Shrimp Spring Rolls)",
-    "ingredients": [
-      "vermicelli noodles (b\u00FAn t\u01B0\u01A1i)",
-      "fish sauce (n\u01B0\u1EDBc m\u1EAFm)",
-      "cooking oil",
-      "shallots",
-      "rice paper (b\u00E1nh tr\u00E1ng)",
-      "sugar",
-      "black pepper",
-      "ground pork",
-      "wood ear mushrooms (n\u1EA5m m\u00E8o)",
-      "garlic",
-      "earth shrimp (t\u00F4m \u0111\u1EA5t)"
-    ]
-  },
-  {
-    "id": "68fed149-a25d-42fd-9e44-036491e2a2f1",
-    "name": "L\u1EA9u G\u00E0 L\u00E1 Giang (Chicken Hotpot with La Giang Leaves)",
-    "ingredients": [
-      "chicken broth",
-      "la giang leaves",
-      "lemongrass",
-      "cooking oil",
-      "tofu (optional)",
-      "shallots",
-      "galangal",
-      "sugar",
-      "mushrooms (optional)",
-      "bird\u0027s eye chili",
-      "chicken (bone-in, chopped)",
-      "fish sauce",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "b85f2e54-b0d1-4216-8911-040b275617cf",
-    "name": "C\u00E1 Chi\u00EAn Gi\u00F2n (Crispy Fried Fish)",
-    "ingredients": [
-      "red chili (optional, finely chopped)",
-      "garlic powder",
-      "sugar",
-      "fish sauce (nuoc mam)",
-      "black pepper",
-      "cornstarch",
-      "vegetable oil",
-      "water",
-      "lime wedges",
-      "rice flour",
-      "salt"
-    ]
-  },
-  {
-    "id": "ed91d7e7-6a0a-4ca2-a4d7-04333e93dc31",
-    "name": "B\u00FAn M\u1EAFm (Fermented Fish Noodle Soup)",
-    "ingredients": [
-      "eggplant",
-      "lemongrass",
-      "bean sprouts",
-      "pork belly",
-      "banana blossoms",
-      "sugar",
-      "fish (snakehead or catfish)",
-      "water spinach (ong choy)",
-      "thai basil",
-      "water",
-      "red onion",
-      "fermented fish sauce (m\u1EAFm)",
-      "chili peppers",
-      "shrimp",
-      "fish sauce",
-      "garlic",
-      "salt",
-      "rice noodles (b\u00FAn)"
-    ]
-  },
-  {
-    "id": "b1758814-e875-4655-8aa6-066389213956",
-    "name": "B\u00E1nh R\u00E1n (Vietnamese Fried Doughnut)",
-    "ingredients": [
-      "cooked rice",
-      "warm water",
-      "granulated sugar",
-      "mung bean paste",
-      "vegetable oil",
-      "sesame seeds",
-      "glutinous rice flour",
-      "vanilla extract"
-    ]
-  },
-  {
-    "id": "ad7c2d71-4070-4a25-bf0b-071d994856e3",
-    "name": "B\u00E1nh Kh\u1ECDt (Mini Savory Pancakes)",
-    "ingredients": [
-      "red chili, minced (optional)",
-      "cooked mung beans, split",
-      "coconut milk",
-      "sugar",
-      "garlic, minced",
-      "fish sauce (nuoc cham)",
-      "small shrimp, peeled and deveined",
-      "water",
-      "green onions, chopped",
-      "turmeric powder",
-      "lime juice",
-      "rice flour",
-      "salt"
-    ]
-  },
-  {
-    "id": "e39b29cd-d389-4974-a295-08bc35ed5ea8",
-    "name": "X\u00F4i X\u00E9o (Sticky Rice with Mung Bean)",
-    "ingredients": [
-      "fried shallots",
-      "cooking oil",
-      "shallots",
-      "sugar",
-      "mung beans (split)",
-      "glutinous rice",
-      "water",
-      "turmeric powder",
-      "salt",
-      "liquid fat (optional)"
-    ]
-  },
-  {
-    "id": "f2147650-5ea2-431a-9363-094267fd41d8",
-    "name": "B\u00FAn Th\u1ECBt N\u01B0\u1EDBng (Grilled Pork Vermicelli)",
-    "ingredients": [
-      "roasted peanuts",
-      "lemongrass",
-      "nuoc cham dipping sauce",
-      "bean sprouts",
-      "shallots",
-      "soy sauce",
-      "sugar",
-      "cilantro",
-      "mint",
-      "black pepper",
-      "rice vermicelli noodles",
-      "lettuce",
-      "honey",
-      "vegetable oil",
-      "pickled carrots and daikon radish",
-      "fish sauce",
-      "pork shoulder",
-      "garlic"
-    ]
-  },
-  {
-    "id": "86598adb-b3de-40b1-b06f-0958c216be9e",
-    "name": "Blueberry Banana Smoothie",
-    "ingredients": [
-      "greek yogurt",
-      "bananas",
-      "almond milk",
-      "honey",
-      "blueberries"
-    ]
-  },
-  {
-    "id": "d5f221b5-c662-4871-b789-0d434943a90d",
-    "name": "B\u00FAn Ch\u1EA3 C\u00E1 (Fish Cake Vermicelli)",
-    "ingredients": [
-      "tomato",
-      "mint leaves",
-      "pineapple chunks",
-      "bean sprouts",
-      "shallots",
-      "sugar",
-      "ground black pepper",
-      "garlic cloves",
-      "green onions",
-      "fish fillets (firm white fish, such as cod or haddock)",
-      "vegetable oil",
-      "perilla leaves",
-      "dill",
-      "fish sauce",
-      "turmeric powder",
-      "chicken or fish broth",
-      "rice vermicelli noodles (b\u00FAn)",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "1897d1b6-739a-42fa-951e-0f642261043b",
-    "name": "Coconut Milk Rice Pudding",
-    "ingredients": [
-      "white rice",
-      "coconut milk",
-      "white sugar",
-      "cinnamon",
-      "vanilla extract",
-      "salt"
-    ]
-  },
-  {
-    "id": "41853241-dfa3-4e69-94ef-10467ff7f93e",
-    "name": "Zucchini Feta Fritters",
-    "ingredients": [
-      "all-purpose flour",
-      "olive oil",
-      "black pepper",
-      "zucchini",
-      "chicken eggs",
-      "feta cheese",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "c7c2afd5-57b1-4198-b805-122a07b4df23",
-    "name": "Canh Kh\u1ED5 Qua Nh\u1ED3i Th\u1ECBt (Stuffed Bitter Melon Soup)",
-    "ingredients": [
-      "chicken broth or water",
-      "shallots",
-      "soy sauce",
-      "sugar",
-      "ground black pepper",
-      "bitter melons",
-      "wood ear mushrooms",
-      "scallions",
-      "glass noodles (mung bean noodles)",
-      "ground pork",
-      "fish sauce",
-      "salt"
-    ]
-  },
-  {
-    "id": "d2d2daa5-ad1d-467e-820d-13452d630711",
-    "name": "B\u00E1nh Bao (Steamed Pork Buns)",
-    "ingredients": [
-      "sesame oil",
-      "all-purpose flour",
-      "warm milk",
-      "onion",
-      "soy sauce",
-      "dried shiitake mushrooms",
-      "hard-boiled eggs",
-      "sugar",
-      "oyster sauce",
-      "granulated sugar",
-      "wood ear mushrooms",
-      "vegetable oil",
-      "baking powder",
-      "instant dry yeast",
-      "ground pork",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "97be2ce0-01e1-48e3-a909-138596c7b697",
-    "name": "G\u1ECFi M\u0103ng Kh\u00F4 (Dried Bamboo Shoot Salad)",
-    "ingredients": [
-      "roasted peanuts",
-      "cucumber",
-      "pork belly",
-      "sugar",
-      "dried bamboo shoots",
-      "fresh mint",
-      "shrimp",
-      "fish sauce",
-      "fresh basil",
-      "garlic",
-      "chili",
-      "lime juice",
-      "carrot"
-    ]
-  },
-  {
-    "id": "0f2dc013-9bb1-4789-a7f3-15dfe17050af",
-    "name": "G\u00E0 Ti\u1EC1m \u1EDAt Hi\u1EC3m (Chicken Stewed with Chili)",
-    "ingredients": [
-      "chicken broth",
-      "ginger",
-      "red dates (jujubes)",
-      "black peppercorns",
-      "dried red chilies",
-      "shallots",
-      "soy sauce",
-      "mushrooms (shiitake or wood ear)",
-      "sugar",
-      "chicken thighs",
-      "water",
-      "fish sauce",
-      "garlic"
-    ]
-  },
-  {
-    "id": "58d16ad2-1c8d-4cc1-827d-1b0ab3a2c93e",
-    "name": "Cod with Lemon and Herbs",
-    "ingredients": [
-      "olive oil",
-      "parsley",
-      "cod",
-      "black pepper",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "6d4e09f7-3065-4b9e-be55-1b0fd88f5df2",
-    "name": "B\u00FAn Ngan (Duck Vermicelli Soup)",
-    "ingredients": [
-      "ginger",
-      "shallots",
-      "rock sugar",
-      "lime",
-      "dried shiitake mushrooms",
-      "cilantro",
-      "whole duck",
-      "black pepper",
-      "green onions",
-      "dried bamboo shoots",
-      "fish sauce",
-      "b\u00FAn (vermicelli noodles)",
-      "salt"
-    ]
-  },
-  {
-    "id": "4e95c1c7-6381-42a0-acae-1b34c13cfaf3",
-    "name": "L\u1EA9u C\u00E1 K\u00E8o (Gobies Fish Hot Pot)",
-    "ingredients": [
-      "chicken broth",
-      "pineapple chunks",
-      "bean sprouts",
-      "tomato wedges",
-      "shallots",
-      "sugar",
-      "water spinach (rau mu\u1ED1ng)",
-      "okra",
-      "vegetable oil",
-      "tamarind pulp",
-      "chili peppers",
-      "bitter herbs (rau \u0111\u1EAFng)",
-      "fish sauce",
-      "gobies fish (c\u00E1 k\u00E8o)",
-      "garlic",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "9b0a48ab-0939-40f0-a373-1c6b20bd29a5",
-    "name": "Chocolate Chip Oat Cookies",
-    "ingredients": [
-      "butter",
-      "baking soda",
-      "chocolate chips",
-      "oats",
-      "brown sugar",
-      "chicken eggs",
-      "vanilla extract",
-      "salt"
-    ]
-  },
-  {
-    "id": "b5dba278-53f9-4020-a73a-1d0aa1ad7446",
-    "name": "L\u1EA9u G\u00E0 L\u00E1 Giang (Chicken Hot Pot with La Giang Leaves)",
-    "ingredients": [
-      "shallots (thinly sliced)",
-      "chicken broth",
-      "chili peppers (optional, sliced)",
-      "tofu (firm, cut into cubes)",
-      "oyster mushrooms",
-      "sugar",
-      "la giang leaves (canh chua leaves)",
-      "garlic (minced)",
-      "ginger (sliced)",
-      "lemongrass (bruised)",
-      "chicken (bone-in, cut into pieces)",
-      "rice noodles or vermicelli noodles",
-      "fish sauce",
-      "enoki mushrooms",
-      "salt"
-    ]
-  },
-  {
-    "id": "8abb5113-9280-4aff-a600-1dc0dbf0bf4b",
-    "name": "B\u00E1nh T\u00E9t Chu\u1ED1i (Banana Sticky Rice Cake)",
-    "ingredients": [
-      "coconut cream",
-      "ripe bananas (preferably slightly overripe)",
-      "cooking oil",
-      "glutinous rice",
-      "granulated sugar",
-      "banana leaves",
-      "salt"
-    ]
-  },
-  {
-    "id": "dfbe506b-6551-4bd5-89da-1e9e82c227a9",
-    "name": "C\u00E1 Tr\u00EA N\u01B0\u1EDBng (Grilled Catfish)",
-    "ingredients": [
-      "lemongrass",
-      "shallots",
-      "chili powder",
-      "catfish fillets",
-      "sugar",
-      "vegetable oil",
-      "green onions, chopped",
-      "ground turmeric",
-      "fish sauce",
-      "garlic"
-    ]
-  },
-  {
-    "id": "4bd64eea-97b3-4d78-add1-1eb0e3798055",
-    "name": "Canh Cua Rau \u0110ay (Crab Soup with Jute Leaf)",
-    "ingredients": [
-      "shallots",
-      "ground black pepper",
-      "fresh crab meat",
-      "vegetable oil",
-      "water",
-      "luffa (m\u01B0\u1EDBp)",
-      "fish sauce",
-      "jute leaves",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "f04b23e1-5fe7-4ac6-abe3-1f5d8b46a0ca",
-    "name": "Beef Bell Pepper Stir Fry",
-    "ingredients": [
-      "sesame oil",
-      "soy sauce",
-      "onions",
-      "black pepper",
-      "beef",
-      "garlic"
-    ]
-  },
-  {
-    "id": "945d62bc-d612-45ce-9d3f-224257fb7921",
-    "name": "Canh Chua C\u00E1 L\u00F3c (Sour Snakehead Fish Soup)",
-    "ingredients": [
-      "pineapple",
-      "tomato",
-      "bean sprouts",
-      "shallots",
-      "sugar",
-      "black pepper",
-      "okra",
-      "water",
-      "tamarind pulp",
-      "fish sauce",
-      "thai basil (h\u00FAng qu\u1EBF)",
-      "garlic",
-      "rice paddy herb (ng\u00F2 \u00F4m)",
-      "salt",
-      "snakehead fish fillet"
-    ]
-  },
-  {
-    "id": "e38bff9d-d821-4962-bbf5-22ded3bf120c",
-    "name": "Baked Haddock with Lemon and Parsley",
-    "ingredients": [
-      "olive oil",
-      "parsley",
-      "black pepper",
-      "haddock",
-      "salt"
-    ]
-  },
-  {
-    "id": "7a0ff15b-91ea-48a0-a45d-2379ef50ebbd",
-    "name": "Ch\u00E8 \u0110\u1EADu \u0110\u1ECF (Red Bean Sweet Soup)",
-    "ingredients": [
-      "tapioca pearls (optional)",
-      "pandan leaves (optional)",
-      "coconut milk",
-      "sugar",
-      "water",
-      "red beans"
-    ]
-  },
-  {
-    "id": "68d7d4d9-915a-40c0-9834-24e7c58359f6",
-    "name": "G\u1ECFi Ng\u00F3 Sen (Lotus Stem Salad)",
-    "ingredients": [
-      "roasted peanuts",
-      "cucumber",
-      "fried shallots",
-      "mint leaves",
-      "pork belly",
-      "sugar",
-      "cilantro",
-      "lotus stems",
-      "shrimp",
-      "fish sauce",
-      "carrots",
-      "garlic",
-      "chili",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "6f7c79c8-a132-453c-ac58-252d2a9dfa86",
-    "name": "B\u00FAn M\u1EAFm N\u00EAm (Vermicelli with Fermented Fish Sauce)",
-    "ingredients": [
-      "pineapple",
-      "cucumber",
-      "crushed peanuts",
-      "thin rice vermicelli noodles (b\u00FAn)",
-      "bean sprouts",
-      "fermented fish sauce (m\u1EAFm n\u00EAm)",
-      "vietnamese coriander (rau ram)",
-      "sugar",
-      "mint",
-      "chili pepper",
-      "shredded lettuce",
-      "garlic",
-      "lime juice",
-      "roasted pork belly (heo quay)",
-      "pickled carrots and daikon (\u0111\u1ED3 chua)"
-    ]
-  },
-  {
-    "id": "809ce3d3-4f4b-4e63-b3c3-256a87815b75",
-    "name": "Ch\u00E8 Chu\u1ED1i (Banana Sweet Soup)",
-    "ingredients": [
-      "ripe bananas",
-      "small tapioca pearls",
-      "roasted peanuts (crushed)",
-      "coconut milk",
-      "sugar",
-      "water",
-      "pinch of salt",
-      "vanilla extract"
-    ]
-  },
-  {
-    "id": "8fad68c2-100a-4e52-a285-2610a8281eee",
-    "name": "B\u00E1nh C\u1ED1m (Young Rice Cake)",
-    "ingredients": [
-      "coconut milk",
-      "granulated sugar",
-      "young green rice (c\u1ED1m)",
-      "vegetable oil",
-      "pandan leaves",
-      "mung beans, skinned",
-      "vanilla extract"
-    ]
-  },
-  {
-    "id": "83de7cf5-fd62-4eec-9a62-2831f23a1423",
-    "name": "Crab and Avocado Salad",
-    "ingredients": [
-      "avocado",
-      "olive oil",
-      "black pepper",
-      "lettuce",
-      "crab",
-      "salt"
-    ]
-  },
-  {
-    "id": "212094a8-45ec-4cde-bc15-2875bb4cc34b",
-    "name": "Ch\u00E8 Tr\u00F4i N\u01B0\u1EDBc (Glutinous Rice Dumplings in Ginger Syrup)",
-    "ingredients": [
-      "rock sugar",
-      "mung bean (split, skinless)",
-      "coconut milk",
-      "sugar",
-      "warm water",
-      "roasted sesame seeds",
-      "water",
-      "ginger (fresh)",
-      "glutinous rice flour",
-      "salt"
-    ]
-  },
-  {
-    "id": "4f174c97-eac3-408c-9e03-2a5f492e5115",
-    "name": "B\u00E1nh P\u00EDa (Durian Mooncake)",
-    "ingredients": [
-      "shortening",
-      "all-purpose flour",
-      "egg wash (egg \u002B water)",
-      "mung bean paste",
-      "vegetable oil",
-      "water",
-      "salted egg yolks",
-      "durian paste"
-    ]
-  },
-  {
-    "id": "1a7c02de-1bc6-4b90-a500-2ad077debe91",
-    "name": "B\u00E1nh Cu\u1ED1n (Steamed Rice Rolls)",
-    "ingredients": [
-      "fried shallots",
-      "bean sprouts",
-      "shallots",
-      "sugar",
-      "ground black pepper",
-      "dried wood ear mushrooms",
-      "tapioca starch",
-      "vietnamese ham (cha lua)",
-      "vegetable oil",
-      "water",
-      "ground pork",
-      "fish sauce",
-      "rice flour"
-    ]
-  },
-  {
-    "id": "c1cd1dab-369e-4952-9d47-2d74a70cf1e0",
-    "name": "M\u1EF1c X\u00E0o H\u00E0nh T\u00E2y (Squid Stir-fried with Onions)",
-    "ingredients": [
-      "yellow onion, sliced",
-      "cilantro, chopped (optional)",
-      "cooking oil",
-      "green bell pepper, sliced (optional)",
-      "sugar",
-      "black pepper",
-      "garlic, minced",
-      "oyster sauce (optional)",
-      "squid tubes, cleaned and sliced",
-      "green onions, chopped",
-      "fish sauce"
-    ]
-  },
-  {
-    "id": "3c7fb6e7-5db4-43f9-b691-31bec37aa995",
-    "name": "B\u00E1nh G\u1ED1i (Vietnamese Empanadas)",
-    "ingredients": [
-      "onion",
-      "glass noodles (cellophane noodles)",
-      "dried shrimp",
-      "sugar",
-      "dried wood ear mushrooms",
-      "tapioca starch",
-      "black pepper",
-      "vegetable oil",
-      "water",
-      "ground pork",
-      "fish sauce",
-      "garlic",
-      "rice flour"
-    ]
-  },
-  {
-    "id": "d2c5eb5a-2876-4e6e-b308-3247ea67f29c",
-    "name": "Mushroom Wild Rice Soup",
-    "ingredients": [
-      "olive oil",
-      "bone broth",
-      "onions",
-      "black pepper",
-      "wild rice",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "25a526c6-ace7-4030-b93b-32ed3985bc23",
-    "name": "Roasted Cauliflower with Paprika",
-    "ingredients": [
-      "olive oil",
-      "cauliflower",
-      "black pepper",
-      "paprika",
-      "salt"
-    ]
-  },
-  {
-    "id": "e9952a1d-0cf8-4d99-861c-342326cf2a89",
-    "name": "C\u00E1 S\u1EA5u N\u01B0\u1EDBng (Grilled Crocodile)",
-    "ingredients": [
-      "crocodile meat",
-      "lemongrass",
-      "shallots",
-      "soy sauce",
-      "chili flakes",
-      "black pepper",
-      "honey",
-      "fish sauce",
-      "garlic",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "646eeb2e-4ceb-4805-bfd5-34c181e60de3",
-    "name": "C\u00E1 N\u01B0\u1EDBng Mu\u1ED1i \u1EDAt (Grilled Fish with Salt and Chili)",
-    "ingredients": [
-      "lime",
-      "sugar",
-      "black pepper",
-      "vegetable oil",
-      "coarse sea salt",
-      "garlic",
-      "red chilies"
-    ]
-  },
-  {
-    "id": "f2196dce-22a6-44d0-a623-35d16e36466c",
-    "name": "B\u00FAn B\u00F2 X\u00E0o (Stir-fried Beef Noodles)",
-    "ingredients": [
-      "roasted peanuts, crushed",
-      "carrot, julienned",
-      "lettuce, shredded",
-      "bean sprouts",
-      "soy sauce",
-      "sugar",
-      "black pepper",
-      "garlic, minced",
-      "vegetable oil",
-      "beef sirloin, thinly sliced",
-      "fresh mint",
-      "fish sauce",
-      "rice vinegar",
-      "rice vermicelli noodles (b\u00FAn)",
-      "lime juice",
-      "fresh cilantro",
-      "cucumber, julienned"
-    ]
-  },
-  {
-    "id": "ffd20a28-f543-4322-ab8b-37667fbdd207",
-    "name": "C\u01A1m Ch\u00E1y Ch\u00E0 B\u00F4ng (Crispy Rice with Pork Floss)",
-    "ingredients": [
-      "chili garlic sauce (optional)",
-      "cooking oil",
-      "cooked rice (day-old)",
-      "sugar",
-      "scallions",
-      "pork floss (ch\u00E0 b\u00F4ng)",
-      "water",
-      "fish sauce"
-    ]
-  },
-  {
-    "id": "6dc1f1c9-358f-4731-b1b6-37b117a037ac",
-    "name": "Turkey Thighs with Mustard Sauce",
-    "ingredients": [
-      "olive oil",
-      "turkey thighs",
-      "mustard",
-      "black pepper",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "2812f6ad-968a-47ac-bf30-3ac0384938d2",
-    "name": "Lentil and Collard Greens Stew",
-    "ingredients": [
-      "onions",
-      "vegetable broth",
-      "black pepper",
-      "collard greens",
-      "garlic",
-      "salt",
-      "cumin"
-    ]
-  },
-  {
-    "id": "121bab2b-feb5-4c2d-b0a2-3c60479745fe",
-    "name": "Beet and Feta Salad",
-    "ingredients": [
-      "arugula",
-      "olive oil",
-      "black pepper",
-      "beets",
-      "feta cheese",
-      "salt"
-    ]
-  },
-  {
-    "id": "da31da1b-c64e-4f5e-9022-40e9d143d28e",
-    "name": "Ch\u00E8 H\u1EA1t Sen (Lotus Seed Sweet Soup)",
-    "ingredients": [
-      "pandan leaves (optional)",
-      "dried lotus seeds",
-      "granulated sugar",
-      "water",
-      "dried longan (optional)"
-    ]
-  },
-  {
-    "id": "bddfb0f7-b665-4aa2-b477-4166aa0f247a",
-    "name": "Mixed smoothy",
-    "ingredients": [
-      "longan",
-      "plums",
-      "peaches"
-    ]
-  },
-  {
-    "id": "b1d7a586-2199-44d3-80e4-4269fd4ceec2",
-    "name": "C\u00E1 H\u1ED3i N\u01B0\u1EDBng M\u1ECDi (Grilled Salmon)",
-    "ingredients": [
-      "lime",
-      "sugar",
-      "black pepper",
-      "vegetable oil",
-      "green onion",
-      "salmon fillets",
-      "fish sauce",
-      "garlic"
-    ]
-  },
-  {
-    "id": "1a06f651-3896-4a4d-b9d9-44c82bd2ce09",
+    "id": "229183b0-eb58-4aa6-a299-01dc2a9b9325",
     "name": "Canh B\u00ED \u0110ao (Winter Melon Soup)",
     "ingredients": [
-      "shallots",
-      "dried shrimp",
+      "green onion",
       "cilantro",
       "winter melon",
       "black pepper",
-      "water",
-      "green onion",
       "ground pork",
       "fish sauce",
-      "salt"
-    ]
-  },
-  {
-    "id": "39aa4db8-6416-411e-972a-44da7498d80b",
-    "name": "C\u01A1m G\u00E0 H\u1ED9i An (Hoi An Chicken Rice)",
-    "ingredients": [
-      "chicken broth",
-      "ginger",
-      "cooking oil",
-      "shallots",
-      "fresh coriander",
-      "chicken thighs",
-      "rice",
-      "black pepper",
-      "fresh mint",
-      "red chili",
-      "fish sauce",
-      "turmeric powder",
-      "garlic",
-      "lime juice",
-      "salt"
-    ]
-  },
-  {
-    "id": "38192e7d-f7c6-47fd-95f3-46b540ff2207",
-    "name": "C\u01A1m Chi\u00EAn D\u01B0\u01A1ng Ch\u00E2u (Yangzhou Fried Rice)",
-    "ingredients": [
-      "sesame oil",
-      "cooking oil",
-      "cooked rice (day-old)",
-      "scallions, chopped",
-      "soy sauce",
-      "char siu pork, diced",
-      "eggs",
-      "oyster sauce",
-      "cooked shrimp, peeled and deveined",
-      "frozen peas and carrots",
-      "white pepper",
-      "salt"
-    ]
-  },
-  {
-    "id": "08358879-b2c7-4027-a99e-477b41c9cf48",
-    "name": "Roasted Beets with Goat Cheese",
-    "ingredients": [
-      "olive oil",
-      "black pepper",
-      "walnuts",
-      "beets",
-      "salt"
-    ]
-  },
-  {
-    "id": "412b1dc1-aa2b-455d-a7b1-47df7b150d87",
-    "name": "B\u00E1nh H\u1ECFi (Fine Rice Vermicelli Mat)",
-    "ingredients": [
-      "cooked shrimp (optional)",
-      "scallions, finely chopped",
-      "lettuce leaves",
-      "vegetable oil",
-      "grilled pork (optional)",
-      "fresh mint",
-      "nuoc cham dipping sauce (vietnamese fish sauce)",
-      "fine rice vermicelli (b\u00E1nh h\u1ECFi)",
-      "fresh basil"
-    ]
-  },
-  {
-    "id": "3d7ed02a-89b3-44a3-a0c1-48c60fef8aff",
-    "name": "Cucumber Radish Salad",
-    "ingredients": [
-      "olive oil",
-      "black pepper",
-      "radishes",
-      "dill",
-      "salt"
-    ]
-  },
-  {
-    "id": "1be33451-34e9-401f-949f-4a238539c8c5",
-    "name": "B\u00FAn Thang (Hanoi Chicken Noodle Soup)",
-    "ingredients": [
-      "rice vermicelli noodles (bun)",
-      "dried cuttlefish",
-      "chicken",
-      "fermented shrimp paste (mam tom)",
-      "spring onions",
-      "rock sugar",
-      "lime",
-      "dried shrimp",
-      "dried shiitake mushrooms",
-      "cilantro",
-      "eggs",
-      "vietnamese ham (cha lua)",
-      "fish sauce",
-      "vietnamese mint (rau ram)",
-      "salt"
-    ]
-  },
-  {
-    "id": "143059b2-65f8-4a3d-8ba4-4aa698fb9860",
-    "name": "Ch\u00E8 Khoai M\u00EC (Cassava Sweet Soup)",
-    "ingredients": [
-      "tapioca pearls (optional)",
-      "pandan leaves (optional)",
-      "cassava (yuca)",
-      "coconut milk",
-      "sugar",
-      "vanilla extract",
-      "salt"
-    ]
-  },
-  {
-    "id": "529cfcb8-f16b-4176-bc13-4c1c3503077c",
-    "name": "Peach and Blueberry Salad",
-    "ingredients": [
-      "arugula",
-      "olive oil",
-      "peaches",
-      "black pepper",
-      "blueberries"
-    ]
-  },
-  {
-    "id": "86492a8c-1708-4ef9-acaa-4c4eb37a8b21",
-    "name": "C\u01A1m N\u1EAFm (Sticky Rice Ball)",
-    "ingredients": [
-      "cooking oil",
-      "shallots",
-      "pork belly",
-      "dried shrimp",
-      "sugar",
-      "black pepper",
-      "glutinous rice (sticky rice)",
-      "water",
-      "fish sauce"
-    ]
-  },
-  {
-    "id": "c3390b9b-d5ad-4bc3-844e-4ca2feebd4ed",
-    "name": "Ch\u00E8 Ba M\u00E0u (Three-Color Dessert)",
-    "ingredients": [
-      "pandan extract",
-      "agar-agar powder",
-      "coconut milk",
-      "sugar",
-      "mung beans (split)",
-      "tapioca starch",
       "water",
       "salt",
-      "red kidney beans (canned)"
-    ]
-  },
-  {
-    "id": "1e9778a8-d3c7-4871-a0f2-4d3ac9c057c7",
-    "name": "X\u00F4i M\u1EB7n (Savory Sticky Rice)",
-    "ingredients": [
-      "fried shallots",
-      "cooking oil",
-      "soy sauce",
-      "quail eggs",
-      "dried shrimp",
-      "chinese sausage (lap xuong)",
-      "sugar",
-      "glutinous rice",
-      "scallions",
-      "shredded pork (thit cha)"
-    ]
-  },
-  {
-    "id": "54588897-7f18-40e9-b724-4f73ee90c6be",
-    "name": "G\u1ECFi T\u00E9p (Tiny Shrimp Salad)",
-    "ingredients": [
-      "roasted peanuts",
-      "green mango",
-      "fish sauce (n\u01B0\u1EDBc m\u1EAFm)",
-      "bird\u0027s eye chili (optional)",
-      "tiny shrimp (t\u00E9p)",
-      "sugar",
-      "red onion",
-      "vietnamese mint (rau ram)",
-      "garlic",
-      "lime juice",
-      "carrot"
-    ]
-  },
-  {
-    "id": "9d9ba5e4-898a-471a-9ecd-526dc83f6d04",
-    "name": "Roasted Garlic Mashed Potatoes",
-    "ingredients": [
-      "butter",
-      "milk",
-      "potatoes",
-      "black pepper",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "9f92175d-c27f-40fb-8053-54c8602bc0fb",
-    "name": "Grilled Salmon with Dill",
-    "ingredients": [
-      "olive oil",
-      "salmon",
-      "black pepper",
-      "dill",
-      "salt"
-    ]
-  },
-  {
-    "id": "42e5d553-be0a-4d69-97f3-566c9f963a92",
-    "name": "Ch\u00E8 B\u00E0 Ba (Mixed Sweet Soup)",
-    "ingredients": [
-      "tapioca pearls (small)",
-      "sweet potato (orange)",
-      "taro",
-      "coconut milk",
-      "sugar",
-      "sweet potato (white)",
-      "mung beans (split, skinless)",
-      "pandan leaves",
-      "water",
-      "salt"
-    ]
-  },
-  {
-    "id": "6a208cf9-7e07-449e-b03e-5a13358cd8b6",
-    "name": "B\u00E1nh \u0110\u00FAc (Savory Rice Cake)",
-    "ingredients": [
       "shallots",
-      "dried shrimp",
-      "sugar",
-      "fried onions",
-      "tapioca starch",
-      "vegetable oil",
-      "water",
-      "ground pork",
-      "fish sauce",
-      "slaked lime water (n\u01B0\u1EDBc v\u00F4i trong)",
-      "rice flour",
-      "salt"
+      "dried shrimp"
     ]
   },
   {
-    "id": "ea15dfeb-c92b-4f32-aeef-5a20022fc044",
-    "name": "Shrimp Avocado Salad",
-    "ingredients": [
-      "avocado",
-      "olive oil",
-      "black pepper",
-      "lettuce",
-      "shrimp",
-      "salt"
-    ]
-  },
-  {
-    "id": "205fc9d8-463d-4dca-a287-5a3ff590b80c",
-    "name": "B\u00FAn B\u00F2 Cay (Spicy Beef Noodle Soup)",
-    "ingredients": [
-      "beef shank",
-      "ginger",
-      "lemongrass",
-      "bean sprouts",
-      "annatto seeds",
-      "chili powder",
-      "beef bones",
-      "lime",
-      "sugar",
-      "cilantro",
-      "shrimp paste",
-      "mint",
-      "vegetable oil",
-      "shredded cabbage",
-      "water",
-      "b\u00FAn noodle",
-      "fish sauce",
-      "salt"
-    ]
-  },
-  {
-    "id": "acfe22bd-3913-4a64-a1c8-5a4ad0e9d965",
-    "name": "G\u1ECFi T\u00F4m Th\u1ECBt (Shrimp and Pork Salad)",
-    "ingredients": [
-      "fried shallots",
-      "mint leaves",
-      "shrimp, peeled and deveined",
-      "peanuts, roasted and crushed",
-      "pork belly",
-      "red chili pepper, minced (optional)",
-      "vietnamese coriander (rau r\u0103m)",
-      "sugar",
-      "garlic, minced",
-      "carrots, julienned",
-      "fish sauce",
-      "lime juice",
-      "cucumber, julienned"
-    ]
-  },
-  {
-    "id": "d14f5ad0-6db3-49b8-95fa-5b8cefc891ca",
-    "name": "B\u00FAn M\u0103ng V\u1ECBt (Duck and Bamboo Shoot Noodles)",
-    "ingredients": [
-      "ginger",
-      "shallots",
-      "lime",
-      "dried shiitake mushrooms",
-      "sugar",
-      "cilantro",
-      "scallions",
-      "bird\u0027s eye chili",
-      "dried bamboo shoots",
-      "fish sauce",
-      "duck (whole)",
-      "salt",
-      "rice noodles (b\u00FAn)"
-    ]
-  },
-  {
-    "id": "61b0ce75-0225-44ba-a42f-5d470220784e",
-    "name": "L\u1EA9u N\u01B0\u1EDBng (Grill and Hot Pot Combo)",
-    "ingredients": [
-      "chicken broth",
-      "sesame oil",
-      "shrimp, peeled and deveined",
-      "soy sauce",
-      "bok choy",
-      "chili flakes",
-      "beef broth",
-      "pork belly, thinly sliced",
-      "rice noodles",
-      "garlic, minced",
-      "napa cabbage",
-      "ginger, minced",
-      "honey",
-      "beef sirloin, thinly sliced",
-      "fish sauce",
-      "lemongrass, minced",
-      "squid, cleaned and sliced into rings",
-      "enoki mushrooms",
-      "chicken thighs, boneless, skinless, bite-sized"
-    ]
-  },
-  {
-    "id": "6123ee6a-2fd8-4aec-81df-5fa6ef1508fb",
-    "name": "M\u1EF1c N\u01B0\u1EDBng Sa T\u1EBF (Grilled Squid with Satay Sauce)",
-    "ingredients": [
-      "shallots",
-      "chili flakes",
-      "squid",
-      "sugar",
-      "vegetable oil",
-      "fish sauce",
-      "garlic",
-      "satay sauce"
-    ]
-  },
-  {
-    "id": "ecd1805a-5569-489f-a270-6178f0c773d2",
-    "name": "C\u00E1 Chi\u00EAn S\u1EA3 \u1EDAt (Fried Fish with Lemongrass and Chili)",
-    "ingredients": [
-      "firm white fish fillets (e.g., cod, snapper)",
-      "lemongrass",
-      "shallots",
-      "sugar",
-      "ground black pepper",
-      "vegetable oil",
-      "red chili",
-      "fish sauce",
-      "garlic",
-      "rice flour"
-    ]
-  },
-  {
-    "id": "7a5e4797-0347-4d3f-bbbb-61a46476ee85",
-    "name": "Ch\u00E8 S\u01B0\u01A1ng S\u00E1o (Grass Jelly Sweet Soup)",
-    "ingredients": [
-      "coconut milk",
-      "sugar",
-      "tapioca pearls",
-      "ice",
-      "pandan leaves",
-      "water",
-      "grass jelly"
-    ]
-  },
-  {
-    "id": "f3ddb499-672b-470e-b184-624ca6d1eb15",
-    "name": "C\u00E1 L\u00F3c H\u1EA5p B\u1EA7u (Steamed Snakehead Fish with Gourd)",
-    "ingredients": [
-      "snakehead fish",
-      "ginger",
-      "cooking oil",
-      "soy sauce",
-      "dried shiitake mushrooms",
-      "sugar",
-      "cilantro",
-      "black pepper",
-      "green onions",
-      "round gourd (b\u1EA7u)",
-      "fish sauce"
-    ]
-  },
-  {
-    "id": "ba4d4171-065f-4b53-8d23-6277b9e58d26",
-    "name": "Quinoa Chickpea Bowl",
-    "ingredients": [
-      "olive oil",
-      "quinoa",
-      "black pepper",
-      "chickpeas",
-      "spinach",
-      "salt"
-    ]
-  },
-  {
-    "id": "76cb5cf2-9828-4adb-88b1-66213bf73637",
-    "name": "X\u00F4i G\u1EA5c (Gac Fruit Sticky Rice)",
-    "ingredients": [
-      "coconut milk",
-      "sugar",
-      "glutinous rice",
-      "vegetable oil",
-      "gac fruit pulp",
-      "salt"
-    ]
-  },
-  {
-    "id": "c7a4b779-9ec3-4ffb-acea-663abaa47f82",
-    "name": "L\u1EA9u D\u00EA (Goat Hot Pot)",
-    "ingredients": [
-      "star anise",
-      "fermented bean curd (tofu)",
-      "rice noodles (vermicelli)",
-      "red dates (jujubes)",
-      "taro root (peeled and cubed)",
-      "goat meat (cubed)",
-      "bean curd skin (yuba)",
-      "sugar",
-      "dried tofu (deep-fried)",
-      "chinese cabbage (napa cabbage)",
-      "goat bones",
-      "ginger (sliced)",
-      "lemongrass (bruised)",
-      "water",
-      "cinnamon stick",
-      "fish sauce",
-      "enoki mushrooms",
-      "salt"
-    ]
-  },
-  {
-    "id": "281d98ea-5bb5-4321-b16a-66a1900a63b6",
-    "name": "G\u00E0 H\u1EA5p L\u00E1 Chanh (Chicken Steamed with Lime Leaves)",
-    "ingredients": [
-      "ginger",
-      "sugar",
-      "lime leaves",
-      "black pepper",
-      "scallions",
-      "whole chicken",
-      "fish sauce",
-      "lime juice",
-      "salt"
-    ]
-  },
-  {
-    "id": "02b130df-171a-4aef-bd30-66ef15802aff",
-    "name": "Sweet Potato Black Bean Tacos",
-    "ingredients": [
-      "chili powder",
-      "olive oil",
-      "black beans",
-      "onions",
-      "sweet potatoes",
-      "cumin"
-    ]
-  },
-  {
-    "id": "d36bbb78-b2dd-4809-ba97-68d95f3a99fc",
-    "name": "H\u1EE7 Ti\u1EBFu (Southern Vietnamese Noodle Soup)",
-    "ingredients": [
-      "pork bones",
-      "chinese celery (chopped)",
-      "fried shallots",
-      "msg (optional)",
-      "cooking oil",
-      "bean sprouts",
-      "rock sugar",
-      "soy sauce",
-      "dried shrimp",
-      "shrimp (medium)",
-      "garlic chives (chopped)",
-      "oyster sauce",
-      "jalapeno slices (optional)",
-      "h\u1EE7 ti\u1EBFu noodles (dried)",
-      "dried squid",
-      "pork tenderloin",
-      "quail eggs (cooked and peeled)",
-      "white pepper",
-      "ground pork",
-      "fish sauce",
-      "lime wedges",
-      "salt"
-    ]
-  },
-  {
-    "id": "6da3fe1e-1d65-4049-8458-695e8c44ec31",
-    "name": "C\u00E1 Kho D\u1EEBa (Fish Braised in Coconut Juice)",
-    "ingredients": [
-      "shallots",
-      "soy sauce",
-      "sugar",
-      "coconut juice",
-      "black pepper",
-      "vegetable oil",
-      "red chili",
-      "catfish steaks (or firm white fish)",
-      "fish sauce",
-      "garlic"
-    ]
-  },
-  {
-    "id": "67c22291-1681-47bb-9d25-6a3cc5be0a89",
-    "name": "Canh Rau C\u1EA3i (Mustard Greens Soup)",
-    "ingredients": [
-      "chicken broth",
-      "shallots",
-      "black pepper",
-      "pork (ground or sliced thinly)",
-      "mustard greens",
-      "fish sauce",
-      "salt"
-    ]
-  },
-  {
-    "id": "1d717012-9c54-44c5-8a4d-6a6033e104cb",
-    "name": "Grilled Lamb Chops with Rosemary",
-    "ingredients": [
-      "olive oil",
-      "rosemary",
-      "black pepper",
-      "lamb",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "ba16fae6-61f3-49a4-b75f-6a710589b135",
-    "name": "Pineapple Mango Smoothie",
-    "ingredients": [
-      "pineapple",
-      "coconut milk",
-      "honey",
-      "mango"
-    ]
-  },
-  {
-    "id": "307fdf11-a09b-4023-b7a1-6b37af6dbde4",
-    "name": "G\u00E0 Quay (Vietnamese Roast Chicken)",
-    "ingredients": [
-      "sesame oil",
-      "shallots",
-      "soy sauce",
-      "rice wine vinegar",
-      "black pepper",
-      "whole chicken",
-      "honey",
-      "hoisin sauce",
-      "garlic",
-      "five-spice powder",
-      "salt"
-    ]
-  },
-  {
-    "id": "a25e7d81-6a03-4ce0-860e-6b778ea469c6",
-    "name": "Roasted Carrots with Honey and Thyme",
-    "ingredients": [
-      "olive oil",
-      "black pepper",
-      "honey",
-      "carrots",
-      "thyme",
-      "salt"
-    ]
-  },
-  {
-    "id": "61e6b51f-708e-42ae-bc3c-6e6282b5df4f",
-    "name": "B\u00E1nh Tr\u00E1ng N\u01B0\u1EDBng M\u1EE1 H\u00E0nh (Rice Paper with Scallion Oil)",
-    "ingredients": [
-      "sriracha sauce",
-      "mayonnaise",
-      "dried shrimp",
-      "quail egg",
-      "scallions",
-      "vegetable oil",
-      "round rice paper"
-    ]
-  },
-  {
-    "id": "443d1e65-7311-452c-84da-755a8648e70f",
-    "name": "Pineapple Shrimp Stir Fry",
-    "ingredients": [
-      "pineapple",
-      "sesame oil",
-      "soy sauce",
-      "onions",
-      "shrimp",
-      "garlic"
-    ]
-  },
-  {
-    "id": "817872fc-6bdc-49b5-8356-76c2caae9766",
-    "name": "Canh M\u01B0\u1EDBp \u0110\u1EAFng (Bitter Melon Soup)",
-    "ingredients": [
-      "chicken broth",
-      "glass noodles",
-      "wood ear mushrooms",
-      "black pepper",
-      "scallions",
-      "ground pork",
-      "fish sauce",
-      "salt",
-      "bitter melon"
-    ]
-  },
-  {
-    "id": "fda6263a-66f4-447b-b8b8-77368b9f8ba8",
-    "name": "B\u00E1nh Tr\u00E1ng N\u01B0\u1EDBng (Vietnamese Pizza)",
-    "ingredients": [
-      "butter",
-      "sriracha sauce",
-      "mayonnaise",
-      "quail eggs",
-      "dried shrimp",
-      "rice paper (b\u00E1nh tr\u00E1ng)",
-      "scallions",
-      "chili oil",
-      "ground pork"
-    ]
-  },
-  {
-    "id": "97f91de0-bd7c-447a-920b-782cd148838d",
-    "name": "B\u00E1nh T\u00E9t L\u00E1 C\u1EA9m (Sticky Rice Cake with Magenta Plant)",
-    "ingredients": [
-      "pork belly",
-      "sugar",
-      "mung beans (split)",
-      "glutinous rice",
-      "magenta plant leaves (l\u00E1 c\u1EA9m)",
-      "black pepper",
-      "banana leaves",
-      "water",
-      "dried shallots",
-      "salt"
-    ]
-  },
-  {
-    "id": "a3f7cada-3b5b-4645-9198-7b1c29832388",
-    "name": "C\u00E1 Kho T\u1ED9 D\u1EEBa (Caramel Fish in Coconut Pot)",
-    "ingredients": [
-      "shallots",
-      "soy sauce",
-      "catfish fillets",
-      "sugar",
-      "ground black pepper",
-      "green onions",
-      "vegetable oil",
-      "fish sauce",
-      "coconut water",
-      "garlic",
-      "red chilies"
-    ]
-  },
-  {
-    "id": "42093b30-8b68-4210-aeb0-7ba8a2003d83",
-    "name": "B\u00FAn C\u00E1 Chua (Sour Fish Noodle Soup)",
-    "ingredients": [
-      "fish fillets (catfish, cod, or snapper)",
-      "shallots, thinly sliced",
-      "pineapple chunks",
-      "bean sprouts",
-      "scallions, chopped",
-      "sugar",
-      "black pepper",
-      "garlic, minced",
-      "vegetable oil",
-      "water",
-      "tamarind pulp",
-      "tomatoes, diced",
-      "fish sauce",
-      "dill, chopped",
-      "turmeric powder",
-      "salt",
-      "mint, chopped",
-      "rice noodles (b\u00FAn)"
-    ]
-  },
-  {
-    "id": "5c56c605-cd6d-449c-8b25-80c548bd7da7",
-    "name": "Mashed Sweet Potatoes",
-    "ingredients": [
-      "butter",
-      "sweet potatoes",
-      "black pepper",
-      "salt"
-    ]
-  },
-  {
-    "id": "ab089817-1015-4229-8a45-83e7b8ebddda",
-    "name": "Orange Glazed Duck Breast",
-    "ingredients": [
-      "duck",
-      "orange juice",
-      "black pepper",
-      "honey",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "db8f585f-f289-4a6c-9f88-84d7062eaff3",
-    "name": "B\u00FAn Ri\u00EAu (Crab Noodle Soup)",
-    "ingredients": [
-      "crab paste",
-      "fried tofu",
-      "bean sprouts",
-      "shallots",
-      "rock sugar",
-      "lime",
-      "eggs",
-      "mint",
-      "tomatoes",
-      "shredded water spinach (rau mu\u1ED1ng)",
-      "tamarind paste",
-      "vegetable oil",
-      "water",
-      "ground pork",
-      "fish sauce",
-      "garlic",
-      "rice vermicelli noodles (b\u00FAn)",
-      "shrimp paste (m\u1EAFm t\u00F4m)"
-    ]
-  },
-  {
-    "id": "568becc9-5aae-4d22-835f-868843e0ad2e",
-    "name": "B\u00E1nh T\u00E9t (Cylindrical Sticky Rice Cake)",
-    "ingredients": [
-      "pork belly",
-      "mung beans (split)",
-      "glutinous rice",
-      "black pepper",
-      "vegetable oil",
-      "banana leaves",
-      "water",
-      "fish sauce",
-      "salt"
-    ]
-  },
-  {
-    "id": "f119ccac-ae12-4245-b314-894f12300dd9",
-    "name": "C\u00E1 L\u00F3c N\u01B0\u1EDBng Trui (Grilled Snakehead Fish on Stick)",
-    "ingredients": [
-      "rice paper",
-      "ginger",
-      "lemon grass",
-      "whole snakehead fish",
-      "mint",
-      "black pepper",
-      "lettuce",
-      "green onion",
-      "fish sauce",
-      "salt"
-    ]
-  },
-  {
-    "id": "d5e7fc90-7589-439c-a52d-89ba5ceeecae",
-    "name": "B\u00FAn X\u00E0o Gi\u00F2n (Crispy Fried Vermicelli)",
-    "ingredients": [
-      "sesame oil",
-      "onion",
-      "bean sprouts",
-      "bell pepper (red or yellow)",
-      "soy sauce",
-      "sugar",
-      "oyster sauce",
-      "green onions",
-      "vegetable oil",
-      "chicken breast",
-      "thin vermicelli noodles",
-      "shrimp",
-      "carrots",
-      "garlic"
-    ]
-  },
-  {
-    "id": "c68a718f-af41-4eaa-a380-8b2c0e4d941e",
-    "name": "Mixed Smoothie",
-    "ingredients": [
-      "peaches",
-      "pineapple (chopped)"
-    ]
-  },
-  {
-    "id": "888ab3b7-4fe2-4687-b35e-8c603de3e7e7",
-    "name": "Spicy Mussels",
-    "ingredients": [
-      "chili powder",
-      "olive oil",
-      "parsley",
-      "fish stock",
-      "mussels",
-      "black pepper",
-      "garlic"
-    ]
-  },
-  {
-    "id": "cd987209-594e-424b-98e8-8ed4b79c493c",
-    "name": "Ch\u00E8 Khoai M\u00F4n (Taro Sweet Soup)",
-    "ingredients": [
-      "coconut milk",
-      "sugar",
-      "taro root, peeled and cubed",
-      "tapioca pearls, small",
-      "pandan leaves",
-      "water",
-      "salt"
-    ]
-  },
-  {
-    "id": "82fd192a-645d-45a8-8318-8fba7d3a19dd",
-    "name": "Ch\u1EA3 Hu\u1EBF (Hue-style Meatloaf)",
-    "ingredients": [
-      "shallots, minced",
-      "wood ear mushrooms, soaked and sliced",
-      "sugar",
-      "pork fat, finely diced",
-      "black pepper",
-      "garlic, minced",
-      "egg",
-      "banana leaf",
-      "bean thread noodles, soaked and chopped",
-      "ground pork",
-      "ground beef",
-      "fish sauce"
-    ]
-  },
-  {
-    "id": "7a01da52-f484-4f15-a262-90b323e96863",
-    "name": "L\u1EA9u B\u00F2 (Beef Hot Pot)",
-    "ingredients": [
-      "star anise",
-      "msg (optional)",
-      "beef (thinly sliced)",
-      "bean sprouts",
-      "beef bones",
-      "sugar",
-      "rice noodles",
-      "ginger (sliced)",
-      "lemongrass (bruised)",
-      "water",
-      "onion (quartered)",
-      "tofu (fried)",
-      "water spinach",
-      "chili oil",
-      "cinnamon stick",
-      "fish sauce",
-      "oxtail (optional)",
-      "enoki mushrooms",
-      "salt"
-    ]
-  },
-  {
-    "id": "bbfa6ef1-d054-43a8-b41e-939e337f2440",
-    "name": "C\u01A1m H\u1EBFn (Baby Clam Rice)",
-    "ingredients": [
-      "ginger",
-      "baby clams",
-      "cooked rice",
-      "shallots",
-      "spring onions",
-      "pork belly",
-      "pork rinds (crispy)",
-      "lime",
-      "shrimp paste (m\u1EAFm ru\u1ED1c)",
-      "sugar",
-      "coriander",
-      "mint",
-      "vegetable oil",
-      "chili sauce",
-      "sesame seeds",
-      "fish sauce",
-      "peanuts",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "6917b3a8-04f2-4c57-b8e6-943000f5d213",
-    "name": "B\u00E1nh M\u00EC Ch\u1EA3 C\u00E1 (Fish Cake Sandwich)",
-    "ingredients": [
-      "fish cakes (ch\u1EA3 c\u00E1)",
-      "daikon radish, julienned",
-      "sriracha sauce",
-      "mayonnaise",
-      "soy sauce",
-      "sugar",
-      "cilantro",
-      "cucumber, sliced",
-      "carrots, julienned",
-      "baguettes",
-      "rice vinegar",
-      "salt"
-    ]
-  },
-  {
-    "id": "4a14b891-cb5e-4638-9999-953f3fe3d0ee",
-    "name": "Broccoli Almond Stir Fry",
-    "ingredients": [
-      "sesame oil",
-      "broccoli",
-      "soy sauce",
-      "almonds",
-      "black pepper",
-      "garlic"
-    ]
-  },
-  {
-    "id": "070616db-c620-4e5a-a7c5-9791c20446fc",
-    "name": "Mixed Smoothy",
-    "ingredients": [
-      "peaches",
-      "pineapple (chopped)"
-    ]
-  },
-  {
-    "id": "3238c035-70ce-4bcc-8771-983522b79b02",
-    "name": "B\u00FAn Th\u1ECBt N\u01B0\u1EDBng C\u00E0 Ph\u00EA (Coffee-Flavored Grilled Pork Vermicelli)",
-    "ingredients": [
-      "shallots, minced",
-      "roasted peanuts, crushed",
-      "lettuce, shredded",
-      "strong brewed coffee, cooled",
-      "nuoc cham dipping sauce",
-      "bean sprouts",
-      "soy sauce",
-      "vermicelli rice noodles",
-      "fresh cilantro leaves",
-      "fresh mint leaves",
-      "black pepper",
-      "garlic, minced",
-      "pickled carrots and daikon",
-      "cucumber, sliced",
-      "vegetable oil",
-      "brown sugar",
-      "pork shoulder, thinly sliced",
-      "fish sauce",
-      "lemongrass, minced"
-    ]
-  },
-  {
-    "id": "d6adc15c-f658-4b4a-ac16-99bfc4dbd044",
-    "name": "B\u00FAn B\u00F2 Hu\u1EBF (Spicy Beef Noodle Soup)",
-    "ingredients": [
-      "beef shank",
-      "ginger",
-      "lemongrass",
-      "onion",
-      "bean sprouts",
-      "annatto seeds",
-      "lime",
-      "sugar",
-      "b\u00FAn (thick rice noodles)",
-      "shrimp paste",
-      "mint",
-      "pork knuckles",
-      "chili oil",
-      "banana flower",
-      "green onion",
-      "fish sauce",
-      "salt"
-    ]
-  },
-  {
-    "id": "e7daa0c1-350f-4f43-afbf-9c1dfa4ffbae",
-    "name": "B\u00FAn M\u1ECDc (Pork Meatball Noodle Soup)",
-    "ingredients": [
-      "chicken broth",
-      "pork bones",
-      "bean sprouts",
-      "shallots",
-      "lime",
-      "dried shiitake mushrooms",
-      "ground black pepper",
-      "cilantro",
-      "wood ear mushrooms",
-      "green onion",
-      "ground pork",
-      "fish sauce",
-      "rice noodles (b\u00FAn)"
-    ]
-  },
-  {
-    "id": "87bde637-40df-4e7e-bf3c-9c60daa46308",
-    "name": "L\u1EA9u C\u00E1 L\u0103ng (Catfish Hot Pot)",
-    "ingredients": [
-      "pineapple",
-      "ginger",
-      "tomato",
-      "lemongrass",
-      "bean sprouts",
-      "shallots",
-      "vietnamese coriander (rau r\u0103m)",
-      "catfish fillets",
-      "sugar",
-      "okra",
-      "tamarind paste",
-      "vegetable oil",
-      "water",
-      "chili peppers",
-      "fish sauce",
-      "garlic",
-      "rice paddy herb (ng\u00F2 \u00F4m)"
-    ]
-  },
-  {
-    "id": "6e925fb2-03fa-4342-8a81-9cd2592b1e41",
-    "name": "Buttermilk Fried Chicken Wings",
-    "ingredients": [
-      "chicken wings",
-      "black pepper",
-      "paprika",
-      "vegetable oil",
-      "buttermilk",
-      "salt"
-    ]
-  },
-  {
-    "id": "df2ee9cc-80f8-4e05-859a-9d2fd6d6ce29",
-    "name": "Ch\u00E8 Th\u00E1i (Thai-Style Sweet Soup)",
-    "ingredients": [
-      "longan",
-      "green jelly strings (banh lot)",
-      "agar agar jelly (various colors)",
-      "jackfruit",
-      "coconut milk",
-      "coconut jelly",
-      "palm sugar",
-      "condensed milk",
-      "crushed ice",
-      "lychee"
-    ]
-  },
-  {
-    "id": "f4d6be33-4c86-4e3f-a7c9-9d74bbae7b6f",
-    "name": "Canh Rau Mu\u1ED1ng (Water Spinach Soup)",
-    "ingredients": [
-      "shallots",
-      "sugar",
-      "ground black pepper",
-      "water spinach (rau mu\u1ED1ng)",
-      "water",
-      "fish sauce",
-      "salt"
-    ]
-  },
-  {
-    "id": "fc32d8c4-c761-4c9a-952e-9fb1680f31e4",
-    "name": "G\u00E0 N\u01B0\u1EDBng M\u1EADt Ong (Honey Grilled Chicken)",
-    "ingredients": [
-      "sesame oil",
-      "shallots",
-      "soy sauce",
-      "chicken thighs",
-      "black pepper",
-      "honey",
-      "fish sauce",
-      "garlic",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "2f3097e8-5ddb-4b83-8930-a20765848367",
-    "name": "B\u00F2 Kho (Vietnamese Beef Stew)",
-    "ingredients": [
-      "carrots, peeled and sliced",
-      "star anise",
-      "soy sauce",
-      "lemongrass, bruised",
-      "onion, chopped",
-      "sugar",
-      "beef broth",
-      "black pepper",
-      "garlic, minced",
-      "beef chuck, cut into 1-inch cubes",
-      "water",
-      "cinnamon stick",
-      "tomato paste",
-      "fish sauce",
-      "five-spice powder",
-      "salt",
-      "annatto oil"
-    ]
-  },
-  {
-    "id": "01ad3845-0784-47e0-bad6-a3187e18b727",
-    "name": "G\u1ECFi Cu\u1ED1n (Fresh Spring Rolls)",
-    "ingredients": [
-      "nuoc cham dipping sauce",
-      "bean sprouts",
-      "fresh cilantro leaves",
-      "fresh mint leaves",
-      "cooked pork belly, thinly sliced (optional)",
-      "rice paper wrappers",
-      "rice vermicelli noodles",
-      "carrots, julienned",
-      "lettuce leaves",
-      "cooked shrimp, peeled and deveined"
-    ]
-  },
-  {
-    "id": "2de0fe95-30be-4cf5-aea6-a34305a8dff4",
-    "name": "C\u00E1 L\u00F3c N\u01B0\u1EDBng Trui (Grilled Snakehead Fish)",
-    "ingredients": [
-      "snakehead fish",
-      "rice paper",
-      "ginger",
-      "lemongrass",
-      "black pepper",
-      "rice noodles",
-      "green onion",
-      "fresh herbs (mint, cilantro, basil)",
-      "fish sauce",
-      "lime juice",
-      "salt"
-    ]
-  },
-  {
-    "id": "7432920e-06ce-4c42-9d07-a48ebca306ad",
-    "name": "B\u00E1nh T\u1EB1m B\u00EC (Pulled Pork Rice Cake)",
-    "ingredients": [
-      "shallots",
-      "coconut milk",
-      "sugar",
-      "black pepper",
-      "pickled vegetables (optional)",
-      "mint leaves (garnish)",
-      "b\u00E1nh t\u1EB1m noodles",
-      "fish sauce",
-      "pork skin",
-      "bean sprouts (garnish)",
-      "pork shoulder",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "2eecedb7-c419-428a-8347-a4cd2151b041",
-    "name": "Ch\u00E8 \u0110\u1EADu \u0110en (Black Bean Sweet Soup)",
-    "ingredients": [
-      "tapioca pearls (small)",
-      "black beans",
-      "coconut milk",
-      "sugar",
-      "water",
-      "vanilla extract",
-      "salt"
-    ]
-  },
-  {
-    "id": "110432d6-4d04-4722-a674-a6046c965fa2",
-    "name": "B\u00E1nh Da L\u1EE3n (Layered Steamed Cake)",
-    "ingredients": [
-      "green food coloring",
-      "pandan extract",
-      "coconut milk",
-      "sugar",
-      "tapioca starch",
-      "water",
-      "mung bean paste (cooked)",
-      "rice flour",
-      "salt"
-    ]
-  },
-  {
-    "id": "f6e8a649-8f03-4bb0-99ac-a62e99e89e3c",
+    "id": "5a6d9839-c87f-4d67-a736-024b9e052f55",
     "name": "Spicy Grilled Catfish",
     "ingredients": [
+      "black pepper",
+      "garlic",
+      "cumin",
+      "olive oil",
+      "salt",
       "catfish",
-      "chili powder",
-      "olive oil",
-      "black pepper",
-      "garlic",
-      "salt",
-      "cumin"
+      "chili powder"
     ]
   },
   {
-    "id": "d5fd0450-17bf-4d2f-9281-a785b6440314",
-    "name": "Sweet Potato and Black Bean Chili",
+    "id": "093200c7-7e67-4a80-b747-0435e3ecedd0",
+    "name": "B\u00FAn Th\u1ECBt N\u01B0\u1EDBng (Grilled Pork Vermicelli)",
     "ingredients": [
-      "chili powder",
-      "olive oil",
-      "black beans",
-      "onions",
-      "sweet potatoes",
-      "tomatoes",
-      "garlic",
-      "cumin"
-    ]
-  },
-  {
-    "id": "dfb08e20-d8f4-4cd5-89c4-a9d16f5b45e5",
-    "name": "B\u00E1nh \u00CDt (Sticky Rice Dumpling)",
-    "ingredients": [
-      "shrimp (peeled and deveined)",
-      "shallots",
-      "sugar",
-      "black pepper",
-      "vegetable oil",
-      "banana leaves",
-      "water",
-      "cooked mung bean paste (skin removed)",
-      "ground pork",
-      "fish sauce",
-      "glutinous rice flour",
-      "garlic"
-    ]
-  },
-  {
-    "id": "08ea2987-e83c-41c0-bac8-aa02eea9bd09",
-    "name": "Fennel and Orange Salad",
-    "ingredients": [
-      "arugula",
-      "olive oil",
-      "black pepper",
-      "fennel seeds",
-      "oranges",
-      "salt"
-    ]
-  },
-  {
-    "id": "d829e8ed-85a4-4c4c-b1cf-ab3c7f38c37a",
-    "name": "B\u00E1nh B\u1ED9t L\u1ECDc (Clear Shrimp Dumplings)",
-    "ingredients": [
-      "boiling water",
-      "pork belly",
-      "chopped green onions",
-      "sugar",
-      "shallots (minced)",
-      "tapioca starch",
-      "black pepper",
-      "garlic (minced)",
-      "shrimp (medium, peeled and deveined)",
-      "vegetable oil",
-      "fish sauce"
-    ]
-  },
-  {
-    "id": "e096d77b-8c83-4669-9854-acd7fdd94e7f",
-    "name": "G\u00E0 N\u01B0\u1EDBng S\u1EA3 (Lemongrass Grilled Chicken)",
-    "ingredients": [
-      "lemongrass",
-      "red pepper flakes",
-      "shallots",
-      "soy sauce",
-      "sugar",
-      "chicken thighs",
-      "black pepper",
-      "honey",
-      "vegetable oil",
-      "fish sauce",
-      "garlic"
-    ]
-  },
-  {
-    "id": "439c5e0f-5acd-49be-a45a-b0ac4c15abed",
-    "name": "Basil Pesto Pasta",
-    "ingredients": [
-      "olive oil",
-      "walnuts",
-      "basil",
-      "garlic",
-      "salt",
-      "parmesan cheese"
-    ]
-  },
-  {
-    "id": "fcedf664-4dbb-4e64-8f90-b19b046f7f65",
-    "name": "Honey Roasted Carrots with Sage",
-    "ingredients": [
-      "olive oil",
-      "black pepper",
-      "honey",
-      "sage",
-      "carrots",
-      "salt"
-    ]
-  },
-  {
-    "id": "42ddfe13-f829-4aa1-9efc-b2dc6b0c9340",
-    "name": "L\u1EA9u Th\u00E1i (Thai Hot Pot Vietnamese Style)",
-    "ingredients": [
-      "chicken broth",
-      "tomato",
-      "lemongrass",
+      "rice vermicelli noodles",
       "bean sprouts",
-      "thai chili peppers",
-      "oyster mushrooms",
-      "galangal",
-      "squid",
-      "sugar",
-      "rice noodles",
-      "fish balls",
-      "shrimp",
-      "fish sauce",
-      "kaffir lime leaves",
-      "enoki mushrooms",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "5ed6d1a5-8a2f-4d3e-a781-b3269b7afd95",
-    "name": "G\u1ECFi G\u00E0 (Vietnamese Chicken Salad)",
-    "ingredients": [
-      "carrot, julienned",
-      "red onion, thinly sliced",
-      "red chili, finely chopped (optional)",
-      "boneless, skinless chicken breasts",
-      "sugar",
-      "roasted peanuts, roughly chopped",
-      "garlic, minced",
-      "green cabbage, thinly shredded",
-      "red cabbage, thinly shredded",
-      "mint leaves, roughly chopped",
-      "fish sauce",
-      "cilantro leaves, roughly chopped",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "78b0f2fa-ba6d-4053-9548-b44481be5555",
-    "name": "B\u00E1nh M\u00EC Th\u1ECBt N\u01B0\u1EDBng (Grilled Meat Baguette)",
-    "ingredients": [
-      "lemongrass",
-      "mayonnaise",
-      "shallots",
-      "soy sauce",
-      "sugar",
-      "jalape\u00F1o peppers",
       "cilantro",
       "black pepper",
-      "pickled carrots and daikon (do chua)",
-      "baguettes",
-      "vegetable oil",
-      "p\u00E2t\u00E9 (optional)",
-      "fish sauce",
-      "pork shoulder",
-      "garlic"
-    ]
-  },
-  {
-    "id": "225d395b-5db0-4ae6-a804-b49decafe303",
-    "name": "G\u00E0 X\u00E0o H\u1EA1t \u0110i\u1EC1u (Cashew Nut Chicken Stir-fry)",
-    "ingredients": [
-      "dried chilies",
-      "rice wine (shaoxing)",
-      "onion",
-      "soy sauce",
+      "garlic",
       "sugar",
-      "oyster sauce",
-      "scallions",
-      "cornstarch",
+      "honey",
+      "lettuce",
+      "fish sauce",
+      "pickled carrots and daikon radish",
+      "lemongrass",
+      "mint",
+      "shallots",
       "vegetable oil",
-      "chicken breast",
-      "cashew nuts",
-      "bell peppers (red, green, yellow)",
-      "garlic"
+      "nuoc cham dipping sauce",
+      "soy sauce",
+      "roasted peanuts",
+      "pork shoulder"
     ]
   },
   {
-    "id": "3841b856-c320-4c3a-8907-b5a7d2687b32",
+    "id": "bd8240c5-5f9b-4a06-ad41-05b1505bb11c",
+    "name": "G\u00E0 Ti\u1EC1m \u1EDAt Hi\u1EC3m (Chicken Stewed with Chili)",
+    "ingredients": [
+      "black peppercorns",
+      "garlic",
+      "sugar",
+      "mushrooms (shiitake or wood ear)",
+      "chicken broth",
+      "fish sauce",
+      "water",
+      "dried red chilies",
+      "shallots",
+      "chicken thighs",
+      "red dates (jujubes)",
+      "ginger",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "64ef88fc-1b2d-41a4-9cd5-05e43a661dcc",
+    "name": "G\u1ECFi Cu\u1ED1n T\u00F4m Th\u1ECBt (Shrimp \u0026 Pork Fresh Spring Rolls)",
+    "ingredients": [
+      "rice vermicelli noodles",
+      "bean sprouts",
+      "mint leaves",
+      "lettuce leaves",
+      "peanut dipping sauce",
+      "carrots, julienned",
+      "cucumber, julienned",
+      "cooked shrimp, peeled and deveined",
+      "cooked pork belly, thinly sliced",
+      "rice paper wrappers",
+      "cilantro leaves"
+    ]
+  },
+  {
+    "id": "16ab79c5-d664-463c-99f2-072d5fc03675",
+    "name": "G\u00E0 N\u01B0\u1EDBng S\u1EA3 (Lemongrass Grilled Chicken)",
+    "ingredients": [
+      "black pepper",
+      "red pepper flakes",
+      "garlic",
+      "sugar",
+      "honey",
+      "fish sauce",
+      "lemongrass",
+      "shallots",
+      "chicken thighs",
+      "vegetable oil",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "929d3723-7a5a-4198-b482-08e0f584d143",
     "name": "B\u00FAn Ch\u1EA3 (Grilled Pork with Vermicelli)",
     "ingredients": [
-      "shallots, minced",
-      "nuoc cham dipping sauce",
-      "sugar",
-      "pork shoulder, ground",
-      "pork belly, thinly sliced",
+      "rice vermicelli noodles",
       "black pepper",
       "garlic, minced",
       "pickled carrots and daikon",
-      "rice vermicelli noodles",
+      "shallots, minced",
+      "sugar",
       "lettuce",
-      "vegetable oil",
+      "fish sauce",
+      "pork shoulder, ground",
       "fresh herbs (mint, cilantro, basil)",
-      "fish sauce"
+      "vegetable oil",
+      "nuoc cham dipping sauce",
+      "pork belly, thinly sliced"
     ]
   },
   {
-    "id": "878ad399-8b60-4ad1-b0d6-b5d50c9e6d9e",
-    "name": "B\u00E1nh C\u0103n (Mini Rice Pancakes)",
+    "id": "9dc395fb-e688-42f3-9145-0b86655e95d1",
+    "name": "B\u00E1nh Tr\u00E1ng N\u01B0\u1EDBng M\u1EE1 H\u00E0nh (Rice Paper with Scallion Oil)",
     "ingredients": [
-      "cooked rice",
-      "coconut milk",
-      "sugar",
-      "tapioca starch",
+      "quail egg",
+      "sriracha sauce",
+      "mayonnaise",
+      "round rice paper",
+      "scallions",
       "vegetable oil",
-      "water",
-      "green onion",
-      "shrimp",
+      "dried shrimp"
+    ]
+  },
+  {
+    "id": "e0937cfe-41a0-46b1-8209-0b99ad5488a1",
+    "name": "B\u00E1nh Bao (Steamed Pork Buns)",
+    "ingredients": [
+      "granulated sugar",
+      "oyster sauce",
+      "sesame oil",
+      "warm milk",
+      "onion",
+      "garlic",
+      "sugar",
+      "dried shiitake mushrooms",
+      "ground pork",
+      "salt",
+      "hard-boiled eggs",
+      "instant dry yeast",
+      "baking powder",
+      "vegetable oil",
+      "all-purpose flour",
+      "wood ear mushrooms",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "a85b1db0-c205-422f-b6f9-0f5aa6fc7c33",
+    "name": "C\u00E1 Chi\u00EAn S\u1EA3 \u1EDAt (Fried Fish with Lemongrass and Chili)",
+    "ingredients": [
+      "garlic",
+      "sugar",
+      "fish sauce",
+      "firm white fish fillets (e.g., cod, snapper)",
+      "ground black pepper",
+      "lemongrass",
+      "shallots",
+      "rice flour",
+      "vegetable oil",
+      "red chili"
+    ]
+  },
+  {
+    "id": "7047c18e-9aa3-439a-9116-0fbd68f1bbdf",
+    "name": "Quinoa Chickpea Bowl",
+    "ingredients": [
+      "black pepper",
+      "chickpeas",
+      "olive oil",
+      "salt",
+      "spinach",
+      "quinoa"
+    ]
+  },
+  {
+    "id": "8ac0290a-7c3b-4361-acb1-1035ae290710",
+    "name": "B\u00FAn Ri\u00EAu (Crab Noodle Soup)",
+    "ingredients": [
+      "bean sprouts",
+      "rice vermicelli noodles (b\u00FAn)",
+      "eggs",
+      "tomatoes",
+      "rock sugar",
+      "shrimp paste (m\u1EAFm t\u00F4m)",
+      "garlic",
+      "fried tofu",
       "ground pork",
       "fish sauce",
-      "garlic",
-      "chili",
-      "lime juice",
-      "rice flour",
+      "water",
+      "crab paste",
+      "shredded water spinach (rau mu\u1ED1ng)",
+      "mint",
+      "shallots",
+      "vegetable oil",
+      "lime",
+      "tamarind paste"
+    ]
+  },
+  {
+    "id": "b8f4f59d-d515-4214-9628-11294f410289",
+    "name": "B\u00FAn B\u00F2 Cay (Spicy Beef Noodle Soup)",
+    "ingredients": [
+      "beef bones",
+      "bean sprouts",
+      "b\u00FAn noodle",
+      "cilantro",
+      "sugar",
+      "fish sauce",
+      "beef shank",
+      "water",
+      "lemongrass",
+      "salt",
+      "shrimp paste",
+      "mint",
+      "annatto seeds",
+      "vegetable oil",
+      "chili powder",
+      "lime",
+      "shredded cabbage",
+      "ginger"
+    ]
+  },
+  {
+    "id": "bb89662e-dccb-423c-9290-15386d8ed9ac",
+    "name": "B\u00E1nh Tr\u00E1ng Tr\u1ED9n (Mixed Rice Paper Salad)",
+    "ingredients": [
+      "chili oil",
+      "fried shallots",
+      "beef jerky (kh\u00F4 b\u00F2)",
+      "sugar",
+      "water",
+      "quail eggs",
+      "green mango (shredded)",
+      "dried shrimp",
+      "rice paper (b\u00E1nh tr\u00E1ng)",
+      "tamarind paste",
+      "laksa leaves (rau r\u0103m)",
+      "soy sauce",
+      "roasted peanuts"
+    ]
+  },
+  {
+    "id": "5d799d05-ed4c-4769-9adb-1968c9eea5c3",
+    "name": "Roasted Asparagus with Parmesan",
+    "ingredients": [
+      "black pepper",
+      "parmesan cheese",
+      "asparagus",
+      "olive oil",
       "salt"
     ]
   },
   {
-    "id": "1f7ffa7c-7e8d-4f96-a04e-b6854fe31c68",
-    "name": "C\u00E1 H\u1EA5p H\u00E0nh G\u1EEBng (Steamed Fish with Ginger and Scallions)",
+    "id": "08b090f4-35a0-462c-918a-1aaab8ed035b",
+    "name": "Grilled Salmon with Dill",
+    "ingredients": [
+      "black pepper",
+      "olive oil",
+      "salt",
+      "dill",
+      "salmon"
+    ]
+  },
+  {
+    "id": "7941ba70-be9b-4dca-8db7-1ce80c23e272",
+    "name": "B\u00E1nh \u0110\u00FAc (Savory Rice Cake)",
+    "ingredients": [
+      "fried onions",
+      "sugar",
+      "ground pork",
+      "slaked lime water (n\u01B0\u1EDBc v\u00F4i trong)",
+      "fish sauce",
+      "water",
+      "salt",
+      "shallots",
+      "rice flour",
+      "vegetable oil",
+      "dried shrimp",
+      "tapioca starch"
+    ]
+  },
+  {
+    "id": "316676cb-e349-4374-a487-1e06faecc9ee",
+    "name": "Peach and Blueberry Salad",
+    "ingredients": [
+      "peaches",
+      "black pepper",
+      "blueberries",
+      "olive oil",
+      "arugula"
+    ]
+  },
+  {
+    "id": "4344ab33-5a25-4554-8a73-1e0726b4c920",
+    "name": "M\u1EF1c N\u01B0\u1EDBng Sa T\u1EBF (Grilled Squid with Satay Sauce)",
+    "ingredients": [
+      "chili flakes",
+      "garlic",
+      "sugar",
+      "squid",
+      "fish sauce",
+      "satay sauce",
+      "shallots",
+      "vegetable oil"
+    ]
+  },
+  {
+    "id": "16b96904-4116-4f8d-8bfa-1e1b0724a660",
+    "name": "Spicy Squid Stir Fry",
     "ingredients": [
       "sesame oil",
-      "fresh ginger",
-      "rice wine or dry sherry",
-      "soy sauce",
-      "white fish fillets (e.g., snapper, cod, tilapia)",
-      "scallions",
-      "white pepper",
-      "salt"
-    ]
-  },
-  {
-    "id": "56588be3-9dd8-42f3-9a5d-b7003ea7ef5d",
-    "name": "Scallops with Lemon Butter",
-    "ingredients": [
-      "butter",
       "black pepper",
-      "scallops",
       "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "a74e2d5e-37c9-4aba-8b67-b7988067179d",
-    "name": "G\u1ECFi C\u00E1 Mai Nha Trang (Nha Trang Fish Salad)",
-    "ingredients": [
-      "roasted peanuts, crushed",
-      "carrot, julienned",
-      "fresh herbs (mint, cilantro, vietnamese coriander)",
-      "red chili, minced (optional)",
-      "sugar",
-      "roasted sesame seeds",
-      "garlic, minced",
-      "shallots, thinly sliced and fried",
-      "green mango, julienned",
-      "mai fish fillets (very fresh, sushi-grade)",
-      "fish sauce",
-      "rice vinegar",
-      "lime juice",
-      "cucumber, julienned"
-    ]
-  },
-  {
-    "id": "fc61f21e-487b-42f4-804b-b80c85c95be6",
-    "name": "M\u1EF1c N\u01B0\u1EDBng M\u1EADt Ong (Honey Grilled Squid)",
-    "ingredients": [
-      "shallots",
-      "chili flakes",
       "squid",
+      "chili powder",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "2cfef0a4-ab66-4564-9f6a-1ef83972daa2",
+    "name": "Roasted Garlic Mashed Potatoes",
+    "ingredients": [
+      "milk",
       "black pepper",
-      "honey",
-      "vegetable oil",
-      "fish sauce",
-      "garlic"
+      "garlic",
+      "salt",
+      "potatoes",
+      "butter"
     ]
   },
   {
-    "id": "9edb1102-87dc-4309-9c29-b869da3ca9d4",
-    "name": "Mixed Smoothy",
+    "id": "7eb04516-2f1d-4f70-a25f-1f601cd44329",
+    "name": "B\u00E1nh Kh\u1ECDt (Mini Savory Pancakes)",
     "ingredients": [
-      "longan",
-      "peaches",
-      "pineapple (chopped)"
-    ]
-  },
-  {
-    "id": "40ead5a1-5cea-4497-a6f6-b8df6de9262e",
-    "name": "G\u00E0 N\u01B0\u1EDBng M\u1ECDi (Grilled Chicken on Stick)",
-    "ingredients": [
-      "soy sauce",
+      "cooked mung beans, split",
+      "lime juice",
+      "garlic, minced",
+      "turmeric powder",
+      "red chili, minced (optional)",
+      "fish sauce (nuoc cham)",
+      "coconut milk",
       "sugar",
-      "ground black pepper",
-      "shallots (minced)",
-      "garlic (minced)",
-      "honey",
-      "vegetable oil",
-      "chicken thighs (boneless, skinless)",
-      "lemongrass (minced)",
-      "fish sauce"
+      "small shrimp, peeled and deveined",
+      "water",
+      "salt",
+      "rice flour",
+      "green onions, chopped"
     ]
   },
   {
-    "id": "653297cc-599c-451d-8a3d-b92da115e3ef",
+    "id": "5bbe5f15-3b69-46df-a8a8-203bd3dab2a5",
+    "name": "Ph\u1EDF B\u00F2 (Beef Pho)",
+    "ingredients": [
+      "beef bones",
+      "bean sprouts",
+      "cinnamon stick",
+      "sriracha",
+      "cilantro",
+      "fennel seeds",
+      "yellow onion",
+      "cloves",
+      "thai basil",
+      "green onions",
+      "rock sugar",
+      "star anise",
+      "beef chuck",
+      "fish sauce",
+      "salt",
+      "hoisin sauce",
+      "rice noodles (banh pho)",
+      "lime",
+      "ginger"
+    ]
+  },
+  {
+    "id": "4f5de439-93fb-43b8-a48c-203cc07f1833",
+    "name": "C\u00E1 L\u00F3c N\u01B0\u1EDBng Trui (Grilled Snakehead Fish)",
+    "ingredients": [
+      "green onion",
+      "lime juice",
+      "rice noodles",
+      "black pepper",
+      "snakehead fish",
+      "rice paper",
+      "fish sauce",
+      "lemongrass",
+      "salt",
+      "fresh herbs (mint, cilantro, basil)",
+      "ginger"
+    ]
+  },
+  {
+    "id": "c763a599-1d88-4b38-a4a4-229bdf6473bc",
+    "name": "Canh Rau Mu\u1ED1ng (Water Spinach Soup)",
+    "ingredients": [
+      "sugar",
+      "fish sauce",
+      "water",
+      "ground black pepper",
+      "salt",
+      "shallots",
+      "water spinach (rau mu\u1ED1ng)"
+    ]
+  },
+  {
+    "id": "9d0512f3-7ea8-403e-9bb3-243aabe8c905",
+    "name": "B\u00FAn M\u1ECDc (Pork Meatball Noodles)",
+    "ingredients": [
+      "bean sprouts",
+      "cilantro",
+      "rice noodles (b\u00FAn)",
+      "dried wood ear mushrooms",
+      "green onions",
+      "sugar",
+      "dried shiitake mushrooms",
+      "ground pork",
+      "chicken broth",
+      "fish sauce",
+      "ground black pepper",
+      "salt",
+      "shallots",
+      "lime"
+    ]
+  },
+  {
+    "id": "4e1b8cca-5dba-4ae0-991f-253eb0f334d1",
+    "name": "C\u01A1m G\u00E0 H\u1ED9i An (Hoi An Chicken Rice)",
+    "ingredients": [
+      "lime juice",
+      "black pepper",
+      "turmeric powder",
+      "cooking oil",
+      "fresh coriander",
+      "garlic",
+      "chicken broth",
+      "fish sauce",
+      "salt",
+      "fresh mint",
+      "shallots",
+      "chicken thighs",
+      "rice",
+      "red chili",
+      "ginger"
+    ]
+  },
+  {
+    "id": "fd088d7f-5050-4ed0-a584-256d46eaddd9",
+    "name": "B\u00E1nh G\u1ED1i (Vietnamese Empanadas)",
+    "ingredients": [
+      "black pepper",
+      "glass noodles (cellophane noodles)",
+      "onion",
+      "dried wood ear mushrooms",
+      "garlic",
+      "sugar",
+      "ground pork",
+      "fish sauce",
+      "water",
+      "rice flour",
+      "vegetable oil",
+      "dried shrimp",
+      "tapioca starch"
+    ]
+  },
+  {
+    "id": "5607e7e1-dc77-497c-8b3b-26d6a3ef6145",
+    "name": "Canh Kh\u1ED5 Qua Nh\u1ED3i Th\u1ECBt (Stuffed Bitter Melon Soup)",
+    "ingredients": [
+      "chicken broth or water",
+      "bitter melons",
+      "sugar",
+      "ground pork",
+      "fish sauce",
+      "ground black pepper",
+      "salt",
+      "scallions",
+      "glass noodles (mung bean noodles)",
+      "shallots",
+      "wood ear mushrooms",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "b7062575-a5f5-4410-8cb2-2913c1d1afa9",
+    "name": "B\u00FAn B\u00F2 X\u00E0o (Stir-fried Beef Noodles)",
+    "ingredients": [
+      "bean sprouts",
+      "lime juice",
+      "black pepper",
+      "garlic, minced",
+      "rice vermicelli noodles (b\u00FAn)",
+      "rice vinegar",
+      "cucumber, julienned",
+      "sugar",
+      "fresh cilantro",
+      "fish sauce",
+      "carrot, julienned",
+      "fresh mint",
+      "vegetable oil",
+      "roasted peanuts, crushed",
+      "lettuce, shredded",
+      "beef sirloin, thinly sliced",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "f4a3984b-ec77-416d-b190-2a6a51d59636",
+    "name": "Spicy Prawn Skewers",
+    "ingredients": [
+      "black pepper",
+      "prawns",
+      "garlic",
+      "olive oil",
+      "salt",
+      "chili powder"
+    ]
+  },
+  {
+    "id": "c3fee8e8-5d3d-4f1b-8191-2b43ac56241d",
     "name": "Canh Rau \u0110ay (Jute Leaf Soup)",
     "ingredients": [
-      "sugar",
       "shallot",
-      "vegetable oil",
-      "water",
+      "sugar",
       "ground pork",
       "fish sauce",
       "jute leaves (rau \u0111ay)",
-      "salt"
+      "water",
+      "salt",
+      "vegetable oil"
     ]
   },
   {
-    "id": "3f3fb97a-5566-43e1-b272-ba27f8071dc9",
-    "name": "G\u00E0 X\u00E0o S\u1EA3 \u1EDAt (Spicy Lemongrass Chicken Stir-fry)",
+    "id": "a61e84bc-5a90-4269-898b-2b7f0c9fbb82",
+    "name": "Sweet Potato and Black Bean Chili",
     "ingredients": [
-      "chicken thighs, boneless and skinless",
-      "lemongrass",
-      "shallots",
-      "soy sauce",
-      "sugar",
-      "ground black pepper",
-      "green onions",
-      "vegetable oil",
-      "red chili",
-      "fish sauce",
-      "garlic"
+      "tomatoes",
+      "garlic",
+      "sweet potatoes",
+      "cumin",
+      "onions",
+      "olive oil",
+      "chili powder",
+      "black beans"
     ]
   },
   {
-    "id": "2e3aa022-e3b0-4023-a72a-ba4267c7559a",
+    "id": "077fb1cc-01d8-43d3-b636-2ee21ca86e66",
+    "name": "G\u1ECFi T\u00F4m Th\u1ECBt (Shrimp and Pork Salad)",
+    "ingredients": [
+      "red chili pepper, minced (optional)",
+      "mint leaves",
+      "lime juice",
+      "pork belly",
+      "peanuts, roasted and crushed",
+      "garlic, minced",
+      "carrots, julienned",
+      "fried shallots",
+      "cucumber, julienned",
+      "sugar",
+      "vietnamese coriander (rau r\u0103m)",
+      "fish sauce",
+      "shrimp, peeled and deveined"
+    ]
+  },
+  {
+    "id": "515bf968-3df1-42a8-9811-2f822b9f1fd4",
+    "name": "C\u00E1 H\u1EA5p H\u00E0nh G\u1EEBng (Steamed Fish with Ginger and Scallions)",
+    "ingredients": [
+      "fresh ginger",
+      "sesame oil",
+      "rice wine or dry sherry",
+      "white fish fillets (e.g., snapper, cod, tilapia)",
+      "salt",
+      "scallions",
+      "white pepper",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "55bae851-a4f1-4c86-9801-31604cd9025a",
+    "name": "Blueberry Banana Smoothie",
+    "ingredients": [
+      "blueberries",
+      "honey",
+      "almond milk",
+      "greek yogurt",
+      "bananas"
+    ]
+  },
+  {
+    "id": "a3d19dfa-23ec-461c-a399-31fa36036f89",
     "name": "B\u00E1nh R\u1EBF (Sweet Potato Fritters)",
     "ingredients": [
       "coconut milk",
       "sugar",
-      "sweet potato",
-      "tapioca starch",
-      "vegetable oil",
-      "vanilla extract",
+      "salt",
       "rice flour",
+      "vegetable oil",
+      "tapioca starch",
+      "vanilla extract",
+      "sweet potato"
+    ]
+  },
+  {
+    "id": "84e556c5-a826-4219-b3a7-3287809d394e",
+    "name": "B\u00F2 Kho (Vietnamese Beef Stew)",
+    "ingredients": [
+      "cinnamon stick",
+      "black pepper",
+      "garlic, minced",
+      "beef broth",
+      "five-spice powder",
+      "sugar",
+      "star anise",
+      "fish sauce",
+      "water",
+      "salt",
+      "onion, chopped",
+      "annatto oil",
+      "lemongrass, bruised",
+      "carrots, peeled and sliced",
+      "beef chuck, cut into 1-inch cubes",
+      "tomato paste",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "742c336f-eeb8-4881-8563-32d3f220963b",
+    "name": "B\u00E1nh T\u1EB1m B\u00EC (Pulled Pork Rice Cake)",
+    "ingredients": [
+      "black pepper",
+      "b\u00E1nh t\u1EB1m noodles",
+      "garlic",
+      "coconut milk",
+      "sugar",
+      "pickled vegetables (optional)",
+      "fish sauce",
+      "mint leaves (garnish)",
+      "salt",
+      "shallots",
+      "bean sprouts (garnish)",
+      "pork skin",
+      "pork shoulder"
+    ]
+  },
+  {
+    "id": "77803cc6-0740-43b3-8d39-34c1d9af4bfb",
+    "name": "L\u1EA9u C\u00E1 L\u0103ng (Catfish Hot Pot)",
+    "ingredients": [
+      "rice paddy herb (ng\u00F2 \u00F4m)",
+      "bean sprouts",
+      "pineapple",
+      "catfish fillets",
+      "tomato",
+      "chili peppers",
+      "garlic",
+      "sugar",
+      "vietnamese coriander (rau r\u0103m)",
+      "okra",
+      "fish sauce",
+      "water",
+      "lemongrass",
+      "shallots",
+      "vegetable oil",
+      "tamarind paste",
+      "ginger"
+    ]
+  },
+  {
+    "id": "8688c57e-fdaf-47c7-9fe9-35008dee5429",
+    "name": "B\u00FAn Th\u1ECBt N\u01B0\u1EDBng Ch\u1EA3 Gi\u00F2 (Grilled Pork Vermicelli with Fried Rolls)",
+    "ingredients": [
+      "rice vermicelli noodles",
+      "bean sprouts",
+      "cilantro",
+      "black pepper",
+      "spring roll wrappers",
+      "garlic",
+      "sugar",
+      "lettuce",
+      "ground pork",
+      "carrot",
+      "fish sauce",
+      "lemongrass",
+      "mint",
+      "shallots",
+      "shrimp",
+      "vegetable oil",
+      "nuoc cham dipping sauce",
+      "wood ear mushrooms",
+      "soy sauce",
+      "pork shoulder"
+    ]
+  },
+  {
+    "id": "97361d6b-d765-40ab-9979-35a7fe1ea590",
+    "name": "Nem N\u01B0\u1EDBng (Grilled Pork Sausage)",
+    "ingredients": [
+      "garlic",
+      "sugar",
+      "ground pork",
+      "fish sauce",
+      "ground black pepper",
+      "baking powder",
+      "ground pork fat",
+      "shallots",
+      "rice flour",
+      "vegetable oil"
+    ]
+  },
+  {
+    "id": "842f323f-2c82-4043-a32d-3623194cce49",
+    "name": "Baked Chicken Drumsticks",
+    "ingredients": [
+      "paprika",
+      "black pepper",
+      "chicken drumsticks",
+      "garlic",
+      "olive oil",
       "salt"
     ]
   },
   {
-    "id": "1f76b3f5-1943-44a4-845f-bb17280b872d",
-    "name": "G\u1ECFi C\u00E1 Mai (Vietnamese Fish Salad)",
+    "id": "78bf1560-b25a-4484-937a-3643f0b7f6c9",
+    "name": "Coconut Milk Rice Pudding",
     "ingredients": [
-      "fresh c\u00E1 mai (silver fish)",
-      "roasted peanuts",
-      "rice paper",
-      "shredded green mango",
-      "fried shallots",
-      "chopped fresh herbs (mint, cilantro, basil)",
-      "sugar",
-      "shredded carrots",
-      "chili garlic sauce",
-      "fish sauce",
-      "rice vinegar",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "0806aaed-8689-4f74-a0fc-bc034d7360ce",
-    "name": "B\u00FAn M\u1ECDc (Pork Meatball Noodles)",
-    "ingredients": [
-      "chicken broth",
-      "bean sprouts",
-      "shallots",
-      "lime",
-      "dried shiitake mushrooms",
-      "sugar",
-      "ground black pepper",
-      "cilantro",
-      "dried wood ear mushrooms",
-      "green onions",
-      "ground pork",
-      "fish sauce",
-      "salt",
-      "rice noodles (b\u00FAn)"
-    ]
-  },
-  {
-    "id": "1b0a8e93-9303-4df3-98f1-bc60e018fa49",
-    "name": "B\u00E1nh Canh Cua (Crab Tapioca Noodle Soup)",
-    "ingredients": [
-      "pork hock",
-      "sugar",
-      "ground black pepper",
-      "shallots (minced)",
-      "shrimp paste",
-      "tapioca noodles",
-      "garlic (minced)",
-      "water",
-      "scallions (chopped)",
-      "fish sauce",
-      "crab meat (lump)",
-      "cilantro (chopped)",
-      "annatto oil"
-    ]
-  },
-  {
-    "id": "b1923a2e-f7ca-48d7-8693-bcf10dd51596",
-    "name": "Canh Chua C\u00E1 (Vietnamese Sour Fish Soup)",
-    "ingredients": [
-      "pineapple chunks",
-      "bean sprouts",
-      "sawtooth coriander (ngo gai)",
-      "tomato wedges",
-      "fish fillets (catfish, tilapia, or cod)",
-      "sugar",
-      "shallot",
-      "okra",
-      "vegetable oil",
-      "water",
-      "tamarind pulp",
-      "rice paddy herb (ngo om)",
-      "chili peppers",
-      "fish sauce",
-      "garlic",
-      "elephant ear stems (bac ha) or taro stems"
-    ]
-  },
-  {
-    "id": "fb5f82fc-0135-47bd-9dbb-bd49bdfb56ee",
-    "name": "B\u00E1nh Phu Th\u00EA (Husband and Wife Cake)",
-    "ingredients": [
-      "shredded coconut",
+      "white rice",
+      "cinnamon",
       "coconut milk",
-      "tapioca starch",
-      "granulated sugar",
-      "mung bean paste",
-      "vegetable oil",
-      "pandan extract (or leaves)",
-      "mung beans, split",
+      "salt",
+      "white sugar",
+      "vanilla extract"
+    ]
+  },
+  {
+    "id": "ed3af63e-6461-4ea5-b5dd-369e2be30ce9",
+    "name": "Cod with Lemon and Herbs",
+    "ingredients": [
+      "cod",
+      "black pepper",
+      "garlic",
+      "olive oil",
+      "salt",
+      "parsley"
+    ]
+  },
+  {
+    "id": "56ee903a-2e9a-4c7f-9031-3731c56e28a7",
+    "name": "B\u00E1nh X\u00E8o (Vietnamese Pancakes)",
+    "ingredients": [
+      "green onion",
+      "bean sprouts",
+      "pork belly",
+      "turmeric powder",
+      "fish sauce (nuoc cham)",
+      "yellow onion",
+      "coconut milk",
+      "salt",
+      "rice flour",
+      "shrimp",
+      "vegetable oil"
+    ]
+  },
+  {
+    "id": "a218ee20-7208-4a15-98c9-378e97c0c819",
+    "name": "B\u00FAn M\u1EAFm (Fermented Fish Noodle Soup)",
+    "ingredients": [
+      "bean sprouts",
+      "pork belly",
+      "fermented fish sauce (m\u1EAFm)",
+      "rice noodles (b\u00FAn)",
+      "thai basil",
+      "chili peppers",
+      "garlic",
+      "fish (snakehead or catfish)",
+      "sugar",
+      "banana blossoms",
+      "fish sauce",
+      "water",
+      "eggplant",
+      "lemongrass",
+      "salt",
+      "water spinach (ong choy)",
+      "shrimp",
+      "red onion"
+    ]
+  },
+  {
+    "id": "9e89eaea-8560-43f1-96c5-3831d65ef876",
+    "name": "Orange Glazed Duck Breast",
+    "ingredients": [
+      "black pepper",
+      "garlic",
+      "honey",
+      "duck",
+      "orange juice",
+      "salt"
+    ]
+  },
+  {
+    "id": "a25be431-bb21-4989-a402-38630947d5a9",
+    "name": "G\u1ECFi G\u00E0 (Vietnamese Chicken Salad)",
+    "ingredients": [
+      "lime juice",
+      "garlic, minced",
+      "red onion, thinly sliced",
+      "sugar",
+      "red chili, finely chopped (optional)",
+      "fish sauce",
+      "carrot, julienned",
+      "green cabbage, thinly shredded",
+      "roasted peanuts, roughly chopped",
+      "red cabbage, thinly shredded",
+      "boneless, skinless chicken breasts",
+      "cilantro leaves, roughly chopped",
+      "mint leaves, roughly chopped"
+    ]
+  },
+  {
+    "id": "e3402c6b-e938-4e1e-8eba-38ddf1d7864b",
+    "name": "Ch\u00E8 Tr\u00F4i N\u01B0\u1EDBc (Glutinous Rice Dumplings in Ginger Syrup)",
+    "ingredients": [
+      "warm water",
+      "ginger (fresh)",
+      "rock sugar",
+      "roasted sesame seeds",
+      "coconut milk",
+      "sugar",
+      "mung bean (split, skinless)",
+      "water",
+      "salt",
       "glutinous rice flour"
     ]
   },
   {
-    "id": "03b1fdb7-7c05-402f-8a02-bf73ace69b7a",
-    "name": "C\u00E1 Kho T\u1ED9 (Caramelized Braised Fish)",
+    "id": "9ed96531-95c7-4fd3-a806-3b5afaa5cbaf",
+    "name": "H\u1EE7 Ti\u1EBFu (Southern Vietnamese Noodle Soup)",
     "ingredients": [
-      "shallots",
-      "catfish fillets",
-      "sugar",
-      "ground black pepper",
-      "vegetable oil",
-      "water",
-      "red chili",
-      "fish sauce",
-      "garlic"
-    ]
-  },
-  {
-    "id": "db556a90-6402-4bd2-8dc7-c0351ff2af46",
-    "name": "Spicy Squid Stir Fry",
-    "ingredients": [
-      "sesame oil",
-      "soy sauce",
-      "chili powder",
-      "squid",
-      "black pepper",
-      "garlic"
-    ]
-  },
-  {
-    "id": "fca142fc-b9fd-4656-bfb7-c17415ccfb24",
-    "name": "B\u00FAn B\u00F2 Nam B\u1ED9 (Southern Vietnamese Beef Noodle Salad)",
-    "ingredients": [
-      "roasted peanuts, crushed",
-      "cilantro leaves",
+      "bean sprouts",
+      "oyster sauce",
+      "pork bones",
+      "pork tenderloin",
+      "lime wedges",
+      "cooking oil",
       "fried shallots",
-      "mint leaves",
-      "lettuce, shredded",
-      "bean sprouts",
-      "soy sauce",
-      "sugar",
-      "n\u01B0\u1EDBc ch\u1EA5m (vietnamese dipping sauce)",
-      "black pepper",
-      "garlic, minced",
-      "vegetable oil",
-      "beef sirloin, thinly sliced",
-      "fish sauce",
-      "lemongrass, minced",
-      "rice vermicelli noodles (b\u00FAn)",
-      "cucumber, thinly sliced"
-    ]
-  },
-  {
-    "id": "1054d190-e765-4857-99a7-c27ca5754915",
-    "name": "B\u00FAn Th\u1ECBt N\u01B0\u1EDBng Ch\u1EA3 Gi\u00F2 (Grilled Pork Vermicelli with Fried Rolls)",
-    "ingredients": [
-      "lemongrass",
-      "nuoc cham dipping sauce",
-      "bean sprouts",
-      "shallots",
-      "soy sauce",
-      "sugar",
-      "cilantro",
-      "wood ear mushrooms",
-      "mint",
-      "black pepper",
-      "rice vermicelli noodles",
-      "spring roll wrappers",
-      "lettuce",
-      "vegetable oil",
-      "shrimp",
+      "rock sugar",
+      "chinese celery (chopped)",
+      "h\u1EE7 ti\u1EBFu noodles (dried)",
       "ground pork",
       "fish sauce",
-      "pork shoulder",
-      "garlic",
-      "carrot"
+      "salt",
+      "msg (optional)",
+      "quail eggs (cooked and peeled)",
+      "dried squid",
+      "garlic chives (chopped)",
+      "jalapeno slices (optional)",
+      "dried shrimp",
+      "shrimp (medium)",
+      "white pepper",
+      "soy sauce"
     ]
   },
   {
-    "id": "e1c91180-ebcb-4881-93d1-c35e0aecae82",
+    "id": "1aaebac1-ee91-4b2d-820f-3c503fd76958",
+    "name": "C\u00E1 L\u00F3c N\u01B0\u1EDBng M\u1EAFm N\u00EAm (Grilled Snakehead with Fermented Fish Sauce)",
+    "ingredients": [
+      "lime juice",
+      "pineapple",
+      "cucumber",
+      "garlic",
+      "sugar",
+      "fresh herbs (mint, cilantro, lettuce)",
+      "snakehead fish",
+      "rice paper",
+      "chili",
+      "m\u1EAFm n\u00EAm (fermented fish sauce)",
+      "vermicelli noodles",
+      "vegetable oil"
+    ]
+  },
+  {
+    "id": "7da2e23f-cba3-46d4-973c-3ec34420aeea",
+    "name": "B\u00E1nh \u00CDt (Sticky Rice Dumpling)",
+    "ingredients": [
+      "shrimp (peeled and deveined)",
+      "black pepper",
+      "garlic",
+      "sugar",
+      "ground pork",
+      "fish sauce",
+      "water",
+      "shallots",
+      "banana leaves",
+      "vegetable oil",
+      "glutinous rice flour",
+      "cooked mung bean paste (skin removed)"
+    ]
+  },
+  {
+    "id": "18a960e3-43d3-4d1d-b55d-3ed2dccb1f8f",
+    "name": "G\u1ECFi Cu\u1ED1n (Fresh Spring Rolls)",
+    "ingredients": [
+      "rice vermicelli noodles",
+      "bean sprouts",
+      "cooked pork belly, thinly sliced (optional)",
+      "lettuce leaves",
+      "carrots, julienned",
+      "cooked shrimp, peeled and deveined",
+      "rice paper wrappers",
+      "fresh cilantro leaves",
+      "nuoc cham dipping sauce",
+      "fresh mint leaves"
+    ]
+  },
+  {
+    "id": "6ddc5f23-0cd2-4979-ae50-3f6167794b19",
+    "name": "G\u00E0 N\u01B0\u1EDBng M\u1ECDi (Grilled Chicken on Stick)",
+    "ingredients": [
+      "garlic (minced)",
+      "sugar",
+      "shallots (minced)",
+      "honey",
+      "chicken thighs (boneless, skinless)",
+      "fish sauce",
+      "ground black pepper",
+      "vegetable oil",
+      "lemongrass (minced)",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "c68db116-4ed9-4f2c-963f-40172896e859",
+    "name": "C\u00E1 H\u1ED3i N\u01B0\u1EDBng M\u1ECDi (Grilled Salmon)",
+    "ingredients": [
+      "green onion",
+      "black pepper",
+      "salmon fillets",
+      "garlic",
+      "sugar",
+      "fish sauce",
+      "vegetable oil",
+      "lime"
+    ]
+  },
+  {
+    "id": "458afe7a-b1c4-4928-a3cd-4068cd1cea97",
+    "name": "Ch\u00E8 Chu\u1ED1i (Banana Sweet Soup)",
+    "ingredients": [
+      "ripe bananas",
+      "small tapioca pearls",
+      "coconut milk",
+      "sugar",
+      "water",
+      "pinch of salt",
+      "vanilla extract",
+      "roasted peanuts (crushed)"
+    ]
+  },
+  {
+    "id": "0eb07dff-6c67-4772-8376-420f88096be1",
+    "name": "B\u00E1nh Phu Th\u00EA (Husband and Wife Cake)",
+    "ingredients": [
+      "granulated sugar",
+      "shredded coconut",
+      "mung bean paste",
+      "pandan extract (or leaves)",
+      "coconut milk",
+      "mung beans, split",
+      "vegetable oil",
+      "tapioca starch",
+      "glutinous rice flour"
+    ]
+  },
+  {
+    "id": "2f9fa23f-b62c-450a-972f-4480c13d887f",
+    "name": "Ch\u00E8 H\u1EA1t Sen \u0110\u1EADu Xanh (Lotus Seed and Mung Bean Sweet Soup)",
+    "ingredients": [
+      "granulated sugar",
+      "vanilla extract (optional)",
+      "dried lotus seeds",
+      "coconut milk",
+      "water",
+      "pandan leaves (optional)",
+      "split mung beans (skinless)"
+    ]
+  },
+  {
+    "id": "66dd9ab9-e565-4c50-8d9d-456ef20431dc",
+    "name": "M\u1EF1c H\u1EA5p S\u1EA3 (Steamed Squid with Lemongrass)",
+    "ingredients": [
+      "green onion",
+      "squid (cleaned)",
+      "lime juice",
+      "black pepper",
+      "red chili (optional)",
+      "sugar",
+      "fish sauce",
+      "lemongrass",
+      "salt",
+      "ginger"
+    ]
+  },
+  {
+    "id": "f1bc2889-b019-43a9-88ae-4639c1219fdc",
+    "name": "Lentil and Collard Greens Stew",
+    "ingredients": [
+      "collard greens",
+      "black pepper",
+      "garlic",
+      "cumin",
+      "vegetable broth",
+      "onions",
+      "salt"
+    ]
+  },
+  {
+    "id": "e8ad144c-d85f-474a-8f2d-463ea0a7a8db",
+    "name": "L\u1EA9u C\u00E1 K\u00E8o (Gobies Fish Hot Pot)",
+    "ingredients": [
+      "bean sprouts",
+      "lime juice",
+      "tomato wedges",
+      "chili peppers",
+      "garlic",
+      "sugar",
+      "pineapple chunks",
+      "chicken broth",
+      "okra",
+      "fish sauce",
+      "shallots",
+      "gobies fish (c\u00E1 k\u00E8o)",
+      "bitter herbs (rau \u0111\u1EAFng)",
+      "vegetable oil",
+      "tamarind pulp",
+      "water spinach (rau mu\u1ED1ng)"
+    ]
+  },
+  {
+    "id": "7f151fa9-8109-47da-bcde-47626ce7ee79",
+    "name": "Pineapple Shrimp Stir Fry",
+    "ingredients": [
+      "sesame oil",
+      "pineapple",
+      "garlic",
+      "onions",
+      "shrimp",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "337cfae3-f8f5-44ad-b2c9-480138187a9a",
+    "name": "Canh Rau C\u1EA3i (Mustard Greens Soup)",
+    "ingredients": [
+      "black pepper",
+      "chicken broth",
+      "fish sauce",
+      "mustard greens",
+      "pork (ground or sliced thinly)",
+      "salt",
+      "shallots"
+    ]
+  },
+  {
+    "id": "b732df4a-ec0f-4137-b0f9-48e974adca36",
+    "name": "Pineapple Mango Smoothie",
+    "ingredients": [
+      "pineapple",
+      "mango",
+      "coconut milk",
+      "honey"
+    ]
+  },
+  {
+    "id": "8b32e4c8-5e21-49d8-a7c3-4918358650e8",
+    "name": "B\u00E1nh M\u00EC Th\u1ECBt N\u01B0\u1EDBng (Grilled Meat Baguette)",
+    "ingredients": [
+      "cilantro",
+      "black pepper",
+      "mayonnaise",
+      "garlic",
+      "baguettes",
+      "sugar",
+      "p\u00E2t\u00E9 (optional)",
+      "pickled carrots and daikon (do chua)",
+      "fish sauce",
+      "lemongrass",
+      "shallots",
+      "vegetable oil",
+      "jalape\u00F1o peppers",
+      "soy sauce",
+      "pork shoulder"
+    ]
+  },
+  {
+    "id": "2529db1a-26fa-4e68-bab4-49ac9ca53122",
+    "name": "G\u00E0 X\u00E0o H\u1EA1t \u0110i\u1EC1u (Cashew Nut Chicken Stir-fry)",
+    "ingredients": [
+      "oyster sauce",
+      "dried chilies",
+      "onion",
+      "garlic",
+      "sugar",
+      "cornstarch",
+      "scallions",
+      "cashew nuts",
+      "rice wine (shaoxing)",
+      "vegetable oil",
+      "bell peppers (red, green, yellow)",
+      "chicken breast",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "512d5da6-a054-4788-b7af-4ac32f7839b7",
+    "name": "B\u00E1nh R\u00E1n (Vietnamese Fried Doughnut)",
+    "ingredients": [
+      "granulated sugar",
+      "mung bean paste",
+      "warm water",
+      "cooked rice",
+      "vegetable oil",
+      "sesame seeds",
+      "vanilla extract",
+      "glutinous rice flour"
+    ]
+  },
+  {
+    "id": "814d10bc-e04c-498a-b302-4c9af4601952",
+    "name": "M\u1EF1c N\u01B0\u1EDBng M\u1EADt Ong (Honey Grilled Squid)",
+    "ingredients": [
+      "black pepper",
+      "chili flakes",
+      "garlic",
+      "honey",
+      "squid",
+      "fish sauce",
+      "shallots",
+      "vegetable oil"
+    ]
+  },
+  {
+    "id": "53583aeb-c5e0-47be-8601-4d9e8c9288a1",
+    "name": "G\u1ECFi C\u00E1 Mai Nha Trang (Nha Trang Fish Salad)",
+    "ingredients": [
+      "shallots, thinly sliced and fried",
+      "lime juice",
+      "garlic, minced",
+      "red chili, minced (optional)",
+      "rice vinegar",
+      "cucumber, julienned",
+      "roasted sesame seeds",
+      "sugar",
+      "mai fish fillets (very fresh, sushi-grade)",
+      "fish sauce",
+      "carrot, julienned",
+      "roasted peanuts, crushed",
+      "fresh herbs (mint, cilantro, vietnamese coriander)",
+      "green mango, julienned"
+    ]
+  },
+  {
+    "id": "ad7731ff-83e3-49ff-bd33-4eba1f05ae15",
+    "name": "B\u00FAn Th\u1ECBt N\u01B0\u1EDBng C\u00E0 Ph\u00EA (Coffee-Flavored Grilled Pork Vermicelli)",
+    "ingredients": [
+      "brown sugar",
+      "bean sprouts",
+      "black pepper",
+      "garlic, minced",
+      "pickled carrots and daikon",
+      "shallots, minced",
+      "pork shoulder, thinly sliced",
+      "fish sauce",
+      "lemongrass, minced",
+      "cucumber, sliced",
+      "strong brewed coffee, cooled",
+      "fresh cilantro leaves",
+      "vegetable oil",
+      "vermicelli rice noodles",
+      "roasted peanuts, crushed",
+      "lettuce, shredded",
+      "nuoc cham dipping sauce",
+      "fresh mint leaves",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "298ec0be-e550-4f9b-afba-5057f94ca307",
+    "name": "Ch\u00E8 Khoai M\u00F4n (Taro Sweet Soup)",
+    "ingredients": [
+      "pandan leaves",
+      "coconut milk",
+      "sugar",
+      "tapioca pearls, small",
+      "water",
+      "salt",
+      "taro root, peeled and cubed"
+    ]
+  },
+  {
+    "id": "fc6fe856-c42c-4b82-ab3c-507d053f4411",
+    "name": "B\u00FAn Thang (Hanoi Chicken Noodle Soup)",
+    "ingredients": [
+      "fermented shrimp paste (mam tom)",
+      "cilantro",
+      "spring onions",
+      "eggs",
+      "rice vermicelli noodles (bun)",
+      "rock sugar",
+      "vietnamese mint (rau ram)",
+      "dried shiitake mushrooms",
+      "vietnamese ham (cha lua)",
+      "dried cuttlefish",
+      "fish sauce",
+      "salt",
+      "chicken",
+      "dried shrimp",
+      "lime"
+    ]
+  },
+  {
+    "id": "44bbeed5-9722-43ce-b931-51baef739ec3",
+    "name": "X\u00F4i G\u1EA5c (Gac Fruit Sticky Rice)",
+    "ingredients": [
+      "glutinous rice",
+      "coconut milk",
+      "sugar",
+      "salt",
+      "vegetable oil",
+      "gac fruit pulp"
+    ]
+  },
+  {
+    "id": "9d35fa9b-7e1a-4b9f-ae5d-5263d11e76e7",
+    "name": "C\u00E1 Kho T\u1ED9 (Caramelized Braised Fish)",
+    "ingredients": [
+      "catfish fillets",
+      "garlic",
+      "sugar",
+      "fish sauce",
+      "water",
+      "ground black pepper",
+      "shallots",
+      "vegetable oil",
+      "red chili"
+    ]
+  },
+  {
+    "id": "c041aa2b-63fe-48e6-b61e-528584bac5da",
+    "name": "Buttermilk Fried Chicken Wings",
+    "ingredients": [
+      "paprika",
+      "black pepper",
+      "chicken wings",
+      "buttermilk",
+      "salt",
+      "vegetable oil"
+    ]
+  },
+  {
+    "id": "2cd4dd1c-32ad-4a64-aed7-56680b9b73ab",
+    "name": "Ch\u1EA3 C\u00E1 L\u00E3 V\u1ECDng (Turmeric Fish with Dill)",
+    "ingredients": [
+      "white fish fillets (cod, haddock, or catfish)",
+      "turmeric powder",
+      "rice noodles (vermicelli)",
+      "green onions",
+      "sugar",
+      "peanuts (roasted, crushed)",
+      "fresh dill",
+      "galangal (ground)",
+      "fish sauce",
+      "shrimp paste",
+      "vegetable oil",
+      "ginger (grated)"
+    ]
+  },
+  {
+    "id": "b69b77e8-b354-4238-a159-57b823bb9dc4",
+    "name": "C\u00E1 S\u1EA5u N\u01B0\u1EDBng (Grilled Crocodile)",
+    "ingredients": [
+      "lime juice",
+      "black pepper",
+      "chili flakes",
+      "garlic",
+      "crocodile meat",
+      "honey",
+      "fish sauce",
+      "lemongrass",
+      "shallots",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "a600a1b0-9ad5-408a-85ab-58e530cecf49",
+    "name": "B\u00E1nh Tr\u00E1ng N\u01B0\u1EDBng (Vietnamese Pizza)",
+    "ingredients": [
+      "chili oil",
+      "sriracha sauce",
+      "mayonnaise",
+      "ground pork",
+      "quail eggs",
+      "scallions",
+      "dried shrimp",
+      "rice paper (b\u00E1nh tr\u00E1ng)",
+      "butter"
+    ]
+  },
+  {
+    "id": "dec9f3cc-3f18-4398-ae74-5caec14cbf5c",
+    "name": "Fennel and Orange Salad",
+    "ingredients": [
+      "fennel seeds",
+      "black pepper",
+      "olive oil",
+      "oranges",
+      "salt",
+      "arugula"
+    ]
+  },
+  {
+    "id": "9bf424e8-673b-497f-b4c2-5cb436a4af27",
+    "name": "Ch\u1EA3 Gi\u00F2 R\u1EBF (Fried Egg Roll Nets)",
+    "ingredients": [
+      "black pepper",
+      "shallots, minced",
+      "sugar",
+      "wood ear mushrooms (soaked in warm water, chopped)",
+      "egg",
+      "ground pork",
+      "crab meat",
+      "fish sauce",
+      "glass noodles (soaked in warm water)",
+      "rice paper net (banh hoi)",
+      "salt",
+      "shrimp, peeled and deveined",
+      "vegetable oil",
+      "shredded carrots"
+    ]
+  },
+  {
+    "id": "07eb5a15-221a-4bfc-907f-5d33a5112266",
     "name": "Ch\u00E8 Chu\u1ED1i N\u1EBFp N\u01B0\u1EDBng (Grilled Banana with Sticky Rice Sweet Soup)",
     "ingredients": [
       "ripe bananas (preferably slightly firm)",
-      "pandan leaves (optional, for fragrance)",
+      "roasted peanuts (for garnish)",
       "coconut milk",
       "sugar",
-      "tapioca starch",
       "water",
-      "sweet sticky rice",
-      "roasted peanuts (for garnish)",
-      "vanilla extract",
-      "salt"
-    ]
-  },
-  {
-    "id": "d15b2c9b-55d6-47f7-a77f-c3dd60c41fcc",
-    "name": "B\u00FAn C\u00E1 (Fish Noodle Soup)",
-    "ingredients": [
-      "ginger",
-      "tomato",
-      "pineapple chunks",
-      "bean sprouts",
-      "shallots",
-      "lime",
-      "sugar",
-      "firm white fish fillets (such as catfish or cod)",
-      "green onions",
-      "vegetable oil",
-      "water",
-      "dill",
-      "fish sauce",
-      "turmeric powder",
-      "b\u00FAn (rice vermicelli noodles)",
-      "garlic"
-    ]
-  },
-  {
-    "id": "934939b7-9971-441a-86f6-c70a41cf6188",
-    "name": "Roasted Brussels Sprouts with Bacon",
-    "ingredients": [
-      "olive oil",
-      "brussels sprouts",
-      "black pepper",
-      "salt"
-    ]
-  },
-  {
-    "id": "a4b30396-f3be-4ed5-804c-c7318df27ab4",
-    "name": "Nem R\u00E1n (Fried Spring Rolls)",
-    "ingredients": [
-      "shrimp, peeled and deveined",
-      "carrot, shredded",
-      "sugar",
-      "ground black pepper",
-      "rice paper wrappers",
-      "egg",
-      "glass noodles, soaked and chopped",
-      "vegetable oil, for frying",
-      "ground pork",
-      "wood ear mushrooms, soaked and finely chopped",
-      "fish sauce",
-      "onion, finely chopped"
-    ]
-  },
-  {
-    "id": "a8699712-1658-41e1-a90a-c8dc2987a80a",
-    "name": "Ch\u1EA3 Gi\u00F2 R\u1EBF (Fried Egg Roll Nets)",
-    "ingredients": [
-      "shallots, minced",
-      "wood ear mushrooms (soaked in warm water, chopped)",
-      "glass noodles (soaked in warm water)",
-      "shrimp, peeled and deveined",
-      "rice paper net (banh hoi)",
-      "sugar",
-      "black pepper",
-      "crab meat",
-      "egg",
-      "shredded carrots",
-      "vegetable oil",
-      "ground pork",
-      "fish sauce",
-      "salt"
-    ]
-  },
-  {
-    "id": "c499b811-0dd6-4591-b028-c9868988f5b0",
-    "name": "Honeydew Melon Smoothie",
-    "ingredients": [
-      "lime",
-      "honeydew melon",
-      "mint",
-      "coconut water"
-    ]
-  },
-  {
-    "id": "f1cff151-6237-430b-a5ed-ca38ce3d6743",
-    "name": "B\u00E1nh M\u00EC Ch\u1EA3o (Pan Bread with Meat)",
-    "ingredients": [
-      "cucumber",
-      "tomato",
-      "butter",
-      "onion",
-      "pork roll (cha lua)",
-      "soy sauce",
-      "maggi seasoning sauce",
-      "pickled carrots and daikon (do chua)",
-      "vegetable oil",
-      "chili sauce",
-      "baguette",
-      "fried egg",
-      "pate"
-    ]
-  },
-  {
-    "id": "57cdaf30-953d-4b18-acb5-caac50a73526",
-    "name": "Roasted Asparagus with Parmesan",
-    "ingredients": [
-      "olive oil",
-      "asparagus",
-      "black pepper",
       "salt",
-      "parmesan cheese"
+      "sweet sticky rice",
+      "pandan leaves (optional, for fragrance)",
+      "tapioca starch",
+      "vanilla extract"
     ]
   },
   {
-    "id": "ccd79bd4-e8f3-49ba-8ac4-cb0b6c25701e",
-    "name": "Apple Walnut Salad",
+    "id": "eee65556-d450-497a-ac93-5dbb9ee9bf0b",
+    "name": "Canh Cua Rau \u0110ay (Crab Soup with Jute Leaf)",
     "ingredients": [
-      "arugula",
-      "olive oil",
-      "black pepper",
-      "walnuts",
-      "apples",
-      "salt"
+      "garlic",
+      "luffa (m\u01B0\u1EDBp)",
+      "fish sauce",
+      "water",
+      "ground black pepper",
+      "salt",
+      "jute leaves",
+      "shallots",
+      "vegetable oil",
+      "fresh crab meat"
     ]
   },
   {
-    "id": "30d8182d-7253-413e-b3a1-cbea7f960904",
-    "name": "Tomato Basil Salad",
+    "id": "26f52c2c-c2dc-4281-9eaa-6175c333ce87",
+    "name": "Basil Pesto Pasta",
     "ingredients": [
-      "olive oil",
-      "tomatoes",
-      "black pepper",
       "basil",
+      "garlic",
+      "parmesan cheese",
+      "olive oil",
+      "salt",
+      "walnuts"
+    ]
+  },
+  {
+    "id": "438c5d8a-15ab-4e06-8ff9-625ebc9be147",
+    "name": "B\u00E1nh C\u1ED1m (Young Rice Cake)",
+    "ingredients": [
+      "granulated sugar",
+      "pandan leaves",
+      "coconut milk",
+      "young green rice (c\u1ED1m)",
+      "vegetable oil",
+      "vanilla extract",
+      "mung beans, skinned"
+    ]
+  },
+  {
+    "id": "7730299a-a862-4cea-93a0-633b27f803f0",
+    "name": "B\u00FAn X\u00E0o Gi\u00F2n (Crispy Fried Vermicelli)",
+    "ingredients": [
+      "bean sprouts",
+      "oyster sauce",
+      "sesame oil",
+      "onion",
+      "green onions",
+      "garlic",
+      "sugar",
+      "carrots",
+      "thin vermicelli noodles",
+      "bell pepper (red or yellow)",
+      "shrimp",
+      "vegetable oil",
+      "chicken breast",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "5b9309be-9f21-4265-8477-660c7dd3645a",
+    "name": "Roasted Cauliflower with Paprika",
+    "ingredients": [
+      "paprika",
+      "black pepper",
+      "olive oil",
+      "cauliflower",
       "salt"
     ]
   },
   {
-    "id": "dda37b44-1ba9-427d-82bb-cc7f74e41b64",
-    "name": "C\u00E1 L\u00F3c N\u01B0\u1EDBng M\u1EAFm N\u00EAm (Grilled Snakehead with Fermented Fish Sauce)",
+    "id": "75f26a06-3b26-4b7a-a07c-670400d40d46",
+    "name": "B\u00FAn M\u1EAFm N\u00EAm (Vermicelli with Fermented Fish Sauce)",
     "ingredients": [
-      "snakehead fish",
-      "rice paper",
+      "bean sprouts",
+      "lime juice",
+      "vietnamese coriander (rau ram)",
+      "fermented fish sauce (m\u1EAFm n\u00EAm)",
       "pineapple",
       "cucumber",
-      "sugar",
-      "m\u1EAFm n\u00EAm (fermented fish sauce)",
-      "fresh herbs (mint, cilantro, lettuce)",
-      "vegetable oil",
-      "vermicelli noodles",
       "garlic",
-      "chili",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "397162a3-dd23-4e81-961e-cd44cac7723c",
-    "name": "Ph\u1EDF B\u00F2 (Beef Pho)",
-    "ingredients": [
-      "star anise",
-      "ginger",
-      "cloves",
-      "bean sprouts",
-      "rice noodles (banh pho)",
-      "yellow onion",
-      "rock sugar",
-      "beef chuck",
-      "beef bones",
-      "lime",
-      "sriracha",
-      "cilantro",
-      "thai basil",
-      "green onions",
-      "fennel seeds",
-      "hoisin sauce",
-      "cinnamon stick",
-      "fish sauce",
-      "salt"
-    ]
-  },
-  {
-    "id": "439db3ee-6cb4-4266-a95a-d1d29a9dbfaa",
-    "name": "G\u1ECFi Cu\u1ED1n T\u00F4m Th\u1ECBt (Shrimp \u0026 Pork Fresh Spring Rolls)",
-    "ingredients": [
-      "cilantro leaves",
-      "mint leaves",
-      "bean sprouts",
-      "rice paper wrappers",
-      "cooked pork belly, thinly sliced",
-      "rice vermicelli noodles",
-      "carrots, julienned",
-      "lettuce leaves",
-      "cooked shrimp, peeled and deveined",
-      "peanut dipping sauce",
-      "cucumber, julienned"
-    ]
-  },
-  {
-    "id": "1e4b6dd8-d19f-463a-baf0-d20841c19b19",
-    "name": "C\u00E1 Kho T\u1ED9 N\u01B0\u1EDBc D\u1EEBa (Fish Braised in Coconut Juice)",
-    "ingredients": [
-      "red chilies, sliced (optional)",
-      "shallots, thinly sliced",
-      "catfish fillets (or other firm white fish)",
       "sugar",
-      "green onions, chopped (for garnish)",
+      "roasted pork belly (heo quay)",
+      "crushed peanuts",
+      "mint",
+      "chili pepper",
+      "thin rice vermicelli noodles (b\u00FAn)",
+      "shredded lettuce",
+      "pickled carrots and daikon (\u0111\u1ED3 chua)"
+    ]
+  },
+  {
+    "id": "c5e34a56-3c4f-471a-8a6d-6ab4e1b542c7",
+    "name": "Roasted Brussels Sprouts with Bacon",
+    "ingredients": [
       "black pepper",
-      "garlic, minced",
-      "dark soy sauce",
-      "vegetable oil",
-      "coconut juice (fresh or canned)",
-      "fish sauce"
-    ]
-  },
-  {
-    "id": "405153b7-7798-4751-a0a1-d3abd45d9d3e",
-    "name": "G\u1ECFi C\u00E1 Tr\u00EDch (Herring Fish Salad)",
-    "ingredients": [
-      "cucumber",
-      "green mango",
-      "peanuts, roasted",
-      "fresh herring fillets",
-      "sugar",
-      "fresh coriander",
-      "chili, finely chopped",
-      "garlic, minced",
-      "red onion",
-      "fresh mint",
-      "fish sauce",
-      "rice vinegar",
-      "lime juice",
-      "carrot"
-    ]
-  },
-  {
-    "id": "1414fc08-b7cc-4989-8f42-d3ec6578cf87",
-    "name": "B\u00FAn Ri\u00EAu Cua \u0110\u1ED3ng (Crab Vermicelli Soup)",
-    "ingredients": [
-      "fermented shrimp paste (m\u1EAFm t\u00F4m)",
-      "tomato",
-      "fried tofu",
-      "freshwater crab",
-      "bean sprouts",
-      "lime",
-      "dried shrimp",
-      "sugar",
-      "vermicelli noodles (b\u00FAn)",
-      "shredded water spinach (rau mu\u1ED1ng)",
-      "water",
-      "green onion",
-      "ground pork",
-      "fish sauce",
+      "olive oil",
       "salt",
-      "annatto oil"
+      "brussels sprouts"
     ]
   },
   {
-    "id": "f369b9b4-d172-4a39-9d44-d72638773b16",
+    "id": "d32e180d-cb46-442a-8ab8-6b076ad3851d",
+    "name": "B\u00E1nh B\u1ED9t L\u1ECDc (Clear Shrimp Dumplings)",
+    "ingredients": [
+      "pork belly",
+      "black pepper",
+      "garlic (minced)",
+      "sugar",
+      "shallots (minced)",
+      "fish sauce",
+      "boiling water",
+      "chopped green onions",
+      "vegetable oil",
+      "tapioca starch",
+      "shrimp (medium, peeled and deveined)"
+    ]
+  },
+  {
+    "id": "208e2ef2-9afa-4a5b-810a-6b344891f28f",
+    "name": "B\u00E1nh M\u00EC Ch\u1EA3 C\u00E1 (Fish Cake Sandwich)",
+    "ingredients": [
+      "daikon radish, julienned",
+      "cilantro",
+      "fish cakes (ch\u1EA3 c\u00E1)",
+      "carrots, julienned",
+      "sriracha sauce",
+      "rice vinegar",
+      "mayonnaise",
+      "baguettes",
+      "sugar",
+      "salt",
+      "cucumber, sliced",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "5558fb72-bf0f-47de-bb16-6b83c32e2a37",
+    "name": "Mashed Sweet Potatoes",
+    "ingredients": [
+      "black pepper",
+      "sweet potatoes",
+      "salt",
+      "butter"
+    ]
+  },
+  {
+    "id": "35c38462-34b7-4021-9b78-6c487cc9a5e1",
     "name": "B\u00E1nh M\u00EC X\u00EDu M\u1EA1i (Vietnamese Meatball Sandwich)",
     "ingredients": [
-      "shallots, minced",
-      "cucumber",
       "jalapeno slices",
-      "sugar",
       "cilantro",
-      "maggi seasoning sauce",
       "black pepper",
+      "cucumber",
       "garlic, minced",
-      "egg",
+      "shallots, minced",
       "baguettes",
-      "vegetable oil",
-      "water",
+      "sugar",
       "pickled daikon and carrots",
-      "tomato sauce",
+      "egg",
       "ground pork",
+      "maggi seasoning sauce",
       "fish sauce",
+      "water",
+      "tomato sauce",
+      "vegetable oil",
       "bread crumbs"
     ]
   },
   {
-    "id": "7fcaa72b-650c-4cfa-aacc-dd6a42039953",
-    "name": "Roasted Eggplant with Tahini Sauce",
+    "id": "cf4d6d6a-993b-42c3-8668-6ee77ef87012",
+    "name": "M\u1EF1c X\u00E0o H\u00E0nh T\u00E2y (Squid Stir-fried with Onions)",
     "ingredients": [
-      "eggplant",
-      "olive oil",
-      "black pepper",
-      "tahini",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "c2f3d6a4-32c6-4fd5-80df-decd402cfeb4",
-    "name": "M\u1EAFm T\u00F4m Chua (Fermented Shrimp Paste)",
-    "ingredients": [
-      "cooked rice",
-      "roasted rice powder",
-      "galangal",
-      "sugar",
-      "pineapple (chopped)",
-      "bird\u0027s eye chili",
-      "fresh shrimp",
-      "fish sauce",
-      "garlic",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "e359c91f-fe91-4a46-b4f5-e0032080cb16",
-    "name": "B\u00FAn Ch\u1EA3 H\u00E0 N\u1ED9i (Hanoi Style Grilled Pork with Vermicelli)",
-    "ingredients": [
-      "shallots, minced",
-      "nuoc cham dipping sauce",
-      "sugar",
+      "green bell pepper, sliced (optional)",
       "black pepper",
       "garlic, minced",
-      "lettuce",
-      "vegetable oil",
-      "pickled carrots and daikon radish",
-      "pork shoulder, thinly sliced",
-      "fresh herbs (mint, cilantro, basil)",
-      "ground pork",
-      "fish sauce",
-      "rice vinegar",
-      "vermicelli noodles",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "f1cf3257-b691-45f6-995c-e252e7d463dd",
-    "name": "Ch\u00E8 B\u1EAFp (Corn Sweet Soup)",
-    "ingredients": [
-      "tapioca pearls (small)",
-      "sweet corn kernels (fresh or frozen)",
-      "coconut milk",
+      "cooking oil",
+      "cilantro, chopped (optional)",
       "sugar",
-      "glutinous rice",
-      "water",
-      "pinch of salt"
-    ]
-  },
-  {
-    "id": "f1bc90e6-ad2c-41e2-8b5d-e433ca8ef933",
-    "name": "Nem N\u01B0\u1EDBng (Grilled Pork Sausage)",
-    "ingredients": [
-      "shallots",
-      "sugar",
-      "ground black pepper",
-      "ground pork fat",
-      "vegetable oil",
-      "baking powder",
-      "ground pork",
+      "yellow onion, sliced",
       "fish sauce",
-      "garlic",
-      "rice flour"
+      "squid tubes, cleaned and sliced",
+      "oyster sauce (optional)",
+      "green onions, chopped"
     ]
   },
   {
-    "id": "b0342b03-7832-468c-ae70-e4b0f7e610f5",
-    "name": "Canh Chua T\u00F4m (Sour Shrimp Soup)",
+    "id": "1a46aefd-5c27-455e-b792-70951856efb2",
+    "name": "B\u00FAn B\u00F2 Hu\u1EBF (Spicy Beef Noodle Soup)",
     "ingredients": [
-      "pineapple chunks",
-      "shrimp, peeled and deveined",
-      "bean sprouts",
-      "shallot, thinly sliced",
-      "sugar",
-      "garlic, minced",
-      "vegetable oil",
-      "water",
-      "tamarind pulp",
-      "tomatoes, quartered",
-      "rice paddy herb (ngo om), chopped",
-      "fish sauce",
-      "culantro (ngo gai), chopped",
-      "okra, sliced"
-    ]
-  },
-  {
-    "id": "d34d7bfc-7ad1-44c2-b58a-e4c52f554f6e",
-    "name": "G\u00E0 H\u1EA5p Mu\u1ED1i (Salt-Steamed Chicken)",
-    "ingredients": [
-      "ginger",
-      "lime",
-      "black pepper",
-      "green onions",
-      "whole chicken",
-      "coarse sea salt",
-      "lemongrass stalks"
-    ]
-  },
-  {
-    "id": "72d3b487-1fdc-4fe3-89cb-e58ae8d78e79",
-    "name": "B\u00E1nh Kho\u00E1i (Hue-Style Crispy Pancakes)",
-    "ingredients": [
-      "bean sprouts",
-      "coconut milk",
-      "sugar",
-      "green onions",
-      "cornstarch",
-      "vegetable oil",
-      "water",
-      "shrimp",
-      "ground pork",
-      "fish sauce",
-      "turmeric powder",
-      "garlic",
-      "chili",
-      "lime juice",
-      "rice flour",
-      "salt"
-    ]
-  },
-  {
-    "id": "491f7807-a74a-425e-9d6e-e9585d4bbf96",
-    "name": "Spicy Prawn Skewers",
-    "ingredients": [
-      "chili powder",
-      "olive oil",
-      "prawns",
-      "black pepper",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "b7bd36e9-aee3-42fd-9f8e-ea39f3395a02",
-    "name": "B\u00E1nh X\u00E8o (Vietnamese Pancakes)",
-    "ingredients": [
-      "bean sprouts",
-      "yellow onion",
-      "pork belly",
-      "coconut milk",
-      "fish sauce (nuoc cham)",
-      "vegetable oil",
       "green onion",
-      "shrimp",
-      "turmeric powder",
-      "rice flour",
-      "salt"
-    ]
-  },
-  {
-    "id": "87532191-d680-4fe0-a359-ea5aaf8499b3",
-    "name": "Baked Chicken Drumsticks",
-    "ingredients": [
-      "olive oil",
-      "black pepper",
-      "paprika",
-      "chicken drumsticks",
-      "garlic",
-      "salt"
-    ]
-  },
-  {
-    "id": "4b2e1b6a-afb7-465f-96d9-eb09e7e6d8d7",
-    "name": "Spicy Grilled Chicken Thighs",
-    "ingredients": [
-      "chili powder",
-      "olive oil",
-      "lime",
-      "chicken thighs",
-      "black pepper",
-      "garlic",
-      "salt",
-      "cumin"
-    ]
-  },
-  {
-    "id": "fb263d3c-4b18-4b72-9170-ebc10afb39c9",
-    "name": "B\u00FAn \u1ED0c (Snail Noodle Soup)",
-    "ingredients": [
-      "pork bones",
-      "tomato",
-      "shallots",
-      "dried shrimp",
+      "bean sprouts",
+      "chili oil",
+      "onion",
+      "b\u00FAn (thick rice noodles)",
       "sugar",
+      "banana flower",
+      "fish sauce",
+      "beef shank",
+      "lemongrass",
+      "salt",
       "shrimp paste",
       "mint",
-      "green onions",
-      "fresh snails",
-      "perilla leaves",
-      "b\u00FAn (rice vermicelli)",
-      "fish sauce",
-      "turmeric powder",
-      "rice vinegar",
-      "chili paste",
+      "annatto seeds",
+      "pork knuckles",
+      "lime",
+      "ginger"
+    ]
+  },
+  {
+    "id": "f7bf15ad-b486-4920-b302-70a4cc1dc067",
+    "name": "B\u00F2 N\u01B0\u1EDBng L\u00E1 L\u1ED1t (Grilled Beef in Betel Leaves)",
+    "ingredients": [
+      "lettuce leaves",
+      "black pepper",
       "garlic",
+      "sugar",
+      "ground beef",
+      "pickled carrots and daikon (do chua)",
+      "betel leaves",
+      "rice paper wrappers",
+      "fish sauce",
+      "lemongrass",
+      "shallots",
+      "vegetable oil",
+      "roasted peanuts (crushed)"
+    ]
+  },
+  {
+    "id": "cb15812b-dc6e-4a97-aa43-74443d4c68a3",
+    "name": "G\u1ECFi Ng\u00F3 Sen (Lotus Stem Salad)",
+    "ingredients": [
+      "mint leaves",
+      "lime juice",
+      "cilantro",
+      "pork belly",
+      "cucumber",
+      "fried shallots",
+      "garlic",
+      "sugar",
+      "carrots",
+      "fish sauce",
+      "chili",
+      "shrimp",
+      "lotus stems",
+      "roasted peanuts"
+    ]
+  },
+  {
+    "id": "ec8083a7-4dde-423e-8d7e-782bbe6dba89",
+    "name": "B\u00FAn \u1ED0c (Snail Noodle Soup)",
+    "ingredients": [
+      "fresh snails",
+      "pork bones",
+      "turmeric powder",
       "fermented rice vinegar (b\u1ED7ng)",
+      "tomato",
+      "rice vinegar",
+      "green onions",
+      "garlic",
+      "b\u00FAn (rice vermicelli)",
+      "sugar",
+      "fish sauce",
+      "chili paste",
       "salt",
+      "shrimp paste",
+      "annatto oil",
+      "mint",
+      "perilla leaves",
+      "shallots",
+      "dried shrimp"
+    ]
+  },
+  {
+    "id": "0d8927e6-5e8f-47cf-8d36-796909039859",
+    "name": "L\u1EA9u D\u00EA (Goat Hot Pot)",
+    "ingredients": [
+      "cinnamon stick",
+      "dried tofu (deep-fried)",
+      "chinese cabbage (napa cabbage)",
+      "goat bones",
+      "rice noodles (vermicelli)",
+      "ginger (sliced)",
+      "lemongrass (bruised)",
+      "sugar",
+      "star anise",
+      "fish sauce",
+      "water",
+      "bean curd skin (yuba)",
+      "enoki mushrooms",
+      "salt",
+      "goat meat (cubed)",
+      "red dates (jujubes)",
+      "fermented bean curd (tofu)",
+      "taro root (peeled and cubed)"
+    ]
+  },
+  {
+    "id": "f6970de9-6e54-46c3-88d2-7b93b2d7dc3b",
+    "name": "L\u1EA9u N\u01B0\u1EDBng (Grill and Hot Pot Combo)",
+    "ingredients": [
+      "sesame oil",
+      "rice noodles",
+      "garlic, minced",
+      "beef broth",
+      "chili flakes",
+      "bok choy",
+      "honey",
+      "chicken broth",
+      "fish sauce",
+      "enoki mushrooms",
+      "lemongrass, minced",
+      "shrimp, peeled and deveined",
+      "chicken thighs, boneless, skinless, bite-sized",
+      "ginger, minced",
+      "squid, cleaned and sliced into rings",
+      "pork belly, thinly sliced",
+      "beef sirloin, thinly sliced",
+      "napa cabbage",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "cfeb3094-0afc-436b-bedc-7e1aa93012cf",
+    "name": "Ch\u00E8 S\u01B0\u01A1ng S\u00E1o (Grass Jelly Sweet Soup)",
+    "ingredients": [
+      "grass jelly",
+      "pandan leaves",
+      "coconut milk",
+      "sugar",
+      "water",
+      "ice",
+      "tapioca pearls"
+    ]
+  },
+  {
+    "id": "a6e69070-bf7d-431f-b221-802986a8dbac",
+    "name": "B\u00E1nh Cu\u1ED1n (Steamed Rice Rolls)",
+    "ingredients": [
+      "bean sprouts",
+      "fried shallots",
+      "dried wood ear mushrooms",
+      "sugar",
+      "ground pork",
+      "vietnamese ham (cha lua)",
+      "fish sauce",
+      "water",
+      "ground black pepper",
+      "shallots",
+      "rice flour",
+      "vegetable oil",
+      "tapioca starch"
+    ]
+  },
+  {
+    "id": "3c1d151f-b8e1-4202-84f7-80623aa0553f",
+    "name": "Spicy Mussels",
+    "ingredients": [
+      "black pepper",
+      "garlic",
+      "fish stock",
+      "olive oil",
+      "mussels",
+      "chili powder",
+      "parsley"
+    ]
+  },
+  {
+    "id": "14bfde63-0090-4d31-b729-81b056d1ae31",
+    "name": "Scallops with Lemon Butter",
+    "ingredients": [
+      "black pepper",
+      "garlic",
+      "salt",
+      "scallops",
+      "butter"
+    ]
+  },
+  {
+    "id": "ee41a2c0-75cb-48ee-a1a2-8269ba3d6d89",
+    "name": "Ch\u1EA3 Ram T\u00F4m \u0110\u1EA5t (Earth Shrimp Spring Rolls)",
+    "ingredients": [
+      "wood ear mushrooms (n\u1EA5m m\u00E8o)",
+      "black pepper",
+      "cooking oil",
+      "vermicelli noodles (b\u00FAn t\u01B0\u01A1i)",
+      "garlic",
+      "sugar",
+      "fish sauce (n\u01B0\u1EDBc m\u1EAFm)",
+      "ground pork",
+      "earth shrimp (t\u00F4m \u0111\u1EA5t)",
+      "shallots",
+      "rice paper (b\u00E1nh tr\u00E1ng)"
+    ]
+  },
+  {
+    "id": "f109b29f-b7e7-47a8-8ec7-83c4f837706c",
+    "name": "G\u00E0 H\u1EA5p L\u00E1 Chanh (Chicken Steamed with Lime Leaves)",
+    "ingredients": [
+      "lime juice",
+      "black pepper",
+      "sugar",
+      "lime leaves",
+      "fish sauce",
+      "salt",
+      "scallions",
+      "whole chicken",
+      "ginger"
+    ]
+  },
+  {
+    "id": "a0d0848f-a07f-4a04-b08f-83f13020a0b5",
+    "name": "G\u00E0 X\u00E0o S\u1EA3 \u1EDAt (Spicy Lemongrass Chicken Stir-fry)",
+    "ingredients": [
+      "green onions",
+      "garlic",
+      "sugar",
+      "fish sauce",
+      "ground black pepper",
+      "lemongrass",
+      "shallots",
+      "vegetable oil",
+      "red chili",
+      "chicken thighs, boneless and skinless",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "b6502b8d-b24a-4db9-9fbb-8452c87b0f19",
+    "name": "L\u1EA9u Th\u00E1i (Thai Hot Pot Vietnamese Style)",
+    "ingredients": [
+      "galangal",
+      "bean sprouts",
+      "lime juice",
+      "kaffir lime leaves",
+      "rice noodles",
+      "tomato",
+      "fish balls",
+      "sugar",
+      "thai chili peppers",
+      "chicken broth",
+      "squid",
+      "fish sauce",
+      "enoki mushrooms",
+      "lemongrass",
+      "shrimp",
+      "oyster mushrooms"
+    ]
+  },
+  {
+    "id": "df77b738-bc41-4125-a375-8575ad655567",
+    "name": "M\u1EAFm T\u00F4m Chua (Fermented Shrimp Paste)",
+    "ingredients": [
+      "galangal",
+      "lime juice",
+      "roasted rice powder",
+      "garlic",
+      "sugar",
+      "fresh shrimp",
+      "fish sauce",
+      "cooked rice",
+      "pineapple (chopped)",
+      "bird\u0027s eye chili"
+    ]
+  },
+  {
+    "id": "c8c524b3-085c-4b25-bfe5-88a84039ef61",
+    "name": "Chocolate Chip Oat Cookies",
+    "ingredients": [
+      "brown sugar",
+      "chicken eggs",
+      "baking soda",
+      "salt",
+      "vanilla extract",
+      "oats",
+      "butter",
+      "chocolate chips"
+    ]
+  },
+  {
+    "id": "14e55e39-46a6-4bc0-9520-8a347d307857",
+    "name": "Ch\u00E8 Khoai M\u00EC (Cassava Sweet Soup)",
+    "ingredients": [
+      "tapioca pearls (optional)",
+      "coconut milk",
+      "sugar",
+      "salt",
+      "pandan leaves (optional)",
+      "vanilla extract",
+      "cassava (yuca)"
+    ]
+  },
+  {
+    "id": "196b9379-1ebb-4ea3-8829-8cb337f35411",
+    "name": "C\u00E1 L\u00F3c N\u01B0\u1EDBng Trui (Grilled Snakehead Fish on Stick)",
+    "ingredients": [
+      "green onion",
+      "black pepper",
+      "whole snakehead fish",
+      "lettuce",
+      "rice paper",
+      "fish sauce",
+      "lemon grass",
+      "salt",
+      "mint",
+      "ginger"
+    ]
+  },
+  {
+    "id": "9e6561c3-3844-41bd-bc49-8d34dc417693",
+    "name": "Miso Glazed Salmon",
+    "ingredients": [
+      "sesame oil",
+      "black pepper",
+      "garlic",
+      "honey",
+      "salmon",
+      "miso"
+    ]
+  },
+  {
+    "id": "37e23011-3adf-44c3-a65d-9183c3e4c327",
+    "name": "G\u1ECFi C\u00E1 Mai (Vietnamese Fish Salad)",
+    "ingredients": [
+      "lime juice",
+      "fried shallots",
+      "fresh c\u00E1 mai (silver fish)",
+      "rice vinegar",
+      "sugar",
+      "rice paper",
+      "fish sauce",
+      "chili garlic sauce",
+      "shredded green mango",
+      "shredded carrots",
+      "chopped fresh herbs (mint, cilantro, basil)",
+      "roasted peanuts"
+    ]
+  },
+  {
+    "id": "518dbcd0-0f39-4db9-91c1-91af4829bd8d",
+    "name": "Canh M\u01B0\u1EDBp \u0110\u1EAFng (Bitter Melon Soup)",
+    "ingredients": [
+      "black pepper",
+      "bitter melon",
+      "ground pork",
+      "chicken broth",
+      "fish sauce",
+      "salt",
+      "scallions",
+      "glass noodles",
+      "wood ear mushrooms"
+    ]
+  },
+  {
+    "id": "62c64a88-b841-4fa5-b2b5-91eca5b4a3c4",
+    "name": "B\u00FAn B\u00F2 Nam B\u1ED9 (Southern Vietnamese Beef Noodle Salad)",
+    "ingredients": [
+      "bean sprouts",
+      "mint leaves",
+      "black pepper",
+      "garlic, minced",
+      "rice vermicelli noodles (b\u00FAn)",
+      "fried shallots",
+      "cucumber, thinly sliced",
+      "sugar",
+      "n\u01B0\u1EDBc ch\u1EA5m (vietnamese dipping sauce)",
+      "fish sauce",
+      "lemongrass, minced",
+      "cilantro leaves",
+      "vegetable oil",
+      "roasted peanuts, crushed",
+      "lettuce, shredded",
+      "beef sirloin, thinly sliced",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "485a9899-aa18-4d85-9e59-93551a6ddb3c",
+    "name": "B\u00E1nh T\u00E9t L\u00E1 C\u1EA9m (Sticky Rice Cake with Magenta Plant)",
+    "ingredients": [
+      "glutinous rice",
+      "pork belly",
+      "black pepper",
+      "mung beans (split)",
+      "sugar",
+      "magenta plant leaves (l\u00E1 c\u1EA9m)",
+      "water",
+      "salt",
+      "banana leaves",
+      "dried shallots"
+    ]
+  },
+  {
+    "id": "e9af0033-6be5-49ba-9fff-943d0ebe4006",
+    "name": "Sweet Potato Black Bean Tacos",
+    "ingredients": [
+      "sweet potatoes",
+      "cumin",
+      "onions",
+      "olive oil",
+      "chili powder",
+      "black beans"
+    ]
+  },
+  {
+    "id": "dc160361-5456-4941-8d9c-949e84731ad6",
+    "name": "C\u00E1 Kho T\u1ED9 N\u01B0\u1EDBc D\u1EEBa (Fish Braised in Coconut Juice)",
+    "ingredients": [
+      "shallots, thinly sliced",
+      "black pepper",
+      "garlic, minced",
+      "catfish fillets (or other firm white fish)",
+      "sugar",
+      "fish sauce",
+      "coconut juice (fresh or canned)",
+      "green onions, chopped (for garnish)",
+      "red chilies, sliced (optional)",
+      "vegetable oil",
+      "dark soy sauce"
+    ]
+  },
+  {
+    "id": "1ac82597-8a26-420a-bc13-9661986411a4",
+    "name": "G\u00E0 Quay (Vietnamese Roast Chicken)",
+    "ingredients": [
+      "sesame oil",
+      "black pepper",
+      "five-spice powder",
+      "garlic",
+      "honey",
+      "rice wine vinegar",
+      "salt",
+      "hoisin sauce",
+      "shallots",
+      "whole chicken",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "314e12a6-79e7-4b0e-afdb-983237e61aff",
+    "name": "Spicy Grilled Chicken Thighs",
+    "ingredients": [
+      "black pepper",
+      "garlic",
+      "cumin",
+      "olive oil",
+      "salt",
+      "chicken thighs",
+      "chili powder",
+      "lime"
+    ]
+  },
+  {
+    "id": "01c78d61-abd5-46c5-92c8-992df606ea69",
+    "name": "Tomato Basil Salad",
+    "ingredients": [
+      "black pepper",
+      "basil",
+      "tomatoes",
+      "olive oil",
+      "salt"
+    ]
+  },
+  {
+    "id": "6c224c66-6d5d-42af-8865-9a658b55b07c",
+    "name": "Canh Chua C\u00E1 L\u00F3c (Sour Snakehead Fish Soup)",
+    "ingredients": [
+      "rice paddy herb (ng\u00F2 \u00F4m)",
+      "bean sprouts",
+      "black pepper",
+      "pineapple",
+      "tomato",
+      "garlic",
+      "sugar",
+      "okra",
+      "fish sauce",
+      "water",
+      "salt",
+      "shallots",
+      "tamarind pulp",
+      "snakehead fish fillet",
+      "thai basil (h\u00FAng qu\u1EBF)"
+    ]
+  },
+  {
+    "id": "090a9c97-3b73-43ec-98a2-9acb6b57ebeb",
+    "name": "Ch\u00E8 Ba M\u00E0u (Three-Color Dessert)",
+    "ingredients": [
+      "red kidney beans (canned)",
+      "mung beans (split)",
+      "pandan extract",
+      "agar-agar powder",
+      "coconut milk",
+      "sugar",
+      "water",
+      "salt",
+      "tapioca starch"
+    ]
+  },
+  {
+    "id": "3083271d-798f-4602-961e-9b2b4f7964f2",
+    "name": "M\u1EF1c Chi\u00EAn Gi\u00F2n (Crispy Fried Squid)",
+    "ingredients": [
+      "lime wedges",
+      "black pepper",
+      "garlic powder",
+      "fish sauce",
+      "salt",
+      "squid tubes",
+      "baking powder",
+      "rice flour",
+      "vegetable oil",
+      "tapioca starch"
+    ]
+  },
+  {
+    "id": "f40953e8-0e83-4076-8cd7-9db0e00303dd",
+    "name": "G\u00E0 H\u1EA5p Mu\u1ED1i (Salt-Steamed Chicken)",
+    "ingredients": [
+      "black pepper",
+      "green onions",
+      "lemongrass stalks",
+      "coarse sea salt",
+      "whole chicken",
+      "lime",
+      "ginger"
+    ]
+  },
+  {
+    "id": "ea283334-dfc2-4b46-b4ee-9f6d0fc2c635",
+    "name": "C\u00E1 N\u01B0\u1EDBng Mu\u1ED1i \u1EDAt (Grilled Fish with Salt and Chili)",
+    "ingredients": [
+      "red chilies",
+      "black pepper",
+      "garlic",
+      "sugar",
+      "coarse sea salt",
+      "vegetable oil",
+      "lime"
+    ]
+  },
+  {
+    "id": "06c676c7-b371-41b2-8a6e-9fe8beba4624",
+    "name": "Cucumber Radish Salad",
+    "ingredients": [
+      "black pepper",
+      "olive oil",
+      "salt",
+      "dill",
+      "radishes"
+    ]
+  },
+  {
+    "id": "eed53ddf-c7ef-4be0-93d3-a60aedcfffcd",
+    "name": "B\u00FAn Ch\u1EA3 H\u00E0 N\u1ED9i (Hanoi Style Grilled Pork with Vermicelli)",
+    "ingredients": [
+      "lime juice",
+      "black pepper",
+      "garlic, minced",
+      "rice vinegar",
+      "shallots, minced",
+      "sugar",
+      "pork shoulder, thinly sliced",
+      "lettuce",
+      "ground pork",
+      "fish sauce",
+      "pickled carrots and daikon radish",
+      "vermicelli noodles",
+      "fresh herbs (mint, cilantro, basil)",
+      "vegetable oil",
+      "nuoc cham dipping sauce"
+    ]
+  },
+  {
+    "id": "15c4afe1-7a82-4817-a69f-a663fa414714",
+    "name": "B\u00FAn Ri\u00EAu Cua \u0110\u1ED3ng (Crab Vermicelli Soup)",
+    "ingredients": [
+      "green onion",
+      "bean sprouts",
+      "vermicelli noodles (b\u00FAn)",
+      "tomato",
+      "fried tofu",
+      "fermented shrimp paste (m\u1EAFm t\u00F4m)",
+      "sugar",
+      "ground pork",
+      "fish sauce",
+      "water",
+      "freshwater crab",
+      "salt",
+      "shredded water spinach (rau mu\u1ED1ng)",
+      "annatto oil",
+      "dried shrimp",
+      "lime"
+    ]
+  },
+  {
+    "id": "a0b2789e-5d9f-401f-b3f0-a6787a07d4bf",
+    "name": "C\u00E1 L\u00F3c H\u1EA5p B\u1EA7u (Steamed Snakehead Fish with Gourd)",
+    "ingredients": [
+      "cilantro",
+      "round gourd (b\u1EA7u)",
+      "black pepper",
+      "cooking oil",
+      "green onions",
+      "sugar",
+      "dried shiitake mushrooms",
+      "snakehead fish",
+      "fish sauce",
+      "ginger",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "d1fb8399-7844-431d-bdad-a9a8521aa2a3",
+    "name": "L\u1EA9u G\u00E0 L\u00E1 Giang (Chicken Hot Pot with La Giang Leaves)",
+    "ingredients": [
+      "garlic (minced)",
+      "ginger (sliced)",
+      "lemongrass (bruised)",
+      "sugar",
+      "chicken broth",
+      "rice noodles or vermicelli noodles",
+      "fish sauce",
+      "enoki mushrooms",
+      "salt",
+      "chili peppers (optional, sliced)",
+      "la giang leaves (canh chua leaves)",
+      "chicken (bone-in, cut into pieces)",
+      "shallots (thinly sliced)",
+      "oyster mushrooms",
+      "tofu (firm, cut into cubes)"
+    ]
+  },
+  {
+    "id": "6e3c117e-589c-4c76-9d5e-ad98e13d2b9e",
+    "name": "C\u01A1m N\u1EAFm (Sticky Rice Ball)",
+    "ingredients": [
+      "pork belly",
+      "glutinous rice (sticky rice)",
+      "black pepper",
+      "cooking oil",
+      "sugar",
+      "fish sauce",
+      "water",
+      "shallots",
+      "dried shrimp"
+    ]
+  },
+  {
+    "id": "f7ff3a30-351b-4fdf-9c8c-adb35bba5f44",
+    "name": "B\u00E1nh T\u00E9t (Cylindrical Sticky Rice Cake)",
+    "ingredients": [
+      "glutinous rice",
+      "pork belly",
+      "black pepper",
+      "mung beans (split)",
+      "fish sauce",
+      "water",
+      "salt",
+      "banana leaves",
+      "vegetable oil"
+    ]
+  },
+  {
+    "id": "72a8cea9-eb74-4e87-b638-adda907be108",
+    "name": "Ch\u00E8 \u0110\u1EADu \u0110\u1ECF (Red Bean Sweet Soup)",
+    "ingredients": [
+      "tapioca pearls (optional)",
+      "coconut milk",
+      "sugar",
+      "water",
+      "pandan leaves (optional)",
+      "red beans"
+    ]
+  },
+  {
+    "id": "61a18323-609e-4977-bab0-ade120de3b5c",
+    "name": "Turkey Thighs with Mustard Sauce",
+    "ingredients": [
+      "turkey thighs",
+      "black pepper",
+      "mustard",
+      "garlic",
+      "olive oil",
+      "salt"
+    ]
+  },
+  {
+    "id": "3798458a-5528-4312-82cf-b266e9c2b57b",
+    "name": "Roasted Eggplant with Tahini Sauce",
+    "ingredients": [
+      "black pepper",
+      "garlic",
+      "olive oil",
+      "eggplant",
+      "salt",
+      "tahini"
+    ]
+  },
+  {
+    "id": "bee5d1f9-9462-434e-ba08-b3c2cf10e7aa",
+    "name": "Chickpea and Spinach Curry",
+    "ingredients": [
+      "black pepper",
+      "turmeric",
+      "garlic",
+      "chickpeas",
+      "coconut milk",
+      "cumin",
+      "onions",
+      "salt",
+      "spinach"
+    ]
+  },
+  {
+    "id": "da88500d-e11c-4a7a-b4bb-b477f654a29f",
+    "name": "B\u00E1nh T\u00E9t Chu\u1ED1i (Banana Sticky Rice Cake)",
+    "ingredients": [
+      "glutinous rice",
+      "granulated sugar",
+      "cooking oil",
+      "ripe bananas (preferably slightly overripe)",
+      "salt",
+      "banana leaves",
+      "coconut cream"
+    ]
+  },
+  {
+    "id": "6874bd4d-8e19-4f19-9b47-b631e93a7e38",
+    "name": "Baked Haddock with Lemon and Parsley",
+    "ingredients": [
+      "black pepper",
+      "haddock",
+      "olive oil",
+      "salt",
+      "parsley"
+    ]
+  },
+  {
+    "id": "69cd5ccf-4f80-46e2-85ca-b70711e4ae4e",
+    "name": "Honeydew Melon Smoothie",
+    "ingredients": [
+      "mint",
+      "honeydew melon",
+      "lime",
+      "coconut water"
+    ]
+  },
+  {
+    "id": "0bc6c43a-cf9f-4714-aae9-bc0fa79a31fe",
+    "name": "Grilled Lamb Chops with Rosemary",
+    "ingredients": [
+      "black pepper",
+      "garlic",
+      "olive oil",
+      "salt",
+      "rosemary",
+      "lamb"
+    ]
+  },
+  {
+    "id": "9c326852-ca0f-4169-bdc2-bd161cd04214",
+    "name": "Beef Bell Pepper Stir Fry",
+    "ingredients": [
+      "sesame oil",
+      "black pepper",
+      "garlic",
+      "beef",
+      "onions",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "72978377-8aed-427c-8bc3-bd78c41145f4",
+    "name": "Ch\u00E8 Th\u00E1i (Thai-Style Sweet Soup)",
+    "ingredients": [
+      "crushed ice",
+      "coconut jelly",
+      "palm sugar",
+      "agar agar jelly (various colors)",
+      "coconut milk",
+      "green jelly strings (banh lot)",
+      "lychee",
+      "condensed milk",
+      "jackfruit",
+      "longan"
+    ]
+  },
+  {
+    "id": "a322e5d2-f06c-4e9a-8043-be4f3ec17595",
+    "name": "B\u00E1nh M\u00EC Ch\u1EA3o (Pan Bread with Meat)",
+    "ingredients": [
+      "chili sauce",
+      "cucumber",
+      "tomato",
+      "onion",
+      "fried egg",
+      "pickled carrots and daikon (do chua)",
+      "baguette",
+      "maggi seasoning sauce",
+      "pate",
+      "pork roll (cha lua)",
+      "vegetable oil",
+      "butter",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "fbcc83c2-c0e9-4f10-98b8-c08d89353671",
+    "name": "B\u00E1nh C\u0103n (Mini Rice Pancakes)",
+    "ingredients": [
+      "green onion",
+      "lime juice",
+      "garlic",
+      "coconut milk",
+      "sugar",
+      "ground pork",
+      "fish sauce",
+      "water",
+      "cooked rice",
+      "salt",
+      "chili",
+      "rice flour",
+      "shrimp",
+      "vegetable oil",
+      "tapioca starch"
+    ]
+  },
+  {
+    "id": "e9f41547-031c-46a6-998a-c9a53d165591",
+    "name": "Canh Chua T\u00F4m (Sour Shrimp Soup)",
+    "ingredients": [
+      "bean sprouts",
+      "shallot, thinly sliced",
+      "okra, sliced",
+      "garlic, minced",
+      "sugar",
+      "pineapple chunks",
+      "fish sauce",
+      "water",
+      "culantro (ngo gai), chopped",
+      "rice paddy herb (ngo om), chopped",
+      "shrimp, peeled and deveined",
+      "vegetable oil",
+      "tamarind pulp",
+      "tomatoes, quartered"
+    ]
+  },
+  {
+    "id": "4468d533-6c4a-4200-adf4-cab46e839ba0",
+    "name": "Canh Chua C\u00E1 (Vietnamese Sour Fish Soup)",
+    "ingredients": [
+      "shallot",
+      "bean sprouts",
+      "tomato wedges",
+      "chili peppers",
+      "rice paddy herb (ngo om)",
+      "garlic",
+      "sugar",
+      "pineapple chunks",
+      "okra",
+      "fish sauce",
+      "elephant ear stems (bac ha) or taro stems",
+      "water",
+      "vegetable oil",
+      "sawtooth coriander (ngo gai)",
+      "tamarind pulp",
+      "fish fillets (catfish, tilapia, or cod)"
+    ]
+  },
+  {
+    "id": "c33f868e-a6fc-437a-882a-cc86e44d5c30",
+    "name": "Broccoli Almond Stir Fry",
+    "ingredients": [
+      "sesame oil",
+      "black pepper",
+      "garlic",
+      "broccoli",
+      "almonds",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "bbcb84c1-a892-4678-94ac-ce3d19470e56",
+    "name": "C\u00E1 Kho D\u1EEBa (Fish Braised in Coconut Juice)",
+    "ingredients": [
+      "black pepper",
+      "coconut juice",
+      "garlic",
+      "sugar",
+      "fish sauce",
+      "catfish steaks (or firm white fish)",
+      "shallots",
+      "vegetable oil",
+      "red chili",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "14d59a17-1da0-4a6b-b59e-ceaa28627ac3",
+    "name": "Roasted Carrots with Honey and Thyme",
+    "ingredients": [
+      "black pepper",
+      "honey",
+      "carrots",
+      "olive oil",
+      "salt",
+      "thyme"
+    ]
+  },
+  {
+    "id": "e4279069-7b7f-4aaf-8af7-cf5a70aaf39f",
+    "name": "Roasted Beets with Goat Cheese",
+    "ingredients": [
+      "black pepper",
+      "beets",
+      "olive oil",
+      "salt",
+      "walnuts"
+    ]
+  },
+  {
+    "id": "95ce4564-6783-46a8-ada1-cf606b644319",
+    "name": "C\u01A1m H\u1EBFn (Baby Clam Rice)",
+    "ingredients": [
+      "chili sauce",
+      "pork belly",
+      "spring onions",
+      "garlic",
+      "sugar",
+      "peanuts",
+      "fish sauce",
+      "cooked rice",
+      "baby clams",
+      "salt",
+      "mint",
+      "shallots",
+      "shrimp paste (m\u1EAFm ru\u1ED1c)",
+      "coriander",
+      "pork rinds (crispy)",
+      "vegetable oil",
+      "sesame seeds",
+      "lime",
+      "ginger"
+    ]
+  },
+  {
+    "id": "f1a54e76-216a-493f-8134-d297fc6604fd",
+    "name": "B\u00FAn M\u0103ng V\u1ECBt (Duck and Bamboo Shoot Noodles)",
+    "ingredients": [
+      "cilantro",
+      "duck (whole)",
+      "rice noodles (b\u00FAn)",
+      "dried bamboo shoots",
+      "sugar",
+      "dried shiitake mushrooms",
+      "fish sauce",
+      "salt",
+      "scallions",
+      "shallots",
+      "lime",
+      "bird\u0027s eye chili",
+      "ginger"
+    ]
+  },
+  {
+    "id": "db8f230a-f39f-4618-b12f-d41f3ef15d8b",
+    "name": "Apple Walnut Salad",
+    "ingredients": [
+      "black pepper",
+      "apples",
+      "olive oil",
+      "salt",
+      "walnuts",
+      "arugula"
+    ]
+  },
+  {
+    "id": "f7a58828-0ef1-4dcc-afe7-d4a8ad38b450",
+    "name": "B\u00FAn Ngan (Duck Vermicelli Soup)",
+    "ingredients": [
+      "cilantro",
+      "black pepper",
+      "b\u00FAn (vermicelli noodles)",
+      "green onions",
+      "rock sugar",
+      "dried bamboo shoots",
+      "dried shiitake mushrooms",
+      "fish sauce",
+      "salt",
+      "shallots",
+      "whole duck",
+      "lime",
+      "ginger"
+    ]
+  },
+  {
+    "id": "6a86fb2e-ab16-4aa9-9922-d585ebffe71a",
+    "name": "B\u00E1nh Canh Cua (Crab Tapioca Noodle Soup)",
+    "ingredients": [
+      "garlic (minced)",
+      "tapioca noodles",
+      "sugar",
+      "shallots (minced)",
+      "pork hock",
+      "fish sauce",
+      "water",
+      "scallions (chopped)",
+      "ground black pepper",
+      "crab meat (lump)",
+      "cilantro (chopped)",
+      "shrimp paste",
       "annatto oil"
     ]
   },
   {
-    "id": "30455683-dd95-4a70-9a2f-ebc48dbffd14",
-    "name": "G\u1ECFi \u0110u \u0110\u1EE7 (Papaya Salad)",
+    "id": "adaa1c4d-dc71-42b6-89f8-d6ab6d436e37",
+    "name": "C\u00E1 Kho T\u1ED9 D\u1EEBa (Caramel Fish in Coconut Pot)",
     "ingredients": [
-      "roasted peanuts",
-      "green beans",
-      "sugar",
-      "green papaya",
-      "vegetable oil",
-      "cherry tomatoes",
-      "red chili",
-      "fish sauce",
-      "carrots",
-      "garlic",
-      "lime juice"
-    ]
-  },
-  {
-    "id": "ae0b19bf-9536-45a5-8560-ed42e415dc61",
-    "name": "B\u00E1nh X\u00E8o T\u00F4m Nh\u1EA3y (Vietnamese Pancakes with Prawns)",
-    "ingredients": [
-      "cooking oil",
-      "bean sprouts",
-      "yellow onion",
-      "nuoc cham (dipping sauce)",
-      "coconut milk",
-      "mint",
-      "lettuce",
-      "green onion",
-      "shrimp (small, with shells)",
-      "turmeric powder",
-      "rice flour",
-      "salt"
-    ]
-  },
-  {
-    "id": "94fa22dd-33f2-42a1-bf6a-eda5472cd104",
-    "name": "Ch\u1EA3 C\u00E1 L\u00E3 V\u1ECDng (Turmeric Fish with Dill)",
-    "ingredients": [
-      "galangal (ground)",
-      "white fish fillets (cod, haddock, or catfish)",
-      "rice noodles (vermicelli)",
-      "sugar",
-      "shrimp paste",
-      "ginger (grated)",
+      "red chilies",
+      "catfish fillets",
       "green onions",
-      "peanuts (roasted, crushed)",
-      "vegetable oil",
+      "garlic",
+      "sugar",
       "fish sauce",
-      "turmeric powder",
-      "fresh dill"
+      "ground black pepper",
+      "shallots",
+      "vegetable oil",
+      "soy sauce",
+      "coconut water"
     ]
   },
   {
-    "id": "5f61e86b-163a-4a8f-aa5e-f04621198d7e",
+    "id": "a8250530-a40c-4da1-906c-d7d5493cfe6e",
     "name": "Turkey Breast with Sage and Garlic",
     "ingredients": [
       "turkey breast",
-      "olive oil",
       "black pepper",
-      "sage",
       "garlic",
+      "olive oil",
+      "sage",
       "salt"
     ]
   },
   {
-    "id": "d50ddf2d-4bbf-478f-a9fc-f412652ec1c9",
-    "name": "B\u00E1nh Tr\u00E1ng Tr\u1ED9n (Mixed Rice Paper Salad)",
+    "id": "c53fc8cf-0ebd-4936-9eef-d8d4313f3d26",
+    "name": "B\u00FAn M\u1ECDc (Pork Meatball Noodle Soup)",
     "ingredients": [
-      "roasted peanuts",
-      "fried shallots",
-      "soy sauce",
-      "quail eggs",
-      "dried shrimp",
-      "rice paper (b\u00E1nh tr\u00E1ng)",
-      "sugar",
-      "tamarind paste",
-      "green mango (shredded)",
-      "water",
-      "chili oil",
-      "beef jerky (kh\u00F4 b\u00F2)",
-      "laksa leaves (rau r\u0103m)"
+      "green onion",
+      "bean sprouts",
+      "pork bones",
+      "cilantro",
+      "rice noodles (b\u00FAn)",
+      "dried shiitake mushrooms",
+      "ground pork",
+      "chicken broth",
+      "fish sauce",
+      "ground black pepper",
+      "shallots",
+      "lime",
+      "wood ear mushrooms"
     ]
   },
   {
-    "id": "2a239a8b-38ea-43d0-b3ab-f53b658928fe",
+    "id": "b5c688da-aac3-4c04-a002-d92ee3e0f9de",
+    "name": "B\u00FAn C\u00E1 (Fish Noodle Soup)",
+    "ingredients": [
+      "bean sprouts",
+      "turmeric powder",
+      "b\u00FAn (rice vermicelli noodles)",
+      "tomato",
+      "green onions",
+      "garlic",
+      "sugar",
+      "pineapple chunks",
+      "fish sauce",
+      "water",
+      "firm white fish fillets (such as catfish or cod)",
+      "dill",
+      "shallots",
+      "vegetable oil",
+      "lime",
+      "ginger"
+    ]
+  },
+  {
+    "id": "0e27dddf-d10e-4e52-9ab6-da0476336498",
+    "name": "B\u00FAn C\u00E1 Chua (Sour Fish Noodle Soup)",
+    "ingredients": [
+      "bean sprouts",
+      "shallots, thinly sliced",
+      "black pepper",
+      "garlic, minced",
+      "turmeric powder",
+      "fish fillets (catfish, cod, or snapper)",
+      "rice noodles (b\u00FAn)",
+      "sugar",
+      "pineapple chunks",
+      "scallions, chopped",
+      "fish sauce",
+      "water",
+      "salt",
+      "vegetable oil",
+      "dill, chopped",
+      "tomatoes, diced",
+      "tamarind pulp",
+      "mint, chopped"
+    ]
+  },
+  {
+    "id": "b1aa6a42-31bf-45e2-a08d-dabcb4f8a95b",
+    "name": "G\u00E0 N\u01B0\u1EDBng M\u1EADt Ong (Honey Grilled Chicken)",
+    "ingredients": [
+      "lime juice",
+      "sesame oil",
+      "black pepper",
+      "garlic",
+      "honey",
+      "fish sauce",
+      "shallots",
+      "chicken thighs",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "ecf328c4-30bb-45a0-8772-dacb8bd9a80c",
+    "name": "B\u00FAn Ch\u1EA3 C\u00E1 (Fish Cake Vermicelli)",
+    "ingredients": [
+      "bean sprouts",
+      "mint leaves",
+      "lime juice",
+      "rice vermicelli noodles (b\u00FAn)",
+      "turmeric powder",
+      "fish fillets (firm white fish, such as cod or haddock)",
+      "tomato",
+      "green onions",
+      "sugar",
+      "pineapple chunks",
+      "garlic cloves",
+      "fish sauce",
+      "ground black pepper",
+      "dill",
+      "perilla leaves",
+      "shallots",
+      "vegetable oil",
+      "chicken or fish broth"
+    ]
+  },
+  {
+    "id": "22896fa0-6c24-49ef-9ce8-db14ea9e824f",
+    "name": "G\u1ECFi T\u00E9p (Tiny Shrimp Salad)",
+    "ingredients": [
+      "lime juice",
+      "tiny shrimp (t\u00E9p)",
+      "garlic",
+      "sugar",
+      "fish sauce (n\u01B0\u1EDBc m\u1EAFm)",
+      "vietnamese mint (rau ram)",
+      "carrot",
+      "green mango",
+      "red onion",
+      "bird\u0027s eye chili (optional)",
+      "roasted peanuts"
+    ]
+  },
+  {
+    "id": "c0ec24a6-0c75-4a29-b76f-dce1abb6c712",
+    "name": "Ch\u00E8 \u0110\u1EADu \u0110en (Black Bean Sweet Soup)",
+    "ingredients": [
+      "coconut milk",
+      "sugar",
+      "tapioca pearls (small)",
+      "water",
+      "salt",
+      "vanilla extract",
+      "black beans"
+    ]
+  },
+  {
+    "id": "9836edb0-8b30-4c37-be7d-ddb58bebf09f",
+    "name": "B\u00E1nh Kho\u00E1i (Hue-Style Crispy Pancakes)",
+    "ingredients": [
+      "bean sprouts",
+      "lime juice",
+      "turmeric powder",
+      "green onions",
+      "garlic",
+      "coconut milk",
+      "sugar",
+      "ground pork",
+      "cornstarch",
+      "fish sauce",
+      "water",
+      "salt",
+      "chili",
+      "rice flour",
+      "shrimp",
+      "vegetable oil"
+    ]
+  },
+  {
+    "id": "ce20a6b0-de3c-4463-81da-ddff11785067",
     "name": "Spicy Tofu and Edamame Stir Fry",
     "ingredients": [
       "sesame oil",
-      "soy sauce",
+      "black pepper",
+      "garlic",
       "chili powder",
-      "black pepper",
       "edamame",
-      "garlic"
+      "soy sauce"
     ]
   },
   {
-    "id": "ee83fb34-975f-49e9-bc5a-f59e591f6164",
-    "name": "B\u00F2 N\u01B0\u1EDBng L\u00E1 L\u1ED1t (Grilled Beef in Betel Leaves)",
+    "id": "98e92d6e-64ab-4808-953c-deb38da21a4c",
+    "name": "Ch\u00E8 B\u1EAFp (Corn Sweet Soup)",
     "ingredients": [
-      "lemongrass",
-      "betel leaves",
-      "shallots",
-      "roasted peanuts (crushed)",
-      "sugar",
-      "rice paper wrappers",
-      "black pepper",
-      "pickled carrots and daikon (do chua)",
-      "lettuce leaves",
-      "vegetable oil",
-      "ground beef",
-      "fish sauce",
-      "garlic"
-    ]
-  },
-  {
-    "id": "9e001898-c365-4146-a41a-f90452db5887",
-    "name": "Ch\u00E8 H\u1EA1t Sen \u0110\u1EADu Xanh (Lotus Seed and Mung Bean Sweet Soup)",
-    "ingredients": [
-      "pandan leaves (optional)",
-      "dried lotus seeds",
+      "glutinous rice",
       "coconut milk",
-      "granulated sugar",
-      "vanilla extract (optional)",
-      "split mung beans (skinless)",
-      "water"
+      "sugar",
+      "tapioca pearls (small)",
+      "water",
+      "pinch of salt",
+      "sweet corn kernels (fresh or frozen)"
     ]
   },
   {
-    "id": "fec7a6c9-8680-48ef-b9a9-f9a930f2bd24",
-    "name": "Miso Glazed Salmon",
+    "id": "23d46b6d-8f81-4a20-a60e-dfdf20aa6a72",
+    "name": "B\u00E1nh X\u00E8o T\u00F4m Nh\u1EA3y (Vietnamese Pancakes with Prawns)",
     "ingredients": [
-      "sesame oil",
-      "salmon",
-      "black pepper",
-      "honey",
-      "miso",
-      "garlic"
+      "green onion",
+      "shrimp (small, with shells)",
+      "bean sprouts",
+      "turmeric powder",
+      "cooking oil",
+      "yellow onion",
+      "coconut milk",
+      "lettuce",
+      "salt",
+      "mint",
+      "rice flour",
+      "nuoc cham (dipping sauce)"
     ]
   },
   {
-    "id": "6b6ea9cc-3e8a-4e32-9c66-fa00614c22d5",
+    "id": "db34446c-624b-4ed3-a153-dfe381151b1d",
+    "name": "X\u00F4i X\u00E9o (Sticky Rice with Mung Bean)",
+    "ingredients": [
+      "glutinous rice",
+      "mung beans (split)",
+      "turmeric powder",
+      "cooking oil",
+      "fried shallots",
+      "sugar",
+      "water",
+      "salt",
+      "shallots",
+      "liquid fat (optional)"
+    ]
+  },
+  {
+    "id": "087a2adf-d053-4f1f-926d-e0f8ba04515c",
+    "name": "X\u00F4i M\u1EB7n (Savory Sticky Rice)",
+    "ingredients": [
+      "glutinous rice",
+      "shredded pork (thit cha)",
+      "cooking oil",
+      "chinese sausage (lap xuong)",
+      "fried shallots",
+      "sugar",
+      "quail eggs",
+      "scallions",
+      "dried shrimp",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "d7fdd09c-8160-485c-a311-e1302c23f641",
+    "name": "Shrimp Avocado Salad",
+    "ingredients": [
+      "avocado",
+      "black pepper",
+      "lettuce",
+      "olive oil",
+      "salt",
+      "shrimp"
+    ]
+  },
+  {
+    "id": "6d7e5e14-7ebf-406c-b8c3-e3035ad5dfa7",
+    "name": "B\u00E1nh Da L\u1EE3n (Layered Steamed Cake)",
+    "ingredients": [
+      "pandan extract",
+      "green food coloring",
+      "coconut milk",
+      "sugar",
+      "water",
+      "salt",
+      "rice flour",
+      "tapioca starch",
+      "mung bean paste (cooked)"
+    ]
+  },
+  {
+    "id": "2b700443-dd7d-4d9d-a0b2-e30875789350",
+    "name": "C\u01A1m Ch\u00E1y Ch\u00E0 B\u00F4ng (Crispy Rice with Pork Floss)",
+    "ingredients": [
+      "cooking oil",
+      "chili garlic sauce (optional)",
+      "sugar",
+      "fish sauce",
+      "water",
+      "scallions",
+      "cooked rice (day-old)",
+      "pork floss (ch\u00E0 b\u00F4ng)"
+    ]
+  },
+  {
+    "id": "587805d8-a0c9-45cc-8050-e38f54e36f79",
+    "name": "Mushroom Wild Rice Soup",
+    "ingredients": [
+      "wild rice",
+      "black pepper",
+      "garlic",
+      "onions",
+      "bone broth",
+      "olive oil",
+      "salt"
+    ]
+  },
+  {
+    "id": "c9e9c1cf-5a12-4288-b680-e3b9b3a508c0",
+    "name": "Crab and Avocado Salad",
+    "ingredients": [
+      "avocado",
+      "black pepper",
+      "lettuce",
+      "crab",
+      "olive oil",
+      "salt"
+    ]
+  },
+  {
+    "id": "f3ccbb4b-750b-4c27-86e5-e49aec3a8ecb",
+    "name": "Zucchini Feta Fritters",
+    "ingredients": [
+      "black pepper",
+      "chicken eggs",
+      "feta cheese",
+      "garlic",
+      "zucchini",
+      "olive oil",
+      "salt",
+      "all-purpose flour"
+    ]
+  },
+  {
+    "id": "4fd9307f-6e2f-4746-b1d3-e760377f3519",
+    "name": "G\u1ECFi M\u0103ng Kh\u00F4 (Dried Bamboo Shoot Salad)",
+    "ingredients": [
+      "lime juice",
+      "pork belly",
+      "cucumber",
+      "garlic",
+      "dried bamboo shoots",
+      "sugar",
+      "carrot",
+      "fish sauce",
+      "fresh basil",
+      "chili",
+      "fresh mint",
+      "shrimp",
+      "roasted peanuts"
+    ]
+  },
+  {
+    "id": "861ac9ea-4551-437a-866f-e886f93fef45",
+    "name": "Beet and Feta Salad",
+    "ingredients": [
+      "black pepper",
+      "beets",
+      "feta cheese",
+      "olive oil",
+      "salt",
+      "arugula"
+    ]
+  },
+  {
+    "id": "c7e7a995-2656-4aba-a0f0-e999009a4593",
+    "name": "C\u01A1m T\u1EA5m S\u01B0\u1EDDn N\u01B0\u1EDBng (Broken Rice with Grilled Pork)",
+    "ingredients": [
+      "green onion",
+      "black pepper",
+      "cucumber",
+      "pickled carrots and daikon",
+      "broken rice",
+      "tomato",
+      "garlic",
+      "sugar",
+      "fish sauce",
+      "shallots",
+      "nuoc cham (dipping sauce)",
+      "vegetable oil",
+      "pork chops",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "6098a981-d648-458f-be7e-eacf63e8f971",
+    "name": "L\u1EA9u B\u00F2 (Beef Hot Pot)",
+    "ingredients": [
+      "beef bones",
+      "bean sprouts",
+      "cinnamon stick",
+      "oxtail (optional)",
+      "onion (quartered)",
+      "rice noodles",
+      "chili oil",
+      "water spinach",
+      "ginger (sliced)",
+      "lemongrass (bruised)",
+      "sugar",
+      "star anise",
+      "fish sauce",
+      "water",
+      "enoki mushrooms",
+      "salt",
+      "msg (optional)",
+      "beef (thinly sliced)",
+      "tofu (fried)"
+    ]
+  },
+  {
+    "id": "63eb2092-c42a-40e2-8b0a-ec6ae0a02f79",
+    "name": "G\u1ECFi \u0110u \u0110\u1EE7 (Papaya Salad)",
+    "ingredients": [
+      "lime juice",
+      "green beans",
+      "garlic",
+      "sugar",
+      "cherry tomatoes",
+      "carrots",
+      "fish sauce",
+      "green papaya",
+      "vegetable oil",
+      "red chili",
+      "roasted peanuts"
+    ]
+  },
+  {
+    "id": "71b14a7a-edaf-43d0-acca-ece5c1ff4e6e",
     "name": "B\u00E1nh Gi\u00F2 (Steamed Rice Cake with Pork)",
     "ingredients": [
       "cooking oil",
-      "shallots",
-      "ground black pepper",
-      "tapioca starch",
-      "wood ear mushrooms",
-      "banana leaves",
-      "water",
       "ground pork",
       "fish sauce",
-      "rice flour",
-      "salt"
-    ]
-  },
-  {
-    "id": "fad8133d-e2c4-4f24-9a29-fa49055766ca",
-    "name": "Chickpea and Spinach Curry",
-    "ingredients": [
-      "coconut milk",
-      "onions",
-      "black pepper",
-      "turmeric",
-      "chickpeas",
-      "spinach",
-      "garlic",
+      "water",
+      "ground black pepper",
       "salt",
-      "cumin"
+      "shallots",
+      "rice flour",
+      "banana leaves",
+      "tapioca starch",
+      "wood ear mushrooms"
     ]
   },
   {
-    "id": "090ab30a-635b-4870-9bde-fad606362130",
-    "name": "M\u1EF1c H\u1EA5p S\u1EA3 (Steamed Squid with Lemongrass)",
+    "id": "6a0ccc7b-e1da-4439-a207-f0beefd2ded9",
+    "name": "Ch\u00E8 B\u00E0 Ba (Mixed Sweet Soup)",
     "ingredients": [
-      "ginger",
-      "lemongrass",
+      "pandan leaves",
+      "sweet potato (white)",
+      "coconut milk",
       "sugar",
+      "tapioca pearls (small)",
+      "water",
+      "salt",
+      "taro",
+      "sweet potato (orange)",
+      "mung beans (split, skinless)"
+    ]
+  },
+  {
+    "id": "6080c9c3-6cd9-4170-b45e-f253aabd4940",
+    "name": "C\u00E1 Chi\u00EAn Gi\u00F2n (Crispy Fried Fish)",
+    "ingredients": [
+      "lime wedges",
+      "red chili (optional, finely chopped)",
       "black pepper",
-      "squid (cleaned)",
-      "green onion",
+      "sugar",
+      "garlic powder",
+      "cornstarch",
+      "fish sauce (nuoc mam)",
+      "water",
+      "salt",
+      "rice flour",
+      "vegetable oil"
+    ]
+  },
+  {
+    "id": "22f5bf38-90dc-47b5-8ec6-f32e9d664e8e",
+    "name": "C\u01A1m Chi\u00EAn D\u01B0\u01A1ng Ch\u00E2u (Yangzhou Fried Rice)",
+    "ingredients": [
+      "frozen peas and carrots",
+      "oyster sauce",
+      "sesame oil",
+      "cooking oil",
+      "eggs",
+      "cooked shrimp, peeled and deveined",
+      "scallions, chopped",
+      "salt",
+      "cooked rice (day-old)",
+      "char siu pork, diced",
+      "white pepper",
+      "soy sauce"
+    ]
+  },
+  {
+    "id": "a0d84b9c-2cb3-4c70-a452-f38633775e52",
+    "name": "Nem R\u00E1n (Fried Spring Rolls)",
+    "ingredients": [
+      "carrot, shredded",
+      "vegetable oil, for frying",
+      "sugar",
+      "egg",
+      "ground pork",
+      "wood ear mushrooms, soaked and finely chopped",
+      "rice paper wrappers",
       "fish sauce",
-      "red chili (optional)",
-      "lime juice",
+      "ground black pepper",
+      "onion, finely chopped",
+      "shrimp, peeled and deveined",
+      "glass noodles, soaked and chopped"
+    ]
+  },
+  {
+    "id": "0d619b75-ac23-4a68-980a-f4331a588263",
+    "name": "L\u1EA9u G\u00E0 L\u00E1 Giang (Chicken Hotpot with La Giang Leaves)",
+    "ingredients": [
+      "galangal",
+      "chicken (bone-in, chopped)",
+      "cooking oil",
+      "garlic",
+      "sugar",
+      "chicken broth",
+      "fish sauce",
+      "lemongrass",
+      "salt",
+      "la giang leaves",
+      "shallots",
+      "bird\u0027s eye chili",
+      "mushrooms (optional)",
+      "tofu (optional)"
+    ]
+  },
+  {
+    "id": "59140a40-1a50-4184-88fa-f45948bc6a14",
+    "name": "Honey Roasted Carrots with Sage",
+    "ingredients": [
+      "black pepper",
+      "honey",
+      "carrots",
+      "olive oil",
+      "sage",
       "salt"
     ]
   },
   {
-    "id": "a2033518-a46f-46e3-a2d1-fc3019337222",
-    "name": "C\u01A1m T\u1EA5m S\u01B0\u1EDDn N\u01B0\u1EDBng (Broken Rice with Grilled Pork)",
+    "id": "bf08362e-445a-4820-91cd-f59871b8235a",
+    "name": "Ch\u00E8 H\u1EA1t Sen (Lotus Seed Sweet Soup)",
     "ingredients": [
-      "cucumber",
-      "tomato",
-      "pork chops",
-      "shallots",
-      "soy sauce",
-      "nuoc cham (dipping sauce)",
-      "sugar",
+      "granulated sugar",
+      "dried lotus seeds",
+      "water",
+      "dried longan (optional)",
+      "pandan leaves (optional)"
+    ]
+  },
+  {
+    "id": "d965af68-a80d-4c74-a000-f5b9ba60d667",
+    "name": "Ch\u1EA3 Hu\u1EBF (Hue-style Meatloaf)",
+    "ingredients": [
+      "pork fat, finely diced",
       "black pepper",
-      "pickled carrots and daikon",
-      "vegetable oil",
-      "green onion",
+      "garlic, minced",
+      "shallots, minced",
+      "sugar",
+      "ground beef",
+      "egg",
+      "ground pork",
       "fish sauce",
-      "broken rice",
-      "garlic"
+      "wood ear mushrooms, soaked and sliced",
+      "bean thread noodles, soaked and chopped",
+      "banana leaf"
+    ]
+  },
+  {
+    "id": "d6460c43-543e-4cdf-b926-f8c8fd7a3439",
+    "name": "B\u00E1nh P\u00EDa (Durian Mooncake)",
+    "ingredients": [
+      "mung bean paste",
+      "shortening",
+      "salted egg yolks",
+      "egg wash (egg \u002B water)",
+      "water",
+      "durian paste",
+      "vegetable oil",
+      "all-purpose flour"
+    ]
+  },
+  {
+    "id": "63bde865-a6b9-449f-80df-f9d12081eb49",
+    "name": "C\u00E1 Tr\u00EA N\u01B0\u1EDBng (Grilled Catfish)",
+    "ingredients": [
+      "ground turmeric",
+      "catfish fillets",
+      "garlic",
+      "sugar",
+      "fish sauce",
+      "lemongrass",
+      "shallots",
+      "vegetable oil",
+      "chili powder",
+      "green onions, chopped"
+    ]
+  },
+  {
+    "id": "5f607113-cc13-46db-9075-f9e184f0ccdb",
+    "name": "B\u00E1nh H\u1ECFi (Fine Rice Vermicelli Mat)",
+    "ingredients": [
+      "nuoc cham dipping sauce (vietnamese fish sauce)",
+      "fine rice vermicelli (b\u00E1nh h\u1ECFi)",
+      "grilled pork (optional)",
+      "lettuce leaves",
+      "scallions, finely chopped",
+      "cooked shrimp (optional)",
+      "fresh basil",
+      "fresh mint",
+      "vegetable oil"
+    ]
+  },
+  {
+    "id": "8faeb133-074d-48c9-9d85-fe017848c848",
+    "name": "G\u1ECFi C\u00E1 Tr\u00EDch (Herring Fish Salad)",
+    "ingredients": [
+      "lime juice",
+      "cucumber",
+      "garlic, minced",
+      "fresh coriander",
+      "rice vinegar",
+      "sugar",
+      "carrot",
+      "fresh herring fillets",
+      "fish sauce",
+      "peanuts, roasted",
+      "fresh mint",
+      "chili, finely chopped",
+      "green mango",
+      "red onion"
     ]
   }
 ]

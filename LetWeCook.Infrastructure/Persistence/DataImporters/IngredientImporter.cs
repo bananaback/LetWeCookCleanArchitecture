@@ -23,10 +23,12 @@ public class IngredientImporter
         _userManager = userManager;
     }
 
-    public async Task ImportIngredientsAsync(string filePath, CancellationToken cancellationToken)
+    public async Task ImportIngredientsAsync(CancellationToken cancellationToken)
     {
-        Console.WriteLine($"📂 Importing ingredients from file: {filePath}");
+        string projectRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", ".."));
+        string filePath = Path.Combine(projectRoot, "LetWeCook.Infrastructure", "Persistence", "DataImporters", "ingredients.json");
 
+        Console.WriteLine($"📂 Importing ingredients from file: {filePath}");
         if (!File.Exists(filePath))
         {
             Console.WriteLine($"❌ File not found: {filePath}");

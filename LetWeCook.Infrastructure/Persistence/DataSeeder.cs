@@ -13,7 +13,7 @@ namespace LetWeCook.Infrastructure.Persistence;
 
 public class DataSeeder
 {
-    public static async Task SeedIngredientsAsync(IServiceProvider services, string jsonFilePath, CancellationToken cancellationToken)
+    public static async Task SeedIngredientsAsync(IServiceProvider services, CancellationToken cancellationToken)
     {
         var ingredientService = services.GetRequiredService<IIngredientService>();
         var ingredientCategoryRepository = services.GetRequiredService<IIngredientCategoryRepository>();
@@ -25,7 +25,7 @@ public class DataSeeder
 
         try
         {
-            await importer.ImportIngredientsAsync(jsonFilePath, cancellationToken);
+            await importer.ImportIngredientsAsync(cancellationToken);
             logger.LogInformation("Successfully imported ingredients from JSON.");
         }
         catch (Exception ex)
@@ -34,7 +34,7 @@ public class DataSeeder
         }
     }
 
-    public static async Task SeedRecipesAsync(IServiceProvider services, string jsonFilePath, CancellationToken cancellationToken)
+    public static async Task SeedRecipesAsync(IServiceProvider services, CancellationToken cancellationToken)
     {
         var recipeService = services.GetRequiredService<IRecipeService>();
         var recipeRepository = services.GetRequiredService<IRecipeRepository>();
@@ -50,7 +50,7 @@ public class DataSeeder
 
         try
         {
-            await importer.ImportRecipesAsync(jsonFilePath, cancellationToken);
+            await importer.ImportRecipesAsync(cancellationToken);
             logger.LogInformation("Successfully imported recipes from JSON.");
         }
         catch (Exception ex)
@@ -59,7 +59,7 @@ public class DataSeeder
         }
     }
 
-    public static async Task SeedRecipesWithImagesAsync(IServiceProvider services, string jsonFilePath, CancellationToken cancellationToken)
+    public static async Task SeedRecipesWithImagesAsync(IServiceProvider services, CancellationToken cancellationToken)
     {
         var recipeService = services.GetRequiredService<IRecipeService>();
         var recipeRepository = services.GetRequiredService<IRecipeRepository>();
@@ -75,7 +75,7 @@ public class DataSeeder
 
         try
         {
-            await importer.ImportRecipesAsync(jsonFilePath, cancellationToken);
+            await importer.ImportRecipesAsync(cancellationToken);
             logger.LogInformation("Successfully imported recipes from JSON.");
         }
         catch (Exception ex)
@@ -385,6 +385,8 @@ public class DataSeeder
                 var randomUser = users[random.Next(users.Count)];
                 if (randomUser.Profile == null || randomUser.Profile.DietaryPreferences == null || !randomUser.Profile.DietaryPreferences.Any())
                 {
+                    remainAmount--;
+
                     continue; // Skip users without profiles or dietary preferences
                 }
 
@@ -435,6 +437,8 @@ public class DataSeeder
 
                 if (randomRecipe == null)
                 {
+                    remainAmount--;
+
                     logger.LogWarning("No suitable recipe found for interaction.");
                     continue;
                 }

@@ -229,14 +229,14 @@ public class DonationService : IDonationService
                 return (false, null, null, "Invalid custom ID format.");
             }
 
-            Console.WriteLine($"Donation ID: {donationId}");
 
-            var donation = await _donationRepository.GetByIdAsync(donationId, cancellationToken);
+            var donation = await _donationRepository.GetWithRecipeDonatorAndAuthorAsync(donationId, cancellationToken);
 
 
 
             if (donation == null)
             {
+                Console.WriteLine($"Donation with ID {donationId} not found.");
                 return (false, null, null, "Donation not found.");
             }
 
@@ -249,6 +249,9 @@ public class DonationService : IDonationService
                 "donate",
                 (float)donation.Amount
             );
+
+            Console.WriteLine($"Donation ID: {donationId}");
+
 
             await _userInteractionRepository.AddAsync(interaction, cancellationToken);
             await _donationRepository.UpdateAsync(donation, cancellationToken);
