@@ -13,7 +13,7 @@ public class IngredientRepository : Repository<Ingredient>, IIngredientRepositor
 
     public Task<bool> CheckExistByNameAsync(string name, CancellationToken cancellationToken)
     {
-        return _dbSet.AnyAsync(i => i.Name == name, cancellationToken);
+        return _dbSet.AnyAsync(i => i.Name == name && i.Visible, cancellationToken);
     }
 
     public Task<List<Ingredient>> GetAllIngredientOverviewsAsync(CancellationToken cancellationToken)

@@ -10,6 +10,7 @@ public class CreateIngredientRequest
     public string CoverImage { get; set; } = string.Empty;
     public float? ExpirationDays { get; set; } // Added expiration days
     public List<DetailRequest> Details { get; set; } = new();
+    public bool AcceptImmediately { get; set; } // New property
 }
 
 public class NutritionValues

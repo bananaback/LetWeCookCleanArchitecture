@@ -8,6 +8,10 @@ namespace LetWeCook.Application.Interfaces;
 
 public interface IRecipeService
 {
+    Task<Guid> AcceptUpdateRecipeAsync(Guid recipeId, Guid siteUserId, CreateRecipeRequestDto request, CancellationToken cancellationToken = default);
+
+    Task<Guid> AcceptRecipeAsync(Guid appUserId, CreateRecipeRequestDto request, CancellationToken cancellationToken = default);
+
     Task<RecipeDto> GetRecipeDetailsWithTrackingAsync(Guid recipeId, Guid? siteUserId, CancellationToken cancellationToken);
     Task<List<RecipeTagDto>> GetAllRecipeTagsAsync(CancellationToken cancellationToken = default);
     Task<List<RecipeDto>> GetRandomRecipesAsync(int count, CancellationToken cancellationToken = default);

@@ -1,3 +1,8 @@
+import { GoogleGenerativeAI } from "https://esm.sh/@google/generative-ai";
+
+// Initialize the Google Generative AI client with the API key from .env
+const genAI = new GoogleGenerativeAI("AIzaSyCdBbtTfxOgYKBq7frKFmwOlOKSLDjxY94");
+
 // global variables
 let ingredientCategories = [];
 let ingredientOverviews = [];
@@ -94,7 +99,7 @@ function fetchIngredientCategories() {
 
 function fetchIngredientOverviews() {
     $.ajax({
-        url: '/api/ingredients/overview',
+        url: '/api/ingredients/summary',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -888,12 +893,76 @@ $(document).ready(function () {
 
 
     // Listen to submit recipe button clicks
-    $('#submit-recipe-btn').on('click', function () {
+    $('#submit-recipe-btn').on('click', async function () {
         let recipe = gatherRecipeInformation(); // Gather all recipe information
         console.log('Recipe data:', recipe); // Log the gathered recipe data
+        console.log('Recipe ID:', recipeId); // Log the recipe ID
 
-        if (validateRecipe(recipe)) {  // Only submit if validation passes
-            submitRecipeToServer(recipe);
+        if (!recipeId) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Recipe ID is missing.',
+                customClass: {
+                    confirmButton: 'swal-custom-btn'
+                },
+                didOpen: () => {
+                    $('.swal-custom-btn').css({
+                        'background-color': '#dc3545', // Red
+                        'color': '#FFFFFF'
+                    });
+                }
+            });
+            return;
+        }
+
+        if (!validateRecipe(recipe)) {
+            return; // Stop if validation fails
+        }
+
+        // Call AI review
+        const review = await reviewRecipe(recipe);
+
+        if (!review) {
+            // Handle API failure
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to evaluate the recipe update. Please try again later.',
+                customClass: {
+                    confirmButton: 'swal-custom-btn'
+                },
+                didOpen: () => {
+                    $('.swal-custom-btn').css({
+                        'background-color': '#dc3545', // Red
+                        'color': '#FFFFFF'
+                    });
+                }
+            });
+            return;
+        }
+
+        const { decision, explanation } = review;
+
+        if (decision === 'reject') {
+            // Show rejection alert
+            Swal.fire({
+                icon: 'error',
+                title: 'Recipe Update Rejected',
+                html: `Your update for "<strong>${recipe.name}</strong>" was rejected.<br><br>Reason: ${explanation}`,
+                customClass: {
+                    confirmButton: 'swal-custom-btn'
+                },
+                didOpen: () => {
+                    $('.swal-custom-btn').css({
+                        'background-color': '#dc3545', // Red
+                        'color': '#FFFFFF'
+                    });
+                }
+            });
+        } else {
+            // Submit recipe for accept or needs review
+            submitRecipeToServer(recipe, decision, explanation);
         }
     });
 
@@ -901,6 +970,79 @@ $(document).ready(function () {
     console.log('Recipe ID:', recipeId); // Log the recipe ID
 
 });
+
+async function reviewRecipe(recipe) {
+    try {
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+        const prompt = `
+You are an AI assistant tasked with evaluating recipe submissions for a cooking app. Your goal is to assess each submission and return one of three decisions: "accept", "reject", or "needs review". Use the following criteria to evaluate the JSON submission provided below. Balance strictness and leniency to ensure high-quality submissions while flagging ambiguous cases for human review. Provide a brief explanation for your decision.
+
+### Evaluation Criteria
+1. **Completeness**:
+   - Required fields (\`name\`, \`description\`, \`servings\`, \`prepareTime\`, \`cookTime\`, \`difficulty\`, \`mealCategory\`, \`ingredients\`, \`steps\`, \`coverImage\`) must be present and non-empty.
+   - \`tags\` and \`mediaUrls\` in \`steps\` are optional but should be considered for quality.
+   - \`coverImage\` and \`mediaUrls\` must be valid URLs (start with "http" or "https").
+2. **Quality**:
+   - \`name\`, \`description\`, and \`steps\` fields (\`title\`, \`description\`) must be meaningful, clear, and not gibberish (e.g., "asdasdasdsad" is invalid).
+   - Descriptions should be at least 10 characters and provide useful information.
+   - \`steps\` entries should have meaningful titles and descriptions, with at least one step having a valid \`mediaUrls\` if provided.
+   - At least one step and one ingredient are required.
+3. **Consistency**:
+   - \`servings\`, \`prepareTime\`, and \`cookTime\` must be positive numbers (integers or strings convertible to integers).
+   - \`difficulty\` must be one of: "Easy", "Medium", "Hard" (case-insensitive).
+   - \`mealCategory\` must be one of: "Breakfast", "Lunch", "Dinner", "Dessert", "Snack" (case-insensitive).
+   - \`ingredients\` must have valid UUIDs for \`id\`, positive \`quantity\`, and recognizable units (e.g., "Kilogram", "Piece", "Cup").
+   - \`steps\` must have sequential \`order\` values starting from 1.
+   - \`tags\` should be relevant.
+4. **Edge Cases**:
+   - If a submission is mostly valid but has minor issues (e.g., vague description, non-sequential step order), return "needs review".
+   - Reject submissions with critical issues (e.g., missing required fields, gibberish text, invalid URLs, or illogical values like negative servings).
+   - Accept submissions that meet all criteria with no significant issues.
+5. **Cultural/Safety**:
+   - Ensure the recipe is culturally appropriate and safe for consumption (e.g., no unsafe ingredients or instructions).
+
+### Output Format
+Return a JSON object with two fields:
+- \`decision\`: One of "accept", "reject", or "needs review".
+- \`explanation\`: A brief (1-2 sentences) explanation of the decision.
+
+### Submission to Evaluate
+${JSON.stringify(recipe)}
+
+### Example Output
+{
+  "decision": "needs review",
+  "explanation": "The recipe is mostly complete, but the step description 'asdasdasdsad' is unclear and requires human review."
+}
+`;
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        let text = response.text();
+
+        // Extract JSON from response (handles cases where response includes extra text)
+        const jsonMatch = text.match(/{[\s\S]*}/);
+        if (!jsonMatch) {
+            throw new Error("No valid JSON found in response");
+        }
+
+        text = jsonMatch[0];
+        const reviewData = JSON.parse(text);
+
+        // Validate the response structure
+        if (!reviewData.decision || !reviewData.explanation) {
+            throw new Error("Invalid response format: missing decision or explanation");
+        }
+
+        console.log("Review Data:\n", JSON.stringify(reviewData, null, 2));
+
+        return reviewData; // Return { decision, explanation }
+    } catch (error) {
+        console.error("Error calling Gemini API for recipe review:", error.message);
+        return null; // Return null on error to handle gracefully
+    }
+}
 
 let recipeId = null; // This will be set when editing a recipe
 
@@ -1039,36 +1181,63 @@ function loadEditingRecipe() {
     });
 }
 
-function submitRecipeToServer(recipe) {
+// Modified submitRecipeToServer to handle review decision
+function submitRecipeToServer(recipe, decision, explanation) {
     console.log('Submitting recipe to server:', recipe);
     $.ajax({
-        url: `/api/recipes/${recipeId}`, // Replace with actual recipe ID
+        url: `/api/recipes/${recipeId}`,
         type: 'PUT',
         contentType: 'application/json',
-        data: JSON.stringify(recipe), // Your CreateRecipeRequest payload
+        data: JSON.stringify({
+            ...recipe,
+            prepareTime: parseInt(recipe.prepareTime), // Convert to int
+            cookTime: parseInt(recipe.cookTime), // Convert to int
+            AcceptImmediately: decision === 'accept'
+        }),
         success: function (response) {
-            Swal.fire({
-                icon: 'info',
-                title: 'Update Request Submitted',
-                html: `Your request to update the recipe "<strong>${recipe.name}</strong>" has been submitted and is awaiting admin review.<br><br>
+            if (decision === 'accept') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Recipe Updated',
+                    html: `Your update for "<strong>${recipe.name}</strong>" has been accepted!<br><br>Reason: ${explanation}`,
+                    customClass: {
+                        confirmButton: 'swal-custom-btn'
+                    },
+                    didOpen: () => {
+                        $('.swal-custom-btn').css({
+                            'background-color': '#28a745', // Green
+                            'color': '#FFFFFF'
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Update Request Submitted',
+                    html: `Your request to update the recipe "<strong>${recipe.name}</strong>" has been submitted and is awaiting admin review.<br><br>Reason: ${explanation}<br><br>
                            <a href="/UserPanel/Profile/Requests" style="color: #007BFF; text-decoration: underline;">View Your Request</a>`,
-                customClass: {
-                    confirmButton: 'swal-custom-btn'
-                },
-                didOpen: () => {
-                    $('.swal-custom-btn').css({
-                        'background-color': '#007BFF', // Blue
-                        'color': '#FFFFFF'
-                    });
-                }
-            });
+                    customClass: {
+                        confirmButton: 'swal-custom-btn'
+                    },
+                    didOpen: () => {
+                        $('.swal-custom-btn').css({
+                            'background-color': '#007BFF', // Blue
+                            'color': '#FFFFFF'
+                        });
+                    }
+                });
+            }
         },
         error: function (xhr) {
             console.log("Error Response:", xhr.responseText);
+            let errorMessage = xhr.responseJSON?.message || 'Something went wrong while submitting your update request.';
+            if (xhr.status === 403) {
+                errorMessage = 'Only admins can accept recipe updates instantly.';
+            }
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: xhr.responseJSON?.message || 'Something went wrong while submitting your update request.',
+                text: errorMessage,
                 customClass: {
                     confirmButton: 'swal-custom-btn'
                 },
@@ -1082,8 +1251,6 @@ function submitRecipeToServer(recipe) {
         }
     });
 }
-
-
 
 function gatherRecipeInformation() {
     // Gather all the recipe data

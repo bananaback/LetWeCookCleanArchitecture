@@ -1,4 +1,5 @@
 namespace LetWeCook.Web.Areas.Cooking.Models.Requests;
+
 public class CreateRecipeRequest
 {
     public string Name { get; set; } = string.Empty;
@@ -12,6 +13,8 @@ public class CreateRecipeRequest
     public List<IngredientRequest> Ingredients { get; set; } = new List<IngredientRequest>();
     public List<RecipeStepRequest> Steps { get; set; } = new List<RecipeStepRequest>();
     public string CoverImage { get; set; } = string.Empty;
+    public bool AcceptImmediately { get; set; } // New property
+
 }
 
 public class IngredientRequest

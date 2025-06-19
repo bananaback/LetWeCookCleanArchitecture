@@ -11,6 +11,7 @@ using LetWeCook.Application.Recipes.Specifications;
 using LetWeCook.Domain.Aggregates;
 using LetWeCook.Domain.Entities;
 using LetWeCook.Domain.Enums;
+using LetWeCook.Domain.Exceptions;
 
 namespace LetWeCook.Application.Services;
 
@@ -22,6 +23,8 @@ public class RecipeService : IRecipeService
     private readonly IUserRepository _userRepository;
     private readonly IUserRequestRepository _userRequestRepository;
     private readonly IUserInteractionRepository _userInteractionRepository;
+    private readonly IDetailRepository _detailRepository;
+    private readonly IIngredientRepository _ingredientRepository;
     private readonly IUnitOfWork _unitOfWork;
 
     public RecipeService(
@@ -31,7 +34,9 @@ public class RecipeService : IRecipeService
         IUserRepository userRepository,
         IUserRequestRepository userRequestRepository,
         IUserInteractionRepository userInteractionRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IDetailRepository detailRepository,
+        IIngredientRepository ingredientRepository)
     {
         _recipeRepository = recipeRepository;
         _recipeTagRepository = recipeTagRepository;
@@ -40,6 +45,8 @@ public class RecipeService : IRecipeService
         _userRequestRepository = userRequestRepository;
         _userInteractionRepository = userInteractionRepository;
         _unitOfWork = unitOfWork;
+        _detailRepository = detailRepository;
+        _ingredientRepository = ingredientRepository;
     }
 
     public async Task<Guid> CreateRecipeAsync(Guid appUserId, CreateRecipeRequestDto request, CancellationToken cancellationToken = default)
@@ -134,6 +141,84 @@ public class RecipeService : IRecipeService
         await _unitOfWork.CommitAsync(cancellationToken);
 
         return createRecipeRequest.Id;
+    }
+
+    public async Task<Guid> AcceptRecipeAsync(Guid appUserId, CreateRecipeRequestDto request, CancellationToken cancellationToken = default)
+    {
+        // Get site user id, if null return
+        var siteUserId = await _identityService.GetReferenceSiteUserIdAsync(appUserId, cancellationToken);
+        if (siteUserId == null)
+        {
+            throw new RecipeCreationException("Site user not found.");
+        }
+
+        // Cast request.Difficulty to DifficultyLevel enum
+        if (!Enum.TryParse<DifficultyLevel>(request.Difficulty, true, out var difficultyLevel))
+        {
+            throw new RecipeCreationException($"Invalid difficulty level: {request.Difficulty}");
+        }
+
+        // Cast request.MealCategory to MealCategory enum
+        if (!Enum.TryParse<MealCategory>(request.MealCategory, true, out var mealCategory))
+        {
+            throw new RecipeCreationException($"Invalid meal category: {request.MealCategory}");
+        }
+
+        var coverImage = new MediaUrl(MediaType.Image, request.CoverImage);
+
+        var siteUser = await _userRepository.GetByIdAsync(siteUserId.Value, cancellationToken);
+        if (siteUser == null)
+        {
+            throw new RecipeCreationException("Site user not found.");
+        }
+
+        var recipe = new Recipe(
+            request.Name,
+            request.Description,
+            request.Servings,
+            request.PrepareTime,
+            request.CookTime,
+            difficultyLevel,
+            mealCategory,
+            coverImage,
+            siteUser,
+            true, // IsPending set to true
+            false // IsDraft set to false
+        );
+
+        var recipeTags = await _recipeTagRepository.GetByNamesAsync(request.Tags, cancellationToken);
+        if (recipeTags.Count != request.Tags.Count)
+        {
+            var missingTags = request.Tags.Except(recipeTags.Select(tag => tag.Name)).ToList();
+            throw new RecipeCreationException($"Missing recipe tags: {string.Join(", ", missingTags)}");
+        }
+
+        recipe.AddRecipeTags(recipeTags);
+
+        var recipeIngredients = request.Ingredients.Select(ingredient => new RecipeIngredient(
+            recipe.Id,
+            ingredient.Id,
+            ingredient.Quantity,
+            Enum.TryParse<UnitEnum>(ingredient.Unit, true, out var unit) ? unit : UnitEnum.Unknown)).ToList();
+
+        recipe.AddIngredients(recipeIngredients);
+
+        var recipeSteps = request.Steps.Select(step => new RecipeDetail(
+            new Detail(
+                step.Title,
+                step.Description,
+                step.MediaUrls.Select(url => new MediaUrl(MediaType.Image, url)).ToList()
+            ),
+            step.Order)
+        ).ToList();
+
+        recipe.AddSteps(recipeSteps);
+
+        await _recipeRepository.AddAsync(recipe, cancellationToken);
+
+        await _unitOfWork.CommitAsync(cancellationToken);
+
+        return recipe.Id;
     }
 
     public async Task<Guid> CreateRecipeForSeedAsync(Guid appUserId, CreateRecipeRequestDto request, CancellationToken cancellationToken = default)
@@ -855,6 +940,94 @@ public class RecipeService : IRecipeService
             return updateRecipeRequest.Id;
         }
     }
+
+    public async Task<Guid> AcceptUpdateRecipeAsync(Guid recipeId, Guid siteUserId, CreateRecipeRequestDto request, CancellationToken cancellationToken = default)
+    {
+        // Check for existing recipe
+        var existingRecipe = await _recipeRepository.GetRecipeDetailsByIdAsync(recipeId, cancellationToken);
+        if (existingRecipe == null)
+            throw new RecipeUpdateException($"Recipe with ID {recipeId} not found.");
+
+        // Check for ownership
+        if (existingRecipe.CreatedBy.Id != siteUserId)
+            throw new RecipeUpdateException($"Recipe with ID {recipeId} not owned by user {siteUserId}.");
+
+        // Parse enums
+        if (!Enum.TryParse<DifficultyLevel>(request.Difficulty, true, out var difficultyLevel))
+            throw new RecipeCreationException($"Invalid difficulty level: {request.Difficulty}");
+
+        if (!Enum.TryParse<MealCategory>(request.MealCategory, true, out var mealCategory))
+            throw new RecipeCreationException($"Invalid meal category: {request.MealCategory}");
+
+        var siteUser = await _userRepository.GetByIdAsync(siteUserId, cancellationToken);
+        if (siteUser == null)
+            throw new RecipeCreationException("Site user not found.");
+
+        // Parse Cover Image
+        var coverImage = new MediaUrl(MediaType.Image, request.CoverImage);
+
+        // Copy flat properties
+        existingRecipe.UpdateProperties(
+            name: request.Name,
+            description: request.Description,
+            servings: request.Servings,
+            prepareTime: request.PrepareTime,
+            cookTime: request.CookTime,
+            difficultyLevel: difficultyLevel,
+            mealCategory: mealCategory,
+            coverMediaUrl: coverImage,
+            isVisible: true,
+            isPreview: false
+        );
+
+        // Update Tags
+        var recipeTags = await _recipeTagRepository.GetByNamesAsync(request.Tags, cancellationToken);
+        if (recipeTags.Count != request.Tags.Count)
+        {
+            var missingTags = request.Tags.Except(recipeTags.Select(t => t.Name)).ToList();
+            throw new RecipeCreationException($"Missing recipe tags: {string.Join(", ", missingTags)}");
+        }
+        existingRecipe.Tags.Clear();
+        existingRecipe.AddRecipeTags(recipeTags);
+
+        // Update Ingredients
+        existingRecipe.RecipeIngredients.Clear();
+        foreach (var ing in request.Ingredients)
+        {
+            var ingredient = await _ingredientRepository.GetByIdAsync(ing.Id, cancellationToken);
+            if (ingredient == null)
+            {
+                var ex = new IngredientRetrievalException($"Ingredient with ID {ing.Id} not found.", ErrorCode.INGREDIENT_NOT_FOUND);
+                ex.AddContext("IngredientId", ing.Id.ToString());
+                throw ex;
+            }
+
+            if (!Enum.TryParse<UnitEnum>(ing.Unit, true, out var unit))
+                throw new RecipeCreationException($"Invalid unit: {ing.Unit}");
+
+            var recipeIngredient = new RecipeIngredient(existingRecipe.Id, ingredient.Id, ing.Quantity, unit);
+            existingRecipe.AddIngredient(recipeIngredient);
+        }
+
+        // Update Details (Steps)
+        existingRecipe.RecipeDetails.Clear();
+        foreach (var step in request.Steps)
+        {
+            var mediaUrls = step.MediaUrls.Select(url => new MediaUrl(MediaType.Image, url)).ToList();
+            var detail = new Detail(step.Title, step.Description, mediaUrls);
+
+            await _detailRepository.AddAsync(detail, cancellationToken);
+            var recipeDetail = new RecipeDetail(detail, step.Order);
+            existingRecipe.AddStep(recipeDetail);
+        }
+
+        // Save all
+        await _recipeRepository.UpdateAsync(existingRecipe, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
+
+        return existingRecipe.Id;
+    }
+
 
     public async Task DeleteRecipeAsync(Guid recipeId, Guid siteUserId, bool bypassOwnershipCheck, CancellationToken cancellationToken = default)
     {

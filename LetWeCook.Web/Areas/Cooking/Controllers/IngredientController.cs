@@ -79,8 +79,8 @@ public class IngredientController : Controller
         {
             return Unauthorized("User is not authenticated or invalid ID format.");
         }
-        var appUser = await _userManager.FindByIdAsync(appUserIdClaim);
 
+        var appUser = await _userManager.FindByIdAsync(appUserIdClaim);
         if (appUser == null)
         {
             return Unauthorized("User not found in database.");
@@ -121,8 +121,18 @@ public class IngredientController : Controller
             }).ToList()
         };
 
-        var updateRequestId = await _ingredientService.UpdateIngredientAsync(id, siteUserId, requestDto, cancellationToken);
-        return Ok(updateRequestId);
+        Guid idResult;
+        if (request.AcceptImmediately)
+        {
+            idResult = await _ingredientService.AcceptUpdateIngredientAsync(id, siteUserId, requestDto, cancellationToken);
+        }
+        else
+        {
+            idResult = await _ingredientService.UpdateIngredientAsync(id, siteUserId, requestDto, cancellationToken)
+                ?? throw new Exception("Failed to create update ingredient request.");
+        }
+
+        return Ok(idResult);
     }
 
     [AllowAnonymous]
@@ -223,9 +233,18 @@ public class IngredientController : Controller
             }).ToList()
         };
 
-        var userRequestId = await _ingredientService.CreateIngredientAsync(appUserId, requestDto, cancellationToken);
+        Guid id;
 
-        return Ok(userRequestId);
+        if (request.AcceptImmediately)
+        {
+            id = await _ingredientService.AcceptIngredientAsync(appUserId, requestDto, cancellationToken);
+        }
+        else
+        {
+            id = await _ingredientService.CreateIngredientAsync(appUserId, requestDto, cancellationToken)
+                ?? throw new Exception("Failed to create ingredient request.");
+        }
+        return Ok(id);
     }
 
     [Authorize]
@@ -265,7 +284,7 @@ public class IngredientController : Controller
     }
 
     [AllowAnonymous]
-    [HttpGet("api/ingredients/summary")]
+    [HttpGet("/api/ingredients/summary")]
     public async Task<IActionResult> GetIngredientsOverviewAsync(CancellationToken cancellationToken)
     {
         var ingredientsOverview = await _ingredientService.GetIngredientsOverviewAsync(cancellationToken);

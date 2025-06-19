@@ -61,7 +61,6 @@ public class RecipeController : Controller
         return Json(recipeTags);
     }
 
-    // ✅ Add recipe creation endpoint
     [HttpPost("/api/recipes")]
     public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeRequest request, CancellationToken cancellationToken)
     {
@@ -76,7 +75,6 @@ public class RecipeController : Controller
         {
             return Unauthorized("User is not authenticated or invalid ID format.");
         }
-
 
         // Map incoming CreateRecipeRequest to CreateRecipeRequestDto
         var recipeDto = new CreateRecipeRequestDto
@@ -104,10 +102,18 @@ public class RecipeController : Controller
             CoverImage = request.CoverImage
         };
 
-        var createRecipeRequestId = await _recipeService.CreateRecipeAsync(appUserId, recipeDto, cancellationToken);
+        Guid id;
+        if (request.AcceptImmediately)
+        {
+            id = await _recipeService.AcceptRecipeAsync(appUserId, recipeDto, cancellationToken);
+        }
+        else
+        {
+            var createRecipeRequestId = await _recipeService.CreateRecipeAsync(appUserId, recipeDto, cancellationToken);
+            id = createRecipeRequestId;
+        }
 
-        // Return the created recipe ID to the frontend
-        return Ok(createRecipeRequestId);
+        return Ok(id);
     }
 
     [HttpGet("api/recipe-overview/{id}")]
@@ -311,6 +317,10 @@ public class RecipeController : Controller
         }
 
         var siteUserId = await GetSiteUserId(cancellationToken);
+        if (siteUserId == Guid.Empty)
+        {
+            return Unauthorized("User is not authenticated or invalid ID.");
+        }
 
         // Map incoming CreateRecipeRequest to CreateRecipeRequestDto
         var recipeDto = new CreateRecipeRequestDto
@@ -338,12 +348,24 @@ public class RecipeController : Controller
             CoverImage = request.CoverImage
         };
 
-        var updateRecipeRequestId = await _recipeService.UpdateRecipeAsync(id, siteUserId, recipeDto, cancellationToken);
+        Guid resultId;
+        if (request.AcceptImmediately)
+        {
+            resultId = await _recipeService.AcceptUpdateRecipeAsync(id, siteUserId, recipeDto, cancellationToken);
+        }
+        else
+        {
+            var updateRecipeRequestId = await _recipeService.UpdateRecipeAsync(id, siteUserId, recipeDto, cancellationToken);
+            if (!updateRecipeRequestId.HasValue)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to create recipe update request.");
+            }
+            resultId = updateRecipeRequestId.Value;
+        }
 
         // Return a success response
-        return Ok(updateRecipeRequestId);
+        return Ok(resultId);
     }
-
     [HttpDelete("/api/recipes/{id}")]
     public async Task<IActionResult> DeleteRecipe(Guid id, CancellationToken cancellationToken = default)
     {

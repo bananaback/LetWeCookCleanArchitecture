@@ -363,7 +363,7 @@ $(document).ready(function () {
     let imageFiles = [];
 
     $.ajax({
-        url: '/api/ingredients/overview',
+        url: '/api/ingredients/summary',
         method: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -493,7 +493,7 @@ async function loadIngredientData() {
 
 function fetchIngredientOverviews() {
     $.ajax({
-        url: '/api/ingredients/overview',
+        url: '/api/ingredients/summary',
         type: 'GET',
         dataType: 'json',
         success: function (data) {

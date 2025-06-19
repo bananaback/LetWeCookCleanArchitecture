@@ -249,56 +249,142 @@ $(document).ready(function () {
     // Auto-fill Nutrition Values with AI
     $('#auto-fill-nutrition').on('click', autoFillNutritionValues);
 
-    $('#save-btn').on('click', function () {
+    $('#save-btn').on('click', async function () {
         const data = extractInputs();
 
-        console.log(data);
+        console.log("Ingredient Update Data:", data);
 
         if (!data) {
             return; // Stop execution if validation failed
         }
 
-        $.ajax({
-            url: `/api/ingredient/${ingredientId}`, // Replace with actual ingredient ID
-            type: 'PUT',
-            contentType: 'application/json',
-            data: JSON.stringify(data), // Your CreateIngredientRequest payload
-            success: function (response) {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Update Request Submitted',
-                    html: `Your request to update the ingredient "<strong>${data.name}</strong>" has been submitted and is awaiting admin review.<br><br>
-                           <a href="/UserPanel/Profile/Requests" style="color: #007BFF; text-decoration: underline;">View Your Request</a>`,
-                    customClass: {
-                        confirmButton: 'swal-custom-btn'
-                    },
-                    didOpen: () => {
-                        $('.swal-custom-btn').css({
-                            'background-color': '#007BFF', // Blue
-                            'color': '#FFFFFF'
-                        });
-                    }
-                });
-            },
-            error: function (xhr) {
-                console.log("Error Response:", xhr.responseText);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: xhr.responseJSON?.message || 'Something went wrong while submitting your update request.',
-                    customClass: {
-                        confirmButton: 'swal-custom-btn'
-                    },
-                    didOpen: () => {
-                        $('.swal-custom-btn').css({
-                            'background-color': '#dc3545', // Red
-                            'color': '#FFFFFF'
-                        });
-                    }
-                });
-            }
-        });
 
+        // Ensure ingredientId is present
+        if (!ingredientId) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ingredient ID is missing.',
+                customClass: {
+                    confirmButton: 'swal-custom-btn'
+                },
+                didOpen: () => {
+                    $('.swal-custom-btn').css({
+                        'background-color': '#dc3545', // Red
+                        'color': '#FFFFFF'
+                    });
+                }
+            });
+            return;
+        }
+
+        // Call Gemini API to review the ingredient update
+        const review = await reviewIngredient(data);
+
+        if (!review) {
+            // Handle API failure
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to evaluate the ingredient update. Please try again later.',
+                customClass: {
+                    confirmButton: 'swal-custom-btn'
+                },
+                didOpen: () => {
+                    $('.swal-custom-btn').css({
+                        'background-color': '#dc3545', // Red
+                        'color': '#FFFFFF'
+                    });
+                }
+            });
+            return;
+        }
+
+        const { decision, explanation } = review;
+
+        // Prepare request data with AcceptImmediately
+        const requestData = {
+            ...data,
+            AcceptImmediately: decision === 'accept'
+        };
+
+        if (decision === 'reject') {
+            // Show rejection alert
+            Swal.fire({
+                icon: 'error',
+                title: 'Ingredient Update Rejected',
+                html: `Your update for "<strong>${data.name}</strong>" was rejected.<br><br>Reason: ${explanation}`,
+                customClass: {
+                    confirmButton: 'swal-custom-btn'
+                },
+                didOpen: () => {
+                    $('.swal-custom-btn').css({
+                        'background-color': '#dc3545', // Red
+                        'color': '#FFFFFF'
+                    });
+                }
+            });
+        } else {
+            console.log("ingredientId:", ingredientId);
+            // Call the endpoint for accept or needs review
+            $.ajax({
+                url: `/api/ingredient/${ingredientId}`,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(requestData),
+                success: function (response) {
+                    if (decision === 'accept') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Ingredient Updated',
+                            html: `Your update for "<strong>${data.name}</strong>" has been accepted!<br><br>Reason: ${explanation}`,
+                            customClass: {
+                                confirmButton: 'swal-custom-btn'
+                            },
+                            didOpen: () => {
+                                $('.swal-custom-btn').css({
+                                    'background-color': '#28a745', // Green
+                                    'color': '#FFFFFF'
+                                });
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Update Request Submitted',
+                            html: `Your update request for "<strong>${data.name}</strong>" has been submitted and is awaiting admin review.<br><br>Reason: ${explanation}<br><br>
+                               <a href="/UserPanel/Profile/Requests" style="color: #007BFF; text-decoration: underline;">View Your Request</a>`,
+                            customClass: {
+                                confirmButton: 'swal-custom-btn'
+                            },
+                            didOpen: () => {
+                                $('.swal-custom-btn').css({
+                                    'background-color': '#007BFF', // Blue
+                                    'color': '#FFFFFF'
+                                });
+                            }
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    console.log("Error Response:", xhr.responseText);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: xhr.responseJSON?.message || 'Something went wrong while processing the ingredient update.',
+                        customClass: {
+                            confirmButton: 'swal-custom-btn'
+                        },
+                        didOpen: () => {
+                            $('.swal-custom-btn').css({
+                                'background-color': '#dc3545', // Red
+                                'color': '#FFFFFF'
+                            });
+                        }
+                    });
+                }
+            });
+        }
     });
 
     $('#debug-btn').on('click', function () {
@@ -327,6 +413,73 @@ $(document).ready(function () {
         });
     });
 });
+
+async function reviewIngredient(ingredientData) {
+    try {
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+        const prompt = `
+You are an AI assistant tasked with evaluating ingredient submissions for a recipe app. Your goal is to assess each submission and return one of three decisions: "accept", "reject", or "needs review". Use the following criteria to evaluate the JSON submission provided below. Balance strictness and leniency to ensure high-quality submissions while flagging ambiguous cases for human review. Provide a brief explanation for your decision.
+
+### Evaluation Criteria
+1. **Completeness**:
+   - Required fields (\`name\`, \`categoryId\`, \`description\`, \`nutritionValues\`, \`dietaryInfo\`, \`details\`) must be present and non-empty unless specified as optional.
+   - \`expirationDays\` and \`mediaUrls\` in \`details\` are optional but should be considered for quality.
+   - \`coverImage\` must be a valid URL (starts with "http" or "https").
+2. **Quality**:
+   - \`name\`, \`description\`, and \`details\` fields (\`title\`, \`description\`) must be meaningful, clear, and not gibberish (e.g., "dasdsadsad" is invalid).
+   - Descriptions should be at least 10 characters and provide useful information.
+   - \`details\` entries should have meaningful titles and descriptions, with at least one entry having a valid \`mediaUrls\` if provided.
+3. **Consistency**:
+   - \`nutritionValues\` (calories, protein, carbohydrates, fats, sugars, fiber, sodium) must be non-negative numbers and reasonable (e.g., calories < 1000 for a single ingredient).
+   - \`dietaryInfo\` flags (\`isVegetarian\`, \`isVegan\`, \`isGlutenFree\`, \`isPescatarian\`) must be consistent (e.g., \`isVegan\` implies \`isVegetarian\%).
+4. **Edge Cases**:
+   - If a submission is mostly valid but has minor issues (e.g., vague description, missing optional fields, or slightly inconsistent dietary info), return "needs review".
+   - Reject submissions with critical issues (e.g., missing required fields, gibberish text, invalid URLs, or illogical nutrition values).
+   - Accept submissions that meet all criteria with no significant issues.
+
+### Output Format
+Return a JSON object with two fields:
+- \`decision\`: One of "accept", "reject", or "needs review".
+- \`explanation\`: A brief (1-2 sentences) explanation of the decision.
+
+### Submission to Evaluate
+${JSON.stringify(ingredientData)}
+
+### Example Output
+{
+  "decision": "needs review",
+  "explanation": "The description and details contain vague text ('dasdsadsad'), but other fields are valid, warranting human review."
+}
+`;
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        let text = response.text();
+
+        // Extract JSON from response (handles cases where response includes extra text)
+        const jsonMatch = text.match(/{[\s\S]*}/);
+        if (!jsonMatch) {
+            throw new Error("No valid JSON found in response");
+        }
+
+        text = jsonMatch[0];
+        const reviewData = JSON.parse(text);
+
+        // Validate the response structure
+        if (!reviewData.decision || !reviewData.explanation) {
+            throw new Error("Invalid response format: missing decision or explanation");
+        }
+
+        console.log("Review Data:\n", JSON.stringify(reviewData, null, 2));
+
+        return reviewData; // Return { decision, explanation }
+
+    } catch (error) {
+        console.error("Error calling Gemini API for review:", error.message);
+        return null; // Return null on error to handle gracefully
+    }
+}
 
 async function autoFillNutritionValues() {
     const ingredientName = $('#name').val().trim();

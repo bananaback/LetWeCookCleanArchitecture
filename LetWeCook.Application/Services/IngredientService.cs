@@ -14,6 +14,8 @@ public class IngredientService : IIngredientService
     private readonly IIngredientCategoryRepository _ingredientCategoryRepository;
     private readonly IIngredientRepository _ingredientRepository;
     private readonly IUserRequestRepository _userRequestRepository;
+    private readonly IDetailRepository _detailRepository;
+
     private readonly IUnitOfWork _unitOfWork;
     private readonly IIdentityService _identityService;
     public IngredientService(
@@ -21,13 +23,15 @@ public class IngredientService : IIngredientService
         IIngredientRepository ingredientRepository,
         IUnitOfWork unitOfWork,
         IIdentityService identityService,
-        IUserRequestRepository userRequestRepository)
+        IUserRequestRepository userRequestRepository,
+        IDetailRepository detailRepository)
     {
         _ingredientCategoryRepository = ingredientCategoryRepository;
         _ingredientRepository = ingredientRepository;
         _unitOfWork = unitOfWork;
         _identityService = identityService;
         _userRequestRepository = userRequestRepository;
+        _detailRepository = detailRepository;
     }
 
 
@@ -109,6 +113,73 @@ public class IngredientService : IIngredientService
         // ✅ Commit all at once
         await _unitOfWork.CommitAsync(cancellationToken);
         return createIngredientRequest.Id;
+    }
+
+    public async Task<Guid> AcceptIngredientAsync(Guid appUserId, CreateIngredientRequestDto request, CancellationToken cancellationToken)
+    {
+        // Get site user id, if null return
+        var siteUserId = await _identityService.GetReferenceSiteUserIdAsync(appUserId, cancellationToken);
+        if (siteUserId == null)
+        {
+            var ex = new IngredientCreationException("Site user not found.", ErrorCode.INGREDIENT_SITE_USER_ID_IS_NULL);
+            ex.Data.Add("AppUserId", appUserId);
+            throw ex;
+        }
+
+        // Check if ingredient with same name already exists
+        var existingIngredientWithSameName = await _ingredientRepository.CheckExistByNameAsync(request.Name, cancellationToken);
+        if (existingIngredientWithSameName == true)
+        {
+            var ex = new IngredientCreationException($"Ingredient with name {request.Name} already exists.", ErrorCode.INGREDIENT_NAME_EXISTS);
+            ex.Data.Add("IngredientName", request.Name);
+            throw ex;
+        }
+
+        // Create cover image (not yet saved)
+        var coverImage = new MediaUrl(MediaType.Image, request.CoverImage);
+
+        // Process media URLs for details but do not save yet
+        var ingredientDetails = request.Details.Select(detail =>
+        {
+            var mediaUrls = detail.MediaUrls
+                .Select(url => new MediaUrl(url.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) ? MediaType.Video : MediaType.Image, url))
+                .ToList();
+
+            return new IngredientDetail(new Detail(detail.Title, detail.Description, mediaUrls), detail.Order);
+        }).ToList();
+
+        // Create Ingredient (respects constructor signature with modified isPending and isDraft)
+        var ingredient = new Ingredient(
+            request.Name,
+            request.Description,
+            request.CategoryId,
+            request.NutritionValues.Calories,
+            request.NutritionValues.Protein,
+            request.NutritionValues.Carbohydrates,
+            request.NutritionValues.Fats,
+            request.NutritionValues.Sugars,
+            request.NutritionValues.Fiber,
+            request.NutritionValues.Sodium,
+            request.DietaryInfo.IsVegetarian,
+            request.DietaryInfo.IsVegan,
+            request.DietaryInfo.IsGlutenFree,
+            request.DietaryInfo.IsPescatarian,
+            true,
+            false,
+            coverImage,
+            request.ExpirationDays,
+            ingredientDetails,
+            siteUserId ?? throw new IngredientCreationException("Site user ID is null.", ErrorCode.INGREDIENT_SITE_USER_ID_IS_NULL)
+        );
+
+        // Add ingredient to repository
+        await _ingredientRepository.AddAsync(ingredient, cancellationToken);
+
+        // Commit changes
+        await _unitOfWork.CommitAsync(cancellationToken);
+
+        // Return the ingredient ID
+        return ingredient.Id;
     }
 
     public async Task<Guid?> CreateIngredientForSeedAsync(Guid appUserId, CreateIngredientRequestDto request, CancellationToken cancellationToken)
@@ -571,5 +642,84 @@ public class IngredientService : IIngredientService
             await _unitOfWork.CommitAsync(cancellationToken);
             return updateIngredientRequest.Id;
         }
+    }
+
+    public async Task<Guid> AcceptUpdateIngredientAsync(Guid ingredientId, Guid siteUserId, CreateIngredientRequestDto request, CancellationToken cancellationToken)
+    {
+        // Check for existing ingredient
+        var ingredient = await _ingredientRepository.GetIngredientByIdWithCategoryAndDetailsAsync(ingredientId, cancellationToken);
+        if (ingredient == null)
+        {
+            var ex = new IngredientUpdateException($"Ingredient with ID {ingredientId} not found.", ErrorCode.INGREDIENT_NOT_FOUND);
+            ex.Data.Add("IngredientId", ingredientId);
+            throw ex;
+        }
+
+        // Check the ownership
+        if (ingredient.CreatedByUser.Id != siteUserId)
+        {
+            var ex = new IngredientUpdateException($"Ingredient with ID {ingredientId} not owned by user {siteUserId}.", ErrorCode.INGREDIENT_NOT_OWNED_BY_USER);
+            ex.Data.Add("IngredientId", ingredientId);
+            ex.Data.Add("UserId", siteUserId);
+            throw ex;
+        }
+
+        // Create temporary ingredient to copy properties
+        var tempIngredient = new Ingredient(
+            request.Name,
+            request.Description,
+            request.CategoryId,
+            request.NutritionValues.Calories,
+            request.NutritionValues.Protein,
+            request.NutritionValues.Carbohydrates,
+            request.NutritionValues.Fats,
+            request.NutritionValues.Sugars,
+            request.NutritionValues.Fiber,
+            request.NutritionValues.Sodium,
+            request.DietaryInfo.IsVegetarian,
+            request.DietaryInfo.IsVegan,
+            request.DietaryInfo.IsGlutenFree,
+            request.DietaryInfo.IsPescatarian,
+            true, // IsPending set to true
+            false, // IsDraft set to false
+            new MediaUrl(MediaType.Image, request.CoverImage),
+            request.ExpirationDays,
+            request.Details.Select(detail =>
+            {
+                var mediaUrls = detail.MediaUrls
+                    .Select(url => new MediaUrl(url.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) ? MediaType.Video : MediaType.Image, url))
+                    .ToList();
+                return new IngredientDetail(new Detail(detail.Title, detail.Description, mediaUrls), detail.Order);
+            }).ToList(),
+            siteUserId
+        );
+
+        // Copy scalar properties from tempIngredient to existing ingredient
+        ingredient.CopyFrom(tempIngredient);
+
+        // Clear existing details
+        ingredient.IngredientDetails.Clear();
+
+        // Add new details
+        foreach (var sourceDetail in tempIngredient.IngredientDetails)
+        {
+            var mediaUrls = sourceDetail.Detail.MediaUrls.Select(m => new MediaUrl(m.MediaType, m.Url)).ToList();
+            var detail = new Detail(sourceDetail.Detail.Title, sourceDetail.Detail.Description, mediaUrls);
+            await _detailRepository.AddAsync(detail, cancellationToken);
+            var ingredientDetail = new IngredientDetail(detail, sourceDetail.Order);
+            ingredient.AddDetail(ingredientDetail);
+        }
+
+        // Set visibility and status
+        ingredient.SetVisible(true);
+        ingredient.SetPreview(false);
+
+        // Update ingredient in repository
+        await _ingredientRepository.UpdateAsync(ingredient, cancellationToken);
+
+        // Commit changes
+        await _unitOfWork.CommitAsync(cancellationToken);
+
+        return ingredient.Id;
     }
 }

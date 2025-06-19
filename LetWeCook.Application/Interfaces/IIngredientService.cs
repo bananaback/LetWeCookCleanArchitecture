@@ -5,6 +5,9 @@ namespace LetWeCook.Application.Interfaces;
 
 public interface IIngredientService
 {
+    Task<Guid> AcceptUpdateIngredientAsync(Guid ingredientId, Guid siteUserId, CreateIngredientRequestDto request, CancellationToken cancellationToken);
+
+    Task<Guid> AcceptIngredientAsync(Guid appUserId, CreateIngredientRequestDto request, CancellationToken cancellationToken);
     Task<List<IngredientCategoryDTO>> GetAllIngredientCategoriesAsync(CancellationToken cancellationToken);
     Task<Guid?> CreateIngredientAsync(Guid appUserId, CreateIngredientRequestDto request, CancellationToken cancellationToken);
     Task<Guid?> CreateIngredientForSeedAsync(Guid appUserId, CreateIngredientRequestDto request, CancellationToken cancellationToken);

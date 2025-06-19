@@ -134,4 +134,46 @@ public class Recipe : AggregateRoot
     {
         TotalViews = totalViews;
     }
+
+
+    public void ClearRecipeTags()
+    {
+        Tags.Clear();
+    }
+
+    public void ClearIngredients()
+    {
+        RecipeIngredients.Clear();
+    }
+
+    public void ClearSteps()
+    {
+        RecipeDetails.Clear();
+    }
+
+    public void UpdateProperties(
+        string name,
+        string description,
+        int servings,
+        int prepareTime,
+        int cookTime,
+        DifficultyLevel difficultyLevel,
+        MealCategory mealCategory,
+        MediaUrl coverMediaUrl,
+        bool isVisible,
+        bool isPreview)
+    {
+        Name = name;
+        Description = description;
+        Servings = servings;
+        PrepareTime = prepareTime;
+        CookTime = cookTime;
+        DifficultyLevel = difficultyLevel;
+        MealCategory = mealCategory;
+        CoverMediaUrl.SetUrl(coverMediaUrl.Url);
+        IsVisible = isVisible;
+        IsPreview = isPreview;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
 }
