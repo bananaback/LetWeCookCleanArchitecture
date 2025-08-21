@@ -4,11 +4,13 @@
 
 The Google Generative AI API key has been moved from hardcoded client-side JavaScript to secure server-side configuration to prevent unauthorized access and potential security breaches.
 
+**IMPORTANT**: The API key `AIzaSyCdBbtTfxOgYKBq7frKFmwOlOKSLDjxY94` that was previously exposed should be **revoked immediately** and replaced with a new one.
+
 ## Configuration
 
 ### Development Environment
 
-1. The API key is configured in `appsettings.Development.json` (which is gitignored):
+1. The API key should be configured in `appsettings.Development.json` (which is gitignored):
 ```json
 {
   "GoogleGenerativeAI": {
@@ -56,3 +58,12 @@ For production deployments, configure the Google Generative AI API key using one
 2. Create a new API key
 3. Configure it in your application settings as described above
 4. **Never commit API keys to source control**
+
+## Immediate Action Required
+
+⚠️ **The exposed API key must be revoked and replaced:**
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Navigate to APIs & Services > Credentials
+3. Find and delete the compromised API key: `AIzaSyCdBbtTfxOgYKBq7frKFmwOlOKSLDjxY94`
+4. Create a new API key
+5. Update your application configuration with the new key
