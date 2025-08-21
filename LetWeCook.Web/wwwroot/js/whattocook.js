@@ -1,7 +1,7 @@
-import { GoogleGenerativeAI } from "https://esm.sh/@google/generative-ai";
+import { initializeGoogleAI } from "./google-ai-config.js";
 
-// Initialize the Google Generative AI client with the API key from .env
-const genAI = new GoogleGenerativeAI("AIzaSyCdBbtTfxOgYKBq7frKFmwOlOKSLDjxY94");
+// Google Generative AI client will be initialized dynamically
+let genAI = null;
 
 const INGREDIENT_POOL = [
     "Hot sauce",
@@ -306,6 +306,11 @@ Now, based on the given images, what ingredients are shown?
 }
 
 export async function analyzeImages(files) {
+    // Initialize genAI if not already initialized
+    if (!genAI) {
+        genAI = await initializeGoogleAI();
+    }
+    
     const model = await genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const prompt = buildPrompt(INGREDIENT_POOL);

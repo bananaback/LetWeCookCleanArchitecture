@@ -1,13 +1,18 @@
-import { GoogleGenerativeAI } from "https://esm.sh/@google/generative-ai";
+import { initializeGoogleAI } from "./google-ai-config.js";
 
-// Initialize the Google Generative AI client with the API key from .env
-const genAI = new GoogleGenerativeAI("AIzaSyCdBbtTfxOgYKBq7frKFmwOlOKSLDjxY94");
+// Google Generative AI client will be initialized dynamically
+let genAI = null;
 
 let ingredient = {};
 
 
 async function reviewIngredient() {
     try {
+        // Initialize genAI if not already initialized
+        if (!genAI) {
+            genAI = await initializeGoogleAI();
+        }
+        
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
         const prompt = `
